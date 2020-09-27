@@ -14,11 +14,13 @@ public class CameraSwitch : MonoBehaviour
     private Coroutine tempMoveFunc;
     private float currentTime;
     private Coroutine swapFunc;
+    public bool MoveOnStart;
 
     private void Start()
     {
         //yield return new WaitForSeconds(.1f);
-        StartMove();
+        if(MoveOnStart && cameraScript != null)
+            StartMove();
     }
 
     public void StartMove()
@@ -30,12 +32,16 @@ public class CameraSwitch : MonoBehaviour
     public void SwapCamera(CameraBase newCam)
     {
         newCam.cameraTransform.gameObject.SetActive(true);
-        cameraScript.cameraTransform.gameObject.SetActive(false);
+        if(cameraScript!= null && cameraScript != newCam)
+            cameraScript.cameraTransform.gameObject.SetActive(false);
         newCam.canMove = true;
         tempMoveFunc = StartCoroutine(newCam.Move());
-        cameraScript.canMove = false;
-        if (moveFunc != null)
-            StopCoroutine(moveFunc);
+        if (cameraScript != null && cameraScript != newCam)
+        {
+            cameraScript.canMove = false;
+            if (moveFunc != null)
+                StopCoroutine(moveFunc);
+        }
         moveFunc = tempMoveFunc;
         cameraScript = newCam;
     }
