@@ -722,7 +722,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b068acacd8ed2a24b888df1dbb838d5d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.633
+      value: 0.852
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b068acacd8ed2a24b888df1dbb838d5d,
         type: 3}
@@ -841,7 +841,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.98039216, g: 0.4997896, b: 0.16078429, a: 1}
-  m_Intensity: 5
+  m_Intensity: 3
   m_Range: 1.0615054
   m_SpotAngle: 93.35862
   m_InnerSpotAngle: 1
@@ -904,10 +904,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlickerLight: {fileID: 329266420}
   FlickerIntensity: 1
-  minIntensity: 0.5
+  minIntensity: 1
   maxIntensity: 3
   minIntensityTime: 0.08
-  maxIntensityTime: 0.2
+  maxIntensityTime: 0.25
   FlickerMovement: 0
   maximumMoveAmount: {x: 0, y: 0, z: 0}
   minMoveTime: 0
@@ -2077,7 +2077,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.98039216, g: 0.4997896, b: 0.16078429, a: 1}
-  m_Intensity: 9
+  m_Intensity: 4
   m_Range: 1.0615054
   m_SpotAngle: 93.35862
   m_InnerSpotAngle: 1
@@ -2088,7 +2088,7 @@ Light:
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0
-    m_NormalBias: 0.4
+    m_NormalBias: 0
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -2140,10 +2140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlickerLight: {fileID: 641106813}
   FlickerIntensity: 1
-  minIntensity: 0.5
-  maxIntensity: 9
+  minIntensity: 2.5
+  maxIntensity: 4
   minIntensityTime: 0.08
-  maxIntensityTime: 0.2
+  maxIntensityTime: 0.25
   FlickerMovement: 0
   maximumMoveAmount: {x: 0, y: 0, z: 0}
   minMoveTime: 0
@@ -2395,9 +2395,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9528302, g: 0.9213725, b: 0.48989856, a: 1}
-  m_Intensity: 0.41
+  m_Intensity: 0.24
   m_Range: 100
-  m_SpotAngle: 28
+  m_SpotAngle: 34
   m_InnerSpotAngle: 3
   m_CookieSize: 10
   m_Shadows:
@@ -2451,13 +2451,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735662437}
-  m_LocalRotation: {x: 0.9461503, y: -0.010194134, z: 0.29675096, w: 0.1289751}
+  m_LocalRotation: {x: 0.9283251, y: -0.0030584412, z: 0.34853122, w: 0.12934117}
   m_LocalPosition: {x: -1.829, y: 2.173, z: 3.788}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1743543160}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 165.51599, y: -35.257996, z: -3.3899841}
+  m_LocalEulerAnglesHint: {x: 165.979, y: -41.770996, z: -4.994995}
 --- !u!1001 &756870459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2857,8 +2857,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.8867924, g: 0.4608258, b: 0.17150229, a: 1}
-  m_Intensity: 1.3
-  m_Range: 12
+  m_Intensity: 1.14
+  m_Range: 9.65
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2868,7 +2868,7 @@ Light:
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0
-    m_NormalBias: 0.4
+    m_NormalBias: 0
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -2921,18 +2921,18 @@ MonoBehaviour:
   FlickerLight: {fileID: 886737849}
   FlickerIntensity: 1
   minIntensity: 0.8
-  maxIntensity: 1.35
+  maxIntensity: 1.14
   minIntensityTime: 0.3
   maxIntensityTime: 0.8
   FlickerMovement: 0
   maximumMoveAmount: {x: 0, y: 0, z: 0}
   minMoveTime: 0
   maxMoveTime: 0
-  FlickerColor: 0
-  color01: {r: 1, g: 1, b: 1, a: 1}
-  color02: {r: 1, g: 1, b: 1, a: 1}
-  minColorTime: 0
-  maxColorTime: 0
+  FlickerColor: 1
+  color01: {r: 0.8862745, g: 0.4627451, b: 0.17254902, a: 1}
+  color02: {r: 0.9622642, g: 0.36284697, b: 0.18609825, a: 1}
+  minColorTime: 0.5
+  maxColorTime: 0.3
 --- !u!1001 &924296434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3263,7 +3263,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278194550
+    rgba: 4278192444
   m_Size: 1
 --- !u!1 &996170482
 GameObject:
@@ -3293,8 +3293,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.77005965, b: 0.2216981, a: 1}
-  m_Intensity: 1.2
+  m_Color: {r: 1, g: 0.62895966, b: 0.2235294, a: 1}
+  m_Intensity: 0.29
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3384,8 +3384,8 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4279188366
-  m_Size: 0.5
+    rgba: 4278196313
+  m_Size: 0.8
 --- !u!4 &1024761689
 Transform:
   m_ObjectHideFlags: 0
@@ -3394,7 +3394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024761687}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.086, y: 0.24199998, z: 0.0069999993}
+  m_LocalPosition: {x: -0.086, y: 0.104, z: 0.0069999993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1743543160}
@@ -3879,7 +3879,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4279446081
-  m_Size: 1.69
+  m_Size: 1.18
 --- !u!4 &1193086927
 Transform:
   m_ObjectHideFlags: 0
@@ -3925,7 +3925,7 @@ Light:
   m_Color: {r: 0.9433962, g: 0.6343196, b: 0.15574935, a: 1}
   m_Intensity: 1.5
   m_Range: 3.9176807
-  m_SpotAngle: 121.56453
+  m_SpotAngle: 135
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -4115,9 +4115,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9528302, g: 0.9213725, b: 0.48989856, a: 1}
-  m_Intensity: 0.8
-  m_Range: 36
-  m_SpotAngle: 24
+  m_Intensity: 0.53
+  m_Range: 25.88
+  m_SpotAngle: 30
   m_InnerSpotAngle: 3
   m_CookieSize: 10
   m_Shadows:
@@ -4171,13 +4171,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274185617}
-  m_LocalRotation: {x: 0.94313383, y: 0.028463366, z: -0.3149805, w: 0.102350794}
+  m_LocalRotation: {x: 0.94016904, y: 0.027511949, z: -0.32372272, w: 0.10261063}
   m_LocalPosition: {x: 1.86, y: 2.08, z: 3.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1743543160}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 167.82, y: 37.00299, z: 0.6319885}
+  m_LocalEulerAnglesHint: {x: 167.833, y: 38.09099, z: 0.86198425}
 --- !u!1001 &1312689138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4294,7 +4294,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278194550
+    rgba: 4278192445
   m_Size: 1
 --- !u!1001 &1364988687
 PrefabInstance:
@@ -4783,7 +4783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416478961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.47, y: 2.47, z: -2.1}
+  m_LocalPosition: {x: 2.47, y: 2.29, z: -2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1743543160}
@@ -4799,7 +4799,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278194739
+    rgba: 4278193444
   m_Size: 1
 --- !u!1001 &1428322877
 PrefabInstance:
@@ -4903,7 +4903,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278213016
+    rgba: 4278199357
   m_Size: 0.04
 --- !u!4 &1452183692
 Transform:
@@ -5925,7 +5925,7 @@ Halo:
   m_Color:
     serializedVersion: 2
     rgba: 4278916651
-  m_Size: 2.53
+  m_Size: 1.78
 --- !u!4 &1810704054
 Transform:
   m_ObjectHideFlags: 0
@@ -5950,7 +5950,7 @@ LensFlare:
   m_Enabled: 1
   m_Flare: {fileID: 12100000, guid: 09ebe82dbd1113c3d000dc0b8d76c639, type: 2}
   m_Color: {r: 0.6037736, g: 0.48040026, b: 0.3730865, a: 0}
-  m_Brightness: 0.33
+  m_Brightness: 0.27
   m_FadeSpeed: 3
   m_IgnoreLayers:
     serializedVersion: 2
@@ -5997,7 +5997,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278213016
+    rgba: 4278199357
   m_Size: 0.1
 --- !u!1001 &1925121222
 PrefabInstance:
@@ -6328,7 +6328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979644610}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.787, y: 2.07, z: -2.203}
+  m_LocalPosition: {x: -2.82, y: 1.857, z: -2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1743543160}
@@ -6344,7 +6344,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278195516
+    rgba: 4278520098
   m_Size: 0.92
 --- !u!1001 &1988386422
 PrefabInstance:
@@ -6457,7 +6457,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4278213016
+    rgba: 4278199100
   m_Size: 0.1
 --- !u!4 &1999808748
 Transform:
