@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class Enemy_Attack_Base : ScriptableObject
 {
@@ -9,17 +10,23 @@ public abstract class Enemy_Attack_Base : ScriptableObject
     public float CoolDownTime;
     protected bool attacking;
     public float AttackActiveTime;
-    protected GameObject meleeAttackObj;
+    protected GameObject WeaponAttackobj;
     protected Coroutine attackFunc;
     protected MonoBehaviour caller;
     public Animation_Base animations;
+    protected GameObject enemyObj;
+    public bool attackWhileMoving;
+    protected Transform player;
 
-    public virtual void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator)
+    public virtual void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
     {
+        this.player = player;
         this.caller = caller;
-        meleeAttackObj = MeleeAttack;
+        WeaponAttackobj = MeleeAttack;
+        this.enemyObj = enemy;
+        attacking = false;
         if(animations != null)
-            animations.Init(caller, animator, player);
+            animations.Init(caller, animator, player, enemy.GetComponent<NavMeshAgent>());
     }
 
     public virtual void StartAttack()
@@ -35,7 +42,8 @@ public abstract class Enemy_Attack_Base : ScriptableObject
         attacking = false;
         if(attackFunc!= null)
             caller.StopCoroutine(attackFunc);
-        meleeAttackObj.SetActive(false);
+        if(WeaponAttackobj!= null)
+            WeaponAttackobj.SetActive(false);
     }
 
     public abstract Enemy_Attack_Base getClone();

@@ -13,6 +13,7 @@ public class Enemy_Idle : Enemy_Movement
     {
         Enemy_Idle temp = CreateInstance<Enemy_Idle>();
         temp.Speed = 0;
+        temp.AngularSpeed = 0;
         return temp;
     }
 }

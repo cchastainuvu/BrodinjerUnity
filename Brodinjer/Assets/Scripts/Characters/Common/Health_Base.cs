@@ -14,18 +14,22 @@ public class Health_Base : ScriptableObject
 
     protected MonoBehaviour caller;
 
-    public virtual void Init(MonoBehaviour caller, Transform enemy)
+    public virtual void Init(MonoBehaviour caller, Transform enemy, bool mainCharacter = false)
     {
         _currentHealth = TotalHealth;
-        _death = Death_Version.GetClone();
-        Death_Version = _death;
+        if (!mainCharacter)
+        {
+            _death = Death_Version.GetClone();
+            Death_Version = _death;
+        }
+
         Death_Version.Init(enemy);
         this.caller = caller;
     }
 
     public virtual void Death()
     {
-        caller.StartCoroutine(_death.Death());
+        caller.StartCoroutine(Death_Version.Death());
     }
     
     public virtual void TakeDamage(float amount, bool armor)
@@ -57,6 +61,11 @@ public class Health_Base : ScriptableObject
         {
             Death();
         }
+    }
+
+    public float GetHealth()
+    {
+        return _currentHealth;
     }
 
     public virtual Health_Base GetClone()

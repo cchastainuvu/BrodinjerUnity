@@ -9,10 +9,13 @@ public abstract class CameraBase : ScriptableObject
     protected float mouseX, mouseY;
     public float rotationSpeed;
     public string CameraHorizontal = "Mouse X", CameraVertical = "Mouse Y";
+    public int camNum;
     [HideInInspector]
     public Transform cameraTransform;
-    protected Transform FollowObj; //Attached to Rotate Object, out as far as Camera
-    protected Transform RotateObject; // Centered at Player
+    [HideInInspector]
+    public Transform FollowObj; //Attached to Rotate Object, out as far as Camera
+    [HideInInspector]
+    public Transform RotateObject; // Centered at Player
 
 
     protected Transform followObj;

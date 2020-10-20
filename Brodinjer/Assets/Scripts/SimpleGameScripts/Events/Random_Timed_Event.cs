@@ -8,6 +8,8 @@ public class Random_Timed_Event : MonoBehaviour
     public float minTime, maxTime;
     public UnityEvent Event;
     public bool OnAwake;
+    public bool Repeat;
+    private bool repeating;
 
     private Coroutine waitFunc;
     
@@ -23,6 +25,7 @@ public class Random_Timed_Event : MonoBehaviour
     public void Call()
     {
         waitFunc = StartCoroutine(Wait());
+        repeating = Repeat;
     }
 
 
@@ -30,6 +33,11 @@ public class Random_Timed_Event : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(minTime, maxTime));
         Event.Invoke();
+        while (repeating)
+        {
+            yield return new WaitForSeconds(Random.Range(minTime, maxTime));
+            Event.Invoke();
+        }
     }
 
     public void Stop()
@@ -38,6 +46,8 @@ public class Random_Timed_Event : MonoBehaviour
         {
             StopCoroutine(waitFunc);
         }
+
+        repeating = false;
     }
     
 

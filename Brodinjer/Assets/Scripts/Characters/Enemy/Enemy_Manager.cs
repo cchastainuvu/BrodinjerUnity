@@ -10,10 +10,10 @@ public class Enemy_Manager : MonoBehaviour
     private Enemy_Movement _movementTemp;
     
     public List<Transform> Destinations;
-    private NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
 
-    public bool AttackWhileMoving;
-    public GameObject KnockbackObj;
+    public GameObject WeaponObj;
     public Enemy_Attack_Base Attack;
     private Enemy_Attack_Base _attackTemp;
 
@@ -23,12 +23,16 @@ public class Enemy_Manager : MonoBehaviour
     private bool canAttack;
     private bool canMove;
 
+    public bool AwakeOnStart = true;
+
     private void Start()
     {
         canAttack = true;
         canMove = true;
         agent = GetComponent<NavMeshAgent>();
         Init();
+        if(AwakeOnStart)
+            StartMove();
     }
 
     public void deactivateMove()
@@ -67,14 +71,17 @@ public class Enemy_Manager : MonoBehaviour
     {
         _movementTemp = Movement_Version.GetClone();
         Movement_Version = _movementTemp;
-        Movement_Version.Init(agent, this, Player, Destinations);
+        Movement_Version.Init(agent, this, Player, Destinations, animator);
     }
 
     public void InitAttack()
     {
-        _attackTemp = Attack.getClone();
-        Attack = _attackTemp;
-        Attack.Init(this, KnockbackObj, Player, animator);
+        if (Attack != null)
+        {
+            _attackTemp = Attack.getClone();
+            Attack = _attackTemp;
+            Attack.Init(this, WeaponObj, Player, animator, gameObject);
+        }
     }
     #endregion
 
@@ -93,6 +100,23 @@ public class Enemy_Manager : MonoBehaviour
         Attack = attack;
         InitAttack();
     }
+
+    public void SetNewWeaponObject(GameObject obj)
+    {
+        Attack.StopAttack();
+        WeaponObj = obj;
+        InitAttack();
+    }
+
+    public void ClearDestinations()
+    {
+        Destinations.Clear();
+    }
+    
+    public void AddNewDestination(Transform dest)
+    {
+        Destinations.Add(dest);
+    }
     
     #endregion
 
@@ -108,7 +132,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         if (canAttack)
         {
-            if (!AttackWhileMoving)
+            if (Attack != null && !Attack.attackWhileMoving)
             {
                 StartCoroutine(PauseMove());
             }
@@ -119,9 +143,13 @@ public class Enemy_Manager : MonoBehaviour
 
     private IEnumerator PauseMove()
     {
-        Movement_Version.StopMove();
-        yield return new WaitForSeconds(Attack.CoolDownTime + Attack.AttackActiveTime + Attack.AttackStartTime);
-        Movement_Version.StartMove();
+        if (Attack != null)
+        {
+            Movement_Version.StopMove();
+            yield return new WaitForSeconds(Attack.CoolDownTime + 
+                                            Attack.AttackActiveTime + Attack.AttackStartTime);
+            Movement_Version.StartMove();
+        }
     }
 
     #endregion
@@ -135,11 +163,15 @@ public class Enemy_Manager : MonoBehaviour
 
     public void StopAttack()
     {
-        if (!AttackWhileMoving)
+        if (Attack != null)
         {
-            Movement_Version.StartMove();
+            if (!Attack.attackWhileMoving)
+            {
+                Movement_Version.StartMove();
+            }
+
+            Attack.StopAttack();
         }
-        Attack.StopAttack();
     }
 
     #endregion

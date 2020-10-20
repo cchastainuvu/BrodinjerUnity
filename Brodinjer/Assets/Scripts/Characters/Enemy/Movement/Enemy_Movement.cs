@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public abstract class Enemy_Movement : ScriptableObject
 {
     public float Speed;
+    public float AngularSpeed = 120;
     protected bool moving;
     protected NavMeshAgent agent;
     private Coroutine moveFunc;
@@ -16,15 +17,21 @@ public abstract class Enemy_Movement : ScriptableObject
     protected MonoBehaviour caller;
     protected Transform followObj;
     private bool canMove;
+    public Animation_Base animation;
 
     //Basic Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller)
+    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Animator anim)
     {
         canMove = true;
         this.agent = agent;
         this.agent.speed = 0;
+        this.agent.angularSpeed = AngularSpeed;
         enemy = agent.transform;
         this.caller = caller;
+        if (animation != null)
+        {
+            animation.Init(caller, anim, followObj, agent);
+        }
     }
 
     public void deactiveMove()
@@ -39,26 +46,26 @@ public abstract class Enemy_Movement : ScriptableObject
     }
     
     //Patrol Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations)
+    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        Init(agent, caller);
+        Init(agent, caller, anim);
         this.destinations = destinations;
     }
     
     //Follow Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj)
+    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
-        Init(agent, caller);
+        Init(agent, caller, anim);
         this.followObj = FollowObj;
     }
     
     //Usable Init
     public virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj,
-        List<Transform> destinations)
+        List<Transform> destinations, Animator anim)
     {
-        Init(agent, caller);
-        Init(agent, caller, FollowObj);
-        Init(agent, caller, destinations);
+        Init(agent, caller, anim);
+        Init(agent, caller, FollowObj, anim);
+        Init(agent, caller, destinations, anim);
     }
     
 
@@ -69,6 +76,8 @@ public abstract class Enemy_Movement : ScriptableObject
             agent.speed = Speed;
             moving = true;
             moveFunc = caller.StartCoroutine(Move());
+            if(animation)
+                animation.StartAnimation();
         }
         else
         {
@@ -87,7 +96,9 @@ public abstract class Enemy_Movement : ScriptableObject
         {
             caller.StopCoroutine(moveFunc);
         }
-        Debug.Log("Stop Move Enemy Movement");
+        if(animation)
+            animation.StopAnimation();
+        //Debug.Log("Stop Move Enemy Movement");
     }
 
     public abstract Enemy_Movement GetClone();
