@@ -1,15 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Ribs/DropAttack")]
+[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/DropAttack")]
 public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
 {
     private bool currentlyattacking;
 
-    public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator)
+    public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
     {
-        base.Init(caller, MeleeAttack, player, animator);
-        meleeAttackObj.SetActive(false);
+        base.Init(caller, MeleeAttack, player, animator, enemy);
+        WeaponAttackobj.SetActive(false);
     }
 
     public override IEnumerator Attack()
@@ -23,9 +23,9 @@ public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
                     animations.StartAnimation();
                 currentlyattacking = true;
                 yield return new WaitForSeconds(AttackStartTime);
-                meleeAttackObj.SetActive(true);
+                WeaponAttackobj.SetActive(true);
                 yield return new WaitForSeconds(AttackActiveTime);
-                meleeAttackObj.SetActive(false);
+                WeaponAttackobj.SetActive(false);
                 yield return new WaitForSeconds(CoolDownTime);
                 currentlyattacking = false;
             }
@@ -41,6 +41,8 @@ public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
         temp.AttackStartTime = AttackStartTime;
         temp.CoolDownTime = CoolDownTime;
         temp.animations = animations;
+        temp.attackWhileMoving = attackWhileMoving;
+
         return temp;
     }
 }

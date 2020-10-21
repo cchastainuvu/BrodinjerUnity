@@ -8,6 +8,7 @@ public class Timed_Event : MonoBehaviour
     public bool OnAwake = false;
     public float WaitTime;
     public UnityEvent Event;
+    private Coroutine waitFunc;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class Timed_Event : MonoBehaviour
 
     public void Call()
     {
-        StartCoroutine(Wait());
+        waitFunc = StartCoroutine(Wait());
     }
 
 
@@ -29,4 +30,12 @@ public class Timed_Event : MonoBehaviour
         yield return new WaitForSeconds(WaitTime);
         Event.Invoke();
     }
+
+    public void Stop()
+    {
+        if(waitFunc!= null)
+            StopCoroutine(waitFunc);
+    }
+    
+    
 }

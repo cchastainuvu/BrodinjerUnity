@@ -8,9 +8,9 @@ public class Enemy_Patrol_Destination : Enemy_Patrol
 {
     public bool PingPongMovement;
     
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        base.Init(agent, caller, destinations);
+        base.Init(agent, caller, destinations, anim);
         if (this.destinations.Count > 0)
         {
             agent.destination = this.destinations[0].position;
@@ -48,6 +48,7 @@ public class Enemy_Patrol_Destination : Enemy_Patrol
         temp.minChangeDestTime = minChangeDestTime;
         temp.maxChangeDestTime = maxChangeDestTime;
         temp.Speed = Speed;
+        temp.AngularSpeed = AngularSpeed;
         return temp;
     }
 
