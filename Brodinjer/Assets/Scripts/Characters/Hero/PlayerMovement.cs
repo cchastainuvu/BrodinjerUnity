@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
         public Animator anim;
         public bool MoveOnStart;
         private bool moving, rotating, extrarunning;
-        
+        public Transform DirectionReference;
 
         private void Start()
         {
@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
 
         private void Init()
         {
-                rotate.Init(transform, Camera.main.transform, targetScript);
-                translate.Init(this, _cc, Camera.main.transform, targetScript, anim);
+                rotate.Init(transform, DirectionReference, targetScript);
+                translate.Init(this, _cc, DirectionReference, targetScript, anim);
                 if (extraControls != null)
                 {
                         foreach (var extra in extraControls)

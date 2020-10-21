@@ -15,6 +15,7 @@ public class CameraRotationManager : MonoBehaviour
     private bool moving;
 
     private Coroutine rotateFunc;
+    
 
     private void Start()
     {

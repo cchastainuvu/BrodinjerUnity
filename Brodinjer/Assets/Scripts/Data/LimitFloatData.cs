@@ -70,6 +70,18 @@ public class LimitFloatData : FloatData
         }
     }
 
-
+    public override FloatData GetClone()
+    {
+        LimitFloatData temp = CreateInstance<LimitFloatData>();
+        temp.value = value;
+        temp.minEvent = minEvent;
+        temp.MinValue = MinValue;
+        temp.maxEvent = maxEvent;
+        temp.MaxValue = MaxValue;
+        temp.OnMaxReached = OnMaxReached;
+        temp.OnMinReached = OnMinReached;
+        temp.OnValueChanged = OnValueChanged;
+        return temp;
+    }
     
 }

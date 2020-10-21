@@ -6,12 +6,12 @@ using UnityEngine;
 public class Game_Manager : MonoBehaviour
 {
     public PlayerMovement Movement;
-    public Health_Base CharacterHealth;
+    public LimitFloatData CharacterHealth;
     public LimitFloatData MagicAmount;
 
     public float GetCharacterHealth()
     {
-        return CharacterHealth.GetHealth();
+        return CharacterHealth.value;
     }
 
     public float GetMagicAmount()

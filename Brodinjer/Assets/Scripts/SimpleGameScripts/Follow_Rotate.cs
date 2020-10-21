@@ -9,6 +9,7 @@ public class Follow_Rotate : MonoBehaviour
     private bool rotating;
     public bool OnAwake;
     private Vector3 rotationOffset;
+    public bool x = true, y = true, z = true;
 
     private void Start()
     {
@@ -31,7 +32,14 @@ public class Follow_Rotate : MonoBehaviour
         while (rotating)
         {
             //transform.rotation = FollowRotateObject.rotation;
-            transform.eulerAngles = FollowRotateObject.eulerAngles + rotationOffset;
+            Vector3 eulerAngleNew = transform.eulerAngles;
+            if (x)
+                eulerAngleNew.x = FollowRotateObject.eulerAngles.x + rotationOffset.x;
+            if(y)
+                eulerAngleNew.y = FollowRotateObject.eulerAngles.y + rotationOffset.y;
+            if(z)
+                eulerAngleNew.z = FollowRotateObject.eulerAngles.z + rotationOffset.z;
+            transform.eulerAngles = eulerAngleNew;
             yield return new WaitForFixedUpdate();
         }
     }

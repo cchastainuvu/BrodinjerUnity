@@ -8,12 +8,14 @@ public class ThirdPersonTranslate : CharacterTranslate
     private Vector3 _moveVec, _jumpVec;
     public bool canDodge;
     public float dodgeTime, dodgeRecoverTime, dodgeIncrease;
-    private bool dodging;
+    private bool dodging, sprinting, decreasing;
     private float currentTime;
+    public float acceleration, deceleration;
 
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
     {
         dodging = false;
+        sprinting = false;
         _moveVec = Vector3.zero;
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
@@ -33,8 +35,8 @@ public class ThirdPersonTranslate : CharacterTranslate
                 while (currentTime > 0)
                 {
                     canMove = false;
-                    _moveVec = Camera.forward * dodgeIncrease * Input.GetAxisRaw("Vertical") +
-                               Camera.right * dodgeIncrease * Input.GetAxis("Horizontal");
+                    _moveVec = Camera.forward.normalized * dodgeIncrease * Input.GetAxisRaw("Vertical") +
+                               Camera.right.normalized * dodgeIncrease * Input.GetAxis("Horizontal");
                     _moveVec.y = 0;
                     _cc.Move(_moveVec * Time.deltaTime);
                     currentTime -= Time.deltaTime;
@@ -71,13 +73,21 @@ public class ThirdPersonTranslate : CharacterTranslate
             {
                 if (Input.GetButton("Sprint"))
                 {
-                    currentForwardSpeed = RunForwardSpeed;
-                    currentSideSpeed = RunSideSpeed;
+                    if (!sprinting && currentForwardSpeed < RunForwardSpeed)
+                    {
+                        decreasing = false;
+                        sprinting = true;
+                        caller.StartCoroutine(IncreaseSpeed(RunForwardSpeed));
+                    }
                 }
                 else
                 {
-                    currentForwardSpeed = ForwardSpeed;
-                    currentSideSpeed = SideSpeed;
+                    sprinting = false;
+                    if (currentForwardSpeed > ForwardSpeed && !decreasing)
+                    {
+                        decreasing = true;
+                        caller.StartCoroutine(DecreaseSpeed(ForwardSpeed));
+                    }
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -115,12 +125,12 @@ public class ThirdPersonTranslate : CharacterTranslate
 
     public virtual void Invoke()
     {
-        _moveVec = Camera.forward * currentForwardSpeed * Input.GetAxis("Vertical") +
-                   Camera.right * currentSideSpeed * Input.GetAxis("Horizontal");
+        _moveVec = Camera.forward.normalized * currentForwardSpeed * Input.GetAxis("Vertical") +
+                   Camera.right.normalized * currentSideSpeed * Input.GetAxis("Horizontal");
         _moveVec.y = 0;
         if (_cc.isGrounded) {
-            vSpeed = -1;
-            if (!canDodge && (Input.GetButtonDown ("Jump") || (canDodge && !targetScript.targeting))) {
+            vSpeed = -10;
+            if (Input.GetButtonDown ("Jump") && (!canDodge  || (canDodge && !targetScript.targeting))) {
                 vSpeed = JumpSpeed;
             }
             else if (canDodge && Input.GetButtonDown ("Jump") && targetScript.targeting && (Input.GetButton("Vertical") || Input.GetButton("Horizontal")))
@@ -133,6 +143,36 @@ public class ThirdPersonTranslate : CharacterTranslate
         vSpeed -= Gravity * Time.deltaTime;
         _moveVec.y = vSpeed;
         _cc.Move(_moveVec * Time.deltaTime);
+    }
+
+    private IEnumerator IncreaseSpeed(float maxSpeed)
+    {
+        while (canMove && canRun && Input.GetButton("Sprint") && currentForwardSpeed <maxSpeed && sprinting)
+        {
+            currentForwardSpeed += Time.deltaTime*acceleration;
+            if (currentForwardSpeed > maxSpeed)
+            {
+                currentForwardSpeed = maxSpeed;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        sprinting = false;
+    }
+
+    private IEnumerator DecreaseSpeed(float minSpeed)
+    {
+        while (currentForwardSpeed > minSpeed && decreasing)
+        {
+            currentForwardSpeed -= Time.deltaTime*deceleration;
+            if (currentForwardSpeed < minSpeed)
+            {
+                currentForwardSpeed = minSpeed;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        decreasing = false;
     }
 
 }

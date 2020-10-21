@@ -20,4 +20,11 @@ public class FloatData : ScriptableObject
     {
         this.value -= value;
     }
+
+    public virtual FloatData GetClone()
+    {
+        FloatData temp = CreateInstance<FloatData>();
+        temp.value = value;
+        return temp;
+    }
 }

@@ -28,6 +28,7 @@ public class BowandArrow : WeaponBase
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
     private CharacterRotate originalRotate;
+    public LimitIntData numArrows;
 
     public Object_Aim_Script AimScript;
     public float CameraSwapTime;
@@ -36,7 +37,6 @@ public class BowandArrow : WeaponBase
     
     public override void Initialize()
     {
-        //any init stuff needed
         BowEquiped.Invoke();
         initRotation = transform.rotation.eulerAngles;
         _waitforbutton = new WaitUntil(CheckInput);
@@ -45,7 +45,6 @@ public class BowandArrow : WeaponBase
         attack = Attack();
         originalRotate = playermove.rotate;
         StartCoroutine(attack);
-
     }
 
     public override IEnumerator Attack()
@@ -65,7 +64,7 @@ public class BowandArrow : WeaponBase
             {
                 BowPulled.Invoke();
                 inUse = true;
-                if (currWeapon)
+                if (currWeapon &&  numArrows.value > 0)
                 {
                     currPower = 0;
                     currArrow = Instantiate(ArrowPrefab, InitPos);
@@ -98,6 +97,7 @@ public class BowandArrow : WeaponBase
                     {
                         yield return new WaitForFixedUpdate();
                     }
+                    numArrows.SubInt(1);
                     ArrowFired.Invoke();
                     ArrowRB.constraints = RigidbodyConstraints.None;
                     currArrow.transform.parent = null;

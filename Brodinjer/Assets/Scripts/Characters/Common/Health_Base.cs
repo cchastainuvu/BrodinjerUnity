@@ -5,7 +5,6 @@ using UnityEngine;
 public class Health_Base : ScriptableObject
 {
     public float TotalHealth;
-    private float _currentHealth;
 
     public float ArmorDamageDecrease;
 
@@ -14,13 +13,18 @@ public class Health_Base : ScriptableObject
 
     protected MonoBehaviour caller;
 
+    public FloatData health;
+    private FloatData _health;
+
     public virtual void Init(MonoBehaviour caller, Transform enemy, bool mainCharacter = false)
     {
-        _currentHealth = TotalHealth;
+        health.value = TotalHealth;
         if (!mainCharacter)
         {
             _death = Death_Version.GetClone();
             Death_Version = _death;
+            _health = health.GetClone();
+            health = _health;
         }
 
         Death_Version.Init(enemy);
@@ -44,20 +48,20 @@ public class Health_Base : ScriptableObject
 
     public virtual void DecreaseHealth(float amount, bool armor)
     {
-        Debug.Log(_currentHealth);
+        Debug.Log(health.value);
         if (armor)
         {
             float decreaseAmount = amount - ArmorDamageDecrease;
             if (decreaseAmount < 0)
                 decreaseAmount = 0;
-            _currentHealth -= decreaseAmount;
+            health.SubFloat(decreaseAmount);
         }
         else
         {
-            _currentHealth -= amount;
+            health.SubFloat(amount);
         }
-        Debug.Log("Current Health: " + _currentHealth);
-        if (_currentHealth <= 0)
+        Debug.Log("Current Health: " + health.value);
+        if (health.value <= 0)
         {
             Death();
         }
@@ -65,7 +69,7 @@ public class Health_Base : ScriptableObject
 
     public float GetHealth()
     {
-        return _currentHealth;
+        return health.value;
     }
 
     public virtual Health_Base GetClone()
@@ -74,6 +78,7 @@ public class Health_Base : ScriptableObject
         temp.Death_Version = Death_Version;
         temp.TotalHealth = TotalHealth;
         temp.ArmorDamageDecrease = ArmorDamageDecrease;
+        temp.health = health;
         return temp;
     }
 }

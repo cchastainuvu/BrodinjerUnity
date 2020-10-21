@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbd2fc8487b7a347b20c1e03183c8a6, type: 3}
-  m_Name: ThirdPerson
+  m_Script: {fileID: 11500000, guid: be26d71cab37af641b4e2adcdb277889, type: 3}
+  m_Name: L_Hand_Health_Float
   m_EditorClassIdentifier: 
-  minCamAngle: -70
-  maxCamAngle: 70
-  rotationSpeed: 75
-  cameraObject: {fileID: 0}
+  value: 50
+  MinValue: 0
+  MaxValue: 50

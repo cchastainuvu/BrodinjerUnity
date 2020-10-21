@@ -16,8 +16,8 @@ MonoBehaviour:
   SideSpeed: 2
   RunForwardSpeed: 5
   RunSideSpeed: 5
-  JumpSpeed: 5
-  Gravity: 15
+  JumpSpeed: 7
+  Gravity: 20
   ForwardAxis: Vertical
   SideAxis: Horizontal
   canMove: 1
@@ -27,3 +27,5 @@ MonoBehaviour:
   dodgeTime: 0.1
   dodgeRecoverTime: 0.1
   dodgeIncrease: 50
+  acceleration: 10
+  deceleration: 20
