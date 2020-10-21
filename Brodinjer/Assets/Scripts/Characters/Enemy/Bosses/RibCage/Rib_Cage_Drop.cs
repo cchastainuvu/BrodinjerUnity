@@ -14,9 +14,9 @@ public class Rib_Cage_Drop : Enemy_Patrol
     public float RotateSpeed;
     private Vector3 destination;
 
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Animator anim)
     {
-        base.Init(agent, caller);
+        base.Init(agent, caller, anim);
         _rigidbody = agent.GetComponent<Rigidbody>();
         if (_rigidbody == null)
         {

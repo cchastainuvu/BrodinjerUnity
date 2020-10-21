@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Melee
+  - Alert
+  - Arrow
+  - Scalable
   layers:
   - Default
   - TransparentFX
@@ -14,14 +18,14 @@ TagManager:
   - 
   - 
   - PostProcessing
+  - KnockbackObj
+  - Floor
+  - Center
   - Enemy
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Climbable
+  - IgnoreWeapons
+  - Stalactite
   - 
   - 
   - 

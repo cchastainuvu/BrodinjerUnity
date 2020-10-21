@@ -16,14 +16,16 @@ MonoBehaviour:
   SideSpeed: 2
   RunForwardSpeed: 5
   RunSideSpeed: 5
-  JumpSpeed: 5
-  Gravity: 15
+  JumpSpeed: 7
+  Gravity: 20
   ForwardAxis: Vertical
   SideAxis: Horizontal
   canMove: 1
   canRun: 1
-  animation: {fileID: 11400000, guid: c1dad690abade094ca80e90e1634571b, type: 2}
+  animation: {fileID: 11400000, guid: e6c708b55f2e2c141a48a980d600745d, type: 2}
   canDodge: 1
   dodgeTime: 0.1
   dodgeRecoverTime: 0.1
   dodgeIncrease: 50
+  acceleration: 10
+  deceleration: 20

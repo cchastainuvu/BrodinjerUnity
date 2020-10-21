@@ -8,9 +8,9 @@ public class Enemy_Back_Step : Enemy_Movement
     public float distanceAway;
     public bool turnAway;
     
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
-        base.Init(agent, caller, FollowObj);
+        base.Init(agent, caller, FollowObj, anim);
         if (!turnAway)
         {
             agent.updateRotation = false;
@@ -34,6 +34,7 @@ public class Enemy_Back_Step : Enemy_Movement
     {
         Enemy_Back_Step temp = CreateInstance<Enemy_Back_Step>();
         temp.Speed = Speed;
+        temp.AngularSpeed = AngularSpeed;
         temp.distanceAway = distanceAway;
         temp.turnAway = turnAway;
         return temp;

@@ -51,7 +51,8 @@ public class Rib_Animations : Animation_Base
 
     public virtual float GetDirection()
     {
-        Vector3 collisionposition = player.position;
+        float angle =  GeneralFunctions.GetDirection(player.position, anim.transform.position);
+        /*Vector3 collisionposition = player.position;
         collisionposition.y = 0;
         Vector3 transformposition = anim.transform.position;
         transformposition.y = 0;
@@ -61,11 +62,11 @@ public class Rib_Animations : Animation_Base
         if (crossProduct.y < 0)
         {
             directionalangle = -directionalangle;
-        }
+        }*/
 
-        directionalangle /= 360;
-        directionalangle += .5f;
-        return directionalangle;
+        angle /= 360;
+        angle += .5f;
+        return angle;
     }
     
 }

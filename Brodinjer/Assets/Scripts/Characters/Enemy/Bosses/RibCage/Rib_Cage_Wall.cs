@@ -37,11 +37,11 @@ public class Rib_Cage_Wall : Enemy_Follow_Base
         return temp;
     }
 
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
         climbing = false;
         currentPos = StartPosition;
-        base.Init(agent, caller, FollowObj);
+        base.Init(agent, caller, FollowObj, anim);
     }
 
     private void SetAgentDestination()
