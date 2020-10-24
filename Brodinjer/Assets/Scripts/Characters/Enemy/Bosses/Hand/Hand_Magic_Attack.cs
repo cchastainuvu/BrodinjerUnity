@@ -12,6 +12,8 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
     
     public override IEnumerator Attack()
     {
+        if(animations != null)
+            animations.StartAnimation();
         yield return new WaitForSeconds(AttackStartTime);
         magicObj = Instantiate(WeaponAttackobj, WeaponAttackobj.transform);
         magicObj.SetActive(true);
@@ -24,6 +26,8 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         forcedirection = WeaponAttackobj.transform.forward * ForwardVelocity;
         rigid.AddForce(forcedirection, ForceMode.Impulse);
         yield return new WaitForSeconds(AttackActiveTime);
+        if(animations!= null)
+            animations.StopAnimation();
         yield return new WaitForSeconds(CoolDownTime);
     }
 

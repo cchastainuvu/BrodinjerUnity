@@ -16,7 +16,7 @@ public abstract class Trigger_Event_Base : MonoBehaviour
     public string tagName;
 
     public bool active = true;
-    protected bool isRunning;
+    public bool isRunning;
 
     private void Start()
     {

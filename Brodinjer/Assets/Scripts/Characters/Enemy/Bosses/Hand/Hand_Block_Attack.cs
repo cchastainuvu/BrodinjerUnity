@@ -7,6 +7,7 @@ public class Hand_Block_Attack : MonoBehaviour
 {
     public GameObject blockCollider;
     public float blockTime;
+    public Animator anim;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class Hand_Block_Attack : MonoBehaviour
 
     private IEnumerator Block()
     {
+        anim.SetTrigger("Block");
         blockCollider.SetActive(true);
         yield return new WaitForSeconds(blockTime);
         blockCollider.SetActive(false);

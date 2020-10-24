@@ -35,6 +35,11 @@
         <e p="Scripts" t="Include">
           <e p="Characters" t="Include">
             <e p="Common" t="Include">
+              <e p="Animations" t="Include">
+                <e p="Animation_Basic_Attack.cs" t="Include" />
+                <e p="Animation_Directional_Attack.cs" t="Include" />
+                <e p="Animation_Movement.cs" t="Include" />
+              </e>
               <e p="Character_Base.cs" t="Include" />
               <e p="Character_Manager.cs" t="Include" />
               <e p="Death" t="Include">
@@ -55,10 +60,10 @@
               <e p="Bosses" t="Include">
                 <e p="Hand" t="Include">
                   <e p="Freeze_Magic.cs" t="Include" />
-                  <e p="Hand_Animation.cs" t="Include" />
                   <e p="Hand_Block_Attack.cs" t="Include" />
                   <e p="Hand_In_Between.cs" t="Include" />
                   <e p="Hand_Jump_Attack.cs" t="Include" />
+                  <e p="Hand_Jump_knockback.cs" t="Include" />
                   <e p="Hand_Magic_Attack.cs" t="Include" />
                 </e>
                 <e p="RibCage" t="Include">
@@ -164,6 +169,7 @@
             </e>
           </e>
           <e p="Data" t="Include">
+            <e p="BoolData.cs" t="Include" />
             <e p="DebugObject.cs" t="Include" />
             <e p="FloatData.cs" t="Include" />
             <e p="IntData.cs" t="Include" />
@@ -187,9 +193,12 @@
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />
           </e>
+          <e p="Props" t="Include">
+            <e p="Float_Pickup.cs" t="Include" />
+            <e p="Int_Pickup.cs" t="Include" />
+            <e p="PickUp_Base.cs" t="Include" />
+          </e>
           <e p="SimpleGameScripts" t="Include">
-            <e p="BoolData.cs" t="Include" />
-            <e p="Center_Screen.cs" t="Include" />
             <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">
               <e p="Collision_Enter_Event.cs" t="Include" />
@@ -198,20 +207,31 @@
               <e p="Collision_Stay_Event.cs" t="Include" />
             </e>
             <e p="Destroy_Object_Timed.cs" t="Include" />
+            <e p="DirectionalHit.cs" t="Include" />
             <e p="Events" t="Include">
               <e p="Awake_Event.cs" t="Include" />
               <e p="Distance_Event.cs" t="Include" />
               <e p="If_Else_Event.cs" t="Include" />
+              <e p="Interaction_Trigger_Event.cs" t="Include" />
+              <e p="PS_Callback.cs" t="Include" />
               <e p="Random_Timed_Event.cs" t="Include" />
               <e p="Start_Event.cs" t="Include" />
               <e p="Timed_Event.cs" t="Include" />
               <e p="Unity_Event_Holder.cs" t="Include" />
             </e>
-            <e p="Follow_Object.cs" t="Include" />
-            <e p="Follow_Rotate.cs" t="Include" />
-            <e p="Look_At_Script.cs" t="Include" />
-            <e p="PS_Callback.cs" t="Include" />
+            <e p="MeshColliderUpdate" t="Include">
+              <e p="UpdateMeshCollider.cs" t="Include" />
+              <e p="VertexWeight.cs" t="Include" />
+              <e p="WeightList.cs" t="Include" />
+            </e>
+            <e p="ResetTriggers.cs" t="Include" />
             <e p="Toggle_Active.cs" t="Include" />
+            <e p="TransformationScripts" t="Include">
+              <e p="Center_Screen.cs" t="Include" />
+              <e p="Follow_Object.cs" t="Include" />
+              <e p="Follow_Rotate.cs" t="Include" />
+              <e p="Look_At_Script.cs" t="Include" />
+            </e>
             <e p="TriggerEvents" t="Include">
               <e p="Trigger_Enter_Damage.cs" t="Include" />
               <e p="Trigger_Enter_Event.cs" t="Include" />
@@ -221,7 +241,6 @@
             </e>
           </e>
           <e p="Tests" t="Include">
-            <e p="DirectionalHit.cs" t="Include" />
             <e p="GetDirection.cs" t="Include" />
             <e p="KeyPressEvent.cs" t="Include" />
             <e p="NavmeshTest.cs" t="Include" />
@@ -269,6 +288,12 @@
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
+        </e>
+        <e p="TreeTest" t="Include">
+          <e p="Billboard" t="Include">
+            <e p="TreeBillboardAsset.cs" t="Include" />
+          </e>
+          <e p="DiffuseShakeUpdated.shader" t="Include" />
         </e>
       </e>
       <e p="Brodinjer.sln" t="IncludeFlat" />

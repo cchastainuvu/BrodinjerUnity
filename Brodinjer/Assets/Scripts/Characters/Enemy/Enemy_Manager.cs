@@ -22,11 +22,13 @@ public class Enemy_Manager : MonoBehaviour
 
     private bool canAttack;
     private bool canMove;
+    private bool paused;
 
     public bool AwakeOnStart = true;
 
     private void Start()
     {
+        paused = false;
         canAttack = true;
         canMove = true;
         agent = GetComponent<NavMeshAgent>();
@@ -44,6 +46,7 @@ public class Enemy_Manager : MonoBehaviour
 
     public void deactivateAttack()
     {
+        Attack.DeactivateAttack();
         canAttack = false;
         StopAttack();
     }
@@ -56,6 +59,7 @@ public class Enemy_Manager : MonoBehaviour
 
     public void activateAttack()
     {
+        Attack.ActivateAttack();
         canAttack = true;
     }
 
@@ -134,7 +138,11 @@ public class Enemy_Manager : MonoBehaviour
         {
             if (Attack != null && !Attack.attackWhileMoving)
             {
-                StartCoroutine(PauseMove());
+                if (!paused)
+                {
+                    paused = true;
+                    StartCoroutine(PauseMove());
+                }
             }
 
             Attack.StartAttack();
@@ -150,6 +158,8 @@ public class Enemy_Manager : MonoBehaviour
                                             Attack.AttackActiveTime + Attack.AttackStartTime);
             Movement_Version.StartMove();
         }
+
+        paused = false;
     }
 
     #endregion

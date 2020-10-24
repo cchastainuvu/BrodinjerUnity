@@ -48,7 +48,6 @@ public class Health_Base : ScriptableObject
 
     public virtual void DecreaseHealth(float amount, bool armor)
     {
-        Debug.Log(health.value);
         if (armor)
         {
             float decreaseAmount = amount - ArmorDamageDecrease;

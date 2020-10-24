@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class Animation_Base : ScriptableObject
 {
-    protected Animator anim;
+    [HideInInspector] public Animator anim;
     protected Transform player;
     protected MonoBehaviour caller;
     protected NavMeshAgent agent;

@@ -18,19 +18,22 @@ public class Freeze_Magic : Trigger_Event_Base
 
     public override void RunEvent()
     {
+        Debug.Log(obj.name);
         base.RunEvent();
         playermove = obj.GetComponent<PlayerMovement>();
         weapons = obj.GetComponent<WeaponManager>(); 
         if (playermove)
         {
+            Debug.Log("Stop Player Movement");
             playermove.StopAll();
+            if (weapons)
+            {
+                weapons.WeaponFreeze();
+            }
+            resetFunc = StartCoroutine(ResetMove());
         }
 
-        if (weapons)
-        {
-            weapons.WeaponFreeze();
-        }
-        resetFunc = StartCoroutine(ResetMove());
+        
 
     }
 
