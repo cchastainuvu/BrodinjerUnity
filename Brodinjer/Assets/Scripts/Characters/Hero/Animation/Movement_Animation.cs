@@ -17,6 +17,7 @@ public class Movement_Animation : Animation_Base
     {
         if (anim != null)
         {
+            Debug.Log("Call Walk");
             anim.SetTrigger(walkTrigger);
             while (moving)
             {

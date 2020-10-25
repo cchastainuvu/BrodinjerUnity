@@ -77,7 +77,7 @@ public class DirectionalHit : Trigger_Event_Base
 
         angle /= 360;
         angle += .5f;
-        Debug.Log(angle);
+        //Debug.Log(angle);
         return angle;
     }
 }

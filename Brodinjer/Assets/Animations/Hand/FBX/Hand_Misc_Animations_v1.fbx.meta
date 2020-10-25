@@ -14,7 +14,7 @@ ModelImporter:
     second: Hand Smashed Idle
   - first:
       74: 7350966787396941631
-    second: Hand Block
+    second: Hand Block End
   - first:
       74: 8423111885395471334
     second: Hand Hit Front
@@ -45,6 +45,9 @@ ModelImporter:
   - first:
       74: 562724741786679700
     second: Hand Hit Left Init
+  - first:
+      74: -279854419878807305
+    second: Hand Block Init
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -137,10 +140,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hand Block
+      name: Hand Block End
       takeName: Take 001
       internalID: 0
-      firstFrame: 500
+      firstFrame: 515
       lastFrame: 530
       wrapMode: 0
       orientationOffsetY: 0
@@ -432,6 +435,35 @@ ModelImporter:
       internalID: 0
       firstFrame: 572
       lastFrame: 580
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hand Block Init
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 500
+      lastFrame: 515
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
