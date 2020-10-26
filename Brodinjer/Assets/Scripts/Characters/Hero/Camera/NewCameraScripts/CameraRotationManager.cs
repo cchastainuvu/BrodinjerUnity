@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class CameraRotationManager : MonoBehaviour
 {
@@ -33,8 +35,8 @@ public class CameraRotationManager : MonoBehaviour
     {
         while (moving)
         {
-            mouseX += Input.GetAxis(CameraHorizontal) * cameraRotation.rotationSpeed * Time.deltaTime;
-            mouseY -= Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed * Time.deltaTime;
+            mouseX += (Input.GetAxis(CameraHorizontal)* cameraRotation.mouseXMultiplier * cameraRotation.rotationSpeed) * Time.deltaTime;
+            mouseY -= (Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed * cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
             mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
             transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
             yield return new WaitForFixedUpdate();

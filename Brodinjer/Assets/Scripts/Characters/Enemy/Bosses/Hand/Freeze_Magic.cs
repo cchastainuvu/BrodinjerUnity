@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Freeze_Magic : Trigger_Event_Base
 {
-    private GameObject obj;
     public float freezeTime;
     private PlayerMovement playermove;
     private WeaponManager weapons;
@@ -12,25 +11,24 @@ public class Freeze_Magic : Trigger_Event_Base
 
     private void OnTriggerEnter(Collider other)
     {
-        obj = other.gameObject;
-        StartCoroutine(CheckTrigger(other));
+        if(!isRunning)
+            StartCoroutine(CheckTrigger(other));
     }
 
     public override void RunEvent()
     {
-        base.RunEvent();
-        playermove = obj.GetComponent<PlayerMovement>();
-        weapons = obj.GetComponent<WeaponManager>(); 
+        playermove = triggerCollider.GetComponent<PlayerMovement>();
+        weapons = triggerCollider.GetComponent<WeaponManager>(); 
         if (playermove)
         {
             playermove.StopAll();
+            if (weapons)
+            {
+                weapons.WeaponFreeze();
+            }
+            base.RunEvent();
+            resetFunc = StartCoroutine(ResetMove());
         }
-
-        if (weapons)
-        {
-            weapons.WeaponFreeze();
-        }
-        resetFunc = StartCoroutine(ResetMove());
 
     }
 
@@ -46,6 +44,9 @@ public class Freeze_Magic : Trigger_Event_Base
         {
             weapons.WeaponUnfreeze();
         }
+
+        isRunning = false;
+
     }
 
     public void Unfreeze()
@@ -61,5 +62,7 @@ public class Freeze_Magic : Trigger_Event_Base
         {
             weapons.WeaponUnfreeze();
         }
+
+        isRunning = false;
     }
 }

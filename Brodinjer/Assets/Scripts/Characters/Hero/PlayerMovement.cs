@@ -13,11 +13,12 @@ public class PlayerMovement : MonoBehaviour
         public Transform CharacterScalar;
         public Animator anim;
         public bool MoveOnStart;
-        private bool moving, rotating, extrarunning;
+        private bool moving, rotating, extrarunning, active;
         public Transform DirectionReference;
 
         private void Start()
         {
+                active = true;
                 moving = false;
                 rotating = false;
                 extrarunning = false;
@@ -43,6 +44,16 @@ public class PlayerMovement : MonoBehaviour
                 }
         }
 
+        public void Deactivate()
+        {
+                active = false;
+        }
+
+        public void Activate()
+        {
+                active = true;
+        }
+
         public void SwapMovement(CharacterRotate newRot, CharacterTranslate newTrans, List<CharacterControlExtraBase> extras = null)
         {
                 StopAll();
@@ -61,9 +72,12 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartAll()
         {
-                StartMove();
-                StartRotate();
-                StartExtras();
+                if (active)
+                {
+                        StartMove();
+                        StartRotate();
+                        StartExtras();
+                }
         }
 
         public void StopMove()
@@ -79,13 +93,16 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartMove()
         {
-                translate.canMove = true;
-                translate.canRun = true;
-                if (!moving)
+                if (active)
                 {
-                        moving = true;
-                        moveFunc = StartCoroutine(translate.Move());
-                        runFunc = StartCoroutine(translate.Run());
+                        translate.canMove = true;
+                        translate.canRun = true;
+                        if (!moving)
+                        {
+                                moving = true;
+                                moveFunc = StartCoroutine(translate.Move());
+                                runFunc = StartCoroutine(translate.Run());
+                        }
                 }
         }
 
@@ -99,25 +116,31 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartRotate()
         {
-                rotate.canRotate = true;
-                if (!rotating)
+                if (active)
                 {
-                        rotating = true;
-                        rotateFunc = StartCoroutine(rotate.Rotate());
+                        rotate.canRotate = true;
+                        if (!rotating)
+                        {
+                                rotating = true;
+                                rotateFunc = StartCoroutine(rotate.Rotate());
+                        }
                 }
         }
 
         public void StartExtras()
         {
-                if (extraControls != null)
+                if (active)
                 {
-                        foreach (CharacterControlExtraBase extra in extraControls)
+                        if (extraControls != null)
                         {
-                                extra.canMove = true;
-                                if (!extrarunning)
+                                foreach (CharacterControlExtraBase extra in extraControls)
                                 {
-                                        extrarunning = true;
-                                        StartCoroutine(extra.Move());
+                                        extra.canMove = true;
+                                        if (!extrarunning)
+                                        {
+                                                extrarunning = true;
+                                                StartCoroutine(extra.Move());
+                                        }
                                 }
                         }
                 }

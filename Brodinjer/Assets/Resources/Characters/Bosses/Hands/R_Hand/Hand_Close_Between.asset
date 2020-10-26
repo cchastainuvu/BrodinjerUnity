@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0076c8cce3abab4abb159054d8d18dc, type: 3}
   m_Name: Hand_Close_Between
   m_EditorClassIdentifier: 
-  Speed: 4
+  Speed: 5
   AngularSpeed: 120
   animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
-  distanceFromFollowObj: 2
+  distanceFromFollowObj: 2.5
   lookAtFollow: 1
   FollowObjMain: 0
+  offset: 0

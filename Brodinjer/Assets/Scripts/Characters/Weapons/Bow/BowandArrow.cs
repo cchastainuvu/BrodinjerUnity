@@ -29,6 +29,7 @@ public class BowandArrow : WeaponBase
     public CharacterRotate bowRotate;
     private CharacterRotate originalRotate;
     public LimitIntData numArrows;
+    public float cooldowntime;
 
     public Object_Aim_Script AimScript;
     public float CameraSwapTime;
@@ -104,8 +105,9 @@ public class BowandArrow : WeaponBase
                     ArrowRB.AddForce(transform.forward * currPower, ForceMode.Impulse);
                     inUse = false;
                     AimScript.StopAim();
+                    yield return new WaitForSeconds(cooldowntime);
                 }
-
+    
                 yield return new WaitForFixedUpdate();
             }
         }
