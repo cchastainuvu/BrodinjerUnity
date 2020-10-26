@@ -34,7 +34,6 @@ public class DirectionalHit : Trigger_Event_Base
                 
                 if (layer == (layer | (1 << coll.gameObject.layer)))
                 {
-                    Debug.Log("Layer Correct");
                     yield return new WaitForSeconds(waitTime);
                     anim.SetFloat(AnimDirectionName, GetDirection());
                     anim.SetTrigger(AnimHitName);

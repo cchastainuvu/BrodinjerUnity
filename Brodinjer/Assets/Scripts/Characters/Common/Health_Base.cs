@@ -16,8 +16,11 @@ public class Health_Base : ScriptableObject
     public FloatData health;
     private FloatData _health;
 
+    private bool dead = false;
+
     public virtual void Init(MonoBehaviour caller, Transform enemy, bool mainCharacter = false)
     {
+        dead = false;
         health.value = TotalHealth;
         if (!mainCharacter)
         {
@@ -33,7 +36,11 @@ public class Health_Base : ScriptableObject
 
     public virtual void Death()
     {
-        caller.StartCoroutine(Death_Version.Death());
+        if (!dead)
+        {
+            dead = true;
+            caller.StartCoroutine(Death_Version.Death());
+        }
     }
     
     public virtual void TakeDamage(float amount, bool armor)

@@ -21,7 +21,6 @@ public class Follow_Rotate : MonoBehaviour
 
     public void StartRotate()
     {
-        Debug.Log(name + ": " + FollowRotateObject);
         rotating = true;
         rotationOffset = FollowRotateObject.eulerAngles - transform.eulerAngles;
         rotateFunc = StartCoroutine(Rotate());

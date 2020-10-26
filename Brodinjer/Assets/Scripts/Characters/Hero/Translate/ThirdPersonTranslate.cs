@@ -19,6 +19,7 @@ public class ThirdPersonTranslate : CharacterTranslate
     
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
     {
+        base.Init(caller, _cc, camera, target, animator);
         invoking = false;
         falling = false;
         dodging = false;
@@ -26,7 +27,6 @@ public class ThirdPersonTranslate : CharacterTranslate
         _moveVec = Vector3.zero;
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
-        base.Init(caller, _cc, camera, target, animator);
     }
 
 
@@ -101,7 +101,7 @@ public class ThirdPersonTranslate : CharacterTranslate
 
     public override float getSpeed()
     {
-        return ConvertRange(0, RunForwardSpeed, 0, 1, _cc.velocity.magnitude);
+        return ConvertRange(0, AnimSpeedMax, 0, 1, _cc.velocity.magnitude);
     }
 
     public virtual IEnumerator Invoke()
@@ -115,7 +115,6 @@ public class ThirdPersonTranslate : CharacterTranslate
                 if (!dodging && targetScript.targeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
                 {
                     dodging = true;
-                    Debug.Log("Dodge");
                     DodgeDirection = _cc.transform.forward*Input.GetAxisRaw(VerticalAxis) + _cc.transform.right*Input.GetAxisRaw(HorizontalAxis);
                     currentTime = 0;
                     while (currentTime < DodgeTime)
@@ -146,11 +145,12 @@ public class ThirdPersonTranslate : CharacterTranslate
             }
             else
             {
-                if ((jumping || falling))
+                if ((jumping || falling || anim.GetBool("Fall")))
                 {
                     falling = false;
                     jumping = false;
                     anim.SetTrigger("Land");
+                    anim.SetBool("Fall", false);
                 }
             }
         }
@@ -159,8 +159,7 @@ public class ThirdPersonTranslate : CharacterTranslate
             if (!jumping && !falling)
             {
                 falling = true;
-                Debug.Log("Fall");
-                anim.SetTrigger("Fall");
+                anim.SetBool("Fall", true);
             }
         }
         vSpeed -= Gravity * Time.deltaTime;

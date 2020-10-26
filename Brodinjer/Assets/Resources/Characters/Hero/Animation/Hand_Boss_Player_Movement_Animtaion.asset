@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40f10d253aaae2e44bbc85896c235978, type: 3}
-  m_Name: InteriorCamera
+  m_Script: {fileID: 11500000, guid: e29ad067552f3124c8e7c34e6d02ca0c, type: 3}
+  m_Name: Hand_Boss_Player_Movement_Animtaion
   m_EditorClassIdentifier: 
-  canMove: 1
-  rotationSpeed: 10
-  CameraHorizontal: Mouse X
-  CameraVertical: Mouse Y
-  cameraTransform: {fileID: 0}
-  minCamAngle: -90
-  maxCamAngle: 90
+  anim: {fileID: 0}
+  speedFloat: Speed
+  angleFloat: Direction
+  walkTrigger: Walk
+  translate: {fileID: 11400000, guid: 09998011c5b25184b9ca5adcc4b27139, type: 2}

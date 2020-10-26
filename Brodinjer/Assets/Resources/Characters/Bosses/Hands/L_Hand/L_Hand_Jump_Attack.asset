@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: L_Hand_Jump_Attack
   m_EditorClassIdentifier: 
   DamageAmount: 0
-  AttackStartTime: 1.5
+  AttackStartTime: 0.65
   CoolDownTime: 0
   AttackActiveTime: 1
   animations: {fileID: 11400000, guid: 05ed7fd89d985a74295ea9371bb2f282, type: 2}
   attackWhileMoving: 0
+  canAttack: 0
   UpwardForce: 30
   ForwardForce: 60
   InBetweenAttackTime: 1

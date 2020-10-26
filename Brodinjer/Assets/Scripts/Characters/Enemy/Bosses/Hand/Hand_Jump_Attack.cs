@@ -10,6 +10,7 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
     private Rigidbody enemyRigid;
     private Vector3 jumpdirection;
     public float InBetweenAttackTime;
+    private NavMeshAgent agent;
 
     public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
     {
@@ -34,12 +35,14 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
         {
             animations.StartAnimation();
         }
-        enemyObj.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+
+        agent = enemyObj.GetComponent<NavMeshAgent>();
+        agent.velocity = Vector3.zero;
         enemyRigid.freezeRotation = true;
         yield return new WaitForSeconds(AttackStartTime);
         if (attacking && canAttack)
         {
-            enemyObj.GetComponent<NavMeshAgent>().enabled = false;
+            agent.enabled = false;
             jumpdirection = (enemyRigid.transform.up * UpwardForce) + (enemyRigid.transform.forward * ForwardForce);
             enemyRigid.AddForce(jumpdirection, ForceMode.Impulse);
             if (WeaponAttackobj)
@@ -52,11 +55,12 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
                 if (animations)
                     animations.StopAnimation();
                 yield return new WaitForSeconds(CoolDownTime);
-                enemyObj.GetComponent<NavMeshAgent>().enabled = true;
+                agent.enabled = true;
                 yield return new WaitForSeconds(InBetweenAttackTime);
             }
         }
 
+        agent.enabled = true;
         attacking = false;
     }
 

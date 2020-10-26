@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a022dbd6f63b6341b99d85489157786, type: 3}
-  m_Name: ThirdPersonTranslate
+  m_Name: HandBossFightTranslate
   m_EditorClassIdentifier: 
   ForwardSpeed: 2
   SideSpeed: 2
-  RunForwardSpeed: 8
-  RunSideSpeed: 8
+  RunForwardSpeed: 4
+  RunSideSpeed: 4
   JumpSpeed: 10
   Gravity: 30
   AnimSpeedMax: 8
   canMove: 1
   canRun: 1
   extraControlled: 0
-  animation: {fileID: 11400000, guid: e6c708b55f2e2c141a48a980d600745d, type: 2}
+  animation: {fileID: 11400000, guid: 3fb8b356868e1c74285ea8e68857c37e, type: 2}
   HorizontalAxis: Horizontal
   VerticalAxis: Vertical
   JumpAxis: Jump
   JumpTrigger: Jump
   JumpDelay: 0.1
-  DodgeTime: 0.25
-  DodgeAmount: 5
+  DodgeTime: 0.15
+  DodgeAmount: 7

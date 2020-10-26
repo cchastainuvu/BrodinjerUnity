@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class CharacterTranslate : ScriptableObject
 {
     public float ForwardSpeed, SideSpeed, RunForwardSpeed, RunSideSpeed, JumpSpeed, Gravity;
+    public float AnimSpeedMax;
     protected float currentForwardSpeed, currentSideSpeed;
     protected float forwardAmount, sideAmount, headingAngle, vSpeed;
     protected Transform Camera;
@@ -18,11 +19,11 @@ public abstract class CharacterTranslate : ScriptableObject
     public string HorizontalAxis = "Horizontal", VerticalAxis = "Vertical", JumpAxis = "Jump";
     protected Animator anim;
 
-    public virtual void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting targetScript, Animator animator)
+    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Targeting targetScript, Animator animator)
     {
         extraControlled = false;
         this.caller = caller;
-        this._cc = _cc;
+        this._cc = charc;
         Camera = camera;
         this.targetScript = targetScript;
         this.anim = animator;

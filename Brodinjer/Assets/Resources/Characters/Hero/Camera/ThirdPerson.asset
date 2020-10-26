@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e29ad067552f3124c8e7c34e6d02ca0c, type: 3}
-  m_Name: PLayer_Movement_Animation
+  m_Script: {fileID: 11500000, guid: 8dbd2fc8487b7a347b20c1e03183c8a6, type: 3}
+  m_Name: ThirdPerson
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  speedFloat: Speed
-  angleFloat: Direction
-  walkTrigger: Walk
-  translate: {fileID: 11400000, guid: efec437756fb58b4da97d3ce670c6df6, type: 2}
+  minCamAngle: -70
+  maxCamAngle: 70
+  rotationSpeed: 15
+  mouseXMultiplier: 3
+  mouseYMultiplier: 2
+  cameraObject: {fileID: 0}

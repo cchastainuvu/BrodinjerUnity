@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dbd2fc8487b7a347b20c1e03183c8a6, type: 3}
-  m_Name: ThirdPerson
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  minCamAngle: -70
-  maxCamAngle: 70
-  rotationSpeed: 25
+  minCamAngle: -80
+  maxCamAngle: 80
+  rotationSpeed: 15
+  mouseXMultiplier: 3
+  mouseYMultiplier: 2
   cameraObject: {fileID: 0}

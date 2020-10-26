@@ -7,7 +7,6 @@ public class Trigger_Enter_Damage : Trigger_Event_Base
     public float Damage;
     public bool DecreasedByArmor;
     public bool damaged;
-    private GameObject triggerCollider;
     public float DamageCoolDown;
 
     private void Start()
@@ -18,7 +17,6 @@ public class Trigger_Enter_Damage : Trigger_Event_Base
 
     private void OnTriggerEnter(Collider other)
     {
-        triggerCollider = other.gameObject;
         if (!damaged && !isRunning)
         {
             StartCoroutine(CheckTrigger(other));

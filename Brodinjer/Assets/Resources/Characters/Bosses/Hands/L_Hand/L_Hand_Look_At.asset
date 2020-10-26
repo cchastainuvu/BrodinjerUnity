@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0076c8cce3abab4abb159054d8d18dc, type: 3}
-  m_Name: Hand_Close_Between
+  m_Script: {fileID: 11500000, guid: be02ed51a2cdf9b4089d05f54f7c1381, type: 3}
+  m_Name: L_Hand_Look_At
   m_EditorClassIdentifier: 
   Speed: 5
   AngularSpeed: 120
-  animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
-  distanceFromFollowObj: 2.5
-  lookAtFollow: 1
-  FollowObjMain: 0
-  offset: 0
+  animation: {fileID: 11400000, guid: 7c9f53c45e2626642aba6e392b5d85ab, type: 2}
+  AlwaysReturn: 1

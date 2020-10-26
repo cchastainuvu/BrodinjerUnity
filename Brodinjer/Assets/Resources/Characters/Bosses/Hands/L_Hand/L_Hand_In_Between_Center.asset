@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0076c8cce3abab4abb159054d8d18dc, type: 3}
   m_Name: L_Hand_In_Between_Center
   m_EditorClassIdentifier: 
-  Speed: 1
-  AngularSpeed: 120
-  animation: {fileID: 11400000, guid: 7c9f53c45e2626642aba6e392b5d85ab, type: 2}
+  Speed: 3
+  AngularSpeed: 360
+  animation: {fileID: 11400000, guid: d03de5337ae91d64a968e3fbca4a9277, type: 2}
   distanceFromFollowObj: 1
   lookAtFollow: 1
   FollowObjMain: 0
+  offset: 0
