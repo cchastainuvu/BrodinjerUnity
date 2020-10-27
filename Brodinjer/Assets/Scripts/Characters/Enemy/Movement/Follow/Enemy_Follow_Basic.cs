@@ -54,6 +54,7 @@ public class Enemy_Follow_Basic : Enemy_Follow_Base
         temp.AngularSpeed = AngularSpeed;
         temp.lookAtFollow = lookAtFollow;
         temp.animation = animation;
+        temp.offset = offset;
         return temp;
     }
 }

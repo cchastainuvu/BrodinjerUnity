@@ -4855,6 +4855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2980683331386526838}
   - component: {fileID: 2980683331386526833}
+  - component: {fileID: 8639700621990165314}
   m_Layer: 13
   m_Name: Malik_Art
   m_TagString: Untagged
@@ -4905,6 +4906,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8639700621990165314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2980683331386526832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29c29d65d9f5b641b3faf972143030b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 2980683331386526833}
+  triggerNames:
+  - Walk
+  - Death
+  - Crouch
+  - Jump
+  - Land
+  - Dodge
 --- !u!1 &2980683331390000647
 GameObject:
   m_ObjectHideFlags: 0
@@ -11421,6 +11442,7 @@ GameObject:
   - component: {fileID: 2980683331506075389}
   - component: {fileID: 2980683331506075379}
   - component: {fileID: 2980683331506075378}
+  - component: {fileID: 1685702894994359675}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -11477,6 +11499,19 @@ MonoBehaviour:
   weaponSprites: []
   wm: {fileID: 2980683331957299735}
   ImagePrefab: {fileID: 2980683332647403015}
+--- !u!114 &1685702894994359675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2980683331506075388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0787f47a482a56f4585b6a974748af73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameCount: 60
 --- !u!1 &2980683331506391588
 GameObject:
   m_ObjectHideFlags: 0
@@ -11944,6 +11979,7 @@ MonoBehaviour:
   playermove: {fileID: 2980683331957299819}
   bowRotate: {fileID: 11400000, guid: d57eaef026b7e844d8094b4726f44676, type: 2}
   numArrows: {fileID: 11400000, guid: 454963e9198155841b25d189b8527923, type: 2}
+  cooldowntime: 0
   AimScript: {fileID: 2980683331541996894}
   CameraSwapTime: 5
   BowEquiped:
@@ -22586,6 +22622,7 @@ Transform:
   - {fileID: 2980683331386526838}
   - {fileID: 2980683331747948383}
   - {fileID: 2980683331478624769}
+  - {fileID: 925190858752360627}
   m_Father: {fileID: 2980683332089707664}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44522,7 +44559,7 @@ MonoBehaviour:
   Damage: 10
   DecreasedByArmor: 1
   damaged: 0
-  DamageCoolDown: 0
+  DamageCoolDown: 0.5
 --- !u!54 &2980683332949919786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -58019,3 +58056,62 @@ Transform:
   m_Father: {fileID: 2980683332368531918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4617617211697119148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 925190858752360627}
+  - component: {fileID: 5562236297207471268}
+  m_Layer: 13
+  m_Name: PlayerUnfreeze
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &925190858752360627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4617617211697119148}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -9.468498, y: -0.61555445, z: 1.156332}
+  m_LocalScale: {x: 0.53895, y: 0.7074797, z: 0.6848976}
+  m_Children: []
+  m_Father: {fileID: 2980683331957299822}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5562236297207471268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4617617211697119148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5e895456a521d4f9a7abc291ce10d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAwake: 0
+  WaitTime: 0.15
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: WeaponUnfreeze
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

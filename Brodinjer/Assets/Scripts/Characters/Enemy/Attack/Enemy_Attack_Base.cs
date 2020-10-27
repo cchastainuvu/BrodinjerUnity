@@ -17,7 +17,7 @@ public abstract class Enemy_Attack_Base : ScriptableObject
     protected GameObject enemyObj;
     public bool attackWhileMoving;
     protected Transform player;
-    public bool canAttack;
+    protected bool canAttack;
 
     public virtual void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
     {
