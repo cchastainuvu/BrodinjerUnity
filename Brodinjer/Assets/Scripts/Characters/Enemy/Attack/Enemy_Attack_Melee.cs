@@ -7,9 +7,9 @@ public class Enemy_Attack_Melee : Enemy_Attack_Base
     public override IEnumerator Attack()
     {
         yield return new WaitForSeconds(AttackStartTime);
-        meleeAttackObj.SetActive(true);
+        WeaponAttackobj.SetActive(true);
         yield return new WaitForSeconds(AttackActiveTime);
-        meleeAttackObj.SetActive(false);
+        WeaponAttackobj.SetActive(false);
         yield return new WaitForSeconds(CoolDownTime);
 
     }
@@ -21,6 +21,8 @@ public class Enemy_Attack_Melee : Enemy_Attack_Base
         temp.CoolDownTime = CoolDownTime;
         temp.DamageAmount = DamageAmount;
         temp.AttackStartTime = AttackStartTime;
+        temp.animations = animations;
+        temp.attackWhileMoving = attackWhileMoving;
         return temp;
     }
 }

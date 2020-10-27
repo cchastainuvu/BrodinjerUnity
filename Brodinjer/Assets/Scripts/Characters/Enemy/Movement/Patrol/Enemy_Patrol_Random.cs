@@ -67,9 +67,9 @@ public class Enemy_Patrol_Random : Enemy_Patrol
 
     }
       
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        base.Init(agent, caller, destinations); 
+        base.Init(agent, caller, destinations, anim); 
         FindMinMax();
         randomVector = enemy.transform.position;
         if(useX)
@@ -112,6 +112,7 @@ public class Enemy_Patrol_Random : Enemy_Patrol
         temp.minChangeDestTime = minChangeDestTime;
         temp.maxChangeDestTime = maxChangeDestTime;
         temp.Speed = Speed;
+        temp.AngularSpeed = AngularSpeed;
         return temp;
     }
 

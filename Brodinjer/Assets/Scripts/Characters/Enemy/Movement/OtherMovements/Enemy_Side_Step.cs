@@ -12,9 +12,9 @@ public class Enemy_Side_Step : Enemy_Movement
     public float minTimeWait, maxTimeWait;
     public bool RotateToPlayer;
 
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller)
+    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Animator anim)
     {
-        base.Init(agent, caller);
+        base.Init(agent, caller, anim);
         right_dest = enemy.transform.position;
         right_dest += enemy.transform.right * sideAmount;
         left_dest = enemy.transform.position;
@@ -50,6 +50,7 @@ public class Enemy_Side_Step : Enemy_Movement
         temp.minTimeWait = minTimeWait;
         temp.maxTimeWait = maxTimeWait;
         temp.Speed = Speed;
+        temp.AngularSpeed = AngularSpeed;
         return temp;
     }
     

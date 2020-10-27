@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ForwardSpeed: 2
   SideSpeed: 2
-  RunForwardSpeed: 5
-  RunSideSpeed: 5
-  JumpSpeed: 5
-  Gravity: 15
-  ForwardAxis: Vertical
-  SideAxis: Horizontal
+  RunForwardSpeed: 8
+  RunSideSpeed: 8
+  JumpSpeed: 10
+  Gravity: 30
+  AnimSpeedMax: 8
   canMove: 1
   canRun: 1
-  animation: {fileID: 11400000, guid: c1dad690abade094ca80e90e1634571b, type: 2}
-  canDodge: 1
-  dodgeTime: 0.1
-  dodgeRecoverTime: 0.1
-  dodgeIncrease: 50
+  extraControlled: 0
+  animation: {fileID: 11400000, guid: e6c708b55f2e2c141a48a980d600745d, type: 2}
+  HorizontalAxis: Horizontal
+  VerticalAxis: Vertical
+  JumpAxis: Jump
+  JumpTrigger: Jump
+  JumpDelay: 0.1
+  DodgeTime: 0.25
+  DodgeAmount: 5
