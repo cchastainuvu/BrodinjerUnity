@@ -9,6 +9,7 @@ public abstract class Animation_Base : ScriptableObject
     protected Transform player;
     protected MonoBehaviour caller;
     protected NavMeshAgent agent;
+    protected ResetTriggers reset;
 
     public void Init(MonoBehaviour caller, Animator anim, Transform player, NavMeshAgent agent)
     {
@@ -16,6 +17,7 @@ public abstract class Animation_Base : ScriptableObject
         this.player = player;
         this.caller = caller;
         this.agent = agent;
+        reset = anim.GetComponent<ResetTriggers>();
     }
     
     public abstract void StartAnimation();

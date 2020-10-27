@@ -25,7 +25,8 @@ public class Enemy_Back_Step : Enemy_Movement
     {
         while (moving)
         {
-            agent.destination = followObj.transform.position + (agent.transform.forward * -distanceAway);
+            if(agent.enabled)
+                agent.destination = followObj.transform.position + (agent.transform.forward * -distanceAway);
             yield return new WaitForFixedUpdate();
         }
     }

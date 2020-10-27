@@ -17,6 +17,8 @@ public class Movement_Animation : Animation_Base
     {
         if (anim != null)
         {
+            if(reset)
+                reset.ResetAllTriggers();
             anim.SetTrigger(walkTrigger);
             while (moving)
             {

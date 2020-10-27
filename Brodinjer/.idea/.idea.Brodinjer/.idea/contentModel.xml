@@ -6,6 +6,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="ActivateRigidbodies.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
@@ -85,6 +86,7 @@
                 <e p="Follow" t="Include">
                   <e p="Enemy_Follow_Base.cs" t="Include" />
                   <e p="Enemy_Follow_Basic.cs" t="Include" />
+                  <e p="Enemy_Follow_Distance.cs" t="Include" />
                   <e p="Enemy_Look_At_Basic.cs" t="Include" />
                 </e>
                 <e p="Idle" t="Include">
@@ -190,6 +192,7 @@
             <e p="WeaponSwap.cs" t="Include" />
           </e>
           <e p="MasterGameScripts" t="Include">
+            <e p="FrameRateControl.cs" t="Include" />
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />
           </e>

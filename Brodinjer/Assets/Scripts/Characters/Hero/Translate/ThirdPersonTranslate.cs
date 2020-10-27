@@ -15,6 +15,7 @@ public class ThirdPersonTranslate : CharacterTranslate
     private bool dodging = false;
     public float DodgeTime, DodgeAmount;
     private Vector3 DodgeDirection;
+
     
     
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
@@ -27,6 +28,7 @@ public class ThirdPersonTranslate : CharacterTranslate
         _moveVec = Vector3.zero;
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
+        
     }
 
 
@@ -130,6 +132,8 @@ public class ThirdPersonTranslate : CharacterTranslate
                 else
                 {
                     jumping = true;
+                    if(reset)
+                        reset.ResetAllTriggers();
                     anim.SetTrigger(JumpTrigger);
                     currentTime = 0;
                     while (currentTime < JumpDelay)
@@ -149,6 +153,8 @@ public class ThirdPersonTranslate : CharacterTranslate
                 {
                     falling = false;
                     jumping = false;
+                    if(reset)
+                        reset.ResetAllTriggers();
                     anim.SetTrigger("Land");
                     anim.SetBool("Fall", false);
                 }
@@ -159,6 +165,8 @@ public class ThirdPersonTranslate : CharacterTranslate
             if (!jumping && !falling)
             {
                 falling = true;
+                if(reset)
+                    reset.ResetAllTriggers();
                 anim.SetBool("Fall", true);
             }
         }

@@ -18,6 +18,7 @@ public abstract class CharacterTranslate : ScriptableObject
     protected MonoBehaviour caller;
     public string HorizontalAxis = "Horizontal", VerticalAxis = "Vertical", JumpAxis = "Jump";
     protected Animator anim;
+    protected ResetTriggers reset;
 
     public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Targeting targetScript, Animator animator)
     {
@@ -27,6 +28,7 @@ public abstract class CharacterTranslate : ScriptableObject
         Camera = camera;
         this.targetScript = targetScript;
         this.anim = animator;
+        reset = anim.GetComponent<ResetTriggers>();
         if(animation!= null)
             animation.Init(caller, animator, _cc.transform, null);
     }

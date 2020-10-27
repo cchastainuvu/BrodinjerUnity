@@ -11,6 +11,7 @@ public class KnockBack_NavMesh : MonoBehaviour
     private Rigidbody enemyRB;
     private Enemy_Manager enemyManager;
     public Transform BaseObj;
+    private Timed_Event Reset;
 
     private void Start()
     {
@@ -34,6 +35,10 @@ public class KnockBack_NavMesh : MonoBehaviour
             difference.y = 0;
             difference = difference.normalized * thrust;
             enemyRB.AddForce(difference, ForceMode.Impulse);
+            if ((Reset = other.GetComponent<Timed_Event>()) != null)
+            {
+                Reset.Call();
+            }
             StartCoroutine(KnockCo(enemyRB, enemyManager));
         }
 
