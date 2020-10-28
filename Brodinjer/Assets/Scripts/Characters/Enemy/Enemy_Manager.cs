@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy_Manager : MonoBehaviour
 {
     public Enemy_Movement Movement_Version;
     private Enemy_Movement _movementTemp;
     
     public List<Transform> Destinations;
-    [HideInInspector]
-    public NavMeshAgent agent;
 
     public GameObject WeaponObj;
     public Enemy_Attack_Base Attack;
@@ -22,14 +19,15 @@ public class Enemy_Manager : MonoBehaviour
 
     private bool canAttack;
     private bool canMove;
+    private bool paused;
 
     public bool AwakeOnStart = true;
 
     private void Start()
     {
+        paused = false;
         canAttack = true;
         canMove = true;
-        agent = GetComponent<NavMeshAgent>();
         Init();
         if(AwakeOnStart)
             StartMove();
@@ -44,6 +42,7 @@ public class Enemy_Manager : MonoBehaviour
 
     public void deactivateAttack()
     {
+        Attack.DeactivateAttack();
         canAttack = false;
         StopAttack();
     }
@@ -56,6 +55,7 @@ public class Enemy_Manager : MonoBehaviour
 
     public void activateAttack()
     {
+        Attack.ActivateAttack();
         canAttack = true;
     }
 
@@ -71,7 +71,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         _movementTemp = Movement_Version.GetClone();
         Movement_Version = _movementTemp;
-        Movement_Version.Init(agent, this, Player, Destinations, animator);
+        Movement_Version.Init(gameObject, this, Player, Destinations, animator);
     }
 
     public void InitAttack()
@@ -134,7 +134,11 @@ public class Enemy_Manager : MonoBehaviour
         {
             if (Attack != null && !Attack.attackWhileMoving)
             {
-                StartCoroutine(PauseMove());
+                if (!paused)
+                {
+                    paused = true;
+                    StartCoroutine(PauseMove());
+                }
             }
 
             Attack.StartAttack();
@@ -150,6 +154,8 @@ public class Enemy_Manager : MonoBehaviour
                                             Attack.AttackActiveTime + Attack.AttackStartTime);
             Movement_Version.StartMove();
         }
+
+        paused = false;
     }
 
     #endregion

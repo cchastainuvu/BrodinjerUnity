@@ -9,8 +9,9 @@ public class KnockBack_NavMesh : MonoBehaviour
     public float knockTime; //time
     private Vector3 difference;
     private Rigidbody enemyRB;
-    private Enemy_Manager enemyManager;
+    private NavMesh_Enemy_Base enemyManager;
     public Transform BaseObj;
+    private Timed_Event Reset;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class KnockBack_NavMesh : MonoBehaviour
         enemyRB = other.GetComponent<Rigidbody>();
         if (enemyRB != null)
         {
-            enemyManager = other.GetComponent<Enemy_Manager>();
+            enemyManager = other.GetComponent<NavMesh_Enemy_Base>();
             if (enemyManager != null)
             {
                 enemyManager.agent.enabled = false;
@@ -34,12 +35,16 @@ public class KnockBack_NavMesh : MonoBehaviour
             difference.y = 0;
             difference = difference.normalized * thrust;
             enemyRB.AddForce(difference, ForceMode.Impulse);
+            if ((Reset = other.GetComponent<Timed_Event>()) != null)
+            {
+                Reset.Call();
+            }
             StartCoroutine(KnockCo(enemyRB, enemyManager));
         }
 
     }
 
-    private IEnumerator KnockCo(Rigidbody enemy, Enemy_Manager Manager = null)
+    private IEnumerator KnockCo(Rigidbody enemy, NavMesh_Enemy_Base Manager = null)
     {
         if(enemy != null)
         {

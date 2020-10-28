@@ -9,28 +9,25 @@ public abstract class Enemy_Movement : ScriptableObject
     public float Speed;
     public float AngularSpeed = 120;
     protected bool moving;
-    protected NavMeshAgent agent;
-    private Coroutine moveFunc;
-    protected bool idle;
-    protected List<Transform> destinations;
-    protected Transform enemy;
-    protected MonoBehaviour caller;
+    protected GameObject enemy;
     protected Transform followObj;
-    private bool canMove;
+    protected bool idle;
     public Animation_Base animation;
+    protected MonoBehaviour caller;
+    protected List<Transform> destinations;
+    protected Coroutine moveFunc;
+    protected bool canMove;
+    protected readonly WaitForFixedUpdate fixedUpdate= new WaitForFixedUpdate();
 
     //Basic Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Animator anim)
+    protected virtual void Init(GameObject enemy, MonoBehaviour caller, Animator anim)
     {
         canMove = true;
-        this.agent = agent;
-        this.agent.speed = 0;
-        this.agent.angularSpeed = AngularSpeed;
-        enemy = agent.transform;
+        this.enemy = enemy;
         this.caller = caller;
         if (animation != null)
         {
-            animation.Init(caller, anim, followObj, agent);
+            animation.Init(caller, anim, followObj, null);
         }
     }
 
@@ -46,26 +43,26 @@ public abstract class Enemy_Movement : ScriptableObject
     }
     
     //Patrol Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected virtual void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        Init(agent, caller, anim);
+        Init(enemy, caller, anim);
         this.destinations = destinations;
     }
     
     //Follow Init
-    protected virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
+    protected virtual void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
-        Init(agent, caller, anim);
+        Init(enemy, caller, anim);
         this.followObj = FollowObj;
     }
     
     //Usable Init
-    public virtual void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj,
+    public virtual void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj,
         List<Transform> destinations, Animator anim)
     {
-        Init(agent, caller, anim);
-        Init(agent, caller, FollowObj, anim);
-        Init(agent, caller, destinations, anim);
+        Init(enemy, caller, anim);
+        Init(enemy, caller, FollowObj, anim);
+        Init(enemy, caller, destinations, anim);
     }
     
 
@@ -73,7 +70,6 @@ public abstract class Enemy_Movement : ScriptableObject
     {
         if (canMove)
         {
-            agent.speed = Speed;
             moving = true;
             moveFunc = caller.StartCoroutine(Move());
             if(animation)
@@ -90,7 +86,6 @@ public abstract class Enemy_Movement : ScriptableObject
 
     public virtual void StopMove()
     {
-        agent.speed = 0;
         moving = false;
         if (moveFunc != null)
         {

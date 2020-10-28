@@ -6,53 +6,44 @@ public class ThirdPersonTranslate : CharacterTranslate
 {
     
     private Vector3 _moveVec, _jumpVec;
-    public bool canDodge;
-    public float dodgeTime, dodgeRecoverTime, dodgeIncrease;
-    private bool dodging, sprinting, decreasing;
+    private bool invoking, jumping, falling;
     private float currentTime;
-    public float acceleration, deceleration;
+    public string JumpTrigger;
+    public float JumpDelay;
+    private readonly WaitForFixedUpdate fixedUpdate = new WaitForFixedUpdate();
 
+    private bool dodging = false;
+    public float DodgeTime, DodgeAmount;
+    private Vector3 DodgeDirection;
+
+    
+    
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
     {
+        base.Init(caller, _cc, camera, target, animator);
+        invoking = false;
+        falling = false;
         dodging = false;
-        sprinting = false;
+        jumping = false;
         _moveVec = Vector3.zero;
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
-        base.Init(caller, _cc, camera, target, animator);
+        
     }
 
 
     public override IEnumerator Move()
     {
-            animation.StartAnimation();
+        animation.StartAnimation();
         while (canMove)
         {
-            Invoke();
-            if (dodging)
+            if (!invoking && canMove)
             {
-                currentTime = dodgeTime;
-                while (currentTime > 0)
-                {
-                    canMove = false;
-                    _moveVec = Camera.forward.normalized * dodgeIncrease * Input.GetAxisRaw("Vertical") +
-                               Camera.right.normalized * dodgeIncrease * Input.GetAxis("Horizontal");
-                    _moveVec.y = 0;
-                    _cc.Move(_moveVec * Time.deltaTime);
-                    currentTime -= Time.deltaTime;
-                    yield return new WaitForFixedUpdate();
-                }
+                invoking = true;
+                caller.StartCoroutine(Invoke());
+            }
 
-                yield return new WaitForSeconds(dodgeRecoverTime);
-                dodging = false;
-                canMove = true;
-            }
-            else if (canMove)
-            {
-                sideAmount = Input.GetAxis(SideAxis);
-                forwardAmount = Input.GetAxis(ForwardAxis);
-            }
-            else
+            if (!canMove)
             {
                 vSpeed -= Gravity * Time.deltaTime;
                 _moveVec = Vector3.zero;
@@ -60,7 +51,7 @@ public class ThirdPersonTranslate : CharacterTranslate
                 _cc.Move(_moveVec * Time.deltaTime);
             }
 
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
 
     }
@@ -73,21 +64,13 @@ public class ThirdPersonTranslate : CharacterTranslate
             {
                 if (Input.GetButton("Sprint"))
                 {
-                    if (!sprinting && currentForwardSpeed < RunForwardSpeed)
-                    {
-                        decreasing = false;
-                        sprinting = true;
-                        caller.StartCoroutine(IncreaseSpeed(RunForwardSpeed));
-                    }
+                    currentForwardSpeed = RunForwardSpeed;
+                    currentSideSpeed = RunSideSpeed;
                 }
                 else
                 {
-                    sprinting = false;
-                    if (currentForwardSpeed > ForwardSpeed && !decreasing)
-                    {
-                        decreasing = true;
-                        caller.StartCoroutine(DecreaseSpeed(ForwardSpeed));
-                    }
+                    currentForwardSpeed = ForwardSpeed;
+                    currentSideSpeed = SideSpeed;
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -120,59 +103,78 @@ public class ThirdPersonTranslate : CharacterTranslate
 
     public override float getSpeed()
     {
-        return ConvertRange(0, ForwardSpeed, 0, 1, _cc.velocity.magnitude);
+        return ConvertRange(0, AnimSpeedMax, 0, 1, _cc.velocity.magnitude);
     }
 
-    public virtual void Invoke()
+    public virtual IEnumerator Invoke()
     {
-        _moveVec = Camera.forward.normalized * currentForwardSpeed * Input.GetAxis("Vertical") +
-                   Camera.right.normalized * currentSideSpeed * Input.GetAxis("Horizontal");
+        _moveVec = Camera.forward * currentForwardSpeed * Input.GetAxis("Vertical") +
+                   Camera.right * currentSideSpeed * Input.GetAxis("Horizontal");
         _moveVec.y = 0;
         if (_cc.isGrounded) {
             vSpeed = -10;
-            if (Input.GetButtonDown ("Jump") && (!canDodge  || (canDodge && !targetScript.targeting))) {
-                vSpeed = JumpSpeed;
-            }
-            else if (canDodge && Input.GetButtonDown ("Jump") && targetScript.targeting && (Input.GetButton("Vertical") || Input.GetButton("Horizontal")))
-            {
-                Debug.Log("Dodge");
-                if (!dodging)
+            if (!jumping && !falling && (Input.GetButtonDown ("Jump"))) {
+                if (!dodging && targetScript.targeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
+                {
                     dodging = true;
+                    DodgeDirection = _cc.transform.forward*Input.GetAxisRaw(VerticalAxis) + _cc.transform.right*Input.GetAxisRaw(HorizontalAxis);
+                    currentTime = 0;
+                    while (currentTime < DodgeTime)
+                    {
+                        _moveVec = DodgeDirection * DodgeAmount;
+                        _moveVec.y = 0;
+                        _cc.Move(_moveVec * Time.deltaTime);
+                        currentTime += Time.deltaTime;
+                        yield return fixedUpdate;
+                    }
+                    dodging = false;
+                }
+                else
+                {
+                    jumping = true;
+                    if(reset)
+                        reset.ResetAllTriggers();
+                    anim.SetTrigger(JumpTrigger);
+                    currentTime = 0;
+                    while (currentTime < JumpDelay)
+                    {
+                        vSpeed -= Gravity * Time.deltaTime;
+                        _moveVec.y = vSpeed;
+                        _cc.Move(_moveVec * Time.deltaTime);
+                        currentTime += Time.deltaTime;
+                        yield return fixedUpdate;
+                    }
+                    vSpeed = JumpSpeed;
+                }
+            }
+            else
+            {
+                if ((jumping || falling || anim.GetBool("Fall")))
+                {
+                    falling = false;
+                    jumping = false;
+                    if(reset)
+                        reset.ResetAllTriggers();
+                    anim.SetTrigger("Land");
+                    anim.SetBool("Fall", false);
+                }
+            }
+        }
+        else
+        {
+            if (!jumping && !falling)
+            {
+                falling = true;
+                if(reset)
+                    reset.ResetAllTriggers();
+                anim.SetBool("Fall", true);
             }
         }
         vSpeed -= Gravity * Time.deltaTime;
         _moveVec.y = vSpeed;
         _cc.Move(_moveVec * Time.deltaTime);
-    }
-
-    private IEnumerator IncreaseSpeed(float maxSpeed)
-    {
-        while (canMove && canRun && Input.GetButton("Sprint") && currentForwardSpeed <maxSpeed && sprinting)
-        {
-            currentForwardSpeed += Time.deltaTime*acceleration;
-            if (currentForwardSpeed > maxSpeed)
-            {
-                currentForwardSpeed = maxSpeed;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-
-        sprinting = false;
-    }
-
-    private IEnumerator DecreaseSpeed(float minSpeed)
-    {
-        while (currentForwardSpeed > minSpeed && decreasing)
-        {
-            currentForwardSpeed -= Time.deltaTime*deceleration;
-            if (currentForwardSpeed < minSpeed)
-            {
-                currentForwardSpeed = minSpeed;
-            }
-            yield return new WaitForFixedUpdate();
-        }
-
-        decreasing = false;
+        invoking = false;
+        yield return null;
     }
 
 }

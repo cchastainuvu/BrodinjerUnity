@@ -1,28 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 public abstract class CharacterTranslate : ScriptableObject
 {
     public float ForwardSpeed, SideSpeed, RunForwardSpeed, RunSideSpeed, JumpSpeed, Gravity;
+    public float AnimSpeedMax;
     protected float currentForwardSpeed, currentSideSpeed;
     protected float forwardAmount, sideAmount, headingAngle, vSpeed;
-    public string ForwardAxis, SideAxis;
     protected Transform Camera;
     protected CharacterController _cc;
     [HideInInspector]
-    public bool canMove, canRun;
+    public bool canMove, canRun, extraControlled;
     private Coroutine moveFunc, runFunc;
     protected Targeting targetScript;
     public Animation_Base animation;
     protected MonoBehaviour caller;
+    public string HorizontalAxis = "Horizontal", VerticalAxis = "Vertical", JumpAxis = "Jump";
+    protected Animator anim;
+    protected ResetTriggers reset;
 
-
-    public virtual void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting targetScript, Animator animator)
+    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Targeting targetScript, Animator animator)
     {
+        extraControlled = false;
         this.caller = caller;
-        this._cc = _cc;
+        this._cc = charc;
         Camera = camera;
         this.targetScript = targetScript;
+        this.anim = animator;
+        reset = anim.GetComponent<ResetTriggers>();
         if(animation!= null)
             animation.Init(caller, animator, _cc.transform, null);
     }
@@ -40,6 +46,8 @@ public abstract class CharacterTranslate : ScriptableObject
     {
         return (value - origMinRange) * (newMaxRange - newMinRange) / (origMaxRange - origMinRange) + newMinRange;
     }
+
+    //public abstract void Invoke(float forwardSpeed, float sideSpeed, bool jump);
 
 
 }

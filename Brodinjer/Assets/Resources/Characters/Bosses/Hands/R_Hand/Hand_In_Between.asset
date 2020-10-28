@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Hand_In_Between
   m_EditorClassIdentifier: 
   Speed: 2
-  AngularSpeed: 360
+  AngularSpeed: 120
   animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
-  distanceFromFollowObj: 3
+  distanceFromFollowObj: 1.75
   lookAtFollow: 1
   FollowObjMain: 1
+  offset: 1

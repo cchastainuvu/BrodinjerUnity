@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public static class GeneralFunctions
@@ -25,5 +26,19 @@ public static class GeneralFunctions
             angle = -angle;
         }
         return angle;
+    }
+
+    public static bool CheckDestination(Vector3 Dest01, Vector3 Dest02, float offset)
+    {
+        if ((Dest01.x >= Dest02.x - offset
+              && Dest01.x <= Dest02.x + offset)
+            &&(Dest01.y >= Dest02.y - offset
+                 && Dest01.y <= Dest02.y + offset)
+            &&(Dest01.z >= Dest02.z - offset
+                 && Dest01.z <= Dest02.z + offset))
+        {
+            return true;
+        }
+        return false;
     }
 }
