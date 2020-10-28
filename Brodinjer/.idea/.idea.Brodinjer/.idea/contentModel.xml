@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Owner\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_Brodinjer.1928804374.00" t="ExcludeRecursive" />
-    <e p="E:\School\College\Fall2020\Senior Projects\Unity\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+    <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Brodinjer.-703266619.00" t="ExcludeRecursive" />
+    <e p="E:\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="ActivateRigidbodies.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
@@ -35,6 +37,11 @@
         <e p="Scripts" t="Include">
           <e p="Characters" t="Include">
             <e p="Common" t="Include">
+              <e p="Animations" t="Include">
+                <e p="Animation_Basic_Attack.cs" t="Include" />
+                <e p="Animation_Directional_Attack.cs" t="Include" />
+                <e p="Animation_Movement.cs" t="Include" />
+              </e>
               <e p="Character_Base.cs" t="Include" />
               <e p="Character_Manager.cs" t="Include" />
               <e p="Death" t="Include">
@@ -55,10 +62,10 @@
               <e p="Bosses" t="Include">
                 <e p="Hand" t="Include">
                   <e p="Freeze_Magic.cs" t="Include" />
-                  <e p="Hand_Animation.cs" t="Include" />
                   <e p="Hand_Block_Attack.cs" t="Include" />
                   <e p="Hand_In_Between.cs" t="Include" />
                   <e p="Hand_Jump_Attack.cs" t="Include" />
+                  <e p="Hand_Jump_knockback.cs" t="Include" />
                   <e p="Hand_Magic_Attack.cs" t="Include" />
                 </e>
                 <e p="RibCage" t="Include">
@@ -80,6 +87,7 @@
                 <e p="Follow" t="Include">
                   <e p="Enemy_Follow_Base.cs" t="Include" />
                   <e p="Enemy_Follow_Basic.cs" t="Include" />
+                  <e p="Enemy_Follow_Distance.cs" t="Include" />
                   <e p="Enemy_Look_At_Basic.cs" t="Include" />
                 </e>
                 <e p="Idle" t="Include">
@@ -164,6 +172,7 @@
             </e>
           </e>
           <e p="Data" t="Include">
+            <e p="BoolData.cs" t="Include" />
             <e p="DebugObject.cs" t="Include" />
             <e p="FloatData.cs" t="Include" />
             <e p="IntData.cs" t="Include" />
@@ -184,12 +193,16 @@
             <e p="WeaponSwap.cs" t="Include" />
           </e>
           <e p="MasterGameScripts" t="Include">
+            <e p="FrameRateControl.cs" t="Include" />
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />
           </e>
+          <e p="Props" t="Include">
+            <e p="Float_Pickup.cs" t="Include" />
+            <e p="Int_Pickup.cs" t="Include" />
+            <e p="PickUp_Base.cs" t="Include" />
+          </e>
           <e p="SimpleGameScripts" t="Include">
-            <e p="BoolData.cs" t="Include" />
-            <e p="Center_Screen.cs" t="Include" />
             <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">
               <e p="Collision_Enter_Event.cs" t="Include" />
@@ -198,20 +211,31 @@
               <e p="Collision_Stay_Event.cs" t="Include" />
             </e>
             <e p="Destroy_Object_Timed.cs" t="Include" />
+            <e p="DirectionalHit.cs" t="Include" />
             <e p="Events" t="Include">
               <e p="Awake_Event.cs" t="Include" />
               <e p="Distance_Event.cs" t="Include" />
               <e p="If_Else_Event.cs" t="Include" />
+              <e p="Interaction_Trigger_Event.cs" t="Include" />
+              <e p="PS_Callback.cs" t="Include" />
               <e p="Random_Timed_Event.cs" t="Include" />
               <e p="Start_Event.cs" t="Include" />
               <e p="Timed_Event.cs" t="Include" />
               <e p="Unity_Event_Holder.cs" t="Include" />
             </e>
-            <e p="Follow_Object.cs" t="Include" />
-            <e p="Follow_Rotate.cs" t="Include" />
-            <e p="Look_At_Script.cs" t="Include" />
-            <e p="PS_Callback.cs" t="Include" />
+            <e p="MeshColliderUpdate" t="Include">
+              <e p="UpdateMeshCollider.cs" t="Include" />
+              <e p="VertexWeight.cs" t="Include" />
+              <e p="WeightList.cs" t="Include" />
+            </e>
+            <e p="ResetTriggers.cs" t="Include" />
             <e p="Toggle_Active.cs" t="Include" />
+            <e p="TransformationScripts" t="Include">
+              <e p="Center_Screen.cs" t="Include" />
+              <e p="Follow_Object.cs" t="Include" />
+              <e p="Follow_Rotate.cs" t="Include" />
+              <e p="Look_At_Script.cs" t="Include" />
+            </e>
             <e p="TriggerEvents" t="Include">
               <e p="Trigger_Enter_Damage.cs" t="Include" />
               <e p="Trigger_Enter_Event.cs" t="Include" />
@@ -221,7 +245,6 @@
             </e>
           </e>
           <e p="Tests" t="Include">
-            <e p="DirectionalHit.cs" t="Include" />
             <e p="GetDirection.cs" t="Include" />
             <e p="KeyPressEvent.cs" t="Include" />
             <e p="NavmeshTest.cs" t="Include" />
@@ -270,16 +293,19 @@
             <e p="EmojiOne Attribution.txt" t="Include" />
           </e>
         </e>
+        <e p="TreeTest" t="Include">
+          <e p="Billboard" t="Include">
+            <e p="TreeBillboardAsset.cs" t="Include" />
+          </e>
+          <e p="DiffuseShakeUpdated.shader" t="Include" />
+        </e>
       </e>
       <e p="Brodinjer.sln" t="IncludeFlat" />
-      <e p="Library" t="ExcludeRecursive" />
       <e p="NavMeshComponents.csproj" t="IncludeRecursive" />
       <e p="NavMeshComponentsEditor.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp" t="ExcludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-      </e>
+      <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
   </component>
 </project>

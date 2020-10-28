@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Patrol/Timed")]
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Timed")]
 public class Enemy_Patrol_Timed : Enemy_Patrol
 {
     public float MinTime, MaxTime;
     private float timeleft;
     public bool PingPongMovement;
     
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected override void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        base.Init(agent, caller, destinations, anim);
+        base.Init(enemy, caller, destinations, anim);
         if (destinations.Count > 0)
         {
             agent.destination = destinations[0].position;
@@ -67,7 +67,7 @@ public class Enemy_Patrol_Timed : Enemy_Patrol
         {
             agent.speed = 0;
             idle = true;
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
         else
         {

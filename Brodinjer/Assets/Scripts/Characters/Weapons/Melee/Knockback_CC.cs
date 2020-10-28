@@ -5,17 +5,16 @@ using UnityEngine.Events;
 
 public class Knockback_CC : MonoBehaviour
 {
-
     public float thrust; //force
     public float knockTime; //time
-    private Vector3 difference;
-    private CharacterController _cc;
+    protected Vector3 difference;
+    protected CharacterController _cc;
     public Transform BaseObj;
-    private bool running;
-    private float currentTime;
+    protected bool running;
+    protected float currentTime;
     public UnityEvent onKnockback;
 
-    private void Start()
+    protected virtual void Start()
     {
         if (BaseObj == null)
         {
@@ -25,7 +24,7 @@ public class Knockback_CC : MonoBehaviour
         running = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         _cc = other.GetComponent<CharacterController>();
         if (_cc == null)
@@ -41,7 +40,7 @@ public class Knockback_CC : MonoBehaviour
 
     }
 
-    private IEnumerator KnockCo(CharacterController character, Vector3 impact)
+    protected virtual IEnumerator KnockCo(CharacterController character, Vector3 impact)
     {
         running = true;
         if (character != null)

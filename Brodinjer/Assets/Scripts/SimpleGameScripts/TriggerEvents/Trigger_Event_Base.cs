@@ -16,7 +16,9 @@ public abstract class Trigger_Event_Base : MonoBehaviour
     public string tagName;
 
     public bool active = true;
-    protected bool isRunning;
+    public bool isRunning;
+
+    protected GameObject triggerCollider;
 
     private void Start()
     {
@@ -31,6 +33,7 @@ public abstract class Trigger_Event_Base : MonoBehaviour
             case Check.Layer:
                 if (coll.gameObject.layer == ToLayer(layer.value))
                 {
+                    triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
                 }
@@ -38,6 +41,7 @@ public abstract class Trigger_Event_Base : MonoBehaviour
             case Check.Name:
                 if (coll.gameObject.name.Contains(objName))
                 {
+                    triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
                 }
@@ -47,6 +51,7 @@ public abstract class Trigger_Event_Base : MonoBehaviour
                 if (coll.gameObject.CompareTag(tagName))
                 {
                     //Debug.Log("Correct Tag");
+                    triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
                 }

@@ -39,7 +39,8 @@ internal class AdjustHeights : ScriptableWizard
     {
         if (!_terrainData) return;
  
-        Undo.RegisterUndo(_terrainData, "Adjust Heights");
+       // Undo.RegisterUndo(_terrainData, "Adjust Heights");
+        Undo.RegisterCompleteObjectUndo(_terrainData, "Adjust Heights");
  
         float[,] heights = _terrainData.GetHeights(0, 0, _terrainData.heightmapResolution, _terrainData.heightmapResolution);
  

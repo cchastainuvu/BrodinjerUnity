@@ -17,6 +17,7 @@ public abstract class Enemy_Attack_Base : ScriptableObject
     protected GameObject enemyObj;
     public bool attackWhileMoving;
     protected Transform player;
+    protected bool canAttack;
 
     public virtual void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
     {
@@ -25,14 +26,29 @@ public abstract class Enemy_Attack_Base : ScriptableObject
         WeaponAttackobj = MeleeAttack;
         this.enemyObj = enemy;
         attacking = false;
+        canAttack = true;
         if(animations != null)
             animations.Init(caller, animator, player, enemy.GetComponent<NavMeshAgent>());
     }
 
+    public void ActivateAttack()
+    {
+        canAttack = true;
+    }
+
+    public void DeactivateAttack()
+    {
+        canAttack = false;
+        StopAttack();
+    }
+
     public virtual void StartAttack()
     {
-        attacking = true;
-        attackFunc = caller.StartCoroutine(Attack());
+        if (canAttack)
+        {
+            attacking = true;
+            attackFunc = caller.StartCoroutine(Attack());
+        }
     }
     
     public abstract IEnumerator Attack();

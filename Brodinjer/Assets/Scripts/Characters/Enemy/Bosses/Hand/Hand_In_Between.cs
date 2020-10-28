@@ -7,9 +7,10 @@ public class Hand_In_Between : Enemy_Follow_Base
     public float distanceFromFollowObj;
     public bool lookAtFollow;
     private Quaternion facingDirection;
-    private Vector3 followDest;
+    private Vector3 followDest, lookDirection;
     public bool FollowObjMain;
-    
+    private Vector3 target;
+    public float offset;
     
     public override IEnumerator Move()
     {
@@ -17,12 +18,22 @@ public class Hand_In_Between : Enemy_Follow_Base
         while (moving)
         {
             agent.updateRotation = true;
-            if (lookAtFollow)
+            if (lookAtFollow && moving)
             {
-                agent.updateRotation = false;
-                facingDirection = Quaternion.LookRotation((followObj.transform.position - agent.transform.position).normalized);
-                agent.transform.rotation =
-                Quaternion.Lerp(agent.transform.rotation, facingDirection, AngularSpeed * Time.deltaTime);
+                target = followObj.transform.position;
+                target = (target - agent.transform.position).normalized;
+                facingDirection = Quaternion.LookRotation(target);
+                Quaternion YRotation = Quaternion.Euler(agent.transform.rotation.eulerAngles.x,
+                    facingDirection.eulerAngles.y, agent.transform.rotation.eulerAngles.z);
+                if (!GeneralFunctions.CheckDestination(agent.transform.rotation.eulerAngles,
+                    YRotation.eulerAngles, offset))
+                {
+                    /*Quaternion YRotation = Quaternion.Euler(((lookatX) ? facingDirection.eulerAngles.x :agent.transform.rotation.eulerAngles.x), 
+                        ((lookatY) ? facingDirection.eulerAngles.y :agent.transform.rotation.eulerAngles.y), 
+                        ((lookatZ) ? facingDirection.eulerAngles.z :agent.transform.rotation.eulerAngles.z));*/
+                    agent.transform.rotation =
+                        Quaternion.Lerp(agent.transform.rotation, YRotation, AngularSpeed * Time.deltaTime);
+                }
             }
 
             if (FollowObjMain)
