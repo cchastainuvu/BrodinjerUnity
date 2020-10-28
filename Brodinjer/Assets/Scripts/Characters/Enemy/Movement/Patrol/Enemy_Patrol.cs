@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy_Patrol : Enemy_Movement
+public abstract class Enemy_Patrol : NavMesh_Enemy_Base
 {
     protected bool positive = true;
     public float minChangeDestTime, maxChangeDestTime;

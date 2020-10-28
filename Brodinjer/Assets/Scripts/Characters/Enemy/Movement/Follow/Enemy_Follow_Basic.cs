@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Follow/Basic")]
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Follow/Basic")]
 public class Enemy_Follow_Basic : Enemy_Follow_Base
 {
     public bool lookAtFollow;
@@ -42,7 +42,7 @@ public class Enemy_Follow_Basic : Enemy_Follow_Base
                 agent.destination = followObj.transform.position;
             }
 
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
         animation.StopAnimation();
     }
