@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/SideStep")]
-public class Enemy_Side_Step : Enemy_Movement
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/SideStep")]
+public class Enemy_Side_Step : NavMesh_Enemy_Base
 {
     public float sideAmount;
     public float DestinationOffset;
@@ -12,9 +12,9 @@ public class Enemy_Side_Step : Enemy_Movement
     public float minTimeWait, maxTimeWait;
     public bool RotateToPlayer;
 
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Animator anim)
+    protected override void Init(GameObject enemy, MonoBehaviour caller, Animator anim)
     {
-        base.Init(agent, caller, anim);
+        base.Init(enemy, caller, anim);
         right_dest = enemy.transform.position;
         right_dest += enemy.transform.right * sideAmount;
         left_dest = enemy.transform.position;

@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
-[RequireComponent(typeof(NavMeshAgent))]
 public class Enemy_Manager : MonoBehaviour
 {
     public Enemy_Movement Movement_Version;
     private Enemy_Movement _movementTemp;
     
     public List<Transform> Destinations;
-    [HideInInspector]
-    public NavMeshAgent agent;
 
     public GameObject WeaponObj;
     public Enemy_Attack_Base Attack;
@@ -31,7 +28,6 @@ public class Enemy_Manager : MonoBehaviour
         paused = false;
         canAttack = true;
         canMove = true;
-        agent = GetComponent<NavMeshAgent>();
         Init();
         if(AwakeOnStart)
             StartMove();
@@ -75,7 +71,7 @@ public class Enemy_Manager : MonoBehaviour
     {
         _movementTemp = Movement_Version.GetClone();
         Movement_Version = _movementTemp;
-        Movement_Version.Init(agent, this, Player, Destinations, animator);
+        Movement_Version.Init(gameObject, this, Player, Destinations, animator);
     }
 
     public void InitAttack()

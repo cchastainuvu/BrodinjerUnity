@@ -61,11 +61,11 @@ public class Rib_Cage_Cieling_Walk : Enemy_Follow_Base
         return temp;
     }
 
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
+    protected override void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
         climbing = false;
         currentPos = StartPosition;
-        base.Init(agent, caller, FollowObj, anim);
+        base.Init(enemy, caller, FollowObj, anim);
         _rigidbody = agent.GetComponent<Rigidbody>();
         if (_rigidbody == null)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Follow/Distance")]
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Follow/Distance")]
 
 public class Enemy_Follow_Distance : Enemy_Follow_Base
 {
@@ -13,6 +13,7 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
     
     public override IEnumerator Move()
     {
+        agent.speed = Speed;
         agent.updateRotation = true;
         agent.updatePosition = true;
         if (lookAtFollow)
@@ -42,7 +43,7 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
                 agent.destination = destinationTarget;
             }
 
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
         animation.StopAnimation();
     }

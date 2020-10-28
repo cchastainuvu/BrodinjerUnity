@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Events;
-using Vector3 = UnityEngine.Vector3;
+using Random = UnityEngine.Random;
 
 public class Distance_Event : MonoBehaviour
 {
     public UnityEvent EnterDistanceEvent, ExitDistanceEvent;
     public float minDistance, maxDistance;
-    public float waitTime, timeInDistance;
+    public float waitTimeMin, waitTimeMax, timeInDistance;
     private bool checking;
     private bool inDistance;
     public Transform checkObj;
@@ -60,7 +58,7 @@ public class Distance_Event : MonoBehaviour
 
     private IEnumerator EnterDistance()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(Random.Range(waitTimeMin, waitTimeMax));
         EnterDistanceEvent.Invoke();
     }
 
@@ -69,7 +67,7 @@ public class Distance_Event : MonoBehaviour
         yield return new WaitForSeconds(timeInDistance);
         if (inDistance)
         {
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(Random.Range(waitTimeMin, waitTimeMax));
             ExitDistanceEvent.Invoke();
         }
     }

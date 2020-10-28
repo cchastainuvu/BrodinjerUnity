@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Patrol/Random")]
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Random")]
 public class Enemy_Patrol_Random : Enemy_Patrol
 {
     public bool useX, useY, useZ;
@@ -67,9 +67,9 @@ public class Enemy_Patrol_Random : Enemy_Patrol
 
     }
       
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected override void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
     {
-        base.Init(agent, caller, destinations, anim); 
+        base.Init(enemy, caller, destinations, anim); 
         FindMinMax();
         randomVector = enemy.transform.position;
         if(useX)
