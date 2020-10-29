@@ -58,4 +58,9 @@ public class Knockback_CC : MonoBehaviour
 
         running = false;
     }
+
+    private void OnDisable()
+    {
+        running = false;
+    }
 }

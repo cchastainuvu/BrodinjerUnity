@@ -35,4 +35,9 @@ public class Enemy_Visible : MonoBehaviour
         TargetScript.EnemiesInRange.Remove(gameObject);
         return false;
     }
+
+    private void OnDisable()
+    {
+        TargetScript.EnemiesInRange.Remove(gameObject);
+    }
 }
