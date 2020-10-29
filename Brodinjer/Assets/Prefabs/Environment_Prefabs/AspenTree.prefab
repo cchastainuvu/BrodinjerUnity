@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6084116652108500154}
   - component: {fileID: 6637322106755177086}
+  - component: {fileID: 6931981006266623024}
   m_Layer: 0
   m_Name: AspenTree
   m_TagString: Untagged
@@ -214,3 +215,17 @@ LODGroup:
     renderers:
     - renderer: {fileID: 5121028035551917843}
   m_Enabled: 1
+--- !u!136 &6931981006266623024
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076357900777668265}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.22
+  m_Height: 6.719635
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.3686142, z: 0}
