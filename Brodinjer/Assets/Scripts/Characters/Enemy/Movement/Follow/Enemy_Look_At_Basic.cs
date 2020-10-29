@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Follow/LookAt")]
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Follow/LookAt")]
 public class Enemy_Look_At_Basic : Enemy_Follow_Base
 {
     private Quaternion facingDirection;
@@ -38,7 +38,7 @@ public class Enemy_Look_At_Basic : Enemy_Follow_Base
             facingDirection = Quaternion.LookRotation((followPos - agentPos).normalized);
             agent.transform.rotation =
                 Quaternion.Lerp(agent.transform.rotation, facingDirection, AngularSpeed * Time.deltaTime);
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
     }
 

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/BackStep")]
-public class Enemy_Back_Step : Enemy_Movement
+[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/BackStep")]
+public class Enemy_Back_Step : NavMesh_Enemy_Base
 {
     public float distanceAway;
     public bool turnAway;
     
-    protected override void Init(NavMeshAgent agent, MonoBehaviour caller, Transform FollowObj, Animator anim)
+    protected override void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj, Animator anim)
     {
-        base.Init(agent, caller, FollowObj, anim);
+        base.Init(enemy, caller, FollowObj, anim);
         if (!turnAway)
         {
             agent.updateRotation = false;
@@ -27,7 +27,7 @@ public class Enemy_Back_Step : Enemy_Movement
         {
             if(agent.enabled)
                 agent.destination = followObj.transform.position + (agent.transform.forward * -distanceAway);
-            yield return new WaitForFixedUpdate();
+            yield return fixedUpdate;
         }
     }
 
