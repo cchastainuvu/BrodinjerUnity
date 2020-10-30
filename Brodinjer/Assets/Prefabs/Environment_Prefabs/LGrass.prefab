@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6313148051692746764
+--- !u!1 &654630655925343184
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5132156212051013539}
-  - component: {fileID: 4128190362491437226}
-  - component: {fileID: 74299798993825216}
+  - component: {fileID: 1851099613810377855}
+  - component: {fileID: 7476888988010474358}
+  - component: {fileID: 6885598035967100444}
   m_Layer: 0
   m_Name: tall_grass_LOD0
   m_TagString: Untagged
@@ -18,35 +18,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5132156212051013539
+--- !u!4 &1851099613810377855
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313148051692746764}
+  m_GameObject: {fileID: 654630655925343184}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 8.662936e-15}
+  m_LocalPosition: {x: -0, y: 0.15282755, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5099974731715231215}
+  m_Father: {fileID: 1751836860344178227}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4128190362491437226
+--- !u!33 &7476888988010474358
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313148051692746764}
+  m_GameObject: {fileID: 654630655925343184}
   m_Mesh: {fileID: -9073264991987177505, guid: 20984ec8028e7994d98a30c35253d7b8, type: 3}
---- !u!23 &74299798993825216
+--- !u!23 &6885598035967100444
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313148051692746764}
+  m_GameObject: {fileID: 654630655925343184}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &8108100306550466662
+--- !u!1 &3318233654416081850
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,9 +87,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7039470187837845104}
-  - component: {fileID: 423737476051411342}
-  - component: {fileID: 4478847457801074148}
+  - component: {fileID: 4555463034438174124}
+  - component: {fileID: 6586535714715470418}
+  - component: {fileID: 6962962638288346680}
   m_Layer: 0
   m_Name: tall_grass_LOD1
   m_TagString: Untagged
@@ -97,35 +97,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7039470187837845104
+--- !u!4 &4555463034438174124
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108100306550466662}
+  m_GameObject: {fileID: 3318233654416081850}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 8.662936e-15}
+  m_LocalPosition: {x: -0, y: 0.15282755, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5099974731715231215}
+  m_Father: {fileID: 1751836860344178227}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &423737476051411342
+--- !u!33 &6586535714715470418
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108100306550466662}
+  m_GameObject: {fileID: 3318233654416081850}
   m_Mesh: {fileID: -122567454395609250, guid: 20984ec8028e7994d98a30c35253d7b8, type: 3}
---- !u!23 &4478847457801074148
+--- !u!23 &6962962638288346680
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8108100306550466662}
+  m_GameObject: {fileID: 3318233654416081850}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -158,7 +158,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &8114895161064706044
+--- !u!1 &3320454262526764064
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,8 +166,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5099974731715231215}
-  - component: {fileID: 5671476040788126507}
+  - component: {fileID: 1751836860344178227}
+  - component: {fileID: 1169907592001618167}
   m_Layer: 0
   m_Name: LGrass
   m_TagString: Untagged
@@ -175,42 +175,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5099974731715231215
+--- !u!4 &1751836860344178227
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114895161064706044}
+  m_GameObject: {fileID: 3320454262526764064}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 875.935, y: 69.751, z: 1137.8182}
-  m_LocalScale: {x: 0.0328084, y: 0.0328084, z: 0.0328084}
+  m_LocalPosition: {x: 868.048, y: 69.381, z: 1136.876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5132156212051013539}
-  - {fileID: 7039470187837845104}
+  - {fileID: 1851099613810377855}
+  - {fileID: 4555463034438174124}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &5671476040788126507
+--- !u!205 &1169907592001618167
 LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8114895161064706044}
+  m_GameObject: {fileID: 3320454262526764064}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: 0.6271305, y: 6.0400295, z: 1.4604034}
-  m_Size: 34.10724
+  m_LocalReferencePoint: {x: 0.020576477, y: 0.35099232, z: 0.047914147}
+  m_Size: 1.1190033
   m_FadeMode: 0
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.39616254
+  - screenRelativeHeight: 0.08374219
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 74299798993825216}
+    - renderer: {fileID: 6885598035967100444}
   - screenRelativeHeight: 0.01
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 4478847457801074148}
+    - renderer: {fileID: 6962962638288346680}
   m_Enabled: 1
