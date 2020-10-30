@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 5400934548956917428}
   - component: {fileID: 2534033563476701337}
   - component: {fileID: 2376459252089817258}
+  - component: {fileID: 6264390274865773999}
+  - component: {fileID: 220908441224089122}
+  - component: {fileID: 6369477076107821967}
+  - component: {fileID: 425098090159205210}
   m_Layer: 0
   m_Name: MRock2
   m_TagString: Untagged
@@ -79,3 +83,55 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6264390274865773999
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259883243340382356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.850647, y: 0.9716792, z: 0.8511963}
+  m_Center: {x: 0.09927368, y: 0.32312036, z: -0.0725708}
+--- !u!65 &220908441224089122
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259883243340382356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4312134, y: 0.3756938, z: 2.2108154}
+  m_Center: {x: 0.08401489, y: 0.02512765, z: 0.026672363}
+--- !u!65 &6369477076107821967
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259883243340382356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8201294, y: 0.4618907, z: 0.95214844}
+  m_Center: {x: 0.6111145, y: 0.0682261, z: 0.5185547}
+--- !u!65 &425098090159205210
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4259883243340382356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7970581, y: 0.5130763, z: 1.3405762}
+  m_Center: {x: -0.5385437, y: 0.0938189, z: 0.010986328}

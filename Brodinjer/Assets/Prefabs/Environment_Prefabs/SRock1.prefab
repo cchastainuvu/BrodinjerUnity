@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5496176182274962072}
   - component: {fileID: 7114096066320674156}
   - component: {fileID: 3682530192121891691}
+  - component: {fileID: 5489007711086557290}
   m_Layer: 0
   m_Name: SRock1
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5489007711086557290
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073750374627256204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9644934, y: 0.49327374, z: 1.4638058}
+  m_Center: {x: -0.0000005066395, y: 0.03190756, z: 0}
