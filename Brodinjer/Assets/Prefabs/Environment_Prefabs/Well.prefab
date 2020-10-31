@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3203001108178115732}
   - component: {fileID: 2594291225169857104}
+  - component: {fileID: 5663611369665588878}
   m_Layer: 0
   m_Name: Well
   m_TagString: Untagged
@@ -24,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884757892728712839}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14.655091, y: 2.037611, z: -1.511631}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.36, y: 1.36, z: 1.36}
   m_Children:
   - {fileID: 2925362592039682060}
   m_Father: {fileID: 0}
@@ -55,6 +56,20 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8946963518528704459}
   m_Enabled: 1
+--- !u!136 &5663611369665588878
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884757892728712839}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.9
+  m_Height: 3.614627
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2896357, z: -0.67169917}
 --- !u!1 &2070778458587028655
 GameObject:
   m_ObjectHideFlags: 0
