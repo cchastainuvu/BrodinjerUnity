@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 6806042805235648878}
   - component: {fileID: 2324092281049780583}
   - component: {fileID: 7027641463775899374}
+  - component: {fileID: 1114274288902082486}
   m_Layer: 0
   m_Name: Arch_Rubble_LOD0
   m_TagString: Untagged
@@ -316,6 +317,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &1114274288902082486
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4618789531143187631}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.44
+  m_Height: 4.8402534
+  m_Direction: 1
+  m_Center: {x: 0.07862061, y: 2.4201267, z: 0}
 --- !u!1 &5303613953046373976
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +792,7 @@ Transform:
   m_GameObject: {fileID: 8626968306754589149}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 626.6283, y: 78.5262, z: 1032.3488}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8512, y: 1.8512, z: 1.8512}
   m_Children:
   - {fileID: 9208031212113517899}
   m_Father: {fileID: 0}
@@ -797,7 +812,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.25
+  - screenRelativeHeight: 0.05235096
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 1051088226969959026}
@@ -823,6 +838,7 @@ GameObject:
   - component: {fileID: 9203673000830064135}
   - component: {fileID: 4130206451363815461}
   - component: {fileID: 4262124432687202990}
+  - component: {fileID: 3806082832542820089}
   m_Layer: 0
   m_Name: Arch_Rubble1_LOD0
   m_TagString: Untagged
@@ -891,3 +907,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &3806082832542820089
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041387112889354318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.55621666
+  m_Height: 2.0869787
+  m_Direction: 1
+  m_Center: {x: -0.00000014901161, y: 1.0434893, z: 0}

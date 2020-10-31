@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 364168960611360725}
   - component: {fileID: 8398346544917261780}
   - component: {fileID: 6889785940772271784}
+  - component: {fileID: 6827161304631772569}
   m_Layer: 0
   m_Name: Broken_Pillar_Taller_LOD0
   m_TagString: Untagged
@@ -166,6 +167,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &6827161304631772569
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103735846233686377}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5562164
+  m_Height: 2.0869787
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.0434893, z: 0}
 --- !u!1 &6678461131345224935
 GameObject:
   m_ObjectHideFlags: 0

@@ -184,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 6091831775798663370}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 631.3389, y: 77.02677, z: 1027.2993}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.59, y: 2.59, z: 2.59}
   m_Children:
   - {fileID: 4350622564997770261}
   m_Father: {fileID: 0}
@@ -204,7 +204,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.25
+  - screenRelativeHeight: 0.053663757
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8666204411551062257}
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 4013295207935645071}
   - component: {fileID: 3347234209305106046}
   - component: {fileID: 8666204411551062257}
+  - component: {fileID: 2448376371044335348}
   m_Layer: 0
   m_Name: Broken_Pillar_LOD0
   m_TagString: Untagged
@@ -292,6 +293,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &2448376371044335348
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900444468021485050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5562167
+  m_Height: 1.0412092
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0.5212244, z: 0}
 --- !u!1 &7940657401633790236
 GameObject:
   m_ObjectHideFlags: 0
