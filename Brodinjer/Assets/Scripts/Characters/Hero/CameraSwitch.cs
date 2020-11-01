@@ -1,12 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Cinemachine;
-using TMPro;
-using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
 public class CameraSwitch : MonoBehaviour
 {

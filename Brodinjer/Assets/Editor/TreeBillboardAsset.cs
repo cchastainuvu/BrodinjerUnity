@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.EditorCoroutines.Editor;
- 
+
 //NOTE: You MUST have the EditorCorountines package installed through the package manager.
  
 //Original script attributed to BarShiftGames: https://answers.unity.com/questions/1538195/unity-lod-billboard-asset-example.html
