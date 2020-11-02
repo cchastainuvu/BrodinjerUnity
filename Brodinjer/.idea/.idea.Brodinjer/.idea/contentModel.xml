@@ -4,13 +4,19 @@
     <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
     <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Brodinjer.-703266619.00" t="ExcludeRecursive" />
     <e p="E:\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="ActivateRigidbodies.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
+          <e p="TreeBillboardAsset.cs" t="Include" />
+        </e>
+        <e p="Fantasy Skybox" t="Include">
+          <e p="Readme.txt" t="Include" />
         </e>
         <e p="NavMesh" t="Include">
           <e p="NavMesh" t="Include">
@@ -82,7 +88,15 @@
               </e>
               <e p="Enemy_List.cs" t="Include" />
               <e p="Enemy_Manager.cs" t="Include" />
+              <e p="Ghost" t="Include">
+                <e p="Enemy_Dash_Transform.cs" t="Include" />
+                <e p="Ghost_Manager.cs" t="Include" />
+                <e p="NavMesh_Enemy_Base.cs" t="Include" />
+                <e p="Transform_Follow.cs" t="Include" />
+                <e p="Transform_Movement_Base.cs" t="Include" />
+              </e>
               <e p="Movement" t="Include">
+                <e p="DashForwardMove.cs" t="Include" />
                 <e p="Enemy_Movement.cs" t="Include" />
                 <e p="Follow" t="Include">
                   <e p="Enemy_Follow_Base.cs" t="Include" />
@@ -103,6 +117,7 @@
                   <e p="Enemy_Patrol_Random.cs" t="Include" />
                   <e p="Enemy_Patrol_Timed.cs" t="Include" />
                 </e>
+                <e p="StraightForwardMove.cs" t="Include" />
               </e>
             </e>
             <e p="Hero" t="Include">
@@ -252,9 +267,16 @@
               <e p="NavOffLinkMove.cs" t="Include" />
               <e p="RotateTest.cs" t="Include" />
             </e>
+            <e p="TestQuit.cs" t="Include" />
           </e>
           <e p="TestTools" t="Include">
             <e p="SimpleCameraController.cs" t="Include" />
+          </e>
+          <e p="UIScripts" t="Include">
+            <e p="FPSCounter.cs" t="Include" />
+            <e p="HealthMagicBars.cs" t="Include" />
+            <e p="MainMenu.cs" t="Include" />
+            <e p="SettingsMenu.cs" t="Include" />
           </e>
           <e p="VFX" t="Include">
             <e p="Fire" t="Include">
@@ -262,6 +284,45 @@
             </e>
             <e p="Magic" t="Include">
               <e p="Magic_Burst.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Standard Assets" t="Include">
+          <e p="Editor" t="Include">
+            <e p="Water" t="Include">
+              <e p="Water4" t="Include">
+                <e p="GerstnerDisplaceEditor.cs" t="Include" />
+                <e p="PlanarReflectionEditor.cs" t="Include" />
+                <e p="SpecularLightingEditor.cs" t="Include" />
+                <e p="WaterBaseEditor.cs" t="Include" />
+                <e p="WaterEditorUtility.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Environment" t="Include">
+            <e p="Water" t="Include">
+              <e p="Water" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="Displace.cs" t="Include" />
+                  <e p="GerstnerDisplace.cs" t="Include" />
+                  <e p="MeshContainer.cs" t="Include" />
+                  <e p="PlanarReflection.cs" t="Include" />
+                  <e p="SpecularLighting.cs" t="Include" />
+                  <e p="Water.cs" t="Include" />
+                  <e p="WaterBase.cs" t="Include" />
+                  <e p="WaterTile.cs" t="Include" />
+                </e>
+                <e p="Shaders" t="Include">
+                  <e p="FXWaterPro.shader" t="Include" />
+                </e>
+              </e>
+              <e p="Water4" t="Include">
+                <e p="Shaders" t="Include">
+                  <e p="FXWater4Advanced.shader" t="Include" />
+                  <e p="FXWater4Simple.shader" t="Include" />
+                  <e p="WaterInclude.cginc" t="Include" />
+                </e>
+              </e>
             </e>
           </e>
         </e>
@@ -294,9 +355,6 @@
           </e>
         </e>
         <e p="TreeTest" t="Include">
-          <e p="Billboard" t="Include">
-            <e p="TreeBillboardAsset.cs" t="Include" />
-          </e>
           <e p="DiffuseShakeUpdated.shader" t="Include" />
         </e>
       </e>
