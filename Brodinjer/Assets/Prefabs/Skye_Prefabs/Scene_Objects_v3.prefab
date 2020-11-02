@@ -684,8 +684,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f05c42ff430644ebcf14345fda5f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentValue: 0.5
-  MaxValue: 100
+  HealthAmount: {fileID: 11400000, guid: ba082fc005b6de248b210955e551e346, type: 2}
+  increaseSpeed: 0.05
+  autoRegen: 0
 --- !u!1 &1714939058153921858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3581,7 +3582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2980683331235390581}
   m_LocalRotation: {x: -0, y: -0.81018966, z: -0, w: 0.58616793}
-  m_LocalPosition: {x: 836.7167, y: -17.012703, z: 1112.5327}
+  m_LocalPosition: {x: 29.101562, y: -88.0127, z: -50.904297}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2980683331970129122}
@@ -5048,7 +5049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.018432617, y: 0}
+  m_AnchoredPosition: {x: 0.018554688, y: 0}
   m_SizeDelta: {x: -122, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2980683331352494872
@@ -12176,7 +12177,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2980683331506075389}
-  - component: {fileID: 2980683331506075379}
   - component: {fileID: 2980683331506075378}
   - component: {fileID: 1685702894994359675}
   m_Layer: 0
@@ -12200,22 +12200,6 @@ Transform:
   m_Father: {fileID: 2980683331970129122}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2980683331506075379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2980683331506075388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373d3fd478377da46b14f21e34a53431, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MagicAmount: {fileID: 11400000, guid: 4e214d77d8952114095b994074087481, type: 2}
-  barUI: {fileID: 2980683332634542420}
-  increaseSpeed: 1
-  MagicUse: {fileID: 11400000, guid: d2b7b33625e205c4394f8399b5dcfb20, type: 2}
 --- !u!114 &2980683331506075378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36827,7 +36811,7 @@ GameObject:
   - component: {fileID: 2980683332634543786}
   - component: {fileID: 2980683332634542421}
   - component: {fileID: 2980683332634542420}
-  - component: {fileID: 3855202675167052023}
+  - component: {fileID: 8296999343295951840}
   m_Layer: 5
   m_Name: MagicBar
   m_TagString: Untagged
@@ -36890,7 +36874,7 @@ MonoBehaviour:
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 7
---- !u!114 &3855202675167052023
+--- !u!114 &8296999343295951840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36899,11 +36883,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2980683332634542423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f05c42ff430644ebcf14345fda5f65, type: 3}
+  m_Script: {fileID: 11500000, guid: 373d3fd478377da46b14f21e34a53431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentValue: 50
-  MaxValue: 100
+  MagicAmount: {fileID: 11400000, guid: 4e214d77d8952114095b994074087481, type: 2}
+  increaseSpeed: 0.1
+  autoRegen: 1
+  MagicUse: {fileID: 11400000, guid: d2b7b33625e205c4394f8399b5dcfb20, type: 2}
 --- !u!1 &2980683332640648916
 GameObject:
   m_ObjectHideFlags: 0
@@ -44034,7 +44020,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2980683332871746717}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.552364, y: 0.04617083, z: 22.757952}
+  m_LocalPosition: {x: -15.5523405, y: 0.04617083, z: 22.75797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2980683331865108837}
