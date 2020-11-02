@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 244569056115287289}
   - component: {fileID: 3464333123008454638}
   - component: {fileID: 6016797536559258162}
-  - component: {fileID: 6976858566637604347}
+  - component: {fileID: 3127695640398342674}
+  - component: {fileID: 5612473469739012483}
+  - component: {fileID: 2545506100530417273}
   m_Layer: 0
   m_Name: LRock2
   m_TagString: Untagged
@@ -80,8 +82,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &6976858566637604347
-MeshCollider:
+--- !u!65 &3127695640398342674
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +92,32 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4499501302108691956, guid: 1b335e7af79b29e42b81022c7d9fb866, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 2.866455, y: 4.532501, z: 2.1968994}
+  m_Center: {x: 0.02178955, y: 0, z: -0.02178955}
+--- !u!65 &5612473469739012483
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115227846978880325}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.765503, y: 2.8995743, z: 2.4976807}
+  m_Center: {x: 0.11407471, y: -0.5281029, z: -0.6967163}
+--- !u!65 &2545506100530417273
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115227846978880325}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8700457, y: 2.964676, z: 3.9914494}
+  m_Center: {x: -1.15243, y: -0.66817474, z: -0.12633991}

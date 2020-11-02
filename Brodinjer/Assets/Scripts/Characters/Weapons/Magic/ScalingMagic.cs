@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
-using UnityEditor.Rendering;
+﻿using System.Collections;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
