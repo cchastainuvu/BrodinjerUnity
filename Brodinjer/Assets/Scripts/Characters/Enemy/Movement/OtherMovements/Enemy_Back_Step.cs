@@ -23,6 +23,7 @@ public class Enemy_Back_Step : NavMesh_Enemy_Base
 
     public override IEnumerator Move()
     {
+        agent.speed = Speed;
         while (moving)
         {
             if(agent.enabled)

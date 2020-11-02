@@ -26,5 +26,19 @@ public abstract class NavMesh_Enemy_Base : Enemy_Movement
             animation.Init(caller, anim, followObj, agent);
         }
     }
+    
+    public override void StopMove()
+    {
+        moving = false;
+        agent.speed = 0;
+        agent.velocity = Vector3.zero;
+        if (moveFunc != null)
+        {
+            caller.StopCoroutine(moveFunc);
+        }
+        if(animation)
+            animation.StopAnimation();
+        //Debug.Log("Stop Move Enemy Movement");
+    }
 
 }

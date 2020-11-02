@@ -36,6 +36,9 @@ public class Timed_Event : MonoBehaviour
         if(waitFunc!= null)
             StopCoroutine(waitFunc);
     }
-    
-    
+
+    private void OnDisable()
+    {
+        Stop();
+    }
 }

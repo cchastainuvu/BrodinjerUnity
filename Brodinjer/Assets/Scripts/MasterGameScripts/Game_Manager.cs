@@ -14,9 +14,19 @@ public class Game_Manager : MonoBehaviour
         return CharacterHealth.value;
     }
 
+    public float GetCharacterHealthPercentage()
+    {
+        return CharacterHealth.value / CharacterHealth.MaxValue;
+    }
+
     public float GetMagicAmount()
     {
         return MagicAmount.value;
+    }
+
+    public float GetMagicPercentage()
+    {
+        return MagicAmount.value / MagicAmount.MaxValue;
     }
 
     public void ResetCharacter()
