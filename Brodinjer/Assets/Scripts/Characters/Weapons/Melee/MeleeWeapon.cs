@@ -7,13 +7,15 @@ using UnityEngine.PlayerLoop;
 public class MeleeWeapon : WeaponBase
 {
     public GameObject knockbackObj, artObj;
-    public string useButton;
     private WaitUntil waitforbutton;
-    public float attackActiveTime, attackcoolDownTime;
+    public float attackActiveTime01, attackActiveTime02, attackActiveTime03, attackcoolDownTime;
     private float currentTime;
     public UnityEvent AxUsedEvent;
     private WaitForFixedUpdate fixedUpdate;
-    public float comboTime;
+    public float comboTime01, comboTime02, combo03Cooldown;
+    public string ComboNumInteger;
+    public float minComboWaitTime01, minComboWaitTime02;
+    public float attackActivateTime01, attackActivateTime02, attackActivateTime03;
     
     public override void Initialize()
     {
@@ -36,47 +38,65 @@ public class MeleeWeapon : WeaponBase
             yield return waitforbutton;
             if (!frozen)
             {
+                anim.ResetTrigger(AttackEndTrigger);
+                anim.SetTrigger(AttackTrigger);
+                anim.SetInteger(ComboNumInteger, 1);
+                yield return  new WaitForSeconds(attackActivateTime01);
                 knockbackObj.SetActive(true);
                 AxUsedEvent.Invoke();
-                currentTime = attackActiveTime;
+                /*currentTime = attackActiveTime01;
                 Debug.Log("Hit 1");
                 while (currentTime > 0 && !frozen)
                 {
                     currentTime -= Time.deltaTime;
                     yield return fixedUpdate;
                 }
-                knockbackObj.SetActive(false);
+                knockbackObj.SetActive(false);*/
                 currentTime = 0;
-                while (currentTime < comboTime && !frozen)
+                while (currentTime < comboTime01 && !frozen)
                 {
-                    if (CheckInput())
+                    if (currentTime > attackActiveTime03 && knockbackObj.activeSelf)
                     {
+                        knockbackObj.SetActive(false);
+                    }
+                    if (CheckInput() && currentTime >= minComboWaitTime01)
+                    {
+                        knockbackObj.SetActive(false);
                         Debug.Log("Hit 2");
+                        anim.SetInteger(ComboNumInteger, 2);
+                        yield return  new WaitForSeconds(attackActivateTime02);
                         knockbackObj.SetActive(true);
-                        currentTime = 0;
-                        while (currentTime < attackActiveTime && !frozen)
+                        /*currentTime = 0;
+                        while (currentTime < attackActiveTime02 && !frozen)
                         {
                             currentTime += Time.deltaTime;
                             yield return fixedUpdate;
                         }
 
-                        knockbackObj.SetActive(false);
+                        knockbackObj.SetActive(false);*/
                         currentTime = 0;
-                        while (currentTime < comboTime && !frozen)
+                        while (currentTime < comboTime02 && !frozen)
                         {
-                            if (CheckInput())
+                            if (currentTime > attackActiveTime02 && knockbackObj.activeSelf)
                             {
+                                knockbackObj.SetActive(false);
+                            }
+                            if (CheckInput()&& currentTime >= minComboWaitTime02)
+                            {
+                                knockbackObj.SetActive(false);
                                 Debug.Log("Hit 3");
+                                anim.SetInteger(ComboNumInteger, 3);
+                                yield return  new WaitForSeconds(attackActivateTime03);
                                 knockbackObj.SetActive(true);
                                 currentTime = 0;
-                                while (currentTime < attackActiveTime && !frozen)
+                                while (currentTime < attackActiveTime03 && !frozen)
                                 {
                                     currentTime += Time.deltaTime;
                                     yield return fixedUpdate;
                                 }
-
                                 knockbackObj.SetActive(false);
-                                currentTime = comboTime;
+                                yield return new WaitForSeconds(combo03Cooldown);
+                                currentTime = comboTime02 +comboTime01;
                             }
 
                             currentTime += Time.deltaTime;
@@ -87,6 +107,10 @@ public class MeleeWeapon : WeaponBase
                     currentTime += Time.deltaTime;
                     yield return fixedUpdate;
                 }
+                Debug.Log("Finish Attack");
+                knockbackObj.SetActive(false);
+                anim.SetInteger(ComboNumInteger, 0);
+                anim.SetTrigger(AttackEndTrigger);
                 yield return new WaitForSeconds(attackcoolDownTime);
             }
 
@@ -102,7 +126,7 @@ public class MeleeWeapon : WeaponBase
     
     private bool CheckInput()
     {
-        if (Input.GetButtonDown(useButton) || !currWeapon)
+        if (Input.GetButtonDown(useButton))
         {
             return true;
         }

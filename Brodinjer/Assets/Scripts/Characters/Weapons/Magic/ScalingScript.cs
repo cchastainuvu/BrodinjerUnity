@@ -9,7 +9,6 @@ public class ScalingScript : WeaponBase
     public GameObject MagicPrefab;
     public Transform InitPos;
     private Rigidbody SpellBall;
-    public string useButton;
     private float currPower;
     public float MaxPower, PowerIncreaseScale, ScaleIncreaseAmount;
     private GameObject currSpell;

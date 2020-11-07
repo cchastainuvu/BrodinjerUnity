@@ -11835,12 +11835,12 @@ MonoBehaviour:
   MagicPrefab: {fileID: 2980683331971457490}
   InitPos: {fileID: 2980683333176149572}
   useButton: Weapon
-  MaxPower: 10
-  PowerIncreaseScale: 10
+  MaxPower: 20
+  PowerIncreaseScale: 20
   ScaleIncreaseAmount: 2
   MagicAmount: {fileID: 11400000, guid: 4e214d77d8952114095b994074087481, type: 2}
   MagicInUse: {fileID: 11400000, guid: d2b7b33625e205c4394f8399b5dcfb20, type: 2}
-  decreaseSpeed: 0.1
+  decreaseSpeed: 1
   MagicObj: {fileID: 2980683331471396888}
   cameraRotation: {fileID: 2980683331211688229}
   bowCamera: {fileID: 11400000, guid: 26cb7b0a1d7a02e4189fbe64849be9b5, type: 2}
@@ -17599,6 +17599,7 @@ MonoBehaviour:
   AxUsedEvent:
     m_PersistentCalls:
       m_Calls: []
+  comboTime: 0
 --- !u!1 &2980683331877457970
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,15 +12,19 @@ public class ThirdPersonTranslate : CharacterTranslate
     public float JumpDelay;
     private readonly WaitForFixedUpdate fixedUpdate = new WaitForFixedUpdate();
 
+    public float DodgeDelay;
     private bool dodging = false;
     public float DodgeTime, DodgeAmount;
     private Vector3 DodgeDirection;
+    public Animation_Base DodgeAnimations;
 
     
     
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
     {
         base.Init(caller, _cc, camera, target, animator);
+        if(DodgeAnimations!= null)
+            DodgeAnimations.Init(caller, animator, _cc.transform, null);
         invoking = false;
         falling = false;
         dodging = false;
@@ -29,12 +33,14 @@ public class ThirdPersonTranslate : CharacterTranslate
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
         
+        
     }
 
 
     public override IEnumerator Move()
     {
-        animation.StartAnimation();
+        if(animation != null)
+            animation.StartAnimation();
         while (canMove)
         {
             if (!invoking && canMove)
@@ -78,19 +84,24 @@ public class ThirdPersonTranslate : CharacterTranslate
     }
 
     public override float getMoveAngle()
+    {        
+        return GetDirection(_cc.transform.InverseTransformDirection(_cc.velocity));
+    }
+
+    Vector3 GetLocalDirection()
     {
-        return GetDirection(_cc.transform, _moveVec);
+        return _cc.transform.InverseTransformDirection(Input.GetAxisRaw(HorizontalAxis)*_cc.transform.right + Input.GetAxisRaw(VerticalAxis)*_cc.transform.forward);
     }
     
-    public virtual float GetDirection(Transform player, Vector3 moveDirection)
+    public virtual float GetDirection(Vector3 moveDirection)
     {
         Vector3 collisionposition = moveDirection;
         collisionposition.y = 0;
-        Vector3 transformposition = player.position;
+        Vector3 transformposition = Vector3.zero;
         transformposition.y = 0;
         Vector3 target = collisionposition - transformposition;
-        float angle = Vector3.Angle(target, player.forward);
-        Vector3 crossProduct = Vector3.Cross(target, player.forward);
+        float angle = Vector3.Angle(target, Vector3.forward);
+        Vector3 crossProduct = Vector3.Cross(target, Vector3.forward);
         if (crossProduct.y < 0)
         {
             angle = -angle;
@@ -116,6 +127,9 @@ public class ThirdPersonTranslate : CharacterTranslate
             if (!jumping && !falling && (Input.GetButtonDown ("Jump"))) {
                 if (!dodging && targetScript.targeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
                 {
+                    if(DodgeAnimations!= null)
+                        DodgeAnimations.StartAnimation();
+                    yield return new WaitForSeconds(DodgeDelay);
                     dodging = true;
                     DodgeDirection = _cc.transform.forward*Input.GetAxisRaw(VerticalAxis) + _cc.transform.right*Input.GetAxisRaw(HorizontalAxis);
                     currentTime = 0;
