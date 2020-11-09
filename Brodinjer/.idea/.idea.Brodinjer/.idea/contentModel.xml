@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\kyleh\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Brodinjer.-703266619.00" t="ExcludeRecursive" />
-    <e p="E:\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+    <e p="C:\Users\Owner\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_Brodinjer.1928804374.00" t="ExcludeRecursive" />
+    <e p="E:\School\College\Fall2020\Senior Projects\Unity\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
@@ -79,6 +78,15 @@
                     <e p="Animation_Base.cs" t="Include" />
                     <e p="Rib_Animations.cs" t="Include" />
                   </e>
+                  <e p="Attack" t="Include">
+                    <e p="RibCage_Swipe.cs" t="Include" />
+                  </e>
+                  <e p="Movements" t="Include">
+                    <e p="RibCage_Wall_Movement.cs" t="Include" />
+                    <e p="Ribcage_Wall_Pounce_Movement.cs" t="Include" />
+                    <e p="Rotation_Transform_Movement.cs" t="Include" />
+                    <e p="Wall_Movement_02.cs" t="Include" />
+                  </e>
                   <e p="Rib_Cage_Cieling_Walk.cs" t="Include" />
                   <e p="Rib_Cage_Drop.cs" t="Include" />
                   <e p="Rib_Cage_Drop_Attack.cs" t="Include" />
@@ -99,6 +107,7 @@
                 <e p="DashForwardMove.cs" t="Include" />
                 <e p="Enemy_Movement.cs" t="Include" />
                 <e p="Follow" t="Include">
+                  <e p="Enemy_Flee.cs" t="Include" />
                   <e p="Enemy_Follow_Base.cs" t="Include" />
                   <e p="Enemy_Follow_Basic.cs" t="Include" />
                   <e p="Enemy_Follow_Distance.cs" t="Include" />
@@ -114,6 +123,7 @@
                 <e p="Patrol" t="Include">
                   <e p="Enemy_Patrol.cs" t="Include" />
                   <e p="Enemy_Patrol_Destination.cs" t="Include" />
+                  <e p="Enemy_Patrol_Flee.cs" t="Include" />
                   <e p="Enemy_Patrol_Random.cs" t="Include" />
                   <e p="Enemy_Patrol_Timed.cs" t="Include" />
                 </e>
@@ -122,6 +132,7 @@
             </e>
             <e p="Hero" t="Include">
               <e p="Animation" t="Include">
+                <e p="Dodge_Animation.cs" t="Include" />
                 <e p="Movement_Animation.cs" t="Include" />
               </e>
               <e p="Camera" t="Include">
@@ -217,6 +228,7 @@
             <e p="PickUp_Base.cs" t="Include" />
           </e>
           <e p="SimpleGameScripts" t="Include">
+            <e p="AddRigidBody.cs" t="Include" />
             <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">
               <e p="Collision_Enter_Event.cs" t="Include" />
@@ -233,10 +245,13 @@
               <e p="Interaction_Trigger_Event.cs" t="Include" />
               <e p="PS_Callback.cs" t="Include" />
               <e p="Random_Timed_Event.cs" t="Include" />
+              <e p="Randomize_Event.cs" t="Include" />
               <e p="Start_Event.cs" t="Include" />
               <e p="Timed_Event.cs" t="Include" />
               <e p="Unity_Event_Holder.cs" t="Include" />
             </e>
+            <e p="Instantiate_Obj.cs" t="Include" />
+            <e p="Instantiate_Obj_Position_Range.cs" t="Include" />
             <e p="MeshColliderUpdate" t="Include">
               <e p="UpdateMeshCollider.cs" t="Include" />
               <e p="VertexWeight.cs" t="Include" />
@@ -266,7 +281,9 @@
               <e p="NavOffLinkMove.cs" t="Include" />
               <e p="RotateTest.cs" t="Include" />
             </e>
+            <e p="RotateObj.cs" t="Include" />
             <e p="TestQuit.cs" t="Include" />
+            <e p="UI_Bar_Fill.cs" t="Include" />
           </e>
           <e p="TestTools" t="Include">
             <e p="SimpleCameraController.cs" t="Include" />
@@ -359,11 +376,14 @@
         </e>
       </e>
       <e p="Brodinjer.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
       <e p="NavMeshComponents.csproj" t="IncludeRecursive" />
       <e p="NavMeshComponentsEditor.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>

@@ -27,13 +27,24 @@ public class Trigger_Enter_Damage : Trigger_Event_Base
     {
         if (active)
         {
-            damaged = true;
-            StartCoroutine(damageCooldown());
             Character_Manager cm = triggerCollider.GetComponent<Character_Manager>();
             if (cm)
             {
                 cm.TakeDamage(Damage, DecreasedByArmor);
                 Event.Invoke();
+                damaged = true;
+                StartCoroutine(damageCooldown());
+            }
+            else
+            {
+                cm = triggerCollider.GetComponentInParent<Character_Manager>();
+                if (cm)
+                {
+                    cm.TakeDamage(Damage, DecreasedByArmor);
+                    Event.Invoke();
+                    damaged = true;
+                    StartCoroutine(damageCooldown());
+                }
             }
         }
     }

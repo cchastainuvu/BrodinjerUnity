@@ -14,6 +14,7 @@ public class Hand_In_Between : Enemy_Follow_Base
     
     public override IEnumerator Move()
     {
+        agent.speed = Speed;
         agent.updatePosition = true;
         while (moving)
         {

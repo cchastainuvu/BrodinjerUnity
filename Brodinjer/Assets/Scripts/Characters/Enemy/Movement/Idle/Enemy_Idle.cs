@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Character/Enemy/Movement/Idle")]
-public class Enemy_Idle : Enemy_Movement
+public class Enemy_Idle : NavMesh_Enemy_Base
 {
     public override IEnumerator Move()
     {
