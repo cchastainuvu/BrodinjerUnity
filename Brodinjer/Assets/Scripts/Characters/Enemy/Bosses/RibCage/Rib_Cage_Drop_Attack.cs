@@ -36,7 +36,6 @@ public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
     public override Enemy_Attack_Base getClone()
     {
         Rib_Cage_Melee_Attack temp = CreateInstance<Rib_Cage_Melee_Attack>();
-        temp.DamageAmount = DamageAmount;
         temp.AttackActiveTime = AttackActiveTime;
         temp.AttackStartTime = AttackStartTime;
         temp.CoolDownTime = CoolDownTime;

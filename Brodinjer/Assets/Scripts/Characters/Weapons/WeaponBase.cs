@@ -22,14 +22,19 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual void Freeze()
     {
-        animSpeed = anim.speed;
-        anim.speed = 0;
+        if (anim != null)
+        {
+            animSpeed = anim.speed;
+            anim.speed = 0;
+        }
+
         frozen = true;
     }
 
     public virtual void Unfreeze()
     {
-        anim.speed = animSpeed;
+        if(anim!= null)
+            anim.speed = animSpeed;
         frozen = false;
     }
     

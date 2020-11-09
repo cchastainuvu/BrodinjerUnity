@@ -7,7 +7,6 @@ public class Animation_Movement : Animation_Base
 
     public string DirectionName;
     public string SpeedName;
-    public string StartTriggerName, EndTriggerName;
     private bool animating;
     private Coroutine animateFunc;
     public float speedDif;
@@ -45,9 +44,9 @@ public class Animation_Movement : Animation_Base
         animating = false;
         if(animateFunc!= null)
             caller.StopCoroutine(animateFunc);
-        if (EndTriggerName != "")
+        if (StopTriggerName != "")
         {
-            anim.SetTrigger(EndTriggerName);
+            anim.SetTrigger(StopTriggerName);
         }
     }
 

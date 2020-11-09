@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public abstract class Enemy_Attack_Base : ScriptableObject
 {
-    public float DamageAmount;
     public float AttackStartTime;
     public float CoolDownTime;
     protected bool attacking;
@@ -27,7 +26,7 @@ public abstract class Enemy_Attack_Base : ScriptableObject
         this.enemyObj = enemy;
         attacking = false;
         canAttack = true;
-        if(animations != null)
+        if(animations != null && animator != null)
             animations.Init(caller, animator, player, enemy.GetComponent<NavMeshAgent>());
     }
 

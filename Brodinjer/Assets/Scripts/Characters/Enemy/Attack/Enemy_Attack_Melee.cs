@@ -19,7 +19,6 @@ public class Enemy_Attack_Melee : Enemy_Attack_Base
         Enemy_Attack_Melee temp = CreateInstance<Enemy_Attack_Melee>();
         temp.AttackActiveTime = AttackActiveTime;
         temp.CoolDownTime = CoolDownTime;
-        temp.DamageAmount = DamageAmount;
         temp.AttackStartTime = AttackStartTime;
         temp.animations = animations;
         temp.attackWhileMoving = attackWhileMoving;

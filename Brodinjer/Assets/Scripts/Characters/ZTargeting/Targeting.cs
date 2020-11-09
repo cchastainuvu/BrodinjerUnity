@@ -176,7 +176,6 @@ public class Targeting : MonoBehaviour
                 objtarget = currentTarget;
                 currTargetObj.SetTransform(currentTarget);
                 targeting = true;
-
             }
             while (targeting && currentTarget != null)
             {
@@ -237,7 +236,7 @@ public class Targeting : MonoBehaviour
                         }
                     }
                 }
-                yield return new WaitForSeconds(.01f);
+                yield return new WaitForFixedUpdate();
             }
 
         }

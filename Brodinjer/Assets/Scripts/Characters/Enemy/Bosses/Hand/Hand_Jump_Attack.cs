@@ -69,7 +69,6 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
         Hand_Jump_Attack temp = CreateInstance<Hand_Jump_Attack>();
         temp.AttackActiveTime = AttackActiveTime;
         temp.CoolDownTime = CoolDownTime;
-        temp.DamageAmount = DamageAmount;
         temp.AttackStartTime = AttackStartTime;
         temp.animations = animations;
         temp.UpwardForce = UpwardForce;
