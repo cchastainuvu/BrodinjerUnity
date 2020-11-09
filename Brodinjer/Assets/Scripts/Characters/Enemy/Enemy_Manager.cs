@@ -23,6 +23,8 @@ public class Enemy_Manager : MonoBehaviour
 
     public bool AwakeOnStart = true;
 
+    private bool stunned;
+
     private void Start()
     {
         paused = false;
@@ -57,6 +59,16 @@ public class Enemy_Manager : MonoBehaviour
     {
         Attack.ActivateAttack();
         canAttack = true;
+    }
+
+    public void Stun()
+    {
+        stunned = true;
+    }
+
+    public void UnStun()
+    {
+        stunned = false;
     }
 
     #region INIT FUNCTIONS

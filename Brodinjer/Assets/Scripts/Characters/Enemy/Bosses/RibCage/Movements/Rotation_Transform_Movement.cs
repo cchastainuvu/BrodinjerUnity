@@ -7,27 +7,34 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
     public float offset;
     public bool x, y, z;
 
-    private bool rotating;
     private Vector3 moveVector, target, currentPos;
     private Quaternion rotationDirection;
 
     public override IEnumerator Move()
     {
+        moveVector = enemy.transform.position;
+        if (x)
+            moveVector.x = destinations[0].position.x;
+        if (y)
+            moveVector.y = destinations[0].position.y;
+        if (z)
+            moveVector.z = destinations[0].position.z;
         while (!CheckDestination(enemy.transform.position, destinations[0].transform.position, offset))
-        {
-            moveVector = enemy.transform.position;
-            if (x)
-                moveVector.x = destinations[0].position.x;
-            if (y)
-                moveVector.y = destinations[0].position.y;
-            if (z)
-                moveVector.z = destinations[0].position.z;
+        {      
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, moveVector, Speed*Time.deltaTime);
+            target = followObj.transform.position;
+            target.y = 0;
+            currentPos = enemy.transform.position;
+            currentPos.y = 0;
+            rotationDirection = Quaternion.LookRotation((target - currentPos).normalized);
+            enemy.transform.rotation =
+                Quaternion.Lerp(enemy.transform.rotation, rotationDirection, AngularSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
 
-        rotating = true;
-        while (rotating)
+        enemy.transform.position = moveVector;
+
+        while (moving)
         {
             target = followObj.transform.position;
             target.y = 0;

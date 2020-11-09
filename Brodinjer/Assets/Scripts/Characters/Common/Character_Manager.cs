@@ -9,9 +9,18 @@ public class Character_Manager : MonoBehaviour
     public Character_Base Character;
     private Character_Base _characterTemp;
     public bool MainCharacter = false;
+    
+    public LayerMask DamageLayer;
+    public float damageCoolDown;
+
+    public bool StunTime;
+
+    private bool damaged;
+
 
     private void Start()
     {
+        damaged = false;
         Init();
     }
 
@@ -37,5 +46,31 @@ public class Character_Manager : MonoBehaviour
     {
         Character.Health.TakeDamage(amount, armor);
     }
+
+    private IEnumerator OnTriggerEnter(Collider coll)
+    {
+        if (!damaged)
+        {
+            if (coll.gameObject.layer == ToLayer(DamageLayer.value))
+            {
+                WeaponDamageAmount temp = coll.GetComponent<WeaponDamageAmount>();
+                if (temp != null)
+                {
+                    damaged = true;
+                    TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
+                    yield return new WaitForSeconds(damageCoolDown);
+                    damaged = false;
+                }
+            }
+        }
+    }
     
+    public int ToLayer (int bitmask ) {
+        int result = bitmask>0 ? 0 : 31;
+        while( bitmask>1 ) {
+            bitmask = bitmask>>1;
+            result++;
+        }
+        return result;
+    }
 }

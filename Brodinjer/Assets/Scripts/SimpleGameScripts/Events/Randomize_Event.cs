@@ -10,5 +10,6 @@ public class Randomize_Event : MonoBehaviour
     public void RunRandomEvent()
     {
         EventList[Random.Range(0, EventList.Count)].Invoke();
+        //EventList[0].Invoke();
     }
 }
