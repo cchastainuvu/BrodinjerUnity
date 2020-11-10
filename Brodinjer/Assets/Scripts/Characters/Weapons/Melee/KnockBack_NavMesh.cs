@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class KnockBack_NavMesh : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class KnockBack_NavMesh : MonoBehaviour
     public float knockTime; //time
     private Vector3 difference;
     private Rigidbody enemyRB;
-    private NavMesh_Enemy_Base enemyManager;
+    private Enemy_Manager enemyManager;
     public Transform BaseObj;
     private Timed_Event Reset;
+    private NavMeshAgent agent;
+    public UnityEvent OnKnockback, OnKnockbackEnd;
 
     private void Start()
     {
@@ -26,12 +29,16 @@ public class KnockBack_NavMesh : MonoBehaviour
         enemyRB = other.GetComponent<Rigidbody>();
         if (enemyRB != null)
         {
-            enemyManager = other.GetComponent<NavMesh_Enemy_Base>();
-            if (enemyManager != null)
+            Debug.Log("Knockback");
+            OnKnockback.Invoke();
+            enemyManager = other.GetComponent<Enemy_Manager>();
+
+            agent = other.GetComponent<NavMeshAgent>();
+            if (agent != null)
             {
-                enemyManager.agent.enabled = false;
+                agent.enabled = false;
             }
-            difference = enemyRB.transform.position - BaseObj.position;
+            difference = enemyRB.transform.position - BaseObj.transform.position;
             difference.y = 0;
             difference = difference.normalized * thrust;
             enemyRB.AddForce(difference, ForceMode.Impulse);
@@ -39,21 +46,27 @@ public class KnockBack_NavMesh : MonoBehaviour
             {
                 Reset.Call();
             }
-            StartCoroutine(KnockCo(enemyRB, enemyManager));
+            
+            StartCoroutine(KnockCo(enemyRB, agent, enemyManager));
         }
 
     }
 
-    private IEnumerator KnockCo(Rigidbody enemy, NavMesh_Enemy_Base Manager = null)
+    private IEnumerator KnockCo(Rigidbody enemy, NavMeshAgent Agent = null, Enemy_Manager Manager = null)
     {
         if(enemy != null)
         {
             yield return new WaitForSeconds(knockTime);
             enemy.velocity = Vector3.zero;
-            if (Manager)
+            if (Agent)
             {
-                Manager.agent.enabled = true;
+                Agent.enabled = true;
             }
+            OnKnockbackEnd.Invoke();
+            
+            yield return new WaitForSeconds(knockTime);
+            
+            
         }
     }
 

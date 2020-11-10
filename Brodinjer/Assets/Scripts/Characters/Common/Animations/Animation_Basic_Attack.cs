@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Animation_Basic_Attack : Animation_Base
 {
-    public string AttackTriggerName;
     private ResetTriggers resettrigger;
     
     public override void StartAnimation()
@@ -14,11 +13,16 @@ public class Animation_Basic_Attack : Animation_Base
         resettrigger = anim.gameObject.GetComponent<ResetTriggers>();
         if(resettrigger != null)
             resettrigger.ResetAllTriggers();
-        anim.SetTrigger(AttackTriggerName);
+        anim.SetTrigger(StartTriggerName);
     }
 
     public override void StopAnimation()
     {
-        anim.ResetTrigger(AttackTriggerName);
+        anim.ResetTrigger(StartTriggerName);
+        if (StopTriggerName != "")
+        {
+            anim.SetTrigger(StopTriggerName);
+        }
+        
     }
 }

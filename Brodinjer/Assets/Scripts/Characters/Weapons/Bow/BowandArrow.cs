@@ -15,7 +15,6 @@ public class BowandArrow : WeaponBase
     public GameObject ArrowPrefab;
     public Transform InitPos;
     private Rigidbody ArrowRB;
-    public string useButton;
     private float currPower;
     public float MaxPower, PowerIncreaseScale;
     private GameObject currArrow;
