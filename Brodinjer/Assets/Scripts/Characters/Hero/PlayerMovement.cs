@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
         public bool MoveOnStart;
         private bool moving, rotating, extrarunning, active, stunned;
         public Transform DirectionReference;
+        public BoolData paused;
+        private bool pauseInits;
 
         private void Start()
         {
@@ -23,7 +25,22 @@ public class PlayerMovement : MonoBehaviour
                 rotating = false;
                 extrarunning = false;
                 _cc = GetComponent<CharacterController>();
+                pauseInits = false;
                 Init();
+        }
+
+        private void FixedUpdate()
+        {
+                if (paused.value && !pauseInits)
+                {
+                        pauseInits = true;
+                        StopAll();
+                }
+                else if (!paused.value && pauseInits)
+                {
+                        pauseInits = false;
+                        StartAll();
+                }
         }
 
         public void Stun()

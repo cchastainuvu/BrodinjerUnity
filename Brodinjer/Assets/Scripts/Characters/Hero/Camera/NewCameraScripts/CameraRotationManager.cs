@@ -17,12 +17,33 @@ public class CameraRotationManager : MonoBehaviour
     private bool moving;
 
     private Coroutine rotateFunc;
+
+    public BoolData Paused;
+
+    private bool inpause;
     
 
     private void Start()
     {
         StartRotation();
+        inpause = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void FixedUpdate()
+    {
+        if (Paused.value && !inpause)
+        {
+            inpause = true;
+            StopRotation();
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if (!Paused.value && inpause)
+        {
+            inpause = false;
+            StartRotation();
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void StartRotation()

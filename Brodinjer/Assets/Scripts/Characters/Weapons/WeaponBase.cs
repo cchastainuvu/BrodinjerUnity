@@ -15,6 +15,8 @@ public abstract class WeaponBase : MonoBehaviour
     public string AttackEndTrigger;
     private float animSpeed=1;
     public string useButton;
+    public BoolData collected;
+    protected Coroutine weaponFunc;
     
     public abstract void Initialize();
     public abstract IEnumerator Attack();
