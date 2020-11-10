@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/Attack/Wall Pounce")]
 public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
 {
     [Header("Jump Variables")]
@@ -41,18 +40,18 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
     private bool isGrounded;
     private float deltaGround = .2f;
 
-    public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
+    public override void Init()
     {
-        base.Init(caller, MeleeAttack, player, animator, enemy);
-        rigidbody = enemy.GetComponent<Rigidbody>();
-        collider = enemy.GetComponent<BoxCollider>();
+        base.Init();
+        rigidbody = GetComponent<Rigidbody>();
+        collider = GetComponent<BoxCollider>();
     }
 
     public override IEnumerator Attack()
     {
-        caller.StartCoroutine(GravityForce());
+        StartCoroutine(GravityForce());
         checkJump = true;
-        caller.StartCoroutine(CheckJump(WallJumpTime));
+        StartCoroutine(CheckJump(WallJumpTime));
         distGround = collider.bounds.extents.y - collider.center.y;
         rigidbody.freezeRotation = true;
         myNormal = enemyObj.transform.up;
@@ -169,7 +168,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
         rigidbody.AddForce(pounceDirection*WallPounceForce, ForceMode.Impulse);
         yield return new WaitForSeconds(.25f);
         checkJump = true;
-        caller.StartCoroutine(CheckJump(WallJumpTime));
+        StartCoroutine(CheckJump(WallJumpTime));
         yield return new WaitForSeconds(CoolDownTime);
         checkJump = false;
 
@@ -191,7 +190,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
             if (Physics.Raycast(enemyObj.transform.position, enemyObj.transform.forward, out hit, jumpRange))
             {
                 // wall ahead?
-                caller.StartCoroutine(RotateToWall(hit.point, hit.normal, jumpTime)); // yes: jump to the wall
+                StartCoroutine(RotateToWall(hit.point, hit.normal, jumpTime)); // yes: jump to the wall
             }
             if (Physics.Raycast(enemyObj.transform.position, -myNormal, out hit)){ // use it to update myNormal and isGrounded
                 surfaceNormal = hit.normal;
@@ -241,35 +240,4 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
         return false;
     }
 
-    public override Enemy_Attack_Base getClone()
-    {
-        Ribcage_Wall_Pounce_Movement temp = CreateInstance<Ribcage_Wall_Pounce_Movement>();
-        temp.gravity = gravity;
-        temp.jumpRange = jumpRange;
-        temp.WallJumpTime = WallJumpTime;
-        temp.ForwardJumpForce = ForwardJumpForce;
-        temp.UpwardJumpForce = UpwardJumpForce;
-        temp.lerpSpeed = lerpSpeed;
-        temp.jumpAfterTime = jumpAfterTime;
-        temp.InitRotateSpeed = InitRotateSpeed;
-        temp.minTimeChange = minTimeChange;
-        temp.maxTimeChange = maxTimeChange;
-        temp.minWallRotationSpeed = minWallRotationSpeed;
-        temp.maxWallRotationSpeed = maxWallRotationSpeed;
-        temp.minTimeWait = minTimeWait;
-        temp.maxTimeWait = maxTimeWait;
-        temp.minWallSpeed = minWallSpeed;
-        temp.maxWallSpeed = maxWallSpeed;
-        temp.WallAcceleration = WallAcceleration;
-        temp.MinWallCrawlTime = MinWallCrawlTime;
-        temp.MaxWallCrawlTime = MaxWallCrawlTime;
-        temp.WallPounceForce = WallPounceForce;
-        temp.WallPounceInitTime = WallPounceInitTime;
-        temp.AttackActiveTime = AttackActiveTime;
-        temp.AttackStartTime = AttackStartTime;
-        temp.CoolDownTime = CoolDownTime;
-        temp.animations = animations;
-        temp.attackWhileMoving = attackWhileMoving;
-        return temp;
-    }
 }

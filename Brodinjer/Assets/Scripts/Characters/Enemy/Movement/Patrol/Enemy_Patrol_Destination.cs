@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Destination")]
 public class Enemy_Patrol_Destination : Enemy_Patrol
 {
     public bool PingPongMovement;
     
-    protected override void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected override void Init()
     {
-        base.Init(enemy, caller, destinations, anim);
-        if (this.destinations.Count > 0)
+        base.Init();
+        if (destinations.Count > 0)
         {
-            agent.destination = this.destinations[0].position;
+            agent.destination = destinations[0].position;
             currentDestIndex = 0;
             idle = false;
         }
@@ -30,14 +29,14 @@ public class Enemy_Patrol_Destination : Enemy_Patrol
         {
             if (CheckPosition(destinations[currentDestIndex].position))
             {
-                caller.StartCoroutine(ChangeDest());
+                StartCoroutine(ChangeDest());
             }
 
             yield return fixedUpdate;
         }
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         Enemy_Patrol_Destination temp = CreateInstance<Enemy_Patrol_Destination>();
         temp.PingPongMovement = PingPongMovement;
@@ -50,7 +49,7 @@ public class Enemy_Patrol_Destination : Enemy_Patrol
         temp.Speed = Speed;
         temp.AngularSpeed = AngularSpeed;
         return temp;
-    }
+    }*/
 
     public override IEnumerator ChangeDest()
     {

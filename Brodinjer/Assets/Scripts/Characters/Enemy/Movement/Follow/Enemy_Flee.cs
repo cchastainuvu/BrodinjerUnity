@@ -15,7 +15,7 @@ public class Enemy_Flee : NavMesh_Enemy_Base
         while (moving)
         {
             startTransform = agent.transform;
-            agent.transform.rotation = Quaternion.LookRotation(agent.transform.position - followObj.position);
+            agent.transform.rotation = Quaternion.LookRotation(agent.transform.position - player.position);
             Vector3 runTo = agent.transform.position + agent.transform.forward * Speed;
             NavMeshHit hit;
             NavMesh.SamplePosition(runTo, out hit, 5, 1 << NavMesh.GetNavMeshLayerFromName("Default")); 
@@ -27,11 +27,11 @@ public class Enemy_Flee : NavMesh_Enemy_Base
         }
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         Enemy_Flee temp = CreateInstance<Enemy_Flee>();
         temp.Speed = Speed;
         temp.AngularSpeed = AngularSpeed;
         return temp;
-    }
+    }*/
 }

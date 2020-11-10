@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RibCage_Wall_Movement : MonoBehaviour
+public class RibCage_Wall_Movement : Enemy_Attack_Base
 {
     public Transform FrontObj;
     public Transform PlayerObj;
@@ -56,23 +56,20 @@ public class RibCage_Wall_Movement : MonoBehaviour
 
     }
 
-    public void Attack()
- {
-     rigidbody.useGravity = false;
-     WeaponObj.SetActive(false);     
-     myNormal = transform.up;
-     rigidbody.freezeRotation = true;
-     distGround = collider.bounds.extents.y - collider.center.y;
-     InitEvent.Invoke();
-     moving = true;
-     StartCoroutine(Move());
-     //checkJump = true;
-     //StartCoroutine(CheckJump(WallJumpTime));
- }
-
-
-    private IEnumerator Move()
+    public override void StartAttack()
     {
+        StartCoroutine(Attack());
+    }
+
+    public override IEnumerator Attack()
+    {
+        rigidbody.useGravity = false;
+        WeaponObj.SetActive(false);     
+        myNormal = transform.up;
+        rigidbody.freezeRotation = true;
+        distGround = collider.bounds.extents.y - collider.center.y;
+        InitEvent.Invoke();
+        moving = true;
         yield return new WaitForSeconds(jumpInitTime);
         jumpDirection = transform.forward * ForwardJumpForce + transform.up * UpwardJumpForce;
         rigidbody.velocity = Vector3.zero;

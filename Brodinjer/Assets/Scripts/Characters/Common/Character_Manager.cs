@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character_Manager : MonoBehaviour
+public abstract class Character_Manager : MonoBehaviour
 {
     public Character_Base Character;
     private Character_Base _characterTemp;
@@ -15,16 +15,17 @@ public class Character_Manager : MonoBehaviour
 
     public bool StunTime;
 
-    private bool damaged;
+    protected bool damaged, stunned;
 
 
     private void Start()
     {
         damaged = false;
+        stunned = false;
         Init();
     }
 
-    public void Init()
+    public virtual void Init()
     {
         if (!MainCharacter)
         {
@@ -42,7 +43,7 @@ public class Character_Manager : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount, bool armor)
+    public virtual void TakeDamage(float amount, bool armor)
     {
         Character.Health.TakeDamage(amount, armor);
     }
@@ -56,6 +57,12 @@ public class Character_Manager : MonoBehaviour
                 WeaponDamageAmount temp = coll.GetComponent<WeaponDamageAmount>();
                 if (temp != null)
                 {
+                    if (StunTime && !stunned)
+                    {
+                        stunned = true;
+                        StartCoroutine(Stun(temp.StunTime));
+                    }
+
                     damaged = true;
                     TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
                     yield return new WaitForSeconds(damageCoolDown);
@@ -73,4 +80,6 @@ public class Character_Manager : MonoBehaviour
         }
         return result;
     }
+
+    public abstract IEnumerator Stun(float stuntime);
 }

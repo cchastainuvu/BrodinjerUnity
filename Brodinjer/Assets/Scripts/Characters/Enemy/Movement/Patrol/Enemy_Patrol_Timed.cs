@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Timed")]
 public class Enemy_Patrol_Timed : Enemy_Patrol
 {
     public float MinTime, MaxTime;
     private float timeleft;
     public bool PingPongMovement;
     
-    protected override void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected override void Init()
     {
-        base.Init(enemy, caller, destinations, anim);
+        base.Init();
         if (destinations.Count > 0)
         {
             agent.destination = destinations[0].position;
@@ -41,24 +40,7 @@ public class Enemy_Patrol_Timed : Enemy_Patrol
             
         }
         if(moving)
-            caller.StartCoroutine(ChangeDest());
-    }
-
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Patrol_Timed temp = CreateInstance<Enemy_Patrol_Timed>();
-        temp.MaxTime = MaxTime;
-        temp.MinTime = MinTime;
-        temp.PingPongMovement = PingPongMovement;
-        temp.checkX = checkX;
-        temp.checkY = checkY;
-        temp.checkZ = checkZ;
-        temp.DestinationOffset = DestinationOffset;
-        temp.minChangeDestTime = minChangeDestTime;
-        temp.maxChangeDestTime = maxChangeDestTime;
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        return temp;
+            StartCoroutine(ChangeDest());
     }
 
     public override IEnumerator ChangeDest()
@@ -108,7 +90,7 @@ public class Enemy_Patrol_Timed : Enemy_Patrol
             idle = false;
             agent.speed = Speed;
             agent.destination = destinations[currentDestIndex].position;
-            caller.StartCoroutine(Move());
+            StartCoroutine(Move());
         }
     }
 }

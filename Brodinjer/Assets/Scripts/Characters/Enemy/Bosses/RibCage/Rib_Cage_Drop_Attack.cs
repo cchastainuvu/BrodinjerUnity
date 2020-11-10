@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/DropAttack")]
 public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
 {
     private bool currentlyattacking;
 
-    public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
+    public override void Init()
     {
-        base.Init(caller, MeleeAttack, player, animator, enemy);
+        base.Init();
         WeaponAttackobj.SetActive(false);
     }
 
@@ -33,15 +32,4 @@ public class Rib_Cage_Drop_Attack : Enemy_Attack_Base
         }
     }
 
-    public override Enemy_Attack_Base getClone()
-    {
-        Rib_Cage_Melee_Attack temp = CreateInstance<Rib_Cage_Melee_Attack>();
-        temp.AttackActiveTime = AttackActiveTime;
-        temp.AttackStartTime = AttackStartTime;
-        temp.CoolDownTime = CoolDownTime;
-        temp.animations = animations;
-        temp.attackWhileMoving = attackWhileMoving;
-
-        return temp;
-    }
 }
