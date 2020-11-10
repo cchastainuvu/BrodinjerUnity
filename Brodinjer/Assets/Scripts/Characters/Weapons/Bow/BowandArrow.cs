@@ -44,7 +44,7 @@ public class BowandArrow : WeaponBase
         WeaponObj.SetActive(true);
         attack = Attack();
         originalRotate = playermove.rotate;
-        StartCoroutine(attack);
+        weaponFunc = StartCoroutine(Attack());
     }
 
     public override IEnumerator Attack()
@@ -126,7 +126,8 @@ public class BowandArrow : WeaponBase
             cameraRotation.StopTimeSwap(thirdPersonCamera);
             playermove.SwapMovement(originalRotate, playermove.translate);
         }
-        StopCoroutine(attack);
+        if(weaponFunc != null)
+            StopCoroutine(weaponFunc);
     }
 
     private bool CheckInput()

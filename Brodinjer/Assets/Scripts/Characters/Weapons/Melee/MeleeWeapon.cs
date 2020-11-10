@@ -24,7 +24,7 @@ public class MeleeWeapon : WeaponBase
         waitforbutton = new WaitUntil(CheckInput);
         fixedUpdate = new WaitForFixedUpdate();
         currWeapon = true;
-        StartCoroutine(Attack());
+        weaponFunc = StartCoroutine(Attack());
     }
 
     public override IEnumerator Attack()
@@ -107,6 +107,10 @@ public class MeleeWeapon : WeaponBase
         artObj.SetActive(false);
         knockbackObj.SetActive(false);
         currWeapon = false;
+        anim.SetInteger(ComboNumInteger, 0);
+        anim.SetTrigger(AttackEndTrigger);
+        if(weaponFunc != null)
+            StopCoroutine(weaponFunc);
     }
     
     private bool CheckInput()
