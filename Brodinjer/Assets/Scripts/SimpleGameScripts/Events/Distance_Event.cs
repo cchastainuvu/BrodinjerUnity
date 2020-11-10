@@ -11,13 +11,18 @@ public class Distance_Event : MonoBehaviour
     public float waitTimeMin, waitTimeMax, timeInDistance;
     private bool checking;
     private bool inDistance;
-    public Transform checkObj;
+    private Transform checkObj;
     public float offset;
     public bool checkOnAwake;
     public bool RunEventonInit;
     private Coroutine checkFunc;
     
     public bool checkY;
+
+    private void Awake()
+    {
+        checkObj = FindObjectOfType<PlayerMovement>().transform;
+    }
 
     private void Start()
     {

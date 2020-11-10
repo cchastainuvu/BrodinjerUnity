@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/CielingWalk")]
 public class Rib_Cage_Cieling_Walk : Enemy_Follow_Base
 {
     public float HitDistance, RotateSpeed, TranslateAmount;
@@ -43,29 +42,12 @@ public class Rib_Cage_Cieling_Walk : Enemy_Follow_Base
         return false;
     }
     
-    public override Enemy_Movement GetClone()
-    {
-        Rib_Cage_Cieling_Walk temp = CreateInstance<Rib_Cage_Cieling_Walk>();
-        
-        temp.Speed = Speed;
-        temp.HitDistance = HitDistance;
-        temp.RotateSpeed = RotateSpeed;
-        temp.TranslateAmount = TranslateAmount;
-        temp.StartPosition = StartPosition;
-        temp.CielingHeight = CielingHeight;
-        temp.DestinationOffset = DestinationOffset;
-        temp.delayTime = delayTime;
-        temp.standStillTime = standStillTime;
-        temp.waitSecondsAmount = waitSecondsAmount;
-        
-        return temp;
-    }
 
-    protected override void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj, Animator anim)
+    protected override void Init()
     {
         climbing = false;
         currentPos = StartPosition;
-        base.Init(enemy, caller, FollowObj, anim);
+        base.Init();
         _rigidbody = agent.GetComponent<Rigidbody>();
         if (_rigidbody == null)
         {
@@ -80,7 +62,7 @@ public class Rib_Cage_Cieling_Walk : Enemy_Follow_Base
     {
         if (agent.enabled)
         {
-            newDestination = followObj.transform.position;
+            newDestination = player.transform.position;
             newDestination.y += CielingHeight;
             agent.destination = newDestination;
         }
@@ -109,24 +91,24 @@ public class Rib_Cage_Cieling_Walk : Enemy_Follow_Base
             _rigidbody.isKinematic = true;
             _rigidbody.useGravity = false;
             running = true;
-            while (!CheckPosition(followObj.transform.position))
+            while (!CheckPosition(player.transform.position))
             {
                 if (!climbing)
                     SetAgentDestination();
                 if (Physics.Raycast(agent.transform.position, agent.transform.forward, out hit, HitDistance))
-                    caller.StartCoroutine(Call());
+                    StartCoroutine(Call());
                 yield return new WaitForFixedUpdate();
             }
 
             currentTime = 0;
-            while (currentTime < standStillTime && CheckPosition(followObj.transform.position))
+            while (currentTime < standStillTime && CheckPosition(player.transform.position))
             {
                 currentTime += waitSecondsAmount;
                 yield return new WaitForSeconds(waitSecondsAmount);
             }
 
             yield return new WaitForSeconds(delayTime);
-            caller.StartCoroutine(Drop());
+            StartCoroutine(Drop());
             yield return new WaitForFixedUpdate();
             running = false;
         }

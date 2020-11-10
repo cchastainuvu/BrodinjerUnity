@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Flee")]
 public class Enemy_Patrol_Flee : Enemy_Patrol
 {
     private Vector3 backDest, forwardDest;
@@ -16,24 +15,10 @@ public class Enemy_Patrol_Flee : Enemy_Patrol
         {
             if (CheckPosition(destinations[currentDestIndex].position))
             {
-                caller.StartCoroutine(ChangeDest());
+                StartCoroutine(ChangeDest());
             }
             yield return fixedUpdate;
         }
-    }
-
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Patrol_Flee temp = CreateInstance<Enemy_Patrol_Flee>();
-        temp.checkX = checkX;
-        temp.checkY = checkY;
-        temp.checkZ = checkZ;
-        temp.DestinationOffset = DestinationOffset;
-        temp.minChangeDestTime = minChangeDestTime;
-        temp.maxChangeDestTime = maxChangeDestTime;
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        return temp;     
     }
 
     public override IEnumerator ChangeDest()
@@ -54,8 +39,8 @@ public class Enemy_Patrol_Flee : Enemy_Patrol
             forwardDest = destinations[currentDestIndex + 1].position;
         }
 
-        if (GetDistance(forwardDest, followObj.transform.position) >
-            GetDistance(backDest, followObj.transform.position))
+        if (GetDistance(forwardDest, player.transform.position) >
+            GetDistance(backDest, player.transform.position))
         {
             currentDestIndex++;
             if (currentDestIndex >= destinations.Count)

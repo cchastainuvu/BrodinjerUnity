@@ -45,7 +45,7 @@ public class MeleeWeapon : WeaponBase
                 knockbackObj.SetActive(true);
                 AxUsedEvent.Invoke();
                 currentTime = 0;
-                while (currentTime < comboTime01 && !frozen)
+                while (currentTime < comboTime01 && !frozen && currWeapon)
                 {
                     if (currentTime > attackActiveTime03 && knockbackObj.activeSelf)
                     {
@@ -59,7 +59,7 @@ public class MeleeWeapon : WeaponBase
                         yield return  new WaitForSeconds(attackActivateTime02);
                         //knockbackObj.SetActive(true);
                         currentTime = 0;
-                        while (currentTime < comboTime02 && !frozen)
+                        while (currentTime < comboTime02 && !frozen && currWeapon)
                         {
                             if (currentTime > attackActiveTime02 && knockbackObj.activeSelf)
                             {
@@ -73,7 +73,7 @@ public class MeleeWeapon : WeaponBase
                                 yield return  new WaitForSeconds(attackActivateTime03);
                                 //knockbackObj.SetActive(true);
                                 currentTime = 0;
-                                while (currentTime < attackActiveTime03 && !frozen)
+                                while (currentTime < attackActiveTime03 && !frozen && currWeapon)
                                 {
                                     currentTime += Time.deltaTime;
                                     yield return fixedUpdate;
@@ -106,6 +106,7 @@ public class MeleeWeapon : WeaponBase
     {
         artObj.SetActive(false);
         knockbackObj.SetActive(false);
+        currWeapon = false;
     }
     
     private bool CheckInput()

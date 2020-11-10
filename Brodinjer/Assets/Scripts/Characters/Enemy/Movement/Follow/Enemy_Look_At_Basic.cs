@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Follow/LookAt")]
 public class Enemy_Look_At_Basic : Enemy_Follow_Base
 {
     private Quaternion facingDirection;
     public bool AlwaysReturn;
     private Vector3 followPos, agentPos, destinationPos;
+    public Transform Destination;
 
     public override IEnumerator Move()
     {
@@ -26,12 +26,12 @@ public class Enemy_Look_At_Basic : Enemy_Follow_Base
         {
             if (AlwaysReturn && agent.enabled)
             {
-                destinationPos = destinations[0].position;
+                destinationPos = Destination.position;
                 destinationPos.y = agent.transform.position.y;
                 agent.destination = destinationPos;
             }
 
-            followPos = followObj.transform.position;
+            followPos = player.transform.position;
             followPos.y = 0;
             agentPos = agent.transform.position;
             agentPos.y = 0;
@@ -42,14 +42,5 @@ public class Enemy_Look_At_Basic : Enemy_Follow_Base
         }
     }
 
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Look_At_Basic temp = CreateInstance<Enemy_Look_At_Basic>();
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        temp.AlwaysReturn = AlwaysReturn;
-        temp.animation = animation;
-        return temp;
-    }
 
 }

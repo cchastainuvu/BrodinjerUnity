@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Rotation Translate")]
 public class Rotation_Transform_Movement : Transform_Movement_Base
 {
     public float offset;
@@ -10,19 +9,21 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
     private Vector3 moveVector, target, currentPos;
     private Quaternion rotationDirection;
 
+    public Transform Destination;
+
     public override IEnumerator Move()
     {
         moveVector = enemy.transform.position;
         if (x)
-            moveVector.x = destinations[0].position.x;
+            moveVector.x = Destination.position.x;
         if (y)
-            moveVector.y = destinations[0].position.y;
+            moveVector.y = Destination.position.y;
         if (z)
-            moveVector.z = destinations[0].position.z;
-        while (!CheckDestination(enemy.transform.position, destinations[0].transform.position, offset))
+            moveVector.z = Destination.position.z;
+        while (!CheckDestination(enemy.transform.position, Destination.transform.position, offset))
         {      
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, moveVector, Speed*Time.deltaTime);
-            target = followObj.transform.position;
+            target = player.transform.position;
             target.y = 0;
             currentPos = enemy.transform.position;
             currentPos.y = 0;
@@ -36,7 +37,7 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
 
         while (moving)
         {
-            target = followObj.transform.position;
+            target = player.transform.position;
             target.y = 0;
             currentPos = enemy.transform.position;
             currentPos.y = 0;
@@ -47,7 +48,7 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
         }
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         Rotation_Transform_Movement temp = CreateInstance<Rotation_Transform_Movement>();
         temp.Speed = Speed;
@@ -58,7 +59,7 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
         temp.y = y;
         temp.z = z;
         return temp;
-    }
+    }*/
 
     public bool CheckDestination(Vector3 Dest01, Vector3 Dest02, float offset)
     {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/Drop")]
 public class Rib_Cage_Drop : Enemy_Patrol
 {
     public float standStillTime;
@@ -14,9 +13,9 @@ public class Rib_Cage_Drop : Enemy_Patrol
     public float RotateSpeed;
     private Vector3 destination;
 
-    protected override void Init(GameObject enemy, MonoBehaviour caller, Animator anim)
+    protected override void Init()
     {
-        base.Init(enemy, caller, anim);
+        base.Init();
         _rigidbody = agent.GetComponent<Rigidbody>();
         if (_rigidbody == null)
         {
@@ -32,15 +31,15 @@ public class Rib_Cage_Drop : Enemy_Patrol
     {
         while (moving)
         {
-            while (!CheckPosition(followObj.transform.position))
+            while (!CheckPosition(player.transform.position))
             {
-                destination = followObj.transform.position;
+                destination = player.transform.position;
                 destination.y = agent.transform.position.y;
                 agent.destination = destination;
                 yield return new WaitForFixedUpdate();
             }
             currentTime = 0;
-            while (currentTime < standStillTime && CheckPosition(followObj.transform.position))
+            while (currentTime < standStillTime && CheckPosition(player.transform.position))
             {
                 currentTime += waitSecondsAmount;
                 yield return new WaitForSeconds(waitSecondsAmount);
@@ -56,7 +55,7 @@ public class Rib_Cage_Drop : Enemy_Patrol
         agent.enabled = false;
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
-        caller.StartCoroutine(Rotate());
+        StartCoroutine(Rotate());
     }
 
     private IEnumerator Rotate()
@@ -71,20 +70,6 @@ public class Rib_Cage_Drop : Enemy_Patrol
         }   
     }
 
-    public override Enemy_Movement GetClone()
-    {
-        Rib_Cage_Drop temp = CreateInstance<Rib_Cage_Drop>();
-        temp.Speed = Speed;
-        temp.delayTime = delayTime;
-        temp.RotateSpeed = RotateSpeed;
-        temp.standStillTime = standStillTime;
-        temp.waitSecondsAmount = waitSecondsAmount;
-        temp.checkX = checkX;
-        temp.checkY = checkY;
-        temp.checkZ = checkZ;
-        temp.DestinationOffset = DestinationOffset;
-        return temp;
-    }
 
     public override IEnumerator ChangeDest()
     {

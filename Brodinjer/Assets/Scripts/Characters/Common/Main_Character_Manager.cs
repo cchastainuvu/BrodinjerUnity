@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Main_Character_Manager : MonoBehaviour
+public class Main_Character_Manager : Character_Manager
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerMovement movement;
+    public WeaponManager weapons;
+    public override IEnumerator Stun(float stuntime)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        movement.Stun();
+        weapons.WeaponFreeze();
+        yield return new WaitForSeconds(stuntime);
+        movement.UnStun();
+        weapons.WeaponUnfreeze();
+        stunned = false;
     }
 }

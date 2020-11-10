@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Character_Manager : MonoBehaviour
+public class Enemy_Character_Manager : Character_Manager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Enemy_Manager enemyManager;
 
-    // Update is called once per frame
-    void Update()
+
+    public override IEnumerator Stun(float stuntime)
     {
-        
+        enemyManager.Stun();
+        yield return new WaitForSeconds(stuntime);
+        enemyManager.UnStun();
+        stunned = false;
     }
 }
