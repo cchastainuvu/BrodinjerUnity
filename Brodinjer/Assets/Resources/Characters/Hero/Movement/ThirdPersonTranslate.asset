@@ -19,8 +19,8 @@ MonoBehaviour:
   JumpSpeed: 12
   Gravity: 30
   AnimSpeedMax: 8
-  canMove: 0
-  canRun: 0
+  canMove: 1
+  canRun: 1
   extraControlled: 0
   animation: {fileID: 11400000, guid: e6c708b55f2e2c141a48a980d600745d, type: 2}
   HorizontalAxis: Horizontal
@@ -30,5 +30,5 @@ MonoBehaviour:
   JumpDelay: 0.1
   DodgeDelay: 0.1
   DodgeTime: 0.25
-  DodgeAmount: 10
+  DodgeAmount: 20
   DodgeAnimations: {fileID: 11400000, guid: bd8a522237b2bdf478f01d489e27ec73, type: 2}

@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
 public abstract class NavMesh_Enemy_Base : Enemy_Movement
 {
     [HideInInspector]
     public NavMeshAgent agent;
 
     //Basic Init
-    protected override void Init(GameObject enemy, MonoBehaviour caller, Animator anim)
+    protected override void Init()
     {
         canMove = true;
-        this.enemy = enemy;
-        this.agent = enemy.GetComponent<NavMeshAgent>();
-        if (this.agent == null)
+        agent = enemy.GetComponent<NavMeshAgent>();
+        if (agent == null)
         {
-            this.agent = enemy.AddComponent<NavMeshAgent>();
+            agent = enemy.gameObject.AddComponent<NavMeshAgent>();
         }
-        this.agent.speed = 0;
-        this.agent.angularSpeed = AngularSpeed;
-        this.caller = caller;
+        agent.speed = 0;
+        agent.angularSpeed = AngularSpeed;
         if (animation != null)
         {
-            animation.Init(caller, anim, followObj, agent);
+            animation.Init(this, anim, player, agent);
         }
     }
     
@@ -34,7 +31,7 @@ public abstract class NavMesh_Enemy_Base : Enemy_Movement
         agent.velocity = Vector3.zero;
         if (moveFunc != null)
         {
-            caller.StopCoroutine(moveFunc);
+            StopCoroutine(moveFunc);
         }
         if(animation)
             animation.StopAnimation();

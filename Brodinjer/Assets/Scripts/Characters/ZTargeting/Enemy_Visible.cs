@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Enemy_Visible : MonoBehaviour
 {
-    public In_Camera_View CamRange;
-    public Targeting TargetScript;
-    public Transform player;
+    private In_Camera_View CamRange;
+    private Targeting TargetScript;
+    private Transform player;
     private RaycastHit hit;
     private int layerMask;
 
-    private void Start()
+    private void Awake()
     {
         layerMask = ~LayerMask.GetMask("Enemy");
+        TargetScript = FindObjectOfType<Targeting>();
+        CamRange = FindObjectOfType<In_Camera_View>();
+        player = TargetScript.transform;
     }
-
+    
     private void FixedUpdate()
     {
         CheckInRange();

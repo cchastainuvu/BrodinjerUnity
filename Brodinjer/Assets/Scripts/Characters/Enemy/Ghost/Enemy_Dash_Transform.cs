@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Transform/Dash Forward")]
-
 public class Enemy_Dash_Transform : Transform_Movement_Base
 {
     public float DashSpeed;
@@ -66,7 +64,7 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
         yield return fixedUpdate;
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         Enemy_Dash_Transform temp = CreateInstance<Enemy_Dash_Transform>();
         temp.Speed = Speed;
@@ -80,5 +78,5 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
         temp.y = y;
         temp.z = z;
         return temp;
-    }
+    }*/
 }

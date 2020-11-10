@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/Transform/Follow/Basic")]
 public class Transform_Follow : Transform_Movement_Base
 {
     public bool lookAtFollow;
@@ -21,7 +20,7 @@ public class Transform_Follow : Transform_Movement_Base
         {
             if (lookAtFollow && moving)
             {
-                    targetRotation = followObj.transform.position;
+                    targetRotation = player.transform.position;
                     targetRotation = (targetRotation - enemy.transform.position).normalized;
                     facingDirection = Quaternion.LookRotation(targetRotation);
                     Quaternion YRotation = Quaternion.Euler(enemy.transform.rotation.eulerAngles.x,
@@ -39,17 +38,17 @@ public class Transform_Follow : Transform_Movement_Base
                 targetDestination = enemy.transform.position;
                 if (x)
                 {
-                    targetDestination.x = followObj.position.x;
+                    targetDestination.x = player.position.x;
                 }
 
                 if (y)
                 {
-                    targetDestination.y = followObj.position.y;
+                    targetDestination.y = player.position.y;
                 }
 
                 if (z)
                 {
-                    targetDestination.z = followObj.position.z;
+                    targetDestination.z = player.position.z;
                 }
 
                 enemy.transform.position =
@@ -75,7 +74,7 @@ public class Transform_Follow : Transform_Movement_Base
                 if (y)
                 {
                     targetDestination = enemy.transform.position;
-                    targetDestination.y = followObj.position.y;
+                    targetDestination.y = player.position.y;
                     enemy.transform.position =
                         Vector3.MoveTowards(enemy.transform.position, targetDestination, ySpeed * Time.deltaTime);
                 }
@@ -86,19 +85,4 @@ public class Transform_Follow : Transform_Movement_Base
         animation.StopAnimation();
     }
 
-    public override Enemy_Movement GetClone()
-    {
-        Transform_Follow temp = CreateInstance<Transform_Follow>();
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        temp.lookAtFollow = lookAtFollow;
-        temp.animation = animation;
-        temp.offset = offset;
-        temp.x = x;
-        temp.y = y;
-        temp.z = z;
-        temp.ySpeed = ySpeed;
-        temp.rotateInPlace = rotateInPlace;
-        return temp;
-    }
 }

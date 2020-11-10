@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Straight Forward")]
 public class StraightForwardMove : NavMesh_Enemy_Base
 {
     public float Acceleration;
@@ -21,7 +20,7 @@ public class StraightForwardMove : NavMesh_Enemy_Base
         }
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         StraightForwardMove temp = CreateInstance<StraightForwardMove>();
         temp.Speed = Speed;
@@ -29,5 +28,5 @@ public class StraightForwardMove : NavMesh_Enemy_Base
         temp.Acceleration = Acceleration;
         temp.animation = animation;
         return temp;
-    }
+    }*/
 }

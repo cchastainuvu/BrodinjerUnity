@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RibCage_Wall_Movement : MonoBehaviour
+public class RibCage_Wall_Movement : Enemy_Attack_Base
 {
     public Transform FrontObj;
     public Transform PlayerObj;
@@ -30,7 +30,7 @@ public class RibCage_Wall_Movement : MonoBehaviour
     [Header("Wall Pounce Variables")]
     public float MinWallCrawlTime;
     public float MaxWallCrawlTime;
-    public float WallForwardForce, WallUpwardForce;
+    public float WallForwardForce;
     public float WallPounceInitTime;
     public float WallPounceEndTime;
     public float FinishTime;
@@ -56,28 +56,27 @@ public class RibCage_Wall_Movement : MonoBehaviour
 
     }
 
-    public void Attack()
- {
-     rigidbody.useGravity = false;
-     WeaponObj.SetActive(false);     
-     myNormal = transform.up;
-     rigidbody.freezeRotation = true;
-     distGround = collider.bounds.extents.y - collider.center.y;
-     InitEvent.Invoke();
-     moving = true;
-     StartCoroutine(Move());
-     checkJump = true;
-     StartCoroutine(CheckJump(WallJumpTime));
- }
-
-
-    private IEnumerator Move()
+    public override void StartAttack()
     {
+        StartCoroutine(Attack());
+    }
+
+    public override IEnumerator Attack()
+    {
+        rigidbody.useGravity = false;
+        WeaponObj.SetActive(false);     
+        myNormal = transform.up;
+        rigidbody.freezeRotation = true;
+        distGround = collider.bounds.extents.y - collider.center.y;
+        InitEvent.Invoke();
+        moving = true;
         yield return new WaitForSeconds(jumpInitTime);
         jumpDirection = transform.forward * ForwardJumpForce + transform.up * UpwardJumpForce;
+        rigidbody.velocity = Vector3.zero;
         rigidbody.AddForce(jumpDirection, ForceMode.Impulse);
+        transform.Rotate(-90,0,0);
         yield return new WaitForSeconds(jumpAfterTime);
-        checkJump = false;
+        //checkJump = false;
         currentTime = 90 / InitRotateSpeed;
         while (currentTime > 0)
         {
@@ -115,18 +114,7 @@ public class RibCage_Wall_Movement : MonoBehaviour
                 currentWallSpeed -= Time.deltaTime * WallAcceleration;
             }
 
-            ray = new Ray(transform.position, -myNormal); // cast ray downwards
-            if (Physics.Raycast(ray, out hit))
-            {
-                // use it to update myNormal and isGrounded
-                isGrounded = hit.distance <= distGround + deltaGround;
-                surfaceNormal = hit.normal;
-            }
-            else
-            {
-                isGrounded = false;
-                surfaceNormal = Vector3.up;
-            }
+
 
             myNormal = Vector3.Lerp(myNormal, surfaceNormal, lerpSpeed * Time.deltaTime);
             Vector3 myForward = Vector3.Cross(transform.right, myNormal);
@@ -177,21 +165,20 @@ public class RibCage_Wall_Movement : MonoBehaviour
             currentTime -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
-        
-        yield return new WaitForSeconds(WallPounceInitTime);
+        transform.rotation = Quaternion.Euler(new Vector3(-270,transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
 
-        pounceDirection = (PlayerObj.transform.position - transform.position).normalized; 
+        //pounceDirection = transform.forward + transform.up;
+        yield return new WaitForSeconds(WallPounceInitTime);
+        pounceDirection = (PlayerObj.transform.position - transform.position).normalized;
         yield return new WaitForSeconds(.1f);
         WeaponObj.SetActive(true);
         rigidbody.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(.25f);
-        checkJump = true;
-        StartCoroutine(CheckJump(WallJumpTime));
+        transform.Rotate(-90,0,0);
         yield return new WaitForSeconds(WallPounceEndTime);
-        rigidbody.useGravity = true;
+        rigidbody.freezeRotation = false;
+        WeaponObj.SetActive(false);
         yield return new WaitForSeconds(FinishTime);
         FinishEvent.Invoke();
-        WeaponObj.SetActive(false);
 
 
     }
@@ -200,6 +187,20 @@ public class RibCage_Wall_Movement : MonoBehaviour
     {
         while (true)
         {
+            ray = new Ray(transform.position, -myNormal); // cast ray downwards
+            if (Physics.Raycast(ray, out hit))
+            {
+                // use it to update myNormal and isGrounded
+                isGrounded = hit.distance <= distGround + deltaGround;
+                surfaceNormal = hit.normal;
+            }
+            else
+            {
+                isGrounded = false;
+                surfaceNormal = Vector3.up;
+            }
+
+            myNormal = transform.up;
             rigidbody.AddForce(-gravity*rigidbody.mass*myNormal, ForceMode.Force);
             yield return new WaitForFixedUpdate();
         }

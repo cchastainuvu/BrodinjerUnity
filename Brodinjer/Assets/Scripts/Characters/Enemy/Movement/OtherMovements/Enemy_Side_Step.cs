@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/SideStep")]
 public class Enemy_Side_Step : NavMesh_Enemy_Base
 {
     public float sideAmount;
@@ -11,10 +10,9 @@ public class Enemy_Side_Step : NavMesh_Enemy_Base
     private bool _right = true;
     public float minTimeWait, maxTimeWait;
     public bool RotateToPlayer;
-
-    protected override void Init(GameObject enemy, MonoBehaviour caller, Animator anim)
+    
+    public override IEnumerator Move()
     {
-        base.Init(enemy, caller, anim);
         right_dest = enemy.transform.position;
         right_dest += enemy.transform.right * sideAmount;
         left_dest = enemy.transform.position;
@@ -22,37 +20,21 @@ public class Enemy_Side_Step : NavMesh_Enemy_Base
         _currDest = right_dest;
         agent.destination = _currDest;
         _right = true;
-    }
-
-    public override IEnumerator Move()
-    {
         agent.updateRotation = false;
         agent.speed = Speed;
         while (moving)
         {
             if (CheckPosition(_currDest))
             {
-                caller.StartCoroutine(ChangeDest());
+                StartCoroutine(ChangeDest());
             }
 
             if (RotateToPlayer)
             {
-                agent.gameObject.transform.LookAt(followObj);
+                agent.gameObject.transform.LookAt(player);
             }
             yield return new WaitForSeconds(.1f);
         }
-    }
-
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Side_Step temp = CreateInstance<Enemy_Side_Step>();
-        temp.sideAmount = sideAmount;
-        temp.DestinationOffset = DestinationOffset;
-        temp.minTimeWait = minTimeWait;
-        temp.maxTimeWait = maxTimeWait;
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        return temp;
     }
     
     public virtual bool CheckPosition(Vector3 position)
@@ -69,6 +51,7 @@ public class Enemy_Side_Step : NavMesh_Enemy_Base
 
     public virtual IEnumerator ChangeDest()
     {
+        Debug.Log("Change Dest");
         agent.speed = 0;
         if (_right)
         {
