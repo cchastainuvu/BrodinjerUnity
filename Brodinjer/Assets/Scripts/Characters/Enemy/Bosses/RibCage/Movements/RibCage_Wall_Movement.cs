@@ -53,7 +53,6 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         collider = GetComponent<BoxCollider>();
         myNormal = transform.up;
         StartCoroutine(GravityForce());
-
     }
 
     public override void StartAttack()
@@ -64,6 +63,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
     public override IEnumerator Attack()
     {
         rigidbody.useGravity = false;
+        rigidbody.isKinematic = false;
         WeaponObj.SetActive(false);     
         myNormal = transform.up;
         rigidbody.freezeRotation = true;
@@ -179,7 +179,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         WeaponObj.SetActive(false);
         yield return new WaitForSeconds(FinishTime);
         FinishEvent.Invoke();
-
+        rigidbody.isKinematic = true;
 
     }
 
