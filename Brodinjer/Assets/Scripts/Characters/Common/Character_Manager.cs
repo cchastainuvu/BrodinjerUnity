@@ -15,13 +15,14 @@ public abstract class Character_Manager : MonoBehaviour
 
     public bool StunTime;
 
-    protected bool damaged, stunned;
+    protected bool damaged, stunned, dead;
 
 
     private void Start()
     {
         damaged = false;
         stunned = false;
+        dead = false;
         Init();
     }
 
@@ -45,12 +46,19 @@ public abstract class Character_Manager : MonoBehaviour
 
     public virtual void TakeDamage(float amount, bool armor)
     {
-        Character.Health.TakeDamage(amount, armor);
+        if (!dead)
+        {
+            Character.Health.TakeDamage(amount, armor);
+            if (Character.Health.health.value <= 0)
+            {
+
+            }
+        }
     }
 
     private IEnumerator OnTriggerEnter(Collider coll)
     {
-        if (!damaged)
+        if (!damaged && !dead)
         {
             if (coll.gameObject.layer == ToLayer(DamageLayer.value))
             {
