@@ -29,6 +29,13 @@ public class ScalableObject : MonoBehaviour
     public FixedJoint joint;
     public float minJointMassMultiplier, maxJointMassMultiplier;
     private float minJointMass, maxJointMass;
+
+    public bool pulleySystem;
+    public ConfigurableJoint configurableJoint;
+    public float linearMinLimit, linerMaxLimit;
+    private float currentLimit;
+
+    private float initScaleAmount;
     
     private void Start()
     {
@@ -48,12 +55,15 @@ public class ScalableObject : MonoBehaviour
             {
 
                 minJointMass = joint.massScale * minJointMassMultiplier;
-                /*if (minJointMass <= 0)
-                {
-                    minJointMass = 0;
-                }*/
-
                 maxJointMass = joint.massScale * maxJointMassMultiplier;
+            }
+
+            if (pulleySystem)
+            {
+                initScaleAmount = transform.localScale.x;
+                currentLimit = linearMinLimit;
+                SoftJointLimit temp = new SoftJointLimit {limit = linearMinLimit};
+                configurableJoint.linearLimit = temp;
             }
         }
     }
@@ -80,6 +90,14 @@ public class ScalableObject : MonoBehaviour
                         GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
                 }
             }
+
+            if (pulleySystem)
+            {
+                currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                SoftJointLimit temp = new SoftJointLimit{limit = currentLimit};
+                configurableJoint.linearLimit = temp;
+            }
         }
     }
 
@@ -104,6 +122,13 @@ public class ScalableObject : MonoBehaviour
                     joint.massScale = Mathf.Lerp(maxJointMass, minJointMass,
                         GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
                 }
+            }
+            if (pulleySystem)
+            {
+                currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                SoftJointLimit temp = new SoftJointLimit{limit = currentLimit};
+                configurableJoint.linearLimit = temp;
             }
         }
     }

@@ -38,9 +38,13 @@ public class MeleeWeapon : WeaponBase
             yield return waitforbutton;
             if (!frozen)
             {
-                anim.ResetTrigger(AttackEndTrigger);
-                anim.SetTrigger(AttackTrigger);
-                anim.SetInteger(ComboNumInteger, 1);
+                if (currWeapon)
+                {
+                    anim.ResetTrigger(AttackEndTrigger);
+                    anim.SetTrigger(AttackTrigger);
+                    anim.SetInteger(ComboNumInteger, 1);
+                }
+
                 yield return  new WaitForSeconds(attackActivateTime01);
                 knockbackObj.SetActive(true);
                 AxUsedEvent.Invoke();

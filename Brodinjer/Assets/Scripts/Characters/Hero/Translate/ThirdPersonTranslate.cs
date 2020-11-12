@@ -22,6 +22,7 @@ public class ThirdPersonTranslate : CharacterTranslate
     
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
     {
+        Debug.Log("Camera: " + camera.gameObject.name);
         base.Init(caller, _cc, camera, target, animator);
         if(DodgeAnimations!= null)
             DodgeAnimations.Init(caller, animator, _cc.transform, null);
