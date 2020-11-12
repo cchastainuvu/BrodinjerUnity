@@ -11,6 +11,12 @@ public class DirectionalHit : Trigger_Event_Base
     private bool checking;
     public float InBetweenTime;
 
+    private void Awake()
+    {
+        if (player == null)
+            player = FindObjectOfType<PlayerMovement>().transform;
+    }
+
     private void Start()
     {
         checking = false;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/WallClimb")]
 public class Rib_Cage_Wall : Enemy_Follow_Base
 {
     public float HitDistance, RotateSpeed, TranslateAmount;
@@ -24,29 +23,17 @@ public class Rib_Cage_Wall : Enemy_Follow_Base
         WallZ,
         Cieling
     }
-    
-    public override Enemy_Movement GetClone()
-    {
-        Rib_Cage_Wall temp = CreateInstance<Rib_Cage_Wall>();
-        temp.Speed = Speed;
-        temp.HitDistance = HitDistance;
-        temp.RotateSpeed = RotateSpeed;
-        temp.TranslateAmount = TranslateAmount;
-        temp.StartPosition = StartPosition;
-        temp.CielingHeight = CielingHeight;
-        return temp;
-    }
 
-    protected override void Init(GameObject enemy, MonoBehaviour caller, Transform FollowObj, Animator anim)
+    protected override void Init()
     {
         climbing = false;
         currentPos = StartPosition;
-        base.Init(enemy, caller, FollowObj, anim);
+        base.Init();
     }
 
     private void SetAgentDestination()
     {
-        newDestination = followObj.transform.position;
+        newDestination = player.transform.position;
         newDestination.y += CielingHeight;
         agent.destination = newDestination;
     }
@@ -59,7 +46,7 @@ public class Rib_Cage_Wall : Enemy_Follow_Base
             if (!climbing)
                 SetAgentDestination();
                 if (Physics.Raycast(agent.transform.position, agent.transform.forward, out hit, HitDistance))
-                    caller.StartCoroutine(Call());
+                    StartCoroutine(Call());
 
             yield return new WaitForFixedUpdate();
         }

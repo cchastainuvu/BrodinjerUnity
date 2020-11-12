@@ -43,7 +43,7 @@ public class ScalingScript : WeaponBase
         attack = Attack();
         MagicInUse.value = false;
         originalRotate = playermove.rotate;
-        StartCoroutine(attack);
+        weaponFunc = StartCoroutine(Attack());
 
     }
 
@@ -155,7 +155,11 @@ public class ScalingScript : WeaponBase
             cameraRotation.StopTimeSwap(thirdPersonCamera);
             playermove.SwapMovement(originalRotate, playermove.translate);
         }
-        StopCoroutine(attack);
+
+        if (weaponFunc != null)
+        {
+            StopCoroutine(weaponFunc);
+        }
     }
 
     public void SpellHit()

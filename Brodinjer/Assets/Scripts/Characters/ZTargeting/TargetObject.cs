@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class TargetObject : MonoBehaviour
 {
-    
+    public GameObject target;
+
+    private void Awake()
+    {
+        target.SetActive(false);
+    }
 }

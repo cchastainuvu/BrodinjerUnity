@@ -10,6 +10,8 @@ public abstract class Enemy_Patrol : NavMesh_Enemy_Base
     public bool checkX, checkY, checkZ;
     protected int currentDestIndex;
 
+    public List<Transform> destinations;
+
 
     public virtual bool CheckPosition(Vector3 position)
     {

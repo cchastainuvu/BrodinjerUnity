@@ -8,7 +8,6 @@
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ActivateRigidbodies.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
@@ -39,6 +38,7 @@
             </e>
           </e>
         </e>
+        <e p="PauseMenu.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Characters" t="Include">
             <e p="Common" t="Include">
@@ -56,7 +56,12 @@
                 <e p="Death_Event_Setup.cs" t="Include" />
                 <e p="Destroy_Death.cs" t="Include" />
               </e>
+              <e p="Enemy_Character_Manager.cs" t="Include" />
               <e p="Health_Base.cs" t="Include" />
+              <e p="Main_Character_Manager.cs" t="Include" />
+            </e>
+            <e p="Damage" t="Include">
+              <e p="WeaponDamageAmount.cs" t="Include" />
             </e>
             <e p="Enemy" t="Include">
               <e p="Attack" t="Include">
@@ -79,6 +84,7 @@
                     <e p="Rib_Animations.cs" t="Include" />
                   </e>
                   <e p="Attack" t="Include">
+                    <e p="Instantiate_Skeletons.cs" t="Include" />
                     <e p="RibCage_Swipe.cs" t="Include" />
                   </e>
                   <e p="Movements" t="Include">
@@ -228,6 +234,7 @@
             <e p="PickUp_Base.cs" t="Include" />
           </e>
           <e p="SimpleGameScripts" t="Include">
+            <e p="ActivateRigidbodies.cs" t="Include" />
             <e p="AddRigidBody.cs" t="Include" />
             <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">

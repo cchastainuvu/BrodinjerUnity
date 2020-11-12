@@ -28,9 +28,17 @@ public class WeaponManager : MonoBehaviour
 
     public void SwapWeapon(WeaponBase weapon)
     {
-        WeaponDisable();
+        if(currentWeapon !=null)
+            WeaponDisable();
         currentWeapon = weapon;
-        WeaponEnable();
+        if(currentWeapon != null)
+            WeaponEnable();
+    }
+
+    public void PutAwayWeapon()
+    {
+        WeaponDisable();
+        currentWeapon = null;
     }
     
     

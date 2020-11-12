@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Hand/Attack/Magic")]
 public class Hand_Magic_Attack : Enemy_Attack_Base
 {
     private GameObject magicObj;
@@ -31,7 +30,7 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         yield return new WaitForSeconds(CoolDownTime);
     }
 
-    public override Enemy_Attack_Base getClone()
+    /*public override Enemy_Attack_Base getClone()
     {
         Hand_Magic_Attack temp = CreateInstance<Hand_Magic_Attack>();
         temp.ForwardVelocity = ForwardVelocity;
@@ -42,7 +41,7 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         temp.attackWhileMoving = attackWhileMoving;
 
         return temp;
-    }
+    }*/
 }
 
 

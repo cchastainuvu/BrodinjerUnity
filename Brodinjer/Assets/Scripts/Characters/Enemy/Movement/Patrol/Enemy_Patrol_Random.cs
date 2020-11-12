@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Patrol/Random")]
 public class Enemy_Patrol_Random : Enemy_Patrol
 {
     public bool useX, useY, useZ;
@@ -67,9 +66,9 @@ public class Enemy_Patrol_Random : Enemy_Patrol
 
     }
       
-    protected override void Init(GameObject enemy, MonoBehaviour caller, List<Transform> destinations, Animator anim)
+    protected override void Init()
     {
-        base.Init(enemy, caller, destinations, anim); 
+        base.Init(); 
         FindMinMax();
         randomVector = enemy.transform.position;
         if(useX)
@@ -87,11 +86,9 @@ public class Enemy_Patrol_Random : Enemy_Patrol
         agent.updateRotation = true;
         while (moving)
         {
-            //Debug.Log("Random Vector: " + randomVector);
-            //Debug.Log("Enemy Vector: " + enemy.transform.position);
             if (CheckPosition(randomVector))
             {
-                caller.StartCoroutine(ChangeDest());
+                StartCoroutine(ChangeDest());
             }
 
             yield return new WaitForSeconds(.1f);
@@ -99,22 +96,6 @@ public class Enemy_Patrol_Random : Enemy_Patrol
         }
     }
 
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Patrol_Random temp = CreateInstance<Enemy_Patrol_Random>();
-        temp.useX = useX;
-        temp.useY = useY;
-        temp.useZ = useZ;
-        temp.checkX = checkX;
-        temp.checkY = checkY;
-        temp.checkZ = checkZ;
-        temp.DestinationOffset = DestinationOffset;
-        temp.minChangeDestTime = minChangeDestTime;
-        temp.maxChangeDestTime = maxChangeDestTime;
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        return temp;
-    }
 
     public override IEnumerator ChangeDest()
     {

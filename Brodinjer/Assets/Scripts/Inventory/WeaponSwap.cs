@@ -5,80 +5,131 @@ using UnityEngine.UI;
 
 public class WeaponSwap : MonoBehaviour
 {
-    public List<WeaponBase> weapons;
+    public List<WeaponBase> AllWeapons;
+    private List<WeaponBase> AvailableWeapons;
     public List<Sprite> weaponSprites;
     private List<GameObject> highlights;
     private List<Image> weaponImages;
     private List<KeyCode> WeaponKeys;
-    private int currentIndex;
+    public IntData currentWeapon;
     public WeaponManager wm;
     private float scrollWheel;
     public GameObject ImagePrefab;
     private GameObject tempobj;
     private WeaponImage tempImage;
+    public string PutAwayWeapon;
+    private int weapon = 0;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        currentIndex = weapons.IndexOf(wm.currentWeapon);
+        yield return new WaitForSeconds(.1f);
+        AvailableWeapons = new List<WeaponBase>();
+        foreach (var wb in AllWeapons)
+        {
+            if(wb.collected.value)
+                AvailableWeapons.Add(wb);
+        }
         WeaponKeys = new List<KeyCode>();
-        foreach (var weapon in weapons)
+        foreach (var weapon in AvailableWeapons)
         {
             WeaponKeys.Add(weapon.WeaponNum);
         }
+
+        if (currentWeapon.value > -1)
+        {
+            wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+            wm.currentWeapon.Initialize();
+        }
+
         InitDisplay();
-        wm.currentWeapon.Initialize();
         
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!wm.currentWeapon.inUse)
+        if (wm.currentWeapon != null && !wm.currentWeapon.inUse)
         {
-            scrollWheel = Input.GetAxis("Mouse ScrollWheel");
-            if (scrollWheel < -.05f)
+            if (AvailableWeapons.Count > 0)
             {
-                currentIndex--;
-                if (currentIndex < 0)
+                scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+                if (Input.GetButtonDown(PutAwayWeapon))
                 {
-                    currentIndex = weapons.Count - 1;
-                }
-                wm.SwapWeapon(weapons[currentIndex]);
-                UpdateDisplay();
-            }
-            else if (scrollWheel > .05f)
-            {
-                currentIndex++;
-                if (currentIndex > weapons.Count-1)
-                {
-                    currentIndex = 0;
-                }
-                wm.SwapWeapon(weapons[currentIndex]);
-                UpdateDisplay();
-            }
-            else
-            {
-                for (int i = 0; i < WeaponKeys.Count; i++)
-                {
-                    if (Input.GetKeyDown(WeaponKeys[i]))
+                    if (currentWeapon.value == -1)
                     {
-                        currentIndex = i;
-                        wm.SwapWeapon(weapons[i]);
+                        currentWeapon.value = weapon;
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
                     }
+                    else
+                    {
+                        weapon = currentWeapon.value;
+                        currentWeapon.value = -1;
+                        wm.PutAwayWeapon();
+                    }
+                    UpdateDisplay();
                 }
-                UpdateDisplay();
+                else if (scrollWheel < -.05f)
+                {
+                    currentWeapon.value--;
+                    if (currentWeapon.value < 0)
+                    {
+                        currentWeapon.value = AvailableWeapons.Count - 1;
+                    }
+
+                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                    UpdateDisplay();
+                }
+                else if (scrollWheel > .05f)
+                {
+                    currentWeapon.value++;
+                    if (currentWeapon.value > AvailableWeapons.Count - 1)
+                    {
+                        currentWeapon.value = 0;
+                    }
+
+                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                    UpdateDisplay();
+                }
+                else
+                {
+                    for (int i = 0; i < WeaponKeys.Count; i++)
+                    {
+                        if (Input.GetKeyDown(WeaponKeys[i]))
+                        {
+                            currentWeapon.value = i;
+                            wm.SwapWeapon(AvailableWeapons[i]);
+                        }
+                    }
+
+                    UpdateDisplay();
+                }
             }
         }
         else
         {
-            //Debug.Log("InUse");
+            if (Input.GetButtonDown(PutAwayWeapon))
+            {
+                Debug.Log("Weapon Pulled");
+                if (currentWeapon.value == -1)
+                {
+                    Debug.Log("Pull Weapon");
+                    currentWeapon.value = weapon;
+                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                }
+                else
+                {
+                    weapon = currentWeapon.value;
+                    currentWeapon.value = -1;
+                    wm.PutAwayWeapon();
+                }
+            }
         }
     }
 
     public void AddWeapon(WeaponBase w)
     {
-        if (!weapons.Contains(w))
+        if (!AvailableWeapons.Contains(w))
         {
-            weapons.Add(w);
+            AvailableWeapons.Add(w);
             WeaponKeys.Add(w.WeaponNum);
             tempobj = Instantiate(ImagePrefab, ImagePrefab.transform.parent);
             tempImage = tempobj.GetComponent<WeaponImage>();
@@ -86,6 +137,8 @@ public class WeaponSwap : MonoBehaviour
             weaponImages.Add(tempImage.Weapon);
             highlights.Add(tempImage.Highlight);
             highlights[highlights.Count-1].gameObject.SetActive(false);
+            tempobj.SetActive(true);
+            UpdateDisplay();
         }
     }
 
@@ -93,11 +146,11 @@ public class WeaponSwap : MonoBehaviour
     {
         highlights = new List<GameObject>();
         weaponImages = new List<Image>();
-        for (var i = 0; i < weapons.Count; i++)
+        for (var i = 0; i < AvailableWeapons.Count; i++)
         {
             tempobj = Instantiate(ImagePrefab, ImagePrefab.transform.parent);
             tempImage = tempobj.GetComponent<WeaponImage>();
-            tempImage.Weapon.sprite = weapons[i].WeaponSprite;
+            tempImage.Weapon.sprite = AvailableWeapons[i].WeaponSprite;
             weaponImages.Add(tempImage.Weapon);
             highlights.Add(tempImage.Highlight);
             highlights[i].gameObject.SetActive(false);
@@ -111,7 +164,7 @@ public class WeaponSwap : MonoBehaviour
     {
         for (int i = 0; i < highlights.Count; i++)
         {
-            if (i == currentIndex)
+            if (i == currentWeapon.value)
             {
                 highlights[i].gameObject.SetActive(true);
             }

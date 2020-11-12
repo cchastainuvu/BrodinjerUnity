@@ -15,7 +15,7 @@ public class Enemy_List : MonoBehaviour
         foreach (Enemy_Manager enemy in GetEnemies())
         {
             Debug.Log(enemy.gameObject.name);
-            enemy.deactivateAttack();
+            enemy.StopAttack();
         }
     }
 
@@ -24,8 +24,7 @@ public class Enemy_List : MonoBehaviour
         foreach (Enemy_Manager enemy in GetEnemies())
         {
             Debug.Log(enemy.gameObject.name);
-            enemy.deactivateMove();
-        }
+            enemy.StopMove();}
     }
     
 }

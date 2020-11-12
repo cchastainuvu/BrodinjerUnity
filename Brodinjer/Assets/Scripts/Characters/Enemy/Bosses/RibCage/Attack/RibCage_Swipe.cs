@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/Attack/Swipe")]
 public class RibCage_Swipe : Enemy_Attack_Base
 {
     public float RotationSpeedAcceleration;
@@ -94,20 +93,5 @@ public class RibCage_Swipe : Enemy_Attack_Base
             animations.StopAnimation();
         yield return new WaitForSeconds(CoolDownTime);
 
-    }
-
-    public override Enemy_Attack_Base getClone()
-    {
-        RibCage_Swipe temp = CreateInstance<RibCage_Swipe>();
-        temp.AttackActiveTime = AttackActiveTime;
-        temp.CoolDownTime = CoolDownTime;
-        temp.AttackStartTime = AttackStartTime;
-        temp.animations = animations;
-        temp.RotationSpeedAcceleration = RotationSpeedAcceleration;
-        temp.RotationTime = RotationTime;
-        temp.numRotations = numRotations;
-        temp.attackWhileMoving = attackWhileMoving;
-        temp.MaxSpeed = MaxSpeed;
-        return temp;
     }
 }
