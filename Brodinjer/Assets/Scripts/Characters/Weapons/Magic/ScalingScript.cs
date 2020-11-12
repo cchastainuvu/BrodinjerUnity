@@ -123,7 +123,7 @@ public class ScalingScript : WeaponBase
                             yield return _fixedUpdate;
                         }
 
-                        if (!currSpell.GetComponent<ScalingMagic>().hitObj)
+                        if (currSpell == null || !currSpell.GetComponent<ScalingMagic>().hitObj)
                         {
                             inUse = false;
                             MagicInUse.value = false;

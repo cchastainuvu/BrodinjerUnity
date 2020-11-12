@@ -15312,7 +15312,7 @@ MonoBehaviour:
   FollowObj: {fileID: 54750756758764870}
   offset: {x: 0, y: 0, z: 0}
   OnAwake: 1
-  speed: 0
+  speed: 50
 --- !u!114 &54750755349595623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15330,6 +15330,7 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
+  UseOffset: 0
 --- !u!1 &54750755349924930
 GameObject:
   m_ObjectHideFlags: 0
