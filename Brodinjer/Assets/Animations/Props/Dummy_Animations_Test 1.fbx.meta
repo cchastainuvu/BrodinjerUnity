@@ -18,7 +18,12 @@ ModelImporter:
   - first:
       74: -3100369314251171874
     second: Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dummy_MAT
+    second: {fileID: 2100000, guid: c1936a82c2b3e1045911eec76b60def0, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

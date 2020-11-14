@@ -14,8 +14,8 @@ public class Transform_Follow : Transform_Movement_Base
     
     public override IEnumerator Move()
     {
-        if(animation!= null)
-            animation.StartAnimation();
+        if(AnimationBase!= null)
+            AnimationBase.StartAnimation();
         while (moving)
         {
             if (lookAtFollow && moving)
@@ -82,7 +82,7 @@ public class Transform_Follow : Transform_Movement_Base
             yield return fixedUpdate;
 
         }
-        animation.StopAnimation();
+        AnimationBase.StopAnimation();
     }
 
 }

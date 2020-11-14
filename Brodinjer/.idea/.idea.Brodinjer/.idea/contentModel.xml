@@ -105,8 +105,10 @@
                 <e p="Enemy_Dash_Transform.cs" t="Include" />
                 <e p="Ghost_Manager.cs" t="Include" />
                 <e p="NavMesh_Enemy_Base.cs" t="Include" />
+                <e p="Transform_Flee_Route.cs" t="Include" />
                 <e p="Transform_Follow.cs" t="Include" />
                 <e p="Transform_Movement_Base.cs" t="Include" />
+                <e p="Transform_Route.cs" t="Include" />
               </e>
               <e p="Movement" t="Include">
                 <e p="DashForwardMove.cs" t="Include" />
@@ -244,6 +246,12 @@
             </e>
             <e p="Destroy_Object_Timed.cs" t="Include" />
             <e p="DirectionalHit.cs" t="Include" />
+            <e p="DungeonScripts" t="Include">
+              <e p="Destroy_Door_Event.cs" t="Include" />
+              <e p="Jump_Destroy.cs" t="Include" />
+              <e p="MovePlayer.cs" t="Include" />
+              <e p="MoveTransform.cs" t="Include" />
+            </e>
             <e p="Events" t="Include">
               <e p="Awake_Event.cs" t="Include" />
               <e p="Distance_Event.cs" t="Include" />

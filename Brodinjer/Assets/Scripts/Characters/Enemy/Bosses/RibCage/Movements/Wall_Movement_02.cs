@@ -24,25 +24,24 @@
      private Vector3 myNormal; // character normal
      private float distGround; // distance from character position to ground
      private bool jumping = false; // flag &quot;I'm jumping to wall&quot;
-     private float vertSpeed = 0; // vertical jump current speed
  
      private Transform myTransform;
      public BoxCollider boxCollider; // drag BoxCollider ref in editor
-     private Rigidbody rigidbody;
+     private Rigidbody RB;
  
      private void Start(){
          myNormal = transform.up; // normal starts as character up direction
          myTransform = transform;
-         rigidbody = GetComponent<Rigidbody>();
-         rigidbody.freezeRotation = true; // disable physics rotation
+         RB = GetComponent<Rigidbody>();
+         RB.freezeRotation = true; // disable physics rotation
          // distance from transform.position to ground
-         distGround = boxCollider.extents.y - boxCollider.center.y;
+         distGround = boxCollider.size.y - boxCollider.center.y;
  
      }
  
      private void FixedUpdate(){
      // apply constant weight force according to character normal:
-     rigidbody.AddForce(-gravity*rigidbody.mass*myNormal);
+     RB.AddForce(-gravity*RB.mass*myNormal);
  }
  
      private void Update(){
@@ -58,7 +57,7 @@
              JumpToWall(hit.point, hit.normal); // yes: jump to the wall
          }
          else if (isGrounded){ // no: if grounded, jump up
-             rigidbody.velocity += jumpSpeed * myNormal;
+             RB.velocity += jumpSpeed * myNormal;
          }
      }
      
@@ -88,7 +87,7 @@
      private void JumpToWall(Vector3 point, Vector3 normal){
      // jump to wall
      jumping = true; // signal it's jumping to wall
-     rigidbody.isKinematic = true; // disable physics while jumping
+     RB.isKinematic = true; // disable physics while jumping
      Vector3 orgPos = myTransform.position;
      Quaternion orgRot = myTransform.rotation;
      Vector3 dstPos = point + normal * (distGround + 0.5f); // will jump to 0.5 above wall
@@ -107,7 +106,7 @@
              yield return null; // return here next frame
          }
          myNormal = normal; // update myNormal
-         rigidbody.isKinematic = false; // enable physics
+         RB.isKinematic = false; // enable physics
          jumping = false; // jumping to wall finished
  
          }
