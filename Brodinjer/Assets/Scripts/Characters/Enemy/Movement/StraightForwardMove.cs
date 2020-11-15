@@ -9,8 +9,8 @@ public class StraightForwardMove : NavMesh_Enemy_Base
     {
         agent.speed = Speed;
         agent.acceleration = Acceleration;
-        if (animation!= null)
-            animation.StartAnimation();
+        if (AnimationBase!= null)
+            AnimationBase.StartAnimation();
         while (moving)
         {
             Debug.Log(agent.transform.forward * Time.deltaTime * Speed);

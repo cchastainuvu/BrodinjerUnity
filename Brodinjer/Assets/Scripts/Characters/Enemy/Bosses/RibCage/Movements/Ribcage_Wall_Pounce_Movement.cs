@@ -26,11 +26,11 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
     public float WallPounceInitTime;
     
     
-    private bool checkJump, rotating, Up, Reset, calculateGravity;
-    private Rigidbody rigidbody;
-    private BoxCollider collider;
+    private bool checkJump, Up, calculateGravity;
+    private Rigidbody RB;
+    private BoxCollider col;
     private Vector3 surfaceNormal, myNormal, jumpDirection, moveDirection, pounceDirection, rot, myForward, direction, orgPos, dstPos;
-    private float distGround, vertSpeed = 0, currentTime = 0, randomTimeChange, currentTimeChange,
+    private float distGround,  currentTime = 0, randomTimeChange, currentTimeChange,
         randomWallRotationSpeed, randomTimeWait, currentTimeWait, randomWallSpeed, currentWallSpeed,
         randomWallCrawlTime, currentWallCrawlTime;    
     private Ray ray;
@@ -43,8 +43,8 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
     public override void Init()
     {
         base.Init();
-        rigidbody = GetComponent<Rigidbody>();
-        collider = GetComponent<BoxCollider>();
+        RB = GetComponent<Rigidbody>();
+        col = GetComponent<BoxCollider>();
     }
 
     public override IEnumerator Attack()
@@ -52,13 +52,13 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
         StartCoroutine(GravityForce());
         checkJump = true;
         StartCoroutine(CheckJump(WallJumpTime));
-        distGround = collider.bounds.extents.y - collider.center.y;
-        rigidbody.freezeRotation = true;
+        distGround = col.bounds.extents.y - col.center.y;
+        RB.freezeRotation = true;
         myNormal = enemyObj.transform.up;
 
         yield return new WaitForSeconds(AttackStartTime);
         jumpDirection = enemyObj.transform.forward * ForwardJumpForce + enemyObj.transform.up * UpwardJumpForce;
-        rigidbody.AddForce(jumpDirection, ForceMode.Impulse);
+        RB.AddForce(jumpDirection, ForceMode.Impulse);
         yield return new WaitForSeconds(jumpAfterTime);
         checkJump = false;
         currentTime = 90 / InitRotateSpeed;
@@ -82,7 +82,6 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
         randomWallSpeed = Random.Range(minWallSpeed, maxWallSpeed);
         currentWallSpeed = 0;
         Up = false;
-        Reset = false;
         randomWallCrawlTime = Random.Range(MinWallCrawlTime, MaxWallCrawlTime);
         currentWallCrawlTime = 0;
 
@@ -165,7 +164,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
 
         pounceDirection = (player.transform.position - enemyObj.transform.position).normalized; 
         yield return new WaitForSeconds(.1f);
-        rigidbody.AddForce(pounceDirection*WallPounceForce, ForceMode.Impulse);
+        RB.AddForce(pounceDirection*WallPounceForce, ForceMode.Impulse);
         yield return new WaitForSeconds(.25f);
         checkJump = true;
         StartCoroutine(CheckJump(WallJumpTime));
@@ -178,7 +177,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
     {
         while (true)
         {
-            rigidbody.AddForce(-gravity*rigidbody.mass*myNormal);
+            RB.AddForce(-gravity*RB.mass*myNormal);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -204,8 +203,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
 
     private IEnumerator RotateToWall(Vector3 point, Vector3 normal, float jumpTime)
     {
-        rotating = true;
-        rigidbody.isKinematic = true;
+        RB.isKinematic = true;
         Vector3 orgPos = enemyObj.transform.position;
         Quaternion orgRot = enemyObj.transform.rotation;
         Vector3 dstPos = point + (normal * (distGround + 0.5f));
@@ -220,8 +218,7 @@ public class Ribcage_Wall_Pounce_Movement : Enemy_Attack_Base
             yield return new WaitForFixedUpdate();
         }
         myNormal = normal;
-        rigidbody.isKinematic = false;
-        rotating = false;
+        RB.isKinematic = false;
         checkJump = false;
 
     }

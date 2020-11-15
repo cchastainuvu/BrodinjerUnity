@@ -3,7 +3,12 @@ guid: a1fd2767ef8a22248a43408a95982fbe
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bush_test_MAT
+    second: {fileID: 2100000, guid: d46547c7b50727449b9abc94685625cc, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -82,7 +87,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 100
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

@@ -18,9 +18,9 @@ public abstract class NavMesh_Enemy_Base : Enemy_Movement
         }
         agent.speed = 0;
         agent.angularSpeed = AngularSpeed;
-        if (animation != null)
+        if (AnimationBase != null)
         {
-            animation.Init(this, anim, player, agent);
+            AnimationBase.Init(this, anim, player, agent);
         }
     }
     
@@ -33,8 +33,8 @@ public abstract class NavMesh_Enemy_Base : Enemy_Movement
         {
             StopCoroutine(moveFunc);
         }
-        if(animation)
-            animation.StopAnimation();
+        if(AnimationBase)
+            AnimationBase.StopAnimation();
         //Debug.Log("Stop Move Enemy Movement");
     }
 
