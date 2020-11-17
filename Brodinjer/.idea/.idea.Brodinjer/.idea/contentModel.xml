@@ -235,17 +235,12 @@
             <e p="PickUp_Base.cs" t="Include" />
           </e>
           <e p="SimpleGameScripts" t="Include">
-            <e p="ActivateRigidbodies.cs" t="Include" />
-            <e p="AddRigidBody.cs" t="Include" />
-            <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">
               <e p="Collision_Enter_Event.cs" t="Include" />
               <e p="Collision_Event_Base.cs" t="Include" />
               <e p="Collision_Exit_Event.cs" t="Include" />
               <e p="Collision_Stay_Event.cs" t="Include" />
             </e>
-            <e p="Destroy_Object_Timed.cs" t="Include" />
-            <e p="DirectionalHit.cs" t="Include" />
             <e p="DungeonScripts" t="Include">
               <e p="Destroy_Door_Event.cs" t="Include" />
               <e p="GearRotation.cs" t="Include" />
@@ -266,15 +261,24 @@
               <e p="Timed_Event.cs" t="Include" />
               <e p="Unity_Event_Holder.cs" t="Include" />
             </e>
-            <e p="Instantiate_Obj.cs" t="Include" />
-            <e p="Instantiate_Obj_Position_Range.cs" t="Include" />
+            <e p="FadeScript.cs" t="Include" />
+            <e p="LoadScene.cs" t="Include" />
             <e p="MeshColliderUpdate" t="Include">
               <e p="UpdateMeshCollider.cs" t="Include" />
               <e p="VertexWeight.cs" t="Include" />
               <e p="WeightList.cs" t="Include" />
             </e>
-            <e p="ResetTriggers.cs" t="Include" />
-            <e p="Toggle_Active.cs" t="Include" />
+            <e p="ObjectScripts" t="Include">
+              <e p="ActivateRigidbodies.cs" t="Include" />
+              <e p="AddRigidBody.cs" t="Include" />
+              <e p="ChangeTimeScale.cs" t="Include" />
+              <e p="Destroy_Object_Timed.cs" t="Include" />
+              <e p="DirectionalHit.cs" t="Include" />
+              <e p="Instantiate_Obj.cs" t="Include" />
+              <e p="Instantiate_Obj_Position_Range.cs" t="Include" />
+              <e p="ResetTriggers.cs" t="Include" />
+              <e p="Toggle_Active.cs" t="Include" />
+            </e>
             <e p="TransformationScripts" t="Include">
               <e p="Center_Screen.cs" t="Include" />
               <e p="Follow_Object.cs" t="Include" />

@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     {
         optionsMenuIsActive = false;
         gameIsPaused.value = false;
+
     }
     
     void Update()

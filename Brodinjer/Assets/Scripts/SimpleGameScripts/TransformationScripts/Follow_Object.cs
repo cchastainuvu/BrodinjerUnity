@@ -12,6 +12,7 @@ public class Follow_Object : MonoBehaviour
 
     private void Start()
     {
+        following = false;
         if (OnAwake)
         {
             StartFollow();
@@ -20,9 +21,12 @@ public class Follow_Object : MonoBehaviour
 
     public void StartFollow()
     {
-        offset = transform.position - FollowObj.position;
-        following = true;
-        StartCoroutine(Following());
+        if (!following)
+        {
+            following = true;
+            offset = transform.position - FollowObj.position;
+            StartCoroutine(Following());
+        }
     }
 
     private IEnumerator Following()

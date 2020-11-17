@@ -47584,8 +47584,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54750756715126805}
-  m_LocalRotation: {x: -0, y: -0.81018966, z: -0, w: 0.58616793}
-  m_LocalPosition: {x: -28.84845, y: -86.42271, z: -41.724365}
+  m_LocalRotation: {x: -0, y: -0.10038231, z: -0, w: 0.994949}
+  m_LocalPosition: {x: -30.328552, y: -87.8627, z: -41.426514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 54750756242659458}
@@ -59465,6 +59465,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 54750756242659458}
     m_Modifications:
+    - target: {fileID: 200423797, guid: 73ea5945b1ba4384f931d8e54ad36f65, type: 3}
+      propertyPath: FadeEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5136188725395984682, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
       propertyPath: resolutionsDropdown
