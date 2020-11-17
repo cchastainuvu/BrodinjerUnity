@@ -6,16 +6,18 @@ public class PauseMenu : MonoBehaviour
     public BoolData gameIsPaused;
     private bool optionsMenuIsActive;
     public GameObject pauseMenuUI, optionsMenuUI;
+    private bool dead;
 
     void Start()
     {
         optionsMenuIsActive = false;
         gameIsPaused.value = false;
+        dead = false;
     }
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!dead && Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameIsPaused.value)
             {
@@ -38,11 +40,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
-        Time.timeScale = 1.0f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        gameIsPaused.value = false;
+        if (!dead)
+        {
+            pauseMenuUI.SetActive(false);
+            Time.timeScale = 1.0f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            gameIsPaused.value = false;
+        }
     }
 
     public void Pause()
@@ -73,5 +78,11 @@ public class PauseMenu : MonoBehaviour
         Cursor.visible = true;
         gameIsPaused.value = false;
         SceneManager.LoadScene(0);
+    }
+
+    public void Dead()
+    {
+        dead = true;
+        Pause();
     }
 }

@@ -19,4 +19,5 @@ public class Deactivate_Player_Death : Death_Base
         temp.waitTime = waitTime;
         return temp;
     }
+
 }

@@ -16,9 +16,14 @@ public class Dialogue_Manager : MonoBehaviour
 
     private bool inRange;
     private string _text_to_display;
-    private float textScrollSpeed;
+    public float textScrollSpeed;
     private string _actionCharacter = "^";
     private int _actionIndex;
+
+    private bool continueText;
+
+    public PauseMenu menuScript;
+    
     
     private void Start()
     {
@@ -27,6 +32,7 @@ public class Dialogue_Manager : MonoBehaviour
         Dialouge_Text.text = "";
         Character_Text.text = "";
         Dialouge_Object.SetActive(false);
+        continueText = false;
     }
     
     private void OnTriggerEnter(Collider other)
@@ -53,16 +59,72 @@ public class Dialogue_Manager : MonoBehaviour
         }
     }
 
-    public void StartConv()
+    public void StartConvInteract()
     {
         if (!ConvStart.value){
             ConvStart.value = true;
             Dialouge_Object.SetActive(true);
             StartCoroutine(ScrollText());
+            menuScript.enabled = false;
         }
     }
+
+    public void StartConvCutscene()
+    {
+        if (!ConvStart.value){
+            ConvStart.value = true;
+            Dialouge_Object.SetActive(true);
+            StartCoroutine(ScrollTextCutscene());
+            menuScript.enabled = false;
+        }
+    }
+
+    public void NextLine()
+    {
+        if (!ConvStart.value)
+        {
+            StartConvCutscene();
+        }
+        else
+        {
+            continueText = true;
+        }
+    }
+
+    private IEnumerator ScrollTextCutscene()
+    {
+        Character_Text.text = NPC.dialogue.characterName;
+        for (int i = 0; i < NPC.dialogue.lines.Count; i++)
+        {
+            continueText = false;
+            _text_to_display = "";
+            if (NPC.dialogue.lines[i].Contains(_actionCharacter))
+            {
+                Debug.Log("Action: ");
+
+                _actionIndex = int.Parse(NPC.dialogue.lines[i].Split('^')[1]);
+                dialogueActions[_actionIndex].Invoke();
+            }
+            else
+            {
+                for (int j = 0; j < NPC.dialogue.lines[i].Length; j++)
+                {
+                    _text_to_display += NPC.dialogue.lines[i][j];
+                    Dialouge_Text.text = _text_to_display;
+                    yield return new WaitForSeconds(textScrollSpeed);
+                }
+
+                yield return new WaitForSeconds(.01f);
+                yield return new WaitUntil(() => continueText);
+            }
+        }
+        Dialouge_Object.SetActive(false);
+        OnFinish.Invoke();
+        menuScript.enabled = true;
+        ConvStart.value = false;
+    }
     
-    public IEnumerator ScrollText()
+    private IEnumerator ScrollText()
     {
         Character_Text.text = NPC.dialogue.characterName;
         for (int i = 0; i < NPC.dialogue.lines.Count; i++)
@@ -97,8 +159,11 @@ public class Dialogue_Manager : MonoBehaviour
         
         Dialouge_Object.SetActive(false);
         OnFinish.Invoke();
+        menuScript.enabled = true;
         ConvStart.value = false;
     }
+
+
 
     public void CloseDialogue()
     {

@@ -25,5 +25,13 @@ public class Vector3List : ListBase<Vector3>
     {
         Add(obj.transform, type);
     }
-    
+
+    public override void SetObj(ScriptableObject obj)
+    {
+        Vector3List temp = obj as Vector3List;
+        if (temp != null)
+        {
+            list = temp.list;
+        }
+    }
 }
