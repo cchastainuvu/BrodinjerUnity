@@ -225,6 +225,10 @@
             <e p="WeaponSwap.cs" t="Include" />
           </e>
           <e p="MasterGameScripts" t="Include">
+            <e p="CheckpointScripts" t="Include">
+              <e p="SavableScriptableObjects.cs" t="Include" />
+              <e p="SetCheckpointObjects.cs" t="Include" />
+            </e>
             <e p="FrameRateControl.cs" t="Include" />
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />

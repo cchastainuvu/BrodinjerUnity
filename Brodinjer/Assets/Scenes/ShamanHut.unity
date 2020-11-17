@@ -6944,8 +6944,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723052999}
-  m_LocalRotation: {x: -0.00064107025, y: 0.99257743, z: -0.121506006, w: -0.0050885375}
-  m_LocalPosition: {x: -1.3954436, y: -0.47732067, z: -0.064273834}
+  m_LocalRotation: {x: -0.015695162, y: 0.72593534, z: -0.01654721, w: -0.6873848}
+  m_LocalPosition: {x: -0.48402786, y: -0.616748, z: -0.6560538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 923196021}
@@ -12216,6 +12216,39 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 39b5948eaaa88ee42bee9a0d58fc8ed2, type: 2}
+        m_MethodName: SetPosition
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1364560926}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: e072a67812d715d49a50f56686ca21a8, type: 2}
+        m_MethodName: SetRotation
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1364560926}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1859064502}
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   checksFor: 1
   waitTime: 0
   objName: 
@@ -13324,6 +13357,36 @@ Halo:
     serializedVersion: 2
     rgba: 4278192445
   m_Size: 1
+--- !u!1 &1364560925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364560926}
+  m_Layer: 0
+  m_Name: OverworldSpawnSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1364560926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364560925}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.084, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1364988687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18574,6 +18637,195 @@ Halo:
     serializedVersion: 2
     rgba: 4278199357
   m_Size: 0.1
+--- !u!1 &1859064501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859064504}
+  - component: {fileID: 1859064503}
+  - component: {fileID: 1859064502}
+  m_Layer: 0
+  m_Name: SetSaves
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1859064502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859064501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ba3c0d742a4ac4eaaddc392b4b3bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SavedObjects:
+  - {fileID: 11400000, guid: 18b5d359eca86284390053f0ac097123, type: 2}
+  - {fileID: 11400000, guid: c9cd2818f80f6e04fade5968fb6f4f81, type: 2}
+  - {fileID: 11400000, guid: 6de0edd7de3d5184c8e72004b2256061, type: 2}
+  - {fileID: 11400000, guid: 043e63d6255ee75429a969cb9045645c, type: 2}
+  - {fileID: 11400000, guid: 0d6306aef96a1d145bcb12556780509b, type: 2}
+  - {fileID: 11400000, guid: 2219211ae1e528f4fb3a6e2cf1712de5, type: 2}
+  - {fileID: 11400000, guid: 04a29db95d6c29d4abe56d74a9a74d5c, type: 2}
+  - {fileID: 11400000, guid: 80fe7278f7c93e844b19f9048948d321, type: 2}
+  - {fileID: 11400000, guid: ffdff59f6d3258345bc3d9ba8c5dada1, type: 2}
+  SceneObjects:
+  - {fileID: 11400000, guid: a1767d61f8dc94740985424d280adae0, type: 2}
+  - {fileID: 11400000, guid: 51181e9a2f5492b4fae73807f736d923, type: 2}
+  - {fileID: 11400000, guid: 0c6be72bf0cafa244972fc3062e2b927, type: 2}
+  - {fileID: 11400000, guid: 4e214d77d8952114095b994074087481, type: 2}
+  - {fileID: 11400000, guid: 07c3fff600ccfc54d917231676412cfe, type: 2}
+  - {fileID: 11400000, guid: 454963e9198155841b25d189b8527923, type: 2}
+  - {fileID: 11400000, guid: ba082fc005b6de248b210955e551e346, type: 2}
+  - {fileID: 11400000, guid: 39b5948eaaa88ee42bee9a0d58fc8ed2, type: 2}
+  - {fileID: 11400000, guid: e072a67812d715d49a50f56686ca21a8, type: 2}
+--- !u!114 &1859064503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859064501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dcaf733b7aecd5468b08d90e3619cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 18b5d359eca86284390053f0ac097123, type: 2}
+        m_MethodName: setBool
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: c9cd2818f80f6e04fade5968fb6f4f81, type: 2}
+        m_MethodName: setBool
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6de0edd7de3d5184c8e72004b2256061, type: 2}
+        m_MethodName: SetInt
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 043e63d6255ee75429a969cb9045645c, type: 2}
+        m_MethodName: SetToMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 2219211ae1e528f4fb3a6e2cf1712de5, type: 2}
+        m_MethodName: SetInt
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 0d6306aef96a1d145bcb12556780509b, type: 2}
+        m_MethodName: setBool
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 04a29db95d6c29d4abe56d74a9a74d5c, type: 2}
+        m_MethodName: SetToMax
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 80fe7278f7c93e844b19f9048948d321, type: 2}
+        m_MethodName: SetPosition
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4100221752900836122}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ffdff59f6d3258345bc3d9ba8c5dada1, type: 2}
+        m_MethodName: SetRotation
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4100221752900836122}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1859064502}
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1859064504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859064501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 885.88025, y: 69.525406, z: 1143.4338}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1859835068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9001197809633317200, guid: de599da02d2bffc4f8f3620d95dd9162,

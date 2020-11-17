@@ -12,14 +12,18 @@ public class FadeScript : MonoBehaviour
     public Image blackImage;
     private float currentTime;
     public bool startFaded;
+    public bool main;
 
     private void Start()
     {
         running = false;
-        if(!startFaded)
-            blackImage.color = Color.clear;
-        else
-            blackImage.color = Color.black;
+        if (main)
+        {
+            if (!startFaded)
+                blackImage.color = Color.clear;
+            else
+                blackImage.color = Color.black;
+        }
     }
 
     public void StartFade()

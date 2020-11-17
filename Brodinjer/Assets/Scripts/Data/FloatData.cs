@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Single/float/float")]
-public class FloatData : ScriptableObject
+public class FloatData : SavableScriptableObjects
 {
     public float value;
     
@@ -26,5 +26,14 @@ public class FloatData : ScriptableObject
         FloatData temp = CreateInstance<FloatData>();
         temp.value = value;
         return temp;
+    }
+
+    public override void SetObj(ScriptableObject obj)
+    {
+        FloatData temp = obj as FloatData;
+        if (temp != null)
+        {
+            value = temp.value;
+        }
     }
 }

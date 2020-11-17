@@ -36,6 +36,38 @@ public class ScalableObject : MonoBehaviour
     protected float currentLimit;
 
     protected float initScaleAmount;
+
+    public void SetInit(float scale)
+    {
+        newScale = Vector3.one * scale;
+            if (newScale.x > maxScale.x)
+            {
+                newScale = maxScale;
+            }
+        else if (newScale.x < minScale.y)
+            {
+                newScale = minScale;
+            }
+            transform.localScale = newScale;
+            if (UpdateMass)
+            {
+                rigid.mass = Mathf.Lerp(minMass, maxMass,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                if (joint)
+                {
+                    joint.massScale = Mathf.Lerp(maxJointMass, minJointMass,
+                        GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                }
+            }
+
+            if (pulleySystem)
+            {
+                currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                SoftJointLimit temp = new SoftJointLimit{limit = currentLimit};
+                configurableJoint.linearLimit = temp;
+            }
+    }
     
     protected virtual void Start()
     {
