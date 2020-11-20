@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -83,5 +84,25 @@ public class LimitFloatData : FloatData
         temp.OnValueChanged = OnValueChanged;
         return temp;
     }
-    
+
+    public override void SetObj(ScriptableObject obj)
+    {
+        LimitFloatData temp = obj as LimitFloatData;
+        if (temp != null)
+        {
+            value = temp.value;
+            MinValue = temp.MinValue;
+            MaxValue = temp.MaxValue;
+            minEvent = temp.minEvent;
+            maxEvent = temp.maxEvent;
+            OnMinReached = temp.OnMinReached;
+            OnMaxReached = temp.OnMaxReached;
+            OnValueChanged = temp.OnValueChanged;
+        }
+    }
+
+    public void SetToMax()
+    {
+        value = MaxValue;
+    }
 }

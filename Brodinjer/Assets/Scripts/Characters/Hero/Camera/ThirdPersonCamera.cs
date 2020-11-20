@@ -10,6 +10,7 @@ public class ThirdPersonCamera : CameraBase
     {
         base.Init(cam, followObj, rotateObj);
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override IEnumerator Move()

@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
         public Transform DirectionReference;
         public BoolData paused;
         private bool pauseInits;
+        private ResetTriggers triggerReset;
+        public string IdleTrigger = "Idle";
 
         private void Start()
         {
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
                 rotating = false;
                 extrarunning = false;
                 _cc = GetComponent<CharacterController>();
+                triggerReset = GetComponent<ResetTriggers>();
                 pauseInits = false;
                 Init();
         }
@@ -79,6 +82,20 @@ public class PlayerMovement : MonoBehaviour
                 StopAll();
         }
 
+        public void EnterConv()
+        {
+                if(triggerReset)
+                        triggerReset.ResetAllTriggers();
+                anim.SetTrigger(IdleTrigger);
+                Deactivate();
+        }
+
+        public void ExitConv()
+        {
+                Activate();
+                StartAll();
+        }
+
         public void Activate()
         {
                 active = true;
@@ -91,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
                 translate = newTrans;
                 extraControls = extras;
                 Init();
+                StartAll();
         }
 
         public void StopAll()

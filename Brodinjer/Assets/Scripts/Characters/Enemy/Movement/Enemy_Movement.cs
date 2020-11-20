@@ -12,7 +12,7 @@ public abstract class Enemy_Movement : MonoBehaviour
     public Transform enemy;
     protected Transform player;
     protected bool idle;
-    public Animation_Base animation;
+    public Animation_Base AnimationBase;
     protected Coroutine moveFunc;
     protected bool canMove;
     protected readonly WaitForFixedUpdate fixedUpdate= new WaitForFixedUpdate();
@@ -28,9 +28,9 @@ public abstract class Enemy_Movement : MonoBehaviour
     protected virtual void Init()
     {
         canMove = true;
-        if (animation != null)
+        if (AnimationBase != null)
         {
-            animation.Init(this, anim, player, null);
+            AnimationBase.Init(this, anim, player, null);
         }
     }
 
@@ -51,8 +51,8 @@ public abstract class Enemy_Movement : MonoBehaviour
         {
             moving = true;
             moveFunc = StartCoroutine(Move());
-            if(animation)
-                animation.StartAnimation();
+            if(AnimationBase)
+                AnimationBase.StartAnimation();
         }
         else
         {
@@ -70,8 +70,8 @@ public abstract class Enemy_Movement : MonoBehaviour
         {
             StopCoroutine(moveFunc);
         }
-        if(animation)
-            animation.StopAnimation();
+        if(AnimationBase)
+            AnimationBase.StopAnimation();
     }
 
 

@@ -13,8 +13,8 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
     
     public override IEnumerator Move()
     {
-        if(animation != null)
-            animation.StartAnimation();
+        if(AnimationBase != null)
+            AnimationBase.StartAnimation();
         dashTime = Random.Range(DashMinTime, DashMaxTime);
         currentTime = 0;
         currentSpeed = Speed;

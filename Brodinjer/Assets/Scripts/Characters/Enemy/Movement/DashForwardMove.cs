@@ -10,8 +10,8 @@ public class DashForwardMove : NavMesh_Enemy_Base
     
     public override IEnumerator Move()
     {
-        if(animation != null)
-            animation.StartAnimation();
+        if(AnimationBase != null)
+            AnimationBase.StartAnimation();
         dashTime = Random.Range(DashMinTime, DashMaxTime);
         currentTime = 0;
         agent.speed = DashSpeed;

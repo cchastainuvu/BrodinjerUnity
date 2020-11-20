@@ -37,11 +37,11 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     public UnityEvent InitEvent, FinishEvent;
     
-    private bool checkJump, moving, rotating, isGrounded,Up, Reset;
-    private Rigidbody rigidbody;
-    private BoxCollider collider;
+    private bool checkJump, isGrounded,Up;
+    private Rigidbody RB;
+    private BoxCollider col;
     private Vector3 surfaceNormal, myNormal, jumpDirection, moveDirection, pounceDirection;
-    private float distGround, vertSpeed = 0, currentTime = 0, randomTimeChange, currentTimeChange,
+    private float distGround, currentTime = 0, randomTimeChange, currentTimeChange,
         randomWallRotationSpeed, randomTimeWait, currentTimeWait, randomWallSpeed, currentWallSpeed,
         randomWallCrawlTime, currentWallCrawlTime;    
     private Ray ray;
@@ -49,8 +49,8 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        collider = GetComponent<BoxCollider>();
+        RB = GetComponent<Rigidbody>();
+        col = GetComponent<BoxCollider>();
         myNormal = transform.up;
         StartCoroutine(GravityForce());
     }
@@ -62,18 +62,17 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     public override IEnumerator Attack()
     {
-        rigidbody.useGravity = false;
-        rigidbody.isKinematic = false;
+        RB.useGravity = false;
+        RB.isKinematic = false;
         WeaponObj.SetActive(false);     
         myNormal = transform.up;
-        rigidbody.freezeRotation = true;
-        distGround = collider.bounds.extents.y - collider.center.y;
+        RB.freezeRotation = true;
+        distGround = col.bounds.extents.y - col.center.y;
         InitEvent.Invoke();
-        moving = true;
         yield return new WaitForSeconds(jumpInitTime);
         jumpDirection = transform.forward * ForwardJumpForce + transform.up * UpwardJumpForce;
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.AddForce(jumpDirection, ForceMode.Impulse);
+        RB.velocity = Vector3.zero;
+        RB.AddForce(jumpDirection, ForceMode.Impulse);
         transform.Rotate(-90,0,0);
         yield return new WaitForSeconds(jumpAfterTime);
         //checkJump = false;
@@ -98,7 +97,6 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         randomWallSpeed = Random.Range(minWallSpeed, maxWallSpeed);
         currentWallSpeed = 0;
         Up = false;
-        Reset = false;
         randomWallCrawlTime = Random.Range(MinWallCrawlTime, MaxWallCrawlTime);
         currentWallCrawlTime = 0;
 
@@ -172,14 +170,14 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         pounceDirection = (PlayerObj.transform.position - transform.position).normalized;
         yield return new WaitForSeconds(.1f);
         WeaponObj.SetActive(true);
-        rigidbody.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
+        RB.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
         transform.Rotate(-90,0,0);
         yield return new WaitForSeconds(WallPounceEndTime);
-        rigidbody.freezeRotation = false;
+        RB.freezeRotation = false;
         WeaponObj.SetActive(false);
         yield return new WaitForSeconds(FinishTime);
         FinishEvent.Invoke();
-        rigidbody.isKinematic = true;
+        RB.isKinematic = true;
 
     }
 
@@ -201,7 +199,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
             }
 
             myNormal = transform.up;
-            rigidbody.AddForce(-gravity*rigidbody.mass*myNormal, ForceMode.Force);
+            RB.AddForce(-gravity*RB.mass*myNormal, ForceMode.Force);
             yield return new WaitForFixedUpdate();
         }
     }
@@ -227,8 +225,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     private IEnumerator RotateToWall(Vector3 point, Vector3 normal, float jumpTime)
     {
-        rotating = true;
-        rigidbody.isKinematic = true;
+        RB.isKinematic = true;
         Vector3 orgPos = transform.position;
         Quaternion orgRot = transform.rotation;
         Vector3 dstPos = point + (normal * (distGround + 0.5f));
@@ -243,8 +240,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
             yield return new WaitForFixedUpdate();
         }
         myNormal = normal;
-        rigidbody.isKinematic = false;
-        rotating = false;
+        RB.isKinematic = false;
         checkJump = false;
 
     }

@@ -16,8 +16,8 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
         agent.updatePosition = true;
         if (lookAtFollow)
             agent.updateRotation = false;
-        if(animation!= null)
-            animation.StartAnimation();
+        if(AnimationBase!= null)
+            AnimationBase.StartAnimation();
         while (moving)
         {
             if (lookAtFollow && moving)
@@ -43,8 +43,8 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
 
             yield return fixedUpdate;
         }
-        if(animation != null)
-            animation.StopAnimation();
+        if(AnimationBase != null)
+            AnimationBase.StopAnimation();
     }
 
 }

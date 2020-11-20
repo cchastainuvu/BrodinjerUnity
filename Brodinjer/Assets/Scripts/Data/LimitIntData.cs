@@ -36,4 +36,15 @@ public class LimitIntData : IntData
             this.value = MinValue;
         }
     }
+    
+    public override void SetObj(ScriptableObject obj)
+    {
+        LimitIntData temp = obj as LimitIntData;
+        if (temp != null)
+        {
+            value = temp.value;
+            MinValue = temp.MinValue;
+            MaxValue = temp.MaxValue;
+        }
+    }
 }

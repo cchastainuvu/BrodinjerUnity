@@ -12,7 +12,12 @@ ModelImporter:
   - first:
       74: -7857955440236808246
     second: Rib Attack
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skeleton_King_Mat
+    second: {fileID: 2100000, guid: 447122282d0a22a4a9c63c41b2f13f4e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

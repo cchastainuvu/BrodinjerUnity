@@ -13,31 +13,63 @@ public class ScalableObject : MonoBehaviour
     public GameObject HighlightObj;
     [HideInInspector] public Vector3 minScale, maxScale;
 
-    private Vector3 newScale;
+    protected Vector3 newScale;
 
     public bool UpdateMass;
-    private Rigidbody rigid;
+    protected Rigidbody rigid;
     public float MinMassMultiplier, MaxMassMultiplier;
-    private float newMass;
-    private float minMass, maxMass;
+    protected float newMass;
+    protected float minMass, maxMass;
 
     public float ScaleSpeed;
-    private float scaleSpeed;
+    protected float scaleSpeed;
 
-    private float currentScaleAmount;
+    protected float currentScaleAmount;
 
     public FixedJoint joint;
     public float minJointMassMultiplier, maxJointMassMultiplier;
-    private float minJointMass, maxJointMass;
+    protected float minJointMass, maxJointMass;
 
     public bool pulleySystem;
     public ConfigurableJoint configurableJoint;
     public float linearMinLimit, linerMaxLimit;
-    private float currentLimit;
+    protected float currentLimit;
 
-    private float initScaleAmount;
+    protected float initScaleAmount;
+
+    public void SetInit(float scale)
+    {
+        newScale = Vector3.one * scale;
+            if (newScale.x > maxScale.x)
+            {
+                newScale = maxScale;
+            }
+        else if (newScale.x < minScale.y)
+            {
+                newScale = minScale;
+            }
+            transform.localScale = newScale;
+            if (UpdateMass)
+            {
+                rigid.mass = Mathf.Lerp(minMass, maxMass,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                if (joint)
+                {
+                    joint.massScale = Mathf.Lerp(maxJointMass, minJointMass,
+                        GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                }
+            }
+
+            if (pulleySystem)
+            {
+                currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+                SoftJointLimit temp = new SoftJointLimit{limit = currentLimit};
+                configurableJoint.linearLimit = temp;
+            }
+    }
     
-    private void Start()
+    protected virtual void Start()
     {
         minScale = transform.localScale * MinScaleMultiplier;
         maxScale = transform.localScale * MaxScaleMultiplier;
@@ -68,7 +100,7 @@ public class ScalableObject : MonoBehaviour
         }
     }
 
-    public void ScaleUp(bool deltaTimed)
+    public virtual void ScaleUp(bool deltaTimed)
     {
         scaleSpeed = (deltaTimed) ? ScaleSpeed * Time.deltaTime : ScaleSpeed;
         if (transform.localScale.x < maxScale.x)
@@ -101,7 +133,7 @@ public class ScalableObject : MonoBehaviour
         }
     }
 
-    public void ScaleDown(bool deltaTimed)
+    public virtual void ScaleDown(bool deltaTimed)
     {
         scaleSpeed = (deltaTimed) ? ScaleSpeed * Time.deltaTime : ScaleSpeed;
         if (transform.localScale.x > minScale.x)

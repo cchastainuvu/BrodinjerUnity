@@ -12,7 +12,7 @@ public class Enemy_Look_At_Basic : Enemy_Follow_Base
 
     public override IEnumerator Move()
     {
-        animation.StartAnimation();
+        AnimationBase.StartAnimation();
         agent.updateRotation = false;
         if (AlwaysReturn)
         {
