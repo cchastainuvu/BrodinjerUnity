@@ -16,7 +16,7 @@ MonoBehaviour:
   SideSpeed: 2
   RunForwardSpeed: 8
   RunSideSpeed: 8
-  JumpSpeed: 10
+  JumpSpeed: 12
   Gravity: 30
   AnimSpeedMax: 8
   canMove: 1
@@ -28,5 +28,7 @@ MonoBehaviour:
   JumpAxis: Jump
   JumpTrigger: Jump
   JumpDelay: 0.1
+  DodgeDelay: 0.1
   DodgeTime: 0.25
-  DodgeAmount: 5
+  DodgeAmount: 20
+  DodgeAnimations: {fileID: 11400000, guid: bd8a522237b2bdf478f01d489e27ec73, type: 2}

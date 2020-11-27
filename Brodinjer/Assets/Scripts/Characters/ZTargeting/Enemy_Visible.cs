@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Enemy_Visible : MonoBehaviour
 {
-    public In_Camera_View CamRange;
-    public Targeting TargetScript;
-    public Transform player;
+    private In_Camera_View CamRange;
+    private Targeting TargetScript;
+    private Transform player;
     private RaycastHit hit;
+    private int layerMask;
 
+    private void Awake()
+    {
+        layerMask = ~LayerMask.GetMask("Enemy");
+        TargetScript = FindObjectOfType<Targeting>();
+        CamRange = FindObjectOfType<In_Camera_View>();
+        player = TargetScript.transform;
+    }
+    
     private void FixedUpdate()
     {
         CheckInRange();
@@ -21,7 +30,7 @@ public class Enemy_Visible : MonoBehaviour
             if (!TargetScript.EnemiesInRange.Contains(gameObject))
             {
                 if (Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit,
-                    CamRange.MaxDistance))
+                    CamRange.MaxDistance, layerMask))
                 {
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
@@ -29,10 +38,19 @@ public class Enemy_Visible : MonoBehaviour
                     }
                 }
             }
-
             return true;
         }
-        TargetScript.EnemiesInRange.Remove(gameObject);
+
+        else if (TargetScript.EnemiesInRange.Contains(gameObject))
+        {
+            TargetScript.EnemiesInRange.Remove(gameObject);
+        }
+
         return false;
+    }
+
+    private void OnDisable()
+    {
+        TargetScript.EnemiesInRange.Remove(gameObject);
     }
 }

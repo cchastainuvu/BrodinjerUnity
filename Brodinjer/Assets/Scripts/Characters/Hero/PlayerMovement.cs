@@ -13,8 +13,12 @@ public class PlayerMovement : MonoBehaviour
         public Transform CharacterScalar;
         public Animator anim;
         public bool MoveOnStart;
-        private bool moving, rotating, extrarunning, active;
+        private bool moving, rotating, extrarunning, active, stunned;
         public Transform DirectionReference;
+        public BoolData paused;
+        private bool pauseInits;
+        private ResetTriggers triggerReset;
+        public string IdleTrigger = "Idle";
 
         private void Start()
         {
@@ -23,7 +27,35 @@ public class PlayerMovement : MonoBehaviour
                 rotating = false;
                 extrarunning = false;
                 _cc = GetComponent<CharacterController>();
+                triggerReset = GetComponent<ResetTriggers>();
+                pauseInits = false;
                 Init();
+        }
+
+        private void FixedUpdate()
+        {
+                if (paused.value && !pauseInits)
+                {
+                        pauseInits = true;
+                        StopAll();
+                }
+                else if (!paused.value && pauseInits)
+                {
+                        pauseInits = false;
+                        StartAll();
+                }
+        }
+
+        public void Stun()
+        {
+                stunned = true;
+                StopAll();
+        }
+
+        public void UnStun()
+        {
+                stunned = false;
+                StartAll();
         }
 
         private void Init()
@@ -47,6 +79,21 @@ public class PlayerMovement : MonoBehaviour
         public void Deactivate()
         {
                 active = false;
+                StopAll();
+        }
+
+        public void EnterConv()
+        {
+                if(triggerReset)
+                        triggerReset.ResetAllTriggers();
+                anim.SetTrigger(IdleTrigger);
+                Deactivate();
+        }
+
+        public void ExitConv()
+        {
+                Activate();
+                StartAll();
         }
 
         public void Activate()
@@ -61,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
                 translate = newTrans;
                 extraControls = extras;
                 Init();
+                StartAll();
         }
 
         public void StopAll()
@@ -72,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartAll()
         {
-                if (active)
+                if (active && !stunned)
                 {
                         StartMove();
                         StartRotate();
@@ -93,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartMove()
         {
-                if (active)
+                if (active && !stunned)
                 {
                         translate.canMove = true;
                         translate.canRun = true;
@@ -116,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
         public void StartRotate()
         {
-                if (active)
+                if (active && !stunned)
                 {
                         rotate.canRotate = true;
                         if (!rotating)

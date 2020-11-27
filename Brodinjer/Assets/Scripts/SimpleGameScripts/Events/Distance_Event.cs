@@ -16,8 +16,15 @@ public class Distance_Event : MonoBehaviour
     public bool checkOnAwake;
     public bool RunEventonInit;
     private Coroutine checkFunc;
+    public bool debug = false;
     
     public bool checkY;
+
+    private void Awake()
+    {
+        if(checkObj == null)
+            checkObj = FindObjectOfType<PlayerMovement>().transform;
+    }
 
     private void Start()
     {
@@ -121,6 +128,8 @@ public class Distance_Event : MonoBehaviour
             distance = Math.Sqrt(Math.Pow((vector2.x - vector1.x), 2) +
                                  Math.Pow((vector2.z - vector1.z), 2));
         }
+        if(debug)
+        Debug.Log(gameObject.name + " Distance: " + distance);
         return distance;
     }
 

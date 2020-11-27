@@ -11,8 +11,15 @@ public class Look_At_Script : MonoBehaviour
     private bool looking;
     private Quaternion facingDirection;
 
+    private void Awake()
+    {
+        if (LookAtObject == null)
+            LookAtObject = FindObjectOfType<PlayerMovement>().transform;
+    }
+
     private void Start()
     {
+        
         if (OnAwake)
         {
             StartLookAt();

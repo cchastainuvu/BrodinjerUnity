@@ -8,29 +8,41 @@ public class WeaponManager : MonoBehaviour
 
     public void WeaponDisable()
     {
-        currentWeapon.End();
+        if(currentWeapon != null)
+            currentWeapon.End();
     }
 
     public void WeaponEnable()
     {
-        currentWeapon.Initialize();
+        if(currentWeapon != null)
+            currentWeapon.Initialize();
     }
 
     public void WeaponFreeze()
     {
-        currentWeapon.Freeze();
+        if(currentWeapon != null)
+            currentWeapon.Freeze();
     }
 
     public void WeaponUnfreeze()
     {
-        currentWeapon.Unfreeze();
+        if(currentWeapon != null)
+            currentWeapon.Unfreeze();
     }
 
     public void SwapWeapon(WeaponBase weapon)
     {
-        WeaponDisable();
+        if(currentWeapon !=null)
+            WeaponDisable();
         currentWeapon = weapon;
-        WeaponEnable();
+        if(currentWeapon != null)
+            WeaponEnable();
+    }
+
+    public void PutAwayWeapon()
+    {
+        WeaponDisable();
+        currentWeapon = null;
     }
     
     

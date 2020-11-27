@@ -298,7 +298,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: q
+    positiveButton: e
     altNegativeButton: 
     altPositiveButton: joystick button 1
     gravity: 1000
@@ -537,7 +537,7 @@ InputManager:
     m_Name: Weapon
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: e
+    negativeButton: 
     positiveButton: mouse 0
     altNegativeButton: 
     altPositiveButton: 
@@ -587,6 +587,22 @@ InputManager:
     descriptiveNegativeName: 
     negativeButton: r
     positiveButton: t
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 5
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: WeaponAway
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left ctrl
+    positiveButton: left alt
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000

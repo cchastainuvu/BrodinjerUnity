@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Rhett\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Rhett\.Rider2019.3\system\resharper-host\Local\Transient\ReSharperHost\v193\SolutionCaches\_Brodinjer.-1881758845.00" t="ExcludeRecursive" />
-    <e p="S:\Brodinger - Unity\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+    <e p="C:\Users\Owner\.Rider2018.1\system\resharper-host\Local\Transient\ReSharperHost\v12\SolutionCaches\_Brodinjer.1928804374.00" t="ExcludeRecursive" />
+    <e p="E:\School\College\Fall2020\Senior Projects\Unity\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="ActivateRigidbodies.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
+          <e p="TreeBillboardAsset.cs" t="Include" />
         </e>
         <e p="Fantasy Skybox" t="Include">
           <e p="Readme.txt" t="Include" />
         </e>
-        <e p="MainMenu.cs" t="Include" />
         <e p="NavMesh" t="Include">
           <e p="NavMesh" t="Include">
             <e p="NavMeshComponents" t="Include">
@@ -55,7 +55,12 @@
                 <e p="Death_Event_Setup.cs" t="Include" />
                 <e p="Destroy_Death.cs" t="Include" />
               </e>
+              <e p="Enemy_Character_Manager.cs" t="Include" />
               <e p="Health_Base.cs" t="Include" />
+              <e p="Main_Character_Manager.cs" t="Include" />
+            </e>
+            <e p="Damage" t="Include">
+              <e p="WeaponDamageAmount.cs" t="Include" />
             </e>
             <e p="Enemy" t="Include">
               <e p="Attack" t="Include">
@@ -77,6 +82,16 @@
                     <e p="Animation_Base.cs" t="Include" />
                     <e p="Rib_Animations.cs" t="Include" />
                   </e>
+                  <e p="Attack" t="Include">
+                    <e p="Instantiate_Skeletons.cs" t="Include" />
+                    <e p="RibCage_Swipe.cs" t="Include" />
+                  </e>
+                  <e p="Movements" t="Include">
+                    <e p="RibCage_Wall_Movement.cs" t="Include" />
+                    <e p="Ribcage_Wall_Pounce_Movement.cs" t="Include" />
+                    <e p="Rotation_Transform_Movement.cs" t="Include" />
+                    <e p="Wall_Movement_02.cs" t="Include" />
+                  </e>
                   <e p="Rib_Cage_Cieling_Walk.cs" t="Include" />
                   <e p="Rib_Cage_Drop.cs" t="Include" />
                   <e p="Rib_Cage_Drop_Attack.cs" t="Include" />
@@ -90,13 +105,16 @@
                 <e p="Enemy_Dash_Transform.cs" t="Include" />
                 <e p="Ghost_Manager.cs" t="Include" />
                 <e p="NavMesh_Enemy_Base.cs" t="Include" />
+                <e p="Transform_Flee_Route.cs" t="Include" />
                 <e p="Transform_Follow.cs" t="Include" />
                 <e p="Transform_Movement_Base.cs" t="Include" />
+                <e p="Transform_Route.cs" t="Include" />
               </e>
               <e p="Movement" t="Include">
                 <e p="DashForwardMove.cs" t="Include" />
                 <e p="Enemy_Movement.cs" t="Include" />
                 <e p="Follow" t="Include">
+                  <e p="Enemy_Flee.cs" t="Include" />
                   <e p="Enemy_Follow_Base.cs" t="Include" />
                   <e p="Enemy_Follow_Basic.cs" t="Include" />
                   <e p="Enemy_Follow_Distance.cs" t="Include" />
@@ -112,6 +130,7 @@
                 <e p="Patrol" t="Include">
                   <e p="Enemy_Patrol.cs" t="Include" />
                   <e p="Enemy_Patrol_Destination.cs" t="Include" />
+                  <e p="Enemy_Patrol_Flee.cs" t="Include" />
                   <e p="Enemy_Patrol_Random.cs" t="Include" />
                   <e p="Enemy_Patrol_Timed.cs" t="Include" />
                 </e>
@@ -120,6 +139,7 @@
             </e>
             <e p="Hero" t="Include">
               <e p="Animation" t="Include">
+                <e p="Dodge_Animation.cs" t="Include" />
                 <e p="Movement_Animation.cs" t="Include" />
               </e>
               <e p="Camera" t="Include">
@@ -162,7 +182,6 @@
                 <e p="Stickable.cs" t="Include" />
               </e>
               <e p="Magic" t="Include">
-                <e p="MagicBar.cs" t="Include" />
                 <e p="ScalableObject.cs" t="Include" />
                 <e p="ScalingMagic.cs" t="Include" />
                 <e p="ScalingScript.cs" t="Include" />
@@ -202,11 +221,14 @@
             <e p="Dialogue_Manager.cs" t="Include" />
             <e p="NPCObject.cs" t="Include" />
           </e>
-          <e p="FPSCounter.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="WeaponSwap.cs" t="Include" />
           </e>
           <e p="MasterGameScripts" t="Include">
+            <e p="CheckpointScripts" t="Include">
+              <e p="SavableScriptableObjects.cs" t="Include" />
+              <e p="SetCheckpointObjects.cs" t="Include" />
+            </e>
             <e p="FrameRateControl.cs" t="Include" />
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />
@@ -217,15 +239,20 @@
             <e p="PickUp_Base.cs" t="Include" />
           </e>
           <e p="SimpleGameScripts" t="Include">
-            <e p="ChangeTimeScale.cs" t="Include" />
             <e p="CollisionEvents" t="Include">
               <e p="Collision_Enter_Event.cs" t="Include" />
               <e p="Collision_Event_Base.cs" t="Include" />
               <e p="Collision_Exit_Event.cs" t="Include" />
               <e p="Collision_Stay_Event.cs" t="Include" />
             </e>
-            <e p="Destroy_Object_Timed.cs" t="Include" />
-            <e p="DirectionalHit.cs" t="Include" />
+            <e p="DungeonScripts" t="Include">
+              <e p="Destroy_Door_Event.cs" t="Include" />
+              <e p="GearRotation.cs" t="Include" />
+              <e p="GearScalable.cs" t="Include" />
+              <e p="Jump_Destroy.cs" t="Include" />
+              <e p="MovePlayer.cs" t="Include" />
+              <e p="MoveTransform.cs" t="Include" />
+            </e>
             <e p="Events" t="Include">
               <e p="Awake_Event.cs" t="Include" />
               <e p="Distance_Event.cs" t="Include" />
@@ -233,17 +260,29 @@
               <e p="Interaction_Trigger_Event.cs" t="Include" />
               <e p="PS_Callback.cs" t="Include" />
               <e p="Random_Timed_Event.cs" t="Include" />
+              <e p="Randomize_Event.cs" t="Include" />
               <e p="Start_Event.cs" t="Include" />
               <e p="Timed_Event.cs" t="Include" />
               <e p="Unity_Event_Holder.cs" t="Include" />
             </e>
+            <e p="FadeScript.cs" t="Include" />
+            <e p="LoadScene.cs" t="Include" />
             <e p="MeshColliderUpdate" t="Include">
               <e p="UpdateMeshCollider.cs" t="Include" />
               <e p="VertexWeight.cs" t="Include" />
               <e p="WeightList.cs" t="Include" />
             </e>
-            <e p="ResetTriggers.cs" t="Include" />
-            <e p="Toggle_Active.cs" t="Include" />
+            <e p="ObjectScripts" t="Include">
+              <e p="ActivateRigidbodies.cs" t="Include" />
+              <e p="AddRigidBody.cs" t="Include" />
+              <e p="ChangeTimeScale.cs" t="Include" />
+              <e p="Destroy_Object_Timed.cs" t="Include" />
+              <e p="DirectionalHit.cs" t="Include" />
+              <e p="Instantiate_Obj.cs" t="Include" />
+              <e p="Instantiate_Obj_Position_Range.cs" t="Include" />
+              <e p="ResetTriggers.cs" t="Include" />
+              <e p="Toggle_Active.cs" t="Include" />
+            </e>
             <e p="TransformationScripts" t="Include">
               <e p="Center_Screen.cs" t="Include" />
               <e p="Follow_Object.cs" t="Include" />
@@ -266,9 +305,20 @@
               <e p="NavOffLinkMove.cs" t="Include" />
               <e p="RotateTest.cs" t="Include" />
             </e>
+            <e p="RotateObj.cs" t="Include" />
+            <e p="TestQuit.cs" t="Include" />
+            <e p="UI_Bar_Fill.cs" t="Include" />
           </e>
           <e p="TestTools" t="Include">
             <e p="SimpleCameraController.cs" t="Include" />
+          </e>
+          <e p="UIScripts" t="Include">
+            <e p="FPSCounter.cs" t="Include" />
+            <e p="HealthBar.cs" t="Include" />
+            <e p="MagicBar.cs" t="Include" />
+            <e p="MainMenu.cs" t="Include" />
+            <e p="PauseMenu.cs" t="Include" />
+            <e p="SettingsMenu.cs" t="Include" />
           </e>
           <e p="VFX" t="Include">
             <e p="Fire" t="Include">
@@ -279,7 +329,45 @@
             </e>
           </e>
         </e>
-        <e p="SettingsMenu.cs" t="Include" />
+        <e p="Standard Assets" t="Include">
+          <e p="Editor" t="Include">
+            <e p="Water" t="Include">
+              <e p="Water4" t="Include">
+                <e p="GerstnerDisplaceEditor.cs" t="Include" />
+                <e p="PlanarReflectionEditor.cs" t="Include" />
+                <e p="SpecularLightingEditor.cs" t="Include" />
+                <e p="WaterBaseEditor.cs" t="Include" />
+                <e p="WaterEditorUtility.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Environment" t="Include">
+            <e p="Water" t="Include">
+              <e p="Water" t="Include">
+                <e p="Scripts" t="Include">
+                  <e p="Displace.cs" t="Include" />
+                  <e p="GerstnerDisplace.cs" t="Include" />
+                  <e p="MeshContainer.cs" t="Include" />
+                  <e p="PlanarReflection.cs" t="Include" />
+                  <e p="SpecularLighting.cs" t="Include" />
+                  <e p="Water.cs" t="Include" />
+                  <e p="WaterBase.cs" t="Include" />
+                  <e p="WaterTile.cs" t="Include" />
+                </e>
+                <e p="Shaders" t="Include">
+                  <e p="FXWaterPro.shader" t="Include" />
+                </e>
+              </e>
+              <e p="Water4" t="Include">
+                <e p="Shaders" t="Include">
+                  <e p="FXWater4Advanced.shader" t="Include" />
+                  <e p="FXWater4Simple.shader" t="Include" />
+                  <e p="WaterInclude.cginc" t="Include" />
+                </e>
+              </e>
+            </e>
+          </e>
+        </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />
@@ -309,18 +397,18 @@
           </e>
         </e>
         <e p="TreeTest" t="Include">
-          <e p="Billboard" t="Include">
-            <e p="TreeBillboardAsset.cs" t="Include" />
-          </e>
           <e p="DiffuseShakeUpdated.shader" t="Include" />
         </e>
       </e>
       <e p="Brodinjer.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
       <e p="NavMeshComponents.csproj" t="IncludeRecursive" />
       <e p="NavMeshComponentsEditor.csproj" t="IncludeRecursive" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
     </e>
   </component>
 </project>

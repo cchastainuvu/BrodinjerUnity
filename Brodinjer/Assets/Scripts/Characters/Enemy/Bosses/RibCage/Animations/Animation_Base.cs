@@ -10,6 +10,8 @@ public abstract class Animation_Base : ScriptableObject
     protected MonoBehaviour caller;
     protected NavMeshAgent agent;
     protected ResetTriggers reset;
+    public string StartTriggerName;
+    public string StopTriggerName;
 
     public void Init(MonoBehaviour caller, Animator anim, Transform player, NavMeshAgent agent)
     {

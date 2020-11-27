@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Dash Forward")]
-
 public class DashForwardMove : NavMesh_Enemy_Base
 {
     public float DashSpeed;
@@ -12,8 +10,8 @@ public class DashForwardMove : NavMesh_Enemy_Base
     
     public override IEnumerator Move()
     {
-        if(animation != null)
-            animation.StartAnimation();
+        if(AnimationBase != null)
+            AnimationBase.StartAnimation();
         dashTime = Random.Range(DashMinTime, DashMaxTime);
         currentTime = 0;
         agent.speed = DashSpeed;
@@ -38,7 +36,7 @@ public class DashForwardMove : NavMesh_Enemy_Base
         yield return fixedUpdate;
     }
 
-    public override Enemy_Movement GetClone()
+    /*public override Enemy_Movement GetClone()
     {
         DashForwardMove temp = CreateInstance<DashForwardMove>();
         temp.Speed = Speed;
@@ -49,5 +47,5 @@ public class DashForwardMove : NavMesh_Enemy_Base
         temp.DashMaxTime = DashMaxTime;
         temp.DashSpeed = DashSpeed;
         return temp;
-    }
+    }*/
 }

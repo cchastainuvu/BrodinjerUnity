@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ListBase<T> : ScriptableObject
+public abstract class ListBase<T> : SavableScriptableObjects
 {
     public List<T> list;
     private T item;
@@ -73,5 +73,7 @@ public abstract class ListBase<T> : ScriptableObject
     {
         return list.IndexOf(obj);
     }
+    
+    
     
 }

@@ -10,14 +10,28 @@ public class Random_Timed_Event : MonoBehaviour
     public bool OnAwake;
     public bool Repeat;
     private bool repeating;
+    public bool RunOnStart = false;
+    public float StartDelay;
 
     private Coroutine waitFunc;
     
-    private void Start()
+    private IEnumerator Start()
     {
         if (OnAwake)
         {
-            StartCoroutine(Wait());
+            yield return new WaitForSeconds(StartDelay);
+            if (RunOnStart)
+            {
+                Event.Invoke();
+                if (repeating)
+                {
+                    StartCoroutine(Wait());
+                }
+            }
+            else
+            {
+                StartCoroutine(Wait());
+            }
         }
         
     }

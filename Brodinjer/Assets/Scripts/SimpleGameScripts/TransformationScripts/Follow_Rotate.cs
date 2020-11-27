@@ -10,6 +10,7 @@ public class Follow_Rotate : MonoBehaviour
     public bool OnAwake;
     private Vector3 rotationOffset;
     public bool x = true, y = true, z = true;
+    public bool UseOffset = true;
 
     private void Start()
     {
@@ -22,7 +23,10 @@ public class Follow_Rotate : MonoBehaviour
     public void StartRotate()
     {
         rotating = true;
-        rotationOffset = FollowRotateObject.eulerAngles - transform.eulerAngles;
+        if(UseOffset)
+            rotationOffset = FollowRotateObject.eulerAngles - transform.eulerAngles;
+        else
+            rotationOffset = Vector3.zero;
         rotateFunc = StartCoroutine(Rotate());
     }
 
