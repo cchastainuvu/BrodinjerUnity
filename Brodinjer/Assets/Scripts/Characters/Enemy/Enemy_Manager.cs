@@ -5,181 +5,108 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 public class Enemy_Manager : MonoBehaviour
 {
-    public Enemy_Movement Movement_Version;
-    private Enemy_Movement _movementTemp;
-    
-    public List<Transform> Destinations;
+    public Enemy_Movement currentMove;
+    public Enemy_Attack_Base currentAttack;
 
-    public GameObject WeaponObj;
-    public Enemy_Attack_Base Attack;
-    private Enemy_Attack_Base _attackTemp;
+    public bool moveOnStart;
 
-    public Transform Player;
-    public Animator animator;
-
-    private bool canAttack;
-    private bool canMove;
-    private bool paused;
-
-    public bool AwakeOnStart = true;
+    private float currentPauseTime;
+    public bool paused, dead, stunned;
 
     private void Start()
     {
-        paused = false;
-        canAttack = true;
-        canMove = true;
-        Init();
-        if(AwakeOnStart)
+        dead = false;
+        stunned = false;
+        if(moveOnStart)
             StartMove();
     }
 
-    public void deactivateMove()
+    public void Stun()
     {
-        canMove = false;
-        Movement_Version.deactiveMove();
+        stunned = true;
         StopMove();
-    }
-
-    public void deactivateAttack()
-    {
-        Attack.DeactivateAttack();
-        canAttack = false;
         StopAttack();
     }
 
-    public void activateMove()
+    public void UnStun()
     {
-        canMove = true;
-        Movement_Version.activateMove();
+        stunned = false;
+        StartMove();
     }
-
-    public void activateAttack()
-    {
-        Attack.ActivateAttack();
-        canAttack = true;
-    }
-
-    #region INIT FUNCTIONS
-
-    public void Init()
-    {
-        InitMovement();
-        InitAttack();
-    }
-
-    public void InitMovement()
-    {
-        _movementTemp = Movement_Version.GetClone();
-        Movement_Version = _movementTemp;
-        Movement_Version.Init(gameObject, this, Player, Destinations, animator);
-    }
-
-    public void InitAttack()
-    {
-        if (Attack != null)
-        {
-            _attackTemp = Attack.getClone();
-            Attack = _attackTemp;
-            Attack.Init(this, WeaponObj, Player, animator, gameObject);
-        }
-    }
-    #endregion
-
-    #region SETTER FUNCTIONS
-
-    public void SetNewMovement(Enemy_Movement movement)
-    {
-        Movement_Version.StopMove();
-        Movement_Version = movement;
-        InitMovement();
-    }
-
-    public void SetNewAttack(Enemy_Attack_Base attack)
-    {
-        Attack.StopAttack();
-        Attack = attack;
-        InitAttack();
-    }
-
-    public void SetNewWeaponObject(GameObject obj)
-    {
-        Attack.StopAttack();
-        WeaponObj = obj;
-        InitAttack();
-    }
-
-    public void ClearDestinations()
-    {
-        Destinations.Clear();
-    }
-    
-    public void AddNewDestination(Transform dest)
-    {
-        Destinations.Add(dest);
-    }
-    
-    #endregion
-
-    #region START FUNCTIONS
 
     public void StartMove()
     {
-        if(canMove)
-            Movement_Version.StartMove();
+        if (!dead && !stunned)
+        {
+            currentMove.enabled = true;
+            currentMove.StartMove();
+        }
+    }
+
+    public void SwapMovement(Enemy_Movement newMovement)
+    {
+        currentMove.StopMove();
+        currentMove.enabled = false;
+        currentMove = newMovement;
+    }
+
+    public void StopMove()
+    {
+        currentMove.StopMove();
+        currentMove.enabled = false;
     }
 
     public void StartAttack()
     {
-        if (canAttack)
+        if (!dead&&!stunned)
         {
-            if (Attack != null && !Attack.attackWhileMoving)
+            currentAttack.enabled = true;
+            currentAttack.StartAttack();
+            if (!currentAttack.attackWhileMoving)
             {
                 if (!paused)
                 {
+                    currentPauseTime = currentAttack.MovePauseTime;
                     paused = true;
                     StartCoroutine(PauseMove());
                 }
+                else
+                {
+                    currentPauseTime += currentAttack.MovePauseTime;
+                }
             }
-
-            Attack.StartAttack();
         }
     }
 
     private IEnumerator PauseMove()
     {
-        if (Attack != null)
+        StopMove();
+        while (currentPauseTime > 0)
         {
-            Movement_Version.StopMove();
-            yield return new WaitForSeconds(Attack.CoolDownTime + 
-                                            Attack.AttackActiveTime + Attack.AttackStartTime);
-            Movement_Version.StartMove();
+            currentPauseTime -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
         }
-
+        StartMove();
         paused = false;
     }
 
-    #endregion
-
-    #region STOP FUNCTIONS
-
-    public void StopMove()
+    public void SwapAttack(Enemy_Attack_Base newAttack)
     {
-        Movement_Version.StopMove();
+        currentAttack.StopAttack();
+        currentAttack.enabled = false;
+        currentAttack = newAttack;
     }
 
     public void StopAttack()
     {
-        if (Attack != null)
-        {
-            if (!Attack.attackWhileMoving)
-            {
-                Movement_Version.StartMove();
-            }
-
-            Attack.StopAttack();
-        }
+        currentAttack.StopAttack();
+        currentAttack.enabled = false;
     }
 
-    #endregion
-    
+    public void Die()
+    {
+        dead = true;
+        StopAttack();
+        StopMove();
+    }
 }

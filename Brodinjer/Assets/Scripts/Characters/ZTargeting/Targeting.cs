@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.PlayerLoop;
 
 public class Targeting : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Targeting : MonoBehaviour
     private GameObject objtarget;
     private List<Vector3> enemyarea;
     private Vector3 objPosition, subVector;
+    private TargetObject targetObj;
 
     private enum Placement
     {
@@ -30,6 +32,36 @@ public class Targeting : MonoBehaviour
         center,
         left
     };
+
+    private void UpdateTargetPos()
+    {
+        
+        if (currentTarget != null)
+        {
+            if (targetObj != null)
+            {
+                Debug.Log("Deactivate");
+                targetObj.target.SetActive(false);
+            }            targetObj = currentTarget.GetComponent<TargetObject>();
+            if (targetObj == null)
+            {
+                targetObj = currentTarget.GetComponentInChildren<TargetObject>();
+            }
+
+            if (targetObj != null)
+            {
+                targetObj.target.SetActive(true);
+            }
+        }
+        else
+        {
+            if (targetObj != null)
+            {
+                Debug.Log("Deactivate");
+                targetObj.target.SetActive(false);
+            } 
+        }
+    }
 
     private void Start()
     {
@@ -54,17 +86,14 @@ public class Targeting : MonoBehaviour
         {
             currTargetObj.transform = null;
             currentTarget = null;
+            UpdateTargetPos();
             targeting = false;
-            targetIndicator.transform.parent = null;
-            targetIndicator.SetActive(false);
             return;
         }
         else if (objectsToCheck.Count == 1)
         {
             currentTarget = objectsToCheck[0];
-            targetIndicator.SetActive(true);
-            targetIndicator.transform.parent = objectsToCheck[0].transform;
-            targetIndicator.transform.position = objectsToCheck[0].transform.position;
+            UpdateTargetPos();
             return;
         }
             enemyarea.Clear();
@@ -117,12 +146,9 @@ public class Targeting : MonoBehaviour
             }
         }
 
-        targetIndicator.transform.parent = objectsToCheck[minIndex].transform;
-        targetIndicator.transform.position = objectsToCheck[minIndex].transform.position;
         currentTarget = objectsToCheck[minIndex];
-        targetIndicator.SetActive(true);
-        objtarget = currentTarget.GetComponentInChildren<TargetObject>().gameObject;
-        targetIndicator.transform.position = objtarget.transform.position;
+        UpdateTargetPos();
+
     }
     
 
@@ -133,9 +159,14 @@ public class Targeting : MonoBehaviour
 
     private void findRight(GameObject ignoreObj = null)
     {
-        if (EnemiesInRange.Count <= 1)
+        if (EnemiesInRange.Count <= 0)
         {
             currTargetObj.transform = null;
+            UpdateTargetPos();
+            return;
+        }
+        else if (EnemiesInRange.Count <= 1)
+        {
             return;
         }
         CheckEnemies = EnemiesInRange;
@@ -146,9 +177,14 @@ public class Targeting : MonoBehaviour
     
     private void findLeft(GameObject ignoreObj = null)
     {
-        if (EnemiesInRange.Count <= 1)
+        if (EnemiesInRange.Count <= 0)
         {
             currTargetObj.transform = null;
+            UpdateTargetPos();
+            return;
+        }
+        else if (EnemiesInRange.Count <= 1)
+        {
             return;
         }
         CheckEnemies = EnemiesInRange;
@@ -176,7 +212,6 @@ public class Targeting : MonoBehaviour
                 objtarget = currentTarget;
                 currTargetObj.SetTransform(currentTarget);
                 targeting = true;
-
             }
             while (targeting && currentTarget != null)
             {
@@ -186,10 +221,12 @@ public class Targeting : MonoBehaviour
                 transform.rotation = quat;
                 if (Input.GetButtonDown("Target"))
                 {
-                    targetIndicator.SetActive(false);
-                    targetIndicator.transform.parent = null;
-                    targeting = false;
                     currTargetObj.transform = null;
+                    if (targetObj != null)
+                    {
+                        targetObj.target.SetActive(false);
+                    }
+                    targeting = false;
                 }
                 else if (!EnemiesInRange.Contains(currentTarget))
                 {
@@ -237,7 +274,7 @@ public class Targeting : MonoBehaviour
                         }
                     }
                 }
-                yield return new WaitForSeconds(.01f);
+                yield return new WaitForFixedUpdate();
             }
 
         }

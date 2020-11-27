@@ -15,7 +15,6 @@ public class BowandArrow : WeaponBase
     public GameObject ArrowPrefab;
     public Transform InitPos;
     private Rigidbody ArrowRB;
-    public string useButton;
     private float currPower;
     public float MaxPower, PowerIncreaseScale;
     private GameObject currArrow;
@@ -45,7 +44,7 @@ public class BowandArrow : WeaponBase
         WeaponObj.SetActive(true);
         attack = Attack();
         originalRotate = playermove.rotate;
-        StartCoroutine(attack);
+        weaponFunc = StartCoroutine(Attack());
     }
 
     public override IEnumerator Attack()
@@ -127,7 +126,8 @@ public class BowandArrow : WeaponBase
             cameraRotation.StopTimeSwap(thirdPersonCamera);
             playermove.SwapMovement(originalRotate, playermove.translate);
         }
-        StopCoroutine(attack);
+        if(weaponFunc != null)
+            StopCoroutine(weaponFunc);
     }
 
     private bool CheckInput()

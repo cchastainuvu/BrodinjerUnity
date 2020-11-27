@@ -3,32 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy_Attack_Base : ScriptableObject
+public abstract class Enemy_Attack_Base : MonoBehaviour
 {
-    public float DamageAmount;
     public float AttackStartTime;
     public float CoolDownTime;
     protected bool attacking;
     public float AttackActiveTime;
-    protected GameObject WeaponAttackobj;
+    public GameObject WeaponAttackobj;
     protected Coroutine attackFunc;
-    protected MonoBehaviour caller;
     public Animation_Base animations;
-    protected GameObject enemyObj;
+    public GameObject enemyObj;
     public bool attackWhileMoving;
     protected Transform player;
     protected bool canAttack;
+    public Animator animator;
+    public float MovePauseTime;
 
-    public virtual void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
+    private void Start()
     {
-        this.player = player;
-        this.caller = caller;
-        WeaponAttackobj = MeleeAttack;
-        this.enemyObj = enemy;
+        player = FindObjectOfType<PlayerMovement>().transform;
+        Init();
+    }
+
+    public virtual void Init()
+    {
         attacking = false;
         canAttack = true;
-        if(animations != null)
-            animations.Init(caller, animator, player, enemy.GetComponent<NavMeshAgent>());
+        if(animations != null && animator != null)
+            animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
     }
 
     public void ActivateAttack()
@@ -47,7 +49,7 @@ public abstract class Enemy_Attack_Base : ScriptableObject
         if (canAttack)
         {
             attacking = true;
-            attackFunc = caller.StartCoroutine(Attack());
+            attackFunc = StartCoroutine(Attack());
         }
     }
     
@@ -57,10 +59,10 @@ public abstract class Enemy_Attack_Base : ScriptableObject
     {
         attacking = false;
         if(attackFunc!= null)
-            caller.StopCoroutine(attackFunc);
+            StopCoroutine(attackFunc);
         if(WeaponAttackobj!= null)
             WeaponAttackobj.SetActive(false);
     }
 
-    public abstract Enemy_Attack_Base getClone();
+    /*public abstract Enemy_Attack_Base getClone();*/
 }

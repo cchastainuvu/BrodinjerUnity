@@ -6,7 +6,7 @@ using UnityEngine;
 public class Animation_Directional_Attack : Animation_Base
 {
 
-    public string DirectionName, AttackTriggerName;
+    public string DirectionName;
     private float angle;
     private ResetTriggers resettrigger;
     
@@ -17,12 +17,16 @@ public class Animation_Directional_Attack : Animation_Base
         if(resettrigger != null)
             resettrigger.ResetAllTriggers();
         anim.SetFloat(DirectionName, DirectionalInput());
-        anim.SetTrigger(AttackTriggerName);
+        anim.SetTrigger(StartTriggerName);
     }
 
     public override void StopAnimation()
     {
-        anim.ResetTrigger(AttackTriggerName);
+        anim.ResetTrigger(StartTriggerName);
+        if (StopTriggerName != "")
+        {
+            anim.SetTrigger(StopTriggerName);
+        }
     }
 
     public float DirectionalInput()

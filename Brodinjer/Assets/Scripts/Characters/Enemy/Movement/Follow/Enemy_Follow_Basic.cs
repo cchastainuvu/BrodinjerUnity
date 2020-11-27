@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Movement/NavMesh/Follow/Basic")]
 public class Enemy_Follow_Basic : Enemy_Follow_Base
 {
     public bool lookAtFollow;
@@ -16,13 +15,13 @@ public class Enemy_Follow_Basic : Enemy_Follow_Base
         agent.updatePosition = true;
         if (lookAtFollow)
             agent.updateRotation = false;
-        if(animation!= null)
-            animation.StartAnimation();
+        if(AnimationBase!= null)
+            AnimationBase.StartAnimation();
         while (moving)
         {
             if (lookAtFollow && moving)
             {
-                target = followObj.transform.position;
+                target = player.transform.position;
                 target = (target - agent.transform.position).normalized;
                 facingDirection = Quaternion.LookRotation(target);
                 Quaternion YRotation = Quaternion.Euler(agent.transform.rotation.eulerAngles.x,
@@ -30,31 +29,18 @@ public class Enemy_Follow_Basic : Enemy_Follow_Base
                 if (!GeneralFunctions.CheckDestination(agent.transform.rotation.eulerAngles,
                     YRotation.eulerAngles, offset))
                 {
-                    /*Quaternion YRotation = Quaternion.Euler(((lookatX) ? facingDirection.eulerAngles.x :agent.transform.rotation.eulerAngles.x), 
-                        ((lookatY) ? facingDirection.eulerAngles.y :agent.transform.rotation.eulerAngles.y), 
-                        ((lookatZ) ? facingDirection.eulerAngles.z :agent.transform.rotation.eulerAngles.z));*/
                     agent.transform.rotation =
                         Quaternion.Lerp(agent.transform.rotation, YRotation, AngularSpeed * Time.deltaTime);
                 }
             }
             if (agent.enabled)
             {
-                agent.destination = followObj.transform.position;
+                agent.destination = player.transform.position;
             }
 
             yield return fixedUpdate;
         }
-        animation.StopAnimation();
+        AnimationBase.StopAnimation();
     }
 
-    public override Enemy_Movement GetClone()
-    {
-        Enemy_Follow_Basic temp = CreateInstance<Enemy_Follow_Basic>();
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        temp.lookAtFollow = lookAtFollow;
-        temp.animation = animation;
-        temp.offset = offset;
-        return temp;
-    }
 }

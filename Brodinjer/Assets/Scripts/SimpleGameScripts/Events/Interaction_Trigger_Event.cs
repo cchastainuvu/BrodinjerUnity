@@ -9,7 +9,7 @@ public class Interaction_Trigger_Event : Trigger_Event_Base
     public bool CheckOnStart;
     public UnityEvent inRangeEvent, outOfRangeEvent;
     private Coroutine checkFunc;
-    public string InteractButton;
+    public string InteractButton = "Interact";
 
     private void Start()
     {

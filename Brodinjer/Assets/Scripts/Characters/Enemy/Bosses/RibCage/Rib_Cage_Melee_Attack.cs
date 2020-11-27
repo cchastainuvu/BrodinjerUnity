@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-[CreateAssetMenu(menuName = "Character/Enemy/Boss/Ribs/MeleeAttack")]
 public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
 {
     private bool currentlyattacking;
 
-    public override void Init(MonoBehaviour caller, GameObject MeleeAttack, Transform player, Animator animator, GameObject enemy)
+    public override void Init()
     {
-        base.Init(caller, MeleeAttack, player, animator, enemy);
+        base.Init();
         WeaponAttackobj.SetActive(false);
     }
 
     public override IEnumerator Attack()
     {
         currentlyattacking = false;
-        while (attacking)
-        {
             if (!currentlyattacking)
             {
-                Debug.Log("Run Anims");
+                //Debug.Log("Run Anims");
                 if (animations != null)
                     animations.StartAnimation();
                 currentlyattacking = true;
@@ -32,13 +29,11 @@ public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
                 currentlyattacking = false;
             }
             yield return new WaitForFixedUpdate();
-        }
     }
 
-    public override Enemy_Attack_Base getClone()
+    /*public override Enemy_Attack_Base getClone()
     {
         Rib_Cage_Melee_Attack temp = CreateInstance<Rib_Cage_Melee_Attack>();
-        temp.DamageAmount = DamageAmount;
         temp.AttackActiveTime = AttackActiveTime;
         temp.AttackStartTime = AttackStartTime;
         temp.CoolDownTime = CoolDownTime;
@@ -46,5 +41,5 @@ public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
         temp.attackWhileMoving = attackWhileMoving;
 
         return temp;
-    }
+    }*/
 }

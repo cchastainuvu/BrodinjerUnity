@@ -9,7 +9,6 @@ public class ScalingScript : WeaponBase
     public GameObject MagicPrefab;
     public Transform InitPos;
     private Rigidbody SpellBall;
-    public string useButton;
     private float currPower;
     public float MaxPower, PowerIncreaseScale, ScaleIncreaseAmount;
     private GameObject currSpell;
@@ -44,7 +43,7 @@ public class ScalingScript : WeaponBase
         attack = Attack();
         MagicInUse.value = false;
         originalRotate = playermove.rotate;
-        StartCoroutine(attack);
+        weaponFunc = StartCoroutine(Attack());
 
     }
 
@@ -124,7 +123,7 @@ public class ScalingScript : WeaponBase
                             yield return _fixedUpdate;
                         }
 
-                        if (!currSpell.GetComponent<ScalingMagic>().hitObj)
+                        if (currSpell == null || !currSpell.GetComponent<ScalingMagic>().hitObj)
                         {
                             inUse = false;
                             MagicInUse.value = false;
@@ -156,7 +155,11 @@ public class ScalingScript : WeaponBase
             cameraRotation.StopTimeSwap(thirdPersonCamera);
             playermove.SwapMovement(originalRotate, playermove.translate);
         }
-        StopCoroutine(attack);
+
+        if (weaponFunc != null)
+        {
+            StopCoroutine(weaponFunc);
+        }
     }
 
     public void SpellHit()

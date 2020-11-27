@@ -3,7 +3,12 @@ guid: 1cc7414b47c1923488fa8869f91ad42d
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rhetts_Fall_Pack_MAT
+    second: {fileID: 2100000, guid: 5b59caadc7976f74ea038f9d79a4f7f1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

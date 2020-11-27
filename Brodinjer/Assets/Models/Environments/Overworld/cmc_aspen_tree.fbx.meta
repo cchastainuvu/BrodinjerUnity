@@ -3,7 +3,12 @@ guid: bb9e6c95d66efcc4c90f1abcfc541d18
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cmc_trees_01_MAT
+    second: {fileID: 2100000, guid: 09ff9a0a221d38044996784e9418a94d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -82,7 +87,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 100
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
