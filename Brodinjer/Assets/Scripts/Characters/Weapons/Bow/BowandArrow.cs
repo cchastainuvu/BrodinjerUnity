@@ -34,7 +34,14 @@ public class BowandArrow : WeaponBase
     public float CameraSwapTime;
 
     public UnityEvent BowEquiped, BowPulled, ArrowFired, BowUnequipped;
-    
+
+    private bool running;
+
+    private void Start()
+    {
+        running = false;
+    }
+
     public override void Initialize()
     {
         BowEquiped.Invoke();
@@ -44,7 +51,11 @@ public class BowandArrow : WeaponBase
         WeaponObj.SetActive(true);
         attack = Attack();
         originalRotate = playermove.rotate;
-        weaponFunc = StartCoroutine(Attack());
+        if (!running)
+        {
+            running = true;
+            weaponFunc = StartCoroutine(Attack());
+        }
     }
 
     public override IEnumerator Attack()
@@ -55,11 +66,12 @@ public class BowandArrow : WeaponBase
             {
                 yield return new WaitForFixedUpdate();
             }
-
+            
             rotDirection = initRotation;
             rotDirection.y = transform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(rotDirection);
             yield return _waitforbutton;
+            Debug.Log("Pull Bow");
             if (!frozen)
             {
                 BowPulled.Invoke();
@@ -111,12 +123,15 @@ public class BowandArrow : WeaponBase
             }
         }
 
+        running = false;
+
     }
     
 
     public override void End()
     {
         //and end stuff needed
+        running = false;
         BowUnequipped.Invoke();
         WeaponObj.SetActive(false);
         currWeapon = false;

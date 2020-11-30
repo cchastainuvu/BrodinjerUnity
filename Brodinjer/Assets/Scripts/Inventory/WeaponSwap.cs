@@ -7,7 +7,7 @@ public class WeaponSwap : MonoBehaviour
 {
     public List<WeaponBase> AllWeapons;
     private List<WeaponBase> AvailableWeapons;
-    public List<Sprite> weaponSprites;
+    //public List<Sprite> weaponSprites;
     private List<GameObject> highlights;
     private List<Image> weaponImages;
     private List<KeyCode> WeaponKeys;
@@ -51,6 +51,7 @@ public class WeaponSwap : MonoBehaviour
         {
             if (AvailableWeapons.Count > 0)
             {
+                Debug.Log("Check Weapon Input");
                 scrollWheel = Input.GetAxis("Mouse ScrollWheel");
                 if (Input.GetButtonDown(PutAwayWeapon))
                 {
