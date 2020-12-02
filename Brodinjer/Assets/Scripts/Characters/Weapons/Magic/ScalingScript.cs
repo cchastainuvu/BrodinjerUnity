@@ -27,8 +27,14 @@ public class ScalingScript : WeaponBase
     public float maxSpellDuration;
     private float currentSpellDuration;
     public float CameraSwapTime;
+    public bool freezeWhenAim;
+    public CharacterTranslate freezePlayer;
+    private CharacterTranslate originalTranslate;
 
     public Object_Aim_Script AimScript;
+
+    private Coroutine swapFunc;
+    private float currentTime;
     
     
     public override void Initialize()
@@ -43,6 +49,7 @@ public class ScalingScript : WeaponBase
         attack = Attack();
         MagicInUse.value = false;
         originalRotate = playermove.rotate;
+        originalTranslate = playermove.translate;
         weaponFunc = StartCoroutine(Attack());
 
     }
@@ -77,7 +84,11 @@ public class ScalingScript : WeaponBase
                         {
                             if (cameraRotation.cameraRotation != bowCamera)
                             {
-                                playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
+                                if(freezeWhenAim)
+                                    playermove.SwapMovement(bowRotate, freezePlayer, playermove.extraControls);
+                                else
+                                    playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
+                                StartTimeSwap(CameraSwapTime);
                             }
 
                             cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
@@ -111,13 +122,17 @@ public class ScalingScript : WeaponBase
                         {
                             yield return new WaitForFixedUpdate();
                         }
+                        if(freezeWhenAim)
+                            playermove.SwapMovement(bowRotate, originalTranslate, playermove.extraControls);
 
                         SpellBall.constraints = RigidbodyConstraints.None;
                         currSpell.transform.parent = null;
-                        currSpell.GetComponent<ScalingMagic>().VFX.SetActive(true);
+                        ScalingMagic temp = currSpell.GetComponent<ScalingMagic>();
+                        if(temp && temp.VFX)
+                            currSpell.GetComponent<ScalingMagic>().VFX.SetActive(true);
                         SpellBall.AddForce(transform.forward * currPower, ForceMode.Impulse);
                         currentSpellDuration = maxSpellDuration * (currPower / MaxPower);
-                        while (currentSpellDuration > 0)
+                        while (currentSpellDuration > 0 && inUse && MagicInUse.value)
                         {
                             currentSpellDuration -= Time.deltaTime;
                             yield return _fixedUpdate;
@@ -153,7 +168,7 @@ public class ScalingScript : WeaponBase
         if (cameraRotation.cameraRotation != thirdPersonCamera)
         {
             cameraRotation.StopTimeSwap(thirdPersonCamera);
-            playermove.SwapMovement(originalRotate, playermove.translate);
+            playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
         }
 
         if (weaponFunc != null)
@@ -177,5 +192,44 @@ public class ScalingScript : WeaponBase
         {
             return false;
         }
+    }
+    
+    public void StartTimeSwap(float time)
+    {
+        if (swapFunc == null)
+        {
+            currentTime = time;
+            swapFunc = StartCoroutine(TimedSwap());
+        }
+        else
+        {
+            currentTime = time;
+        }
+        
+    }
+
+    private IEnumerator TimedSwap()
+    {
+        while (currentTime > 0)
+        {
+            currentTime -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        StopTimeSwap();
+    }
+
+    public void StopTimeSwap()
+    {
+        if (swapFunc != null)
+        {
+            playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
+            StopCoroutine(swapFunc);
+        }
+        else if(originalRotate != playermove.rotate)
+        {
+            playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
+        }
+        swapFunc = null;
+
     }
 }

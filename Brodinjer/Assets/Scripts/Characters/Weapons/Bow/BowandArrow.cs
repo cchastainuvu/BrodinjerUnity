@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class BowandArrow : WeaponBase
 {
@@ -15,7 +17,7 @@ public class BowandArrow : WeaponBase
     public GameObject ArrowPrefab;
     public Transform InitPos;
     private Rigidbody ArrowRB;
-    private float currPower;
+    private float currPower, currentTime;
     public float MaxPower, PowerIncreaseScale;
     private GameObject currArrow;
     private Vector3 direction;
@@ -34,7 +36,16 @@ public class BowandArrow : WeaponBase
     public float CameraSwapTime;
 
     public UnityEvent BowEquiped, BowPulled, ArrowFired, BowUnequipped;
-    
+
+    private Coroutine swapFunc;
+
+    private bool running;
+
+    private void Start()
+    {
+        running = false;
+    }
+
     public override void Initialize()
     {
         BowEquiped.Invoke();
@@ -44,7 +55,11 @@ public class BowandArrow : WeaponBase
         WeaponObj.SetActive(true);
         attack = Attack();
         originalRotate = playermove.rotate;
-        weaponFunc = StartCoroutine(Attack());
+        if (!running)
+        {
+            running = true;
+            weaponFunc = StartCoroutine(Attack());
+        }
     }
 
     public override IEnumerator Attack()
@@ -55,11 +70,12 @@ public class BowandArrow : WeaponBase
             {
                 yield return new WaitForFixedUpdate();
             }
-
+            
             rotDirection = initRotation;
             rotDirection.y = transform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(rotDirection);
             yield return _waitforbutton;
+            Debug.Log("Pull Bow");
             if (!frozen)
             {
                 BowPulled.Invoke();
@@ -75,6 +91,7 @@ public class BowandArrow : WeaponBase
                         if (cameraRotation.cameraRotation != bowCamera)
                         {
                             playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
+                            StartTimeSwap(CameraSwapTime);
                         }
 
                         while (frozen)
@@ -83,6 +100,7 @@ public class BowandArrow : WeaponBase
                         }
 
                         cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
+                        
                         AimScript.StartAim();
                         currPower += Time.deltaTime * PowerIncreaseScale;
                         if (currPower >= MaxPower)
@@ -111,12 +129,14 @@ public class BowandArrow : WeaponBase
             }
         }
 
+        running = false;
+
     }
-    
 
     public override void End()
     {
         //and end stuff needed
+        running = false;
         BowUnequipped.Invoke();
         WeaponObj.SetActive(false);
         currWeapon = false;
@@ -124,7 +144,8 @@ public class BowandArrow : WeaponBase
         if (cameraRotation.cameraRotation != thirdPersonCamera)
         {
             cameraRotation.StopTimeSwap(thirdPersonCamera);
-            playermove.SwapMovement(originalRotate, playermove.translate);
+            StopTimeSwap();
+            //playermove.SwapMovement(originalRotate, playermove.translate);
         }
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
@@ -141,4 +162,70 @@ public class BowandArrow : WeaponBase
             return false;
         }
     }
+
+    public void SetBowPulledEvent(Unity_Event_Holder e)
+    {
+        if(e)
+            BowPulled = e.Event;
+        else
+            BowPulled = new UnityEvent();
+    }
+
+    public void SetArrowFiredEvent(Unity_Event_Holder e)
+    {
+        if(e)
+            ArrowFired = e.Event;
+        else
+            ArrowFired = new UnityEvent();
+        
+    }
+
+    public void SetBowUnequipped(Unity_Event_Holder e)
+    {
+        if(e)
+            BowUnequipped = e.Event;
+        else
+            BowUnequipped = new UnityEvent();
+        
+    }
+
+    public void StartTimeSwap(float time)
+    {
+        if (swapFunc == null)
+        {
+            currentTime = time;
+            swapFunc = StartCoroutine(TimedSwap());
+        }
+        else
+        {
+            currentTime = time;
+        }
+        
+    }
+
+    private IEnumerator TimedSwap()
+    {
+        while (currentTime > 0)
+        {
+            currentTime -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        StopTimeSwap();
+    }
+
+    public void StopTimeSwap()
+    {
+        if (swapFunc != null)
+        {
+            playermove.SwapMovement(originalRotate, playermove.translate, playermove.extraControls);
+            StopCoroutine(swapFunc);
+        }
+        else if(originalRotate != playermove.rotate)
+        {
+            playermove.SwapMovement(originalRotate, playermove.translate, playermove.extraControls);
+        }
+        swapFunc = null;
+
+    }
+    
 }

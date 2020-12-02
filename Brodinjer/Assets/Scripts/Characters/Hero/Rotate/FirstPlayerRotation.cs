@@ -18,14 +18,7 @@ public class FirstPlayerRotation : CharacterRotate
 
     public override IEnumerator Rotate()
     {
-        while (canRotate)
-        {
-            rotation = obj.transform.rotation.eulerAngles;
-            rotation.y = camera.rotation.eulerAngles.y;
-            quat = Quaternion.Euler(rotation);
-            obj.transform.rotation = quat;
-            yield return _fixedUpdate;
-        }
+        yield return new WaitForFixedUpdate();
     }
     
     

@@ -43,7 +43,15 @@ public class ScalingMagic : MonoBehaviour
                 art.SetActive(false);
                 StartCoroutine(Scale());
             }
+            else
+            {
+                MagicInUse.value = false;
+                Destroy(this);
+            }
+
         }
+        else
+         MagicInUse.value = false;
 
     }
 
@@ -74,10 +82,7 @@ public class ScalingMagic : MonoBehaviour
             yield return _fixedUpdate;
         }
         MagicInUse.value = false;
-        //scalescript.inUse = false;
         scaleObj.HighlightObj.SetActive(false);
-        //movement.StartAll();
-        yield return new WaitForSeconds(.1f);
         Destroy(this);
     }
     

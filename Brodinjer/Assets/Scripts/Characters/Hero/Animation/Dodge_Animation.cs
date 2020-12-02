@@ -34,4 +34,14 @@ public class Dodge_Animation : Animation_Base
     {
 
     }
+
+    public override Animation_Base GetClone()
+    {
+        Dodge_Animation temp = CreateInstance<Dodge_Animation>();
+        temp.directionFloat = directionFloat;
+        temp.dodgeTrigger = dodgeTrigger;
+        temp.StartTriggerName = StartTriggerName;
+        temp.StopTriggerName = StopTriggerName;
+        return temp;
+    }
 }

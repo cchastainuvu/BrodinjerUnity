@@ -8,4 +8,13 @@ public class WeaponDamageAmount : MonoBehaviour
     public bool DecreasedbyArmor;
 
     public float StunTime;
+
+    public bool SingleHit = false;
+    [HideInInspector]
+    public bool hit = false;
+
+    private void Start()
+    {
+        hit = false;
+    }
 }

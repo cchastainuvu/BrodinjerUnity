@@ -7,7 +7,7 @@ public class WeaponSwap : MonoBehaviour
 {
     public List<WeaponBase> AllWeapons;
     private List<WeaponBase> AvailableWeapons;
-    public List<Sprite> weaponSprites;
+    //public List<Sprite> weaponSprites;
     private List<GameObject> highlights;
     private List<Image> weaponImages;
     private List<KeyCode> WeaponKeys;
@@ -19,9 +19,12 @@ public class WeaponSwap : MonoBehaviour
     private WeaponImage tempImage;
     public string PutAwayWeapon;
     private int weapon = 0;
+    private bool canChange;
+    
 
     private IEnumerator Start()
     {
+        canChange = true;
         yield return new WaitForSeconds(.1f);
         AvailableWeapons = new List<WeaponBase>();
         foreach (var wb in AllWeapons)
@@ -47,7 +50,7 @@ public class WeaponSwap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (wm.currentWeapon != null && !wm.currentWeapon.inUse)
+        if (canChange && wm.currentWeapon != null && !wm.currentWeapon.inUse)
         {
             if (AvailableWeapons.Count > 0)
             {
@@ -173,6 +176,16 @@ public class WeaponSwap : MonoBehaviour
                 highlights[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    public void DisableChange()
+    {
+        canChange = false;
+    }
+
+    public void EnableChange()
+    {
+        canChange = true;
     }
     
     
