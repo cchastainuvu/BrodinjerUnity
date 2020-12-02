@@ -23,9 +23,9 @@ public class Animation_OneDirectional_Movement : Animation_Base
         resettrigger = anim.gameObject.GetComponent<ResetTriggers>();
         if(resettrigger != null)
             resettrigger.ResetAllTriggers();
+        anim.SetTrigger(StartTriggerName);
         while (animating)
         {
-            anim.SetTrigger(StartTriggerName);
             anim.SetFloat(SpeedName, agent.velocity.magnitude);
             anim.speed = agent.velocity.magnitude * speedDif;
             if (anim.speed < 1)
@@ -48,4 +48,13 @@ public class Animation_OneDirectional_Movement : Animation_Base
         }
     }
 
+    public override Animation_Base GetClone()
+    {
+        Animation_OneDirectional_Movement temp = CreateInstance<Animation_OneDirectional_Movement>();
+        temp.StartTriggerName = this.StartTriggerName;
+        temp.StopTriggerName = this.StopTriggerName;
+        temp.SpeedName = SpeedName;
+        temp.speedDif = speedDif;
+        return temp;
+    }
 }

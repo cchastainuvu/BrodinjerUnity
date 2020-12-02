@@ -29,4 +29,6 @@ public abstract class Animation_Base : ScriptableObject
     {
         return (value - origMinRange) * (newMaxRange - newMinRange) / (origMaxRange - origMinRange) + newMinRange;
     }
+
+    public abstract Animation_Base GetClone();
 }

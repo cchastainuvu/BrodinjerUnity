@@ -20,6 +20,8 @@ public abstract class NavMesh_Enemy_Base : Enemy_Movement
         agent.angularSpeed = AngularSpeed;
         if (AnimationBase != null)
         {
+            Animation_Base temp = AnimationBase.GetClone();
+            AnimationBase = temp;
             AnimationBase.Init(this, anim, player, agent);
         }
     }

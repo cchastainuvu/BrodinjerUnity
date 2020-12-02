@@ -19,9 +19,12 @@ public class WeaponSwap : MonoBehaviour
     private WeaponImage tempImage;
     public string PutAwayWeapon;
     private int weapon = 0;
+    private bool canChange;
+    
 
     private IEnumerator Start()
     {
+        canChange = true;
         yield return new WaitForSeconds(.1f);
         AvailableWeapons = new List<WeaponBase>();
         foreach (var wb in AllWeapons)
@@ -47,11 +50,10 @@ public class WeaponSwap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (wm.currentWeapon != null && !wm.currentWeapon.inUse)
+        if (canChange && wm.currentWeapon != null && !wm.currentWeapon.inUse)
         {
             if (AvailableWeapons.Count > 0)
             {
-                Debug.Log("Check Weapon Input");
                 scrollWheel = Input.GetAxis("Mouse ScrollWheel");
                 if (Input.GetButtonDown(PutAwayWeapon))
                 {
@@ -174,6 +176,16 @@ public class WeaponSwap : MonoBehaviour
                 highlights[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    public void DisableChange()
+    {
+        canChange = false;
+    }
+
+    public void EnableChange()
+    {
+        canChange = true;
     }
     
     

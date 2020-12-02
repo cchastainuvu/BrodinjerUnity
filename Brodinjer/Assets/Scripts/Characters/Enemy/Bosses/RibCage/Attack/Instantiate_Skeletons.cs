@@ -14,8 +14,11 @@ public class Instantiate_Skeletons : MonoBehaviour
     private List<Transform> spots;
     private int index;
 
+    private bool instantiating;
+
     public void InstantiateSkeletons()
     {
+        instantiating = false;
         numSkeletonsPresent = 0;
         Enemy_Manager[] enemies = FindObjectsOfType<Enemy_Manager>();
         foreach (var enemy in enemies)
@@ -29,18 +32,31 @@ public class Instantiate_Skeletons : MonoBehaviour
         
         if (numSkeletonsPresent < numSkeletons)
         {
-            spots = InstantiateSpots;
-            for (int i = 0; i < numSkeletons - numSkeletonsPresent; i++)
+            if (!instantiating)
             {
-                index = Random.Range(0, spots.Count);
-                Instantiate(SkeletonPrefab, spots[index].position, SkeletonPrefab.transform.rotation).SetActive(true);
-                /*spots.RemoveAt(index);
-                if (spots.Count <= 0)
-                    spots = InstantiateSpots;*/
+                instantiating = true;
+                StartCoroutine(InstantiateObj());
             }
-
-            totalSkeletons.value = numSkeletons;
         }
+    }
+
+    private IEnumerator InstantiateObj()
+    {
+        spots = InstantiateSpots;
+        for (int i = 0; i < numSkeletons - numSkeletonsPresent; i++)
+        {
+            index = Random.Range(0, spots.Count);
+            GameObject temp = Instantiate(SkeletonPrefab, spots[index].position, SkeletonPrefab.transform.rotation);
+            temp.SetActive(true);
+            temp.name = "Skeleton: " + Random.Range(1, 9999);
+            /*spots.RemoveAt(index);
+            if (spots.Count <= 0)
+                spots = InstantiateSpots;*/
+            yield return new WaitForSeconds(.5f);
+        }
+
+        totalSkeletons.value = numSkeletons;
+        instantiating = false;
     }
 
 }

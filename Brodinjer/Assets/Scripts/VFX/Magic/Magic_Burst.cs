@@ -21,7 +21,8 @@ public class Magic_Burst : MonoBehaviour
             position = ProjectilePrefab.transform.position;
             rotation = ProjectilePrefab.transform.rotation;
             ProjectilePrefab.SetActive(false);
-            Instantiate(BurstPrefab, position, rotation).SetActive(true);
+            GameObject temp = Instantiate(BurstPrefab, position, rotation);
+            temp.SetActive(true);
             onHit.Invoke();
         }
     }
