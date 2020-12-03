@@ -75,7 +75,6 @@ public class BowandArrow : WeaponBase
             rotDirection.y = transform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(rotDirection);
             yield return _waitforbutton;
-            Debug.Log("Pull Bow");
             if (!frozen)
             {
                 BowPulled.Invoke();

@@ -11,6 +11,7 @@ public class Animation_Movement : Animation_Base
     private Coroutine animateFunc;
     public float speedDif;
     private ResetTriggers resettrigger;
+    //public float maxSpeed;
     
     public override void StartAnimation()
     {
@@ -66,6 +67,7 @@ public class Animation_Movement : Animation_Base
         temp.DirectionName = DirectionName;
         temp.SpeedName = SpeedName;
         temp.speedDif = speedDif;
+        //temp.maxSpeed = maxSpeed;
         return temp;
     }
     

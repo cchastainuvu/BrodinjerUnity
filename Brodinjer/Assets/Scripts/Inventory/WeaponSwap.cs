@@ -43,18 +43,78 @@ public class WeaponSwap : MonoBehaviour
             wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
             wm.currentWeapon.Initialize();
         }
-
-        InitDisplay();
         
+        InitDisplay();
+
+        StartCoroutine(CheckSwap());
+
     }
 
-    private void FixedUpdate()
+    private IEnumerator CheckSwap()
     {
-        if (canChange && wm.currentWeapon != null && !wm.currentWeapon.inUse)
+        Debug.Log("Start Check Swap");
+        while (true)
         {
-            if (AvailableWeapons.Count > 0)
+            if (canChange && wm.currentWeapon != null && !wm.currentWeapon.inUse)
             {
-                scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+                if (AvailableWeapons.Count > 0)
+                {
+                    scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+                    if (Input.GetButtonDown(PutAwayWeapon))
+                    {
+                        if (currentWeapon.value == -1)
+                        {
+                            currentWeapon.value = weapon;
+                            wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        }
+                        else
+                        {
+                            weapon = currentWeapon.value;
+                            currentWeapon.value = -1;
+                            wm.PutAwayWeapon();
+                        }
+
+                        UpdateDisplay();
+                    }
+                    else if (scrollWheel < -.05f)
+                    {
+                        currentWeapon.value--;
+                        if (currentWeapon.value < 0)
+                        {
+                            currentWeapon.value = AvailableWeapons.Count - 1;
+                        }
+
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        UpdateDisplay();
+                    }
+                    else if (scrollWheel > .05f)
+                    {
+                        currentWeapon.value++;
+                        if (currentWeapon.value > AvailableWeapons.Count - 1)
+                        {
+                            currentWeapon.value = 0;
+                        }
+
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        UpdateDisplay();
+                    }
+                    else
+                    {
+                        for (int i = 0; i < WeaponKeys.Count; i++)
+                        {
+                            if (Input.GetKeyDown(WeaponKeys[i]))
+                            {
+                                currentWeapon.value = i;
+                                wm.SwapWeapon(AvailableWeapons[i]);
+                            }
+                        }
+
+                        UpdateDisplay();
+                    }
+                }
+            }
+            else
+            {
                 if (Input.GetButtonDown(PutAwayWeapon))
                 {
                     if (currentWeapon.value == -1)
@@ -62,69 +122,16 @@ public class WeaponSwap : MonoBehaviour
                         currentWeapon.value = weapon;
                         wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
                     }
-                    else
+                    /*else
                     {
                         weapon = currentWeapon.value;
                         currentWeapon.value = -1;
                         wm.PutAwayWeapon();
-                    }
-                    UpdateDisplay();
-                }
-                else if (scrollWheel < -.05f)
-                {
-                    currentWeapon.value--;
-                    if (currentWeapon.value < 0)
-                    {
-                        currentWeapon.value = AvailableWeapons.Count - 1;
-                    }
-
-                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
-                    UpdateDisplay();
-                }
-                else if (scrollWheel > .05f)
-                {
-                    currentWeapon.value++;
-                    if (currentWeapon.value > AvailableWeapons.Count - 1)
-                    {
-                        currentWeapon.value = 0;
-                    }
-
-                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
-                    UpdateDisplay();
-                }
-                else
-                {
-                    for (int i = 0; i < WeaponKeys.Count; i++)
-                    {
-                        if (Input.GetKeyDown(WeaponKeys[i]))
-                        {
-                            currentWeapon.value = i;
-                            wm.SwapWeapon(AvailableWeapons[i]);
-                        }
-                    }
-
-                    UpdateDisplay();
+                    }*/
+                    yield return new WaitForSeconds(.1f);
                 }
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown(PutAwayWeapon))
-            {
-                Debug.Log("Weapon Pulled");
-                if (currentWeapon.value == -1)
-                {
-                    Debug.Log("Pull Weapon");
-                    currentWeapon.value = weapon;
-                    wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
-                }
-                else
-                {
-                    weapon = currentWeapon.value;
-                    currentWeapon.value = -1;
-                    wm.PutAwayWeapon();
-                }
-            }
+            yield return new WaitForFixedUpdate();
         }
     }
 

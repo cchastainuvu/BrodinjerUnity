@@ -67,6 +67,7 @@
               <e p="Attack" t="Include">
                 <e p="Enemy_Attack_Base.cs" t="Include" />
                 <e p="Enemy_Attack_Melee.cs" t="Include" />
+                <e p="Enemy_Attack_Melee_Taunt.cs" t="Include" />
                 <e p="Enemy_Attack_None.cs" t="Include" />
               </e>
               <e p="Bosses" t="Include">
@@ -164,6 +165,7 @@
               <e p="ForcePlayerWalk.cs" t="Include" />
               <e p="JumpScript.cs" t="Include" />
               <e p="PlayerMovement.cs" t="Include" />
+              <e p="Rigidbody_Interactions.cs" t="Include" />
               <e p="Rotate" t="Include">
                 <e p="BowCharacterRotation.cs" t="Include" />
                 <e p="CharacterRotate.cs" t="Include" />
@@ -250,6 +252,7 @@
             </e>
             <e p="DungeonScripts" t="Include">
               <e p="Destroy_Door_Event.cs" t="Include" />
+              <e p="Emissive_Change.cs" t="Include" />
               <e p="GearRotation.cs" t="Include" />
               <e p="GearScalable.cs" t="Include" />
               <e p="Jump_Destroy.cs" t="Include" />
