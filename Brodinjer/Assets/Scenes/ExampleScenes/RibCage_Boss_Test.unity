@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &12428449
 Transform:
   m_ObjectHideFlags: 0
@@ -241,7 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 544ca64a562a5304f9022e273fdd8de9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkeletonPrefab: {fileID: 907918971311355895}
+  SkeletonPrefab: {fileID: 4182843094818084531, guid: 13e75b55ed4f57341b9e2ffce65d0dfc,
+    type: 3}
   InstantiateSpots:
   - {fileID: 1745454515}
   - {fileID: 192095921}
@@ -910,7 +911,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 4ace8dd43314696468a548c0c46066e8, type: 3}
+  - {fileID: 2100000, guid: 447122282d0a22a4a9c63c41b2f13f4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1325,6 +1326,8 @@ MonoBehaviour:
   DamageAmount: 15
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!114 &584629051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,6 +1749,8 @@ MonoBehaviour:
   DamageAmount: 25
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!1 &715966096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5406578615136578840, guid: 15c32435d5767914a8b6534c26386224,
@@ -1923,6 +1928,8 @@ MonoBehaviour:
   DamageAmount: 25
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!114 &751565982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2421,7 +2428,7 @@ MonoBehaviour:
   Speed: 5
   AngularSpeed: 120
   enemy: {fileID: 1790812192}
-  animation: {fileID: 0}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 2142724001}
   offset: 1
   x: 1
@@ -2493,6 +2500,7 @@ MonoBehaviour:
   x: 1
   y: 1
   z: 1
+  UseOffset: 1
 --- !u!114 &1016327652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2758,6 +2766,8 @@ MonoBehaviour:
   DamageAmount: 25
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!65 &1146670757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3111,6 +3121,8 @@ MonoBehaviour:
   DamageAmount: 5
   DecreasedbyArmor: 1
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!1 &1364777823 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7247261900739445946, guid: 15c32435d5767914a8b6534c26386224,
@@ -3431,6 +3443,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -41.724323
+      objectReference: {fileID: 0}
+    - target: {fileID: 54750756715126826, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.81018966
+      objectReference: {fileID: 0}
+    - target: {fileID: 54750756715126826, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.58616793
+      objectReference: {fileID: 0}
+    - target: {fileID: 54750756715126826, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -86.42271
       objectReference: {fileID: 0}
     - target: {fileID: 54750756758764871, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
@@ -4183,6 +4210,9 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 0
+  DamageAnimation: {fileID: 0}
+  anim: {fileID: 0}
+  agent: {fileID: 0}
   enemyManager: {fileID: 1790812191}
 --- !u!114 &1790812199
 MonoBehaviour:
@@ -4782,6 +4812,8 @@ MonoBehaviour:
   DamageAmount: 25
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
 --- !u!114 &2029940193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5006,9 +5038,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0.1
   checkOnAwake: 1
   RunEventonInit: 0
+  debug: 0
   checkY: 0
 --- !u!1 &2079088179 stripped
 GameObject:
@@ -5133,7 +5167,7 @@ MonoBehaviour:
   Speed: 0
   AngularSpeed: 120
   enemy: {fileID: 907918969635444923}
-  animation: {fileID: 0}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 0}
   agent: {fileID: 0}
 --- !u!4 &907918969515436943
@@ -5226,6 +5260,8 @@ MonoBehaviour:
   DamageAmount: 10
   DecreasedbyArmor: 0
   StunTime: 0.5
+  SingleHit: 0
+  hit: 0
 --- !u!23 &907918969537567310
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5348,6 +5384,9 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 1
+  DamageAnimation: {fileID: 0}
+  anim: {fileID: 0}
+  agent: {fileID: 0}
   enemyManager: {fileID: 907918969635444922}
 --- !u!1 &907918969635444920
 GameObject:
@@ -5654,9 +5693,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0.1
   checkOnAwake: 1
   RunEventonInit: 1
+  debug: 0
   checkY: 0
 --- !u!1 &907918969943591851
 GameObject:
@@ -5765,7 +5806,7 @@ MonoBehaviour:
   Speed: 5
   AngularSpeed: 120
   enemy: {fileID: 907918969635444923}
-  animation: {fileID: 0}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 0}
   agent: {fileID: 0}
   distanceAway: 4
@@ -13666,7 +13707,7 @@ MonoBehaviour:
   Speed: 3
   AngularSpeed: 120
   enemy: {fileID: 907918969635444923}
-  animation: {fileID: 0}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 0}
   agent: {fileID: 0}
   DistanceFromFollow: 1.5

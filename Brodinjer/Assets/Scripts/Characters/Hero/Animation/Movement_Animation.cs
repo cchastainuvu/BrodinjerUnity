@@ -22,6 +22,7 @@ public class Movement_Animation : Animation_Base
             anim.SetTrigger(walkTrigger);
             while (moving)
             {
+                anim.speed = 1;
                 anim.SetFloat(speedFloat, GetSpeed());
                 anim.SetFloat(angleFloat, GetDirection());
                 yield return new WaitForFixedUpdate();
@@ -52,5 +53,17 @@ public class Movement_Animation : Animation_Base
         {
             caller.StopCoroutine(updateFunc);
         }    
+    }
+
+    public override Animation_Base GetClone()
+    {
+        Movement_Animation temp = CreateInstance<Movement_Animation>();
+        temp.StartTriggerName = StartTriggerName;
+        temp.StopTriggerName = StopTriggerName;
+        temp.speedFloat = speedFloat;
+        temp.angleFloat = angleFloat;
+        temp.walkTrigger = walkTrigger;
+        temp.translate = translate;
+        return temp;
     }
 }

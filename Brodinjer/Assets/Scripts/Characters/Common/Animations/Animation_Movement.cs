@@ -24,9 +24,9 @@ public class Animation_Movement : Animation_Base
         resettrigger = anim.gameObject.GetComponent<ResetTriggers>();
         if(resettrigger != null)
             resettrigger.ResetAllTriggers();
+        anim.SetTrigger(StartTriggerName);
         while (animating)
         {
-            anim.SetTrigger(StartTriggerName);
             anim.SetFloat(SpeedName, agent.velocity.magnitude);
             anim.SetFloat(DirectionName, GetDirection());
             anim.speed = agent.velocity.magnitude * speedDif;
@@ -56,6 +56,17 @@ public class Animation_Movement : Animation_Base
         angle /= 360;
         angle += .5f;
         return angle;
+    }
+    
+    public override Animation_Base GetClone()
+    {
+        Animation_Movement temp = CreateInstance<Animation_Movement>();
+        temp.StartTriggerName = this.StartTriggerName;
+        temp.StopTriggerName = this.StopTriggerName;
+        temp.DirectionName = DirectionName;
+        temp.SpeedName = SpeedName;
+        temp.speedDif = speedDif;
+        return temp;
     }
     
 }

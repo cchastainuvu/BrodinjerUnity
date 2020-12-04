@@ -16,6 +16,12 @@ public class MeleeWeapon : WeaponBase
     public string ComboNumInteger;
     public float minComboWaitTime01, minComboWaitTime02;
     public float attackActivateTime01, attackActivateTime02, attackActivateTime03;
+    public PlayerMovement playermove;
+    public bool freezeWhenAttack;
+    public CharacterTranslate freezeMovement;
+    private CharacterTranslate origMovement;
+    public CharacterRotate freezeRotation;
+    private CharacterRotate origRotation;
     
     public override void Initialize()
     {
@@ -29,6 +35,8 @@ public class MeleeWeapon : WeaponBase
 
     public override IEnumerator Attack()
     {
+        origMovement = playermove.translate;
+        origRotation = playermove.rotate;
         while (currWeapon)
         {
             while (frozen)
@@ -36,6 +44,8 @@ public class MeleeWeapon : WeaponBase
                 yield return fixedUpdate;
             }
             yield return waitforbutton;
+            if(freezeWhenAttack)
+                playermove.SwapMovement(freezeRotation, freezeMovement);
             if (!frozen)
             {
                 if (currWeapon)
@@ -58,7 +68,6 @@ public class MeleeWeapon : WeaponBase
                     if (CheckInput() && currentTime >= minComboWaitTime01)
                     {
                         //knockbackObj.SetActive(false);
-                        Debug.Log("Hit 2");
                         anim.SetInteger(ComboNumInteger, 2);
                         yield return  new WaitForSeconds(attackActivateTime02);
                         //knockbackObj.SetActive(true);
@@ -72,7 +81,6 @@ public class MeleeWeapon : WeaponBase
                             if (CheckInput()&& currentTime >= minComboWaitTime02)
                             {
                                 //knockbackObj.SetActive(false);
-                                Debug.Log("Hit 3");
                                 anim.SetInteger(ComboNumInteger, 3);
                                 yield return  new WaitForSeconds(attackActivateTime03);
                                 //knockbackObj.SetActive(true);
@@ -95,6 +103,8 @@ public class MeleeWeapon : WeaponBase
                     currentTime += Time.deltaTime;
                     yield return fixedUpdate;
                 }
+                if(freezeWhenAttack)
+                    playermove.SwapMovement(origRotation, origMovement);
                 Debug.Log("Finish Attack");
                 knockbackObj.SetActive(false);
                 anim.SetInteger(ComboNumInteger, 0);

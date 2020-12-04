@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public abstract class Character_Manager : MonoBehaviour
@@ -17,12 +18,20 @@ public abstract class Character_Manager : MonoBehaviour
 
     protected bool damaged, stunned, dead;
 
+    public Animation_Base DamageAnimation;
+    public Animator anim;
+    public NavMeshAgent agent;
+    private Transform player;
+
 
     private void Start()
     {
         damaged = false;
         stunned = false;
         dead = false;
+        player = FindObjectOfType<PlayerMovement>().transform;
+        if(DamageAnimation)
+            DamageAnimation.Init(this, anim, player, agent);
         Init();
     }
 
@@ -51,7 +60,7 @@ public abstract class Character_Manager : MonoBehaviour
             Character.Health.TakeDamage(amount, armor);
             if (Character.Health.health.value <= 0)
             {
-
+                return;
             }
         }
     }
@@ -72,7 +81,14 @@ public abstract class Character_Manager : MonoBehaviour
                     }
 
                     damaged = true;
-                    TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
+                    if(DamageAnimation)
+                        DamageAnimation.StartAnimation();
+                    if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
+                    {
+                        temp.hit = true;
+                        TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
+                    }
+
                     yield return new WaitForSeconds(damageCoolDown);
                     damaged = false;
                 }

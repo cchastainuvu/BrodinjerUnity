@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24632129d7b98524bbd84f0a5ace94fa, type: 3}
   m_Name: L_Hand_Movement_Animation
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  StartTriggerName: Walk
+  StopTriggerName: 
   DirectionName: Direction
   SpeedName: Speed
-  StartTriggerName: Walk
-  EndTriggerName: Idle
-  speedDif: 1
+  speedDif: 0.5

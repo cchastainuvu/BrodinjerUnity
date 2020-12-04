@@ -37,7 +37,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     public UnityEvent InitEvent, FinishEvent;
     
-    private bool checkJump, isGrounded,Up;
+    private bool checkJump, isGrounded, Up;
     private Rigidbody RB;
     private BoxCollider col;
     private Vector3 surfaceNormal, myNormal, jumpDirection, moveDirection, pounceDirection;
