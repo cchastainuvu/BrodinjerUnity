@@ -478,6 +478,10 @@ MonoBehaviour:
   joint: {fileID: 7468352}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &7468356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,9 +1490,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0
   checkOnAwake: 0
   RunEventonInit: 0
+  debug: 0
   checkY: 0
 --- !u!4 &123024928
 Transform:
@@ -1695,6 +1701,10 @@ MonoBehaviour:
   joint: {fileID: 126577716}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &126577720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,8 +2095,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157293219}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7, y: 0.12, z: 1.84}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -16.247915, y: -13.983232, z: 0.51273715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 984511544}
@@ -2095,8 +2105,8 @@ Transform:
   - {fileID: 768549722}
   - {fileID: 1353346091}
   - {fileID: 2097088754}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &157293224
 MonoBehaviour:
@@ -2333,6 +2343,9 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 0
+  DamageAnimation: {fileID: 0}
+  anim: {fileID: 0}
+  agent: {fileID: 0}
   enemyManager: {fileID: 157293221}
 --- !u!114 &157293229
 MonoBehaviour:
@@ -2928,9 +2941,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0
   checkOnAwake: 1
   RunEventonInit: 1
+  debug: 0
   checkY: 0
 --- !u!1 &220181936
 GameObject:
@@ -3318,7 +3333,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 339514152}
     m_Modifications:
     - target: {fileID: 5178785709534749206, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
@@ -3328,32 +3343,32 @@ PrefabInstance:
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.8
+      value: 22.252083
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 89.67
+      value: 75.566765
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35
+      value: 33.672737
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
@@ -3363,7 +3378,7 @@ PrefabInstance:
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
@@ -3635,7 +3650,7 @@ PrefabInstance:
     - target: {fileID: 5178785709976147118, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -41.724323
+      value: -41.72432
       objectReference: {fileID: 0}
     - target: {fileID: 5178785710063872237, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
@@ -3680,12 +3695,12 @@ PrefabInstance:
     - target: {fileID: 5178785710520829046, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.552367
+      value: -15.552364
       objectReference: {fileID: 0}
     - target: {fileID: 5178785710520829046, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.757952
+      value: 22.75795
       objectReference: {fileID: 0}
     - target: {fileID: 5178785710842957537, guid: 4e3e2425b01ef6646a8bde69842c404a,
         type: 3}
@@ -3767,6 +3782,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869573a313c533c4bb1af816871151c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &276846990 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5178785709534749207, guid: 4e3e2425b01ef6646a8bde69842c404a,
+    type: 3}
+  m_PrefabInstance: {fileID: 276846984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &285966837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,6 +4073,10 @@ MonoBehaviour:
   joint: {fileID: 303661702}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &303661706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4109,6 +4134,9 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 0
+  DamageAnimation: {fileID: 0}
+  anim: {fileID: 0}
+  agent: {fileID: 0}
   enemyManager: {fileID: 308039512}
 --- !u!114 &308039509
 MonoBehaviour:
@@ -4312,8 +4340,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 308039507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1, y: 0.12, z: 1.95}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.647916, y: -13.983232, z: 0.62273717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1804060628}
@@ -4322,8 +4350,8 @@ Transform:
   - {fileID: 1971190802}
   - {fileID: 63030917}
   - {fileID: 5006512736547370209}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &308039516
 MonoBehaviour:
@@ -4851,6 +4879,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 593641ae1cc262c4c9c1ae6d50d2018d, type: 3}
+--- !u!1 &339514151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339514152}
+  m_Layer: 0
+  m_Name: HandFightObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339514152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339514151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.547915, y: 14.103231, z: 1.3272629}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 443121569}
+  - {fileID: 308039514}
+  - {fileID: 157293223}
+  - {fileID: 276846990}
+  - {fileID: 559576678}
+  - {fileID: 1311213315}
+  - {fileID: 1310562569}
+  - {fileID: 594148333}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &346394511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4992,7 +5058,7 @@ MonoBehaviour:
   Speed: 4
   AngularSpeed: 120
   enemy: {fileID: 157293223}
-  animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 984511543}
   agent: {fileID: 0}
   distanceFromFollowObj: 2
@@ -5046,7 +5112,7 @@ MonoBehaviour:
   Speed: 10
   AngularSpeed: 120
   enemy: {fileID: 308039514}
-  animation: {fileID: 11400000, guid: 7c9f53c45e2626642aba6e392b5d85ab, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 1355978180}
   agent: {fileID: 0}
   lookAtFollow: 1
@@ -5426,6 +5492,7 @@ MonoBehaviour:
   x: 1
   y: 1
   z: 0
+  UseOffset: 1
 --- !u!114 &407511578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5666,11 +5733,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443121568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.043200076, y: 0.12, z: 0.24000004}
+  m_LocalPosition: {x: -13.504715, y: -13.983232, z: -1.0872629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444858574
 GameObject:
@@ -6658,13 +6725,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559576674}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 2.62, y: 5.47, z: -0.35}
+  m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
+  m_LocalPosition: {x: -10.927916, y: -8.633232, z: -1.6772629}
   m_LocalScale: {x: 3.42976, y: 1, z: 4.05}
   m_Children:
   - {fileID: 786854489}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!54 &559576679
 Rigidbody:
@@ -6915,7 +6982,7 @@ MonoBehaviour:
   Speed: 2
   AngularSpeed: 120
   enemy: {fileID: 308039514}
-  animation: {fileID: 11400000, guid: 7c9f53c45e2626642aba6e392b5d85ab, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 1355978180}
   agent: {fileID: 0}
   distanceFromFollowObj: 5
@@ -6946,8 +7013,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594148332}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9, y: 3.2319999, z: 0.99839973}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.647916, y: -10.871231, z: -0.32886314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 143382299}
@@ -6955,8 +7022,8 @@ Transform:
   - {fileID: 1308417322}
   - {fileID: 1851509583}
   - {fileID: 1442634693}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &595425870
 GameObject:
@@ -7521,6 +7588,10 @@ MonoBehaviour:
   joint: {fileID: 658315354}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &658315358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8376,6 +8447,7 @@ MonoBehaviour:
   x: 1
   y: 1
   z: 0
+  UseOffset: 1
 --- !u!114 &768549724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9265,9 +9337,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0
   checkOnAwake: 0
   RunEventonInit: 1
+  debug: 0
   checkY: 0
 --- !u!4 &841404630
 Transform:
@@ -9474,6 +9548,10 @@ MonoBehaviour:
   joint: {fileID: 893894124}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &893894128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10882,7 +10960,7 @@ MonoBehaviour:
   Speed: 2
   AngularSpeed: 120
   enemy: {fileID: 157293223}
-  animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 984511543}
   agent: {fileID: 0}
   distanceFromFollowObj: 1.75
@@ -11551,6 +11629,10 @@ MonoBehaviour:
   joint: {fileID: 1139240812}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1139240816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12483,6 +12565,10 @@ MonoBehaviour:
   joint: {fileID: 1298848763}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1298848767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12781,12 +12867,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310562567}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.38475236, y: 0.0560406, z: -0.69198394}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.163163, y: -14.047191, z: -2.0192468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1311213314
 GameObject:
@@ -12811,8 +12897,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311213314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40428573, y: 5.36, z: 1.4200001}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.952201, y: -8.743231, z: 0.0927372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2019592867}
@@ -12835,8 +12921,8 @@ Transform:
   - {fileID: 1139240809}
   - {fileID: 1681415223}
   - {fileID: 1957809146}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 339514152}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1317719080
 GameObject:
@@ -13465,6 +13551,10 @@ MonoBehaviour:
   joint: {fileID: 1376747973}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1376747977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13668,6 +13758,10 @@ MonoBehaviour:
   joint: {fileID: 1394395797}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1394395801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14817,6 +14911,10 @@ MonoBehaviour:
   joint: {fileID: 1563606467}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1563606471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15406,6 +15504,10 @@ MonoBehaviour:
   joint: {fileID: 1681415226}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1681415230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15654,6 +15756,10 @@ MonoBehaviour:
   joint: {fileID: 1706423654}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1706423658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16785,6 +16891,10 @@ MonoBehaviour:
   joint: {fileID: 1809257019}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1809257023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17364,6 +17474,10 @@ MonoBehaviour:
   joint: {fileID: 1838352810}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1838352814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17692,9 +17806,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0
   checkOnAwake: 0
   RunEventonInit: 1
+  debug: 0
   checkY: 0
 --- !u!1 &1875758892
 GameObject:
@@ -18169,6 +18285,10 @@ MonoBehaviour:
   joint: {fileID: 1902266627}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1902266631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18510,6 +18630,10 @@ MonoBehaviour:
   joint: {fileID: 1957809149}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &1957809153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19159,6 +19283,10 @@ MonoBehaviour:
   joint: {fileID: 2003077772}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &2003077776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19217,7 +19345,7 @@ MonoBehaviour:
   Speed: 3
   AngularSpeed: 360
   enemy: {fileID: 308039514}
-  animation: {fileID: 11400000, guid: d03de5337ae91d64a968e3fbca4a9277, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 1355978180}
   agent: {fileID: 0}
   distanceFromFollowObj: 1
@@ -19669,6 +19797,10 @@ MonoBehaviour:
   joint: {fileID: 2019592869}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &2019592873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19755,7 +19887,7 @@ MonoBehaviour:
   Speed: 5
   AngularSpeed: 120
   enemy: {fileID: 157293223}
-  animation: {fileID: 11400000, guid: d996ba4783c1c314f862d8a6538a2fa2, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 984511543}
   agent: {fileID: 0}
   distanceFromFollowObj: 2.5
@@ -19809,7 +19941,7 @@ MonoBehaviour:
   Speed: 10
   AngularSpeed: 120
   enemy: {fileID: 308039514}
-  animation: {fileID: 11400000, guid: 7c9f53c45e2626642aba6e392b5d85ab, type: 2}
+  AnimationBase: {fileID: 0}
   anim: {fileID: 1355978180}
   agent: {fileID: 0}
   lookAtFollow: 1
@@ -20609,6 +20741,10 @@ MonoBehaviour:
   joint: {fileID: 2098623192}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &2098623196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20949,6 +21085,10 @@ MonoBehaviour:
   joint: {fileID: 2129798452}
   minJointMassMultiplier: -1
   maxJointMassMultiplier: 1.5
+  pulleySystem: 0
+  configurableJoint: {fileID: 0}
+  linearMinLimit: 0
+  linerMaxLimit: 0
 --- !u!114 &2129798456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21026,9 +21166,11 @@ MonoBehaviour:
   waitTimeMin: 0
   waitTimeMax: 0
   timeInDistance: 0
+  checkObj: {fileID: 0}
   offset: 0
   checkOnAwake: 1
   RunEventonInit: 0
+  debug: 0
   checkY: 0
 --- !u!1 &2145569818
 GameObject:

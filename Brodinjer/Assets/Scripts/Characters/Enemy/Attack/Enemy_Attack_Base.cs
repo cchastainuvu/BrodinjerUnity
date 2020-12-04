@@ -29,8 +29,12 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
     {
         attacking = false;
         canAttack = true;
-        if(animations != null && animator != null)
+        if (animations != null && animator != null)
+        {
+            Animation_Base temp = animations.GetClone();
+            animations = temp;
             animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
+        }
     }
 
     public void ActivateAttack()
