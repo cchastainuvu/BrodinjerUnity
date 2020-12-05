@@ -226,12 +226,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!95 &153874339 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 175051244, guid: ca6105782f140ff469284c748bafa1ce,
-    type: 3}
-  m_PrefabInstance: {fileID: 2054426588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &235422641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,38 +1290,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.083333336
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d5d42f5ff2ed67940bd107f640e27fd4, type: 2}
---- !u!1 &567948676 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 907918970540876447, guid: ca6105782f140ff469284c748bafa1ce,
-    type: 3}
-  m_PrefabInstance: {fileID: 2054426588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &567948679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567948676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4adbc8e0a4c639f438a39b0757cf9b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackStartTime: 1
-  CoolDownTime: 1
-  AttackActiveTime: 0.25
-  WeaponAttackobj: {fileID: 813936215}
-  animations: {fileID: 11400000, guid: 9972d928ae7e1d94ca6a1a5e8c1d8fac, type: 2}
-  enemyObj: {fileID: 567948676}
-  attackWhileMoving: 0
-  animator: {fileID: 153874339}
-  MovePauseTime: 2.25
-  percentageTaunt: 0.5
-  animationFloat: AttackType
 --- !u!1 &579850953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,12 +2394,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9042d912211ff354b8e7448a83082710, type: 3}
---- !u!1 &813936215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 907918970579378284, guid: ca6105782f140ff469284c748bafa1ce,
-    type: 3}
-  m_PrefabInstance: {fileID: 2054426588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &822051189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3377093548358330627, guid: 9f5ee839f4f21a74a8a78b2370d8b613,
@@ -5466,13 +5425,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 907918970540876445, guid: ca6105782f140ff469284c748bafa1ce,
-        type: 3}
-      propertyPath: currentAttack
-      value: 
-      objectReference: {fileID: 567948679}
-    m_RemovedComponents:
-    - {fileID: 907918970540876442, guid: ca6105782f140ff469284c748bafa1ce, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca6105782f140ff469284c748bafa1ce, type: 3}
 --- !u!1 &2072308241
 GameObject:

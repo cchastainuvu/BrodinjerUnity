@@ -28,7 +28,7 @@ public class BowandArrow : WeaponBase
     public CameraRotationBase thirdPersonCamera;
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
-    private CharacterRotate originalRotate;
+    public CharacterRotate originalRotate;
     public LimitIntData numArrows;
     public float cooldowntime;
 

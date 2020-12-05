@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a022dbd6f63b6341b99d85489157786, type: 3}
-  m_Name: PlayerFreeze
+  m_Script: {fileID: 11500000, guid: 955e4467af354864c9a3a5788be257c6, type: 3}
+  m_Name: DeathTranslate
   m_EditorClassIdentifier: 
   ForwardSpeed: 0
   SideSpeed: 0
@@ -18,17 +18,11 @@ MonoBehaviour:
   RunSideSpeed: 0
   JumpSpeed: 0
   Gravity: 20
-  AnimSpeedMax: 0
+  AnimSpeedMax: 1
   canMove: 0
   canRun: 0
   extraControlled: 0
-  animation: {fileID: 11400000, guid: e6c708b55f2e2c141a48a980d600745d, type: 2}
+  animation: {fileID: 11400000, guid: 86654359bb5798c4790feaead25608cd, type: 2}
   HorizontalAxis: Horizontal
   VerticalAxis: Vertical
   JumpAxis: Jump
-  JumpTrigger: 
-  JumpDelay: 0
-  DodgeDelay: 0
-  DodgeTime: 0
-  DodgeAmount: 0
-  DodgeAnimations: {fileID: 0}

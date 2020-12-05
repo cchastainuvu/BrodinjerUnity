@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 907918970540876438}
   - component: {fileID: 907918970540876440}
   - component: {fileID: 907918970540876443}
-  - component: {fileID: 907918970540876442}
+  - component: {fileID: 1102592022300767527}
   m_Layer: 0
   m_Name: Skeleton_Agent_Attack
   m_TagString: Untagged
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMove: {fileID: 907918970623267241}
-  currentAttack: {fileID: 907918970540876442}
+  currentAttack: {fileID: 1102592022300767527}
   moveOnStart: 0
   paused: 0
   dead: 0
@@ -1380,7 +1380,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.37326, y: 1.0004578, z: 6.513731}
   m_Center: {x: 0, y: 0.28220883, z: 0}
---- !u!114 &907918970540876442
+--- !u!114 &1102592022300767527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 907918970540876447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a067ba2a94a45e94fa7fbf4074cfbb43, type: 3}
+  m_Script: {fileID: 11500000, guid: 4adbc8e0a4c639f438a39b0757cf9b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AttackStartTime: 1
@@ -1401,6 +1401,8 @@ MonoBehaviour:
   attackWhileMoving: 0
   animator: {fileID: 175051244}
   MovePauseTime: 2.25
+  percentageTaunt: 0.5
+  animationFloat: AttackType
 --- !u!1 &907918970579378284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,6 +1533,9 @@ MonoBehaviour:
   StunTime: 0.5
   SingleHit: 0
   hit: 0
+  KnockbackForce: 0
+  KnockbackTime: 0
+  BaseObj: {fileID: 0}
 --- !u!1 &907918970623267243
 GameObject:
   m_ObjectHideFlags: 0
@@ -4318,9 +4323,10 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 1
-  DamageAnimation: {fileID: 0}
-  anim: {fileID: 0}
-  agent: {fileID: 0}
+  DamageAnimation: {fileID: 11400000, guid: 1f82987831eca27499c93c1d22f1ec3d, type: 2}
+  anim: {fileID: 175051244}
+  agent: {fileID: 907918970540876437}
+  Knockback: 1
   enemyManager: {fileID: 907918970540876445}
 --- !u!114 &7459129559829518170
 MonoBehaviour:

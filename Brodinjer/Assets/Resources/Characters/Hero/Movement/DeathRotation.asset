@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be26d71cab37af641b4e2adcdb277889, type: 3}
-  m_Name: PlayerHealthFloat
+  m_Script: {fileID: 11500000, guid: 202759efec71a5b4e9f8e612364990c9, type: 3}
+  m_Name: DeathRotation
   m_EditorClassIdentifier: 
-  value: 0
-  MinValue: 0
-  MaxValue: 50
+  RotateSpeed: 0
+  ForwardAxis: 
+  SideAxis: 
+  canRotate: 0

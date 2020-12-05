@@ -45,6 +45,7 @@
                 <e p="Animation_Basic_Attack.cs" t="Include" />
                 <e p="Animation_Directional_Attack.cs" t="Include" />
                 <e p="Animation_Movement.cs" t="Include" />
+                <e p="Animation_Multi_Attack.cs" t="Include" />
                 <e p="Animation_OneDirectional_Movement.cs" t="Include" />
               </e>
               <e p="Character_Base.cs" t="Include" />
@@ -112,6 +113,7 @@
                 <e p="Transform_Movement_Base.cs" t="Include" />
                 <e p="Transform_Route.cs" t="Include" />
               </e>
+              <e p="Hand_Init_Scene.cs" t="Include" />
               <e p="Movement" t="Include">
                 <e p="DashForwardMove.cs" t="Include" />
                 <e p="Enemy_Movement.cs" t="Include" />
@@ -174,6 +176,7 @@
               </e>
               <e p="Translate" t="Include">
                 <e p="CharacterTranslate.cs" t="Include" />
+                <e p="DeathTranslate.cs" t="Include" />
                 <e p="FirstPersonTranslate.cs" t="Include" />
                 <e p="ThirdPersonTranslate.cs" t="Include" />
               </e>

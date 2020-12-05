@@ -23,13 +23,13 @@ public class ScalingScript : WeaponBase
     public CameraRotationBase thirdPersonCamera;
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
-    private CharacterRotate originalRotate;
+    public CharacterRotate originalRotate;
     public float maxSpellDuration;
     private float currentSpellDuration;
     public float CameraSwapTime;
     public bool freezeWhenAim;
     public CharacterTranslate freezePlayer;
-    private CharacterTranslate originalTranslate;
+    public CharacterTranslate originalTranslate;
 
     public Object_Aim_Script AimScript;
 
@@ -48,8 +48,6 @@ public class ScalingScript : WeaponBase
         currWeapon = true;
         attack = Attack();
         MagicInUse.value = false;
-        originalRotate = playermove.rotate;
-        originalTranslate = playermove.translate;
         weaponFunc = StartCoroutine(Attack());
 
     }

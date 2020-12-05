@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be26d71cab37af641b4e2adcdb277889, type: 3}
-  m_Name: PlayerHealthFloat
+  m_Script: {fileID: 11500000, guid: 2273455ff24e8f8488186d129260f44f, type: 3}
+  m_Name: DeathAnim
   m_EditorClassIdentifier: 
-  value: 0
-  MinValue: 0
-  MaxValue: 50
+  anim: {fileID: 0}
+  StartTriggerName: Death
+  StopTriggerName: 

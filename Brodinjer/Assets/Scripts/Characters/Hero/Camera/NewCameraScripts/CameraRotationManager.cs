@@ -20,14 +20,36 @@ public class CameraRotationManager : MonoBehaviour
 
     public BoolData Paused;
 
-    private bool inpause;
+    private bool inpause, canRotate;
+
+    public bool rotateOnStart = true;
+
+    public GameObject DeathCam;
+
+    private bool dead;
+    
     
 
     private void Start()
     {
+        dead = false;
         StartRotation();
         inpause = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if(rotateOnStart)
+            SetRotate(true);
+    }
+
+    public void Die()
+    {
+        dead = true;
+        DeathCam.SetActive(true);
+        cameraRotation.cameraObject.SetActive(false);
+    }
+
+    public void SetRotate(bool val)
+    {
+        canRotate = val;
     }
 
     private void FixedUpdate()
@@ -54,12 +76,19 @@ public class CameraRotationManager : MonoBehaviour
 
     private IEnumerator Rotate()
     {
+        mouseX = 180;
         while (moving)
         {
-            mouseX += (Input.GetAxis(CameraHorizontal)* cameraRotation.mouseXMultiplier * cameraRotation.rotationSpeed) * Time.deltaTime;
-            mouseY -= (Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed * cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
-            mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
-            transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+            if (canRotate && !dead)
+            {
+                mouseX += (Input.GetAxis(CameraHorizontal) * cameraRotation.mouseXMultiplier *
+                           cameraRotation.rotationSpeed) * Time.deltaTime;
+                mouseY -= (Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed *
+                           cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
+                mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
+                transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+            }
+
             yield return new WaitForFixedUpdate();
         }
     }
