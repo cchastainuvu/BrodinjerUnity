@@ -23,6 +23,8 @@ public abstract class Character_Manager : MonoBehaviour
     public NavMeshAgent agent;
     private Transform player;
 
+    public bool Knockback;
+
 
     private void Start()
     {
@@ -30,8 +32,13 @@ public abstract class Character_Manager : MonoBehaviour
         stunned = false;
         dead = false;
         player = FindObjectOfType<PlayerMovement>().transform;
-        if(DamageAnimation)
+        if (DamageAnimation)
+        {
+            Animation_Base temp = DamageAnimation.GetClone();
+            DamageAnimation = temp;
             DamageAnimation.Init(this, anim, player, agent);
+        }
+
         Init();
     }
 
@@ -89,12 +96,19 @@ public abstract class Character_Manager : MonoBehaviour
                         TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
                     }
 
+                    if (Knockback)
+                    {
+                        StartKnockback(temp);
+                    }
+
                     yield return new WaitForSeconds(damageCoolDown);
                     damaged = false;
                 }
             }
         }
     }
+
+    protected abstract void StartKnockback(WeaponDamageAmount other);
     
     public int ToLayer (int bitmask ) {
         int result = bitmask>0 ? 0 : 31;
@@ -106,4 +120,6 @@ public abstract class Character_Manager : MonoBehaviour
     }
 
     public abstract IEnumerator Stun(float stuntime);
+    
+    
 }

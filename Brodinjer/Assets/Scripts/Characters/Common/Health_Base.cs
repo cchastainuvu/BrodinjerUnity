@@ -21,7 +21,7 @@ public class Health_Base : ScriptableObject
     public virtual void Init(MonoBehaviour caller, Transform enemy, bool mainCharacter = false)
     {
         dead = false;
-        health.value = TotalHealth;
+        TotalHealth = health.value;
         if (!mainCharacter)
         {
             _death = Death_Version.GetClone();

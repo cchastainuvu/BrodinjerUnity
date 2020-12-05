@@ -28,7 +28,7 @@ public class BowandArrow : WeaponBase
     public CameraRotationBase thirdPersonCamera;
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
-    private CharacterRotate originalRotate;
+    public CharacterRotate originalRotate;
     public LimitIntData numArrows;
     public float cooldowntime;
 
@@ -75,7 +75,6 @@ public class BowandArrow : WeaponBase
             rotDirection.y = transform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(rotDirection);
             yield return _waitforbutton;
-            Debug.Log("Pull Bow");
             if (!frozen)
             {
                 BowPulled.Invoke();

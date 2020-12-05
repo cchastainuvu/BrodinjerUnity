@@ -31,7 +31,7 @@ public class ScalingMagic : MonoBehaviour
         scaleIncrease = new Vector3(IncreaseAmount, IncreaseAmount, IncreaseAmount);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator OnTriggerEnter(Collider other)
     {
         if (!hitObj)
         {
@@ -45,8 +45,13 @@ public class ScalingMagic : MonoBehaviour
             }
             else
             {
-                MagicInUse.value = false;
-                Destroy(this);
+                yield return new WaitForSeconds(.05f);
+                if (!hitObj)
+                {
+                    MagicInUse.value = false;
+                    Debug.Log("Destroy Non Scalable: " + other.name);
+                    Destroy(this);
+                }
             }
 
         }
@@ -61,8 +66,9 @@ public class ScalingMagic : MonoBehaviour
         timeLeft = ScaleTime;
         scaleObj.HighlightObj.SetActive(true);
         scalescript.inUse = true;
-        while (MagicAmount.value > 0 && timeLeft > 0 && scalescript.currWeapon)
+        while (MagicAmount.value > 0 /*&& timeLeft > 0*/ && scalescript.currWeapon)
         {
+            Debug.Log("Scale");
             newScale = ScalingObj.localScale;
             if (Input.GetAxis(ScaleAxis) > 0)
             {
@@ -77,14 +83,15 @@ public class ScalingMagic : MonoBehaviour
             if (Input.GetButtonDown(stopButton))
             {
                 timeLeft = 0;
+                break;
             }
             timeLeft -= Time.deltaTime;
             yield return _fixedUpdate;
         }
         MagicInUse.value = false;
         scaleObj.HighlightObj.SetActive(false);
-        Destroy(this);
+        Debug.Log("Destroy End");
+        Destroy(this.gameObject);
     }
-    
-    
+
 }

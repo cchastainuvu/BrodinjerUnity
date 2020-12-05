@@ -13,6 +13,10 @@ public class WeaponDamageAmount : MonoBehaviour
     [HideInInspector]
     public bool hit = false;
 
+    public float KnockbackForce, KnockbackTime;
+
+    public GameObject BaseObj;
+
     private void Start()
     {
         hit = false;
