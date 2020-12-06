@@ -26,6 +26,7 @@ public abstract class Character_Manager : MonoBehaviour
     public bool Knockback;
 
 
+
     private void Start()
     {
         damaged = false;
