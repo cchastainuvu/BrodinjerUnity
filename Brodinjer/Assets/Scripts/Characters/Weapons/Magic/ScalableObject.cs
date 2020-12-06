@@ -10,7 +10,7 @@ using Vector3 = UnityEngine.Vector3;
 public class ScalableObject : MonoBehaviour
 {
     public float MinScaleMultiplier, MaxScaleMultiplier;
-    public GameObject HighlightObj;
+    public Scaling_VFX highlightFX;
     [HideInInspector] public Vector3 minScale, maxScale;
 
     protected Vector3 newScale;

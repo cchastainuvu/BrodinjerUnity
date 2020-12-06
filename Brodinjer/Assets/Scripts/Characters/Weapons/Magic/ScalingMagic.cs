@@ -11,7 +11,8 @@ public class ScalingMagic : MonoBehaviour
     public float ScaleTime;
     private float timeLeft;
     private WaitForFixedUpdate _fixedUpdate;
-    private ScalableObject scaleObj;
+    [HideInInspector]
+    public ScalableObject scaleObj;
     private Vector3 newScale, scaleIncrease;
     public float IncreaseAmount;
     public string stopButton;
@@ -37,6 +38,8 @@ public class ScalingMagic : MonoBehaviour
         {
             if (other.CompareTag("Scalable"))
             {
+                scalescript.SpellHit(true);
+                Debug.Log("Hit obj");
                 hitObj = true;
                 ScalingObj = other.gameObject.transform;
                 scaleObj = ScalingObj.GetComponent<ScalableObject>();
@@ -48,15 +51,14 @@ public class ScalingMagic : MonoBehaviour
                 yield return new WaitForSeconds(.05f);
                 if (!hitObj)
                 {
+                    scalescript.SpellHit(false);
                     MagicInUse.value = false;
-                    Debug.Log("Destroy Non Scalable: " + other.name);
                     Destroy(this);
                 }
             }
 
+
         }
-        else
-         MagicInUse.value = false;
 
     }
 
@@ -64,11 +66,10 @@ public class ScalingMagic : MonoBehaviour
     {
         //movement.StopAll();
         timeLeft = ScaleTime;
-        scaleObj.HighlightObj.SetActive(true);
+        scaleObj.highlightFX.Highlight();
         scalescript.inUse = true;
         while (MagicAmount.value > 0 /*&& timeLeft > 0*/ && scalescript.currWeapon)
         {
-            Debug.Log("Scale");
             newScale = ScalingObj.localScale;
             if (Input.GetAxis(ScaleAxis) > 0)
             {
@@ -82,16 +83,19 @@ public class ScalingMagic : MonoBehaviour
             }
             if (Input.GetButtonDown(stopButton))
             {
-                timeLeft = 0;
-                break;
+                Destroy(this.gameObject);
+
             }
             timeLeft -= Time.deltaTime;
             yield return _fixedUpdate;
         }
-        MagicInUse.value = false;
-        scaleObj.HighlightObj.SetActive(false);
-        Debug.Log("Destroy End");
         Destroy(this.gameObject);
     }
 
+    private void OnDestroy()
+    {
+        MagicInUse.value = false;
+        if(scaleObj!= null)
+            scaleObj.highlightFX.UnHighlight();
+    }
 }
