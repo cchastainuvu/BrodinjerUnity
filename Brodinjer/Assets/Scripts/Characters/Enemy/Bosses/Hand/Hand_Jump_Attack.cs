@@ -30,11 +30,11 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
 
     public override IEnumerator Attack()
     {
+        attacking = true;
         if (animations)
         {
             animations.StartAnimation();
         }
-
         agent = enemyObj.GetComponent<NavMeshAgent>();
         agent.velocity = Vector3.zero;
         enemyRigid.freezeRotation = true;

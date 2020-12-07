@@ -36,4 +36,13 @@ public class Animation_Directional_Attack : Animation_Base
         angle += .5f;
         return angle;
     }
+    
+    public override Animation_Base GetClone()
+    {
+        Animation_Directional_Attack temp = CreateInstance<Animation_Directional_Attack>();
+        temp.StartTriggerName = this.StartTriggerName;
+        temp.StopTriggerName = this.StopTriggerName;
+        temp.DirectionName = this.DirectionName;
+        return temp;
+    }
 }

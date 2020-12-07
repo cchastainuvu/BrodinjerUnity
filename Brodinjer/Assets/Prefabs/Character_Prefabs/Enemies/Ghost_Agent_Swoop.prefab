@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 1249274259}
   - component: {fileID: 1249274260}
   - component: {fileID: 1249274263}
+  - component: {fileID: 6755987126760730674}
   m_Layer: 12
   m_Name: Ghost_Agent_Swoop
   m_TagString: Untagged
@@ -181,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 1920314186342373004}
   m_LocalRotation: {x: 0, y: 0.47648373, z: 0, w: 0.8791833}
   m_LocalPosition: {x: 9, y: 2.32, z: 1.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2254, y: 1.2254, z: 1.2254}
   m_Children:
   - {fileID: 1920314188163159382}
   - {fileID: 1920314187393917408}
@@ -216,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMove: {fileID: 7834929241472616336}
   currentAttack: {fileID: 7834929240690629896}
-  moveOnStart: 1
+  moveOnStart: 0
   paused: 0
   dead: 0
   stunned: 0
@@ -268,6 +269,12 @@ MonoBehaviour:
     m_Bits: 4096
   damageCoolDown: 0.15
   StunTime: 1
+  DamageAnimation: {fileID: 0}
+  anim: {fileID: 1920314188163159381}
+  agent: {fileID: 0}
+  Knockback: 0
+  damageAnimate: 1
+  canDamage: 1
   enemyManager: {fileID: 1920314186342373006}
 --- !u!114 &1249274260
 MonoBehaviour:
@@ -395,6 +402,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa6ad37747073c40b51490c4f277fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6755987126760730674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920314186342373004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf45d5f6d1544d04bbc00bc067e954d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1920314186342373006}
+        m_MethodName: StartMove
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  waitTime: 0.1
 --- !u!1 &1920314186634232974
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +678,9 @@ MonoBehaviour:
   checkOnAwake: 1
   RunEventonInit: 1
   debug: 0
+  checkX: 1
   checkY: 0
+  checkZ: 1
 --- !u!1 &1920314188040721532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1047,11 @@ MonoBehaviour:
   DamageAmount: 5
   DecreasedbyArmor: 0
   StunTime: 0
+  SingleHit: 0
+  hit: 0
+  KnockbackForce: 0
+  KnockbackTime: 0
+  BaseObj: {fileID: 1920314186342373004}
 --- !u!1 &7834929240491329627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackStartTime: 0
   CoolDownTime: 0
+  attacking: 0
   AttackActiveTime: 0
   WeaponAttackobj: {fileID: 0}
   animations: {fileID: 0}

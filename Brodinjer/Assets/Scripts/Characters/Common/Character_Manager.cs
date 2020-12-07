@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public abstract class Character_Manager : MonoBehaviour
@@ -17,13 +18,41 @@ public abstract class Character_Manager : MonoBehaviour
 
     protected bool damaged, stunned, dead;
 
+    public Animation_Base DamageAnimation;
+    public Animator anim;
+    public NavMeshAgent agent;
+    private Transform player;
+
+    public bool Knockback;
+
+    public bool damageAnimate = true;
+    public bool canDamage = true;
+
 
     private void Start()
     {
         damaged = false;
         stunned = false;
         dead = false;
+        player = FindObjectOfType<PlayerMovement>().transform;
+        if (DamageAnimation)
+        {
+            Animation_Base temp = DamageAnimation.GetClone();
+            DamageAnimation = temp;
+            DamageAnimation.Init(this, anim, player, agent);
+        }
+
         Init();
+    }
+
+    public void SetDamageAnimate(bool val)
+    {
+        damageAnimate = val;
+    }
+
+    public void SetCanDamage(bool val)
+    {
+        canDamage = val;
     }
 
     public virtual void Init()
@@ -46,19 +75,19 @@ public abstract class Character_Manager : MonoBehaviour
 
     public virtual void TakeDamage(float amount, bool armor)
     {
-        if (!dead)
+        if (canDamage && !dead)
         {
             Character.Health.TakeDamage(amount, armor);
             if (Character.Health.health.value <= 0)
             {
-
+                return;
             }
         }
     }
 
     private IEnumerator OnTriggerEnter(Collider coll)
     {
-        if (!damaged && !dead)
+        if (canDamage && !damaged && !dead)
         {
             if (coll.gameObject.layer == ToLayer(DamageLayer.value))
             {
@@ -72,13 +101,27 @@ public abstract class Character_Manager : MonoBehaviour
                     }
 
                     damaged = true;
-                    TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
+                    if(damageAnimate && DamageAnimation)
+                        DamageAnimation.StartAnimation();
+                    if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
+                    {
+                        temp.hit = true;
+                        TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
+                    }
+
+                    if (Knockback)
+                    {
+                        StartKnockback(temp);
+                    }
+
                     yield return new WaitForSeconds(damageCoolDown);
                     damaged = false;
                 }
             }
         }
     }
+
+    protected abstract void StartKnockback(WeaponDamageAmount other);
     
     public int ToLayer (int bitmask ) {
         int result = bitmask>0 ? 0 : 31;
@@ -90,4 +133,6 @@ public abstract class Character_Manager : MonoBehaviour
     }
 
     public abstract IEnumerator Stun(float stuntime);
+    
+    
 }

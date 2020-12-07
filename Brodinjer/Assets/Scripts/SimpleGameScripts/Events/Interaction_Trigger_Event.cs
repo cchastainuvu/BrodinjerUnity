@@ -108,7 +108,6 @@ public class Interaction_Trigger_Event : Trigger_Event_Base
 
     private IEnumerator CheckInteract()
     {
-        Debug.Log("Start Check");
         while (checking)
         {
             if (Input.GetButtonDown(InteractButton) && inrange)

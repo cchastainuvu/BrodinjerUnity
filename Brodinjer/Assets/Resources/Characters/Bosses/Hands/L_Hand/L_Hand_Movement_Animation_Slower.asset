@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L_Hand_Movement_Animation_Slower
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  StartTriggerName: Walk
+  StopTriggerName: 
   DirectionName: Direction
   SpeedName: Speed
-  StartTriggerName: Walk
-  EndTriggerName: Idle
   speedDif: 0.5

@@ -19,17 +19,49 @@ public class PlayerMovement : MonoBehaviour
         private bool pauseInits;
         private ResetTriggers triggerReset;
         public string IdleTrigger = "Idle";
+        public CharacterTranslate deadTranslate;
+        public CharacterRotate deadRotate;
+        private bool dead;
+
+        private void Awake()
+        {
+                _cc = GetComponent<CharacterController>();
+                triggerReset = anim.GetComponent<ResetTriggers>();
+        }
 
         private void Start()
         {
+                dead = false;
                 active = true;
                 moving = false;
                 rotating = false;
                 extrarunning = false;
-                _cc = GetComponent<CharacterController>();
-                triggerReset = GetComponent<ResetTriggers>();
                 pauseInits = false;
                 Init();
+        }
+
+        public void Die()
+        {
+                Deactivate();
+                translate = deadTranslate;
+                translate.Init(this, _cc, DirectionReference, targetScript, anim);
+                rotate = deadRotate;
+                rotate.Init(transform, DirectionReference, targetScript);
+                translate.canMove = true;
+                translate.canRun = true;
+                if (!moving)
+                {
+                        moving = true;
+                        moveFunc = StartCoroutine(translate.Move());
+                        runFunc = StartCoroutine(translate.Run());
+                }
+                rotate.canRotate = true;
+                if (!rotating)
+                {
+                        rotating = true;
+                        rotateFunc = StartCoroutine(rotate.Rotate());
+                }
+                Debug.Log("Dead");
         }
 
         private void FixedUpdate()
@@ -103,12 +135,15 @@ public class PlayerMovement : MonoBehaviour
 
         public void SwapMovement(CharacterRotate newRot, CharacterTranslate newTrans, List<CharacterControlExtraBase> extras = null)
         {
-                StopAll();
-                rotate = newRot;
-                translate = newTrans;
-                extraControls = extras;
-                Init();
-                StartAll();
+                if (!dead)
+                {
+                        StopAll();
+                        rotate = newRot;
+                        translate = newTrans;
+                        extraControls = extras;
+                        Init();
+                        StartAll();
+                }
         }
 
         public void StopAll()
@@ -205,5 +240,26 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 extrarunning = false;
+        }
+
+        public void SetTranslate(CharacterTranslate translate)
+        {
+                StopMove();
+                this.translate = translate;
+                if (_cc == null)
+                        _cc = GetComponent<CharacterController>();
+                this.translate.Init(this, _cc, DirectionReference, targetScript, anim);
+                StartMove();
+                
+        }
+
+        public void SetRotation(CharacterRotate rotate)
+        {
+                StopRotate();
+                this.rotate = rotate;
+                if (_cc == null)
+                        _cc = GetComponent<CharacterController>();
+                this.rotate.Init(transform, DirectionReference, targetScript);
+                StartRotate();
         }
 }

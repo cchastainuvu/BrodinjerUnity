@@ -7,7 +7,7 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
 {
     public float AttackStartTime;
     public float CoolDownTime;
-    protected bool attacking;
+    public bool attacking;
     public float AttackActiveTime;
     public GameObject WeaponAttackobj;
     protected Coroutine attackFunc;
@@ -18,19 +18,28 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
     protected bool canAttack;
     public Animator animator;
     public float MovePauseTime;
+    protected ResetTriggers resetAnims;
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerMovement>().transform;
+       player = FindObjectOfType<PlayerMovement>().transform;
+        if (animations != null && animator != null)
+        {
+            Animation_Base temp = animations.GetClone();
+            animations = temp;
+            animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
+        }
+
+        if (animator != null)
+            resetAnims = animator.GetComponent<ResetTriggers>();
         Init();
     }
 
     public virtual void Init()
     {
         attacking = false;
-        canAttack = true;
-        if(animations != null && animator != null)
-            animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
+        canAttack = true; 
+
     }
 
     public void ActivateAttack()

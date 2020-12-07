@@ -69,4 +69,18 @@ public class Rib_Animations : Animation_Base
         return angle;
     }
     
+    public override Animation_Base GetClone()
+    {
+        Rib_Animations temp = CreateInstance<Rib_Animations>();
+        temp.StartTriggerName = this.StartTriggerName;
+        temp.StopTriggerName = this.StopTriggerName;
+        temp.FrontAttack = FrontAttack;
+        temp.BackAttack = BackAttack;
+        temp.directionFront = directionFront;
+        temp.directionBack = directionBack;
+        temp.minFrontAngle = minFrontAngle;
+        temp.maxFrontAngle = maxFrontAngle;
+        return temp;
+    }
+    
 }

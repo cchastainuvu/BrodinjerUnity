@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MovePlayer : MonoBehaviour
@@ -13,6 +14,8 @@ public class MovePlayer : MonoBehaviour
     public Image BlackSprite;
 
     private float currentTime;
+
+    public UnityEvent EndMoveEvent;
 
     private void Awake()
     {
@@ -51,6 +54,7 @@ public class MovePlayer : MonoBehaviour
         }        
         if (_cc != null)
             _cc.enabled = true;
+        EndMoveEvent.Invoke();
     }
     
 }

@@ -45,6 +45,8 @@
                 <e p="Animation_Basic_Attack.cs" t="Include" />
                 <e p="Animation_Directional_Attack.cs" t="Include" />
                 <e p="Animation_Movement.cs" t="Include" />
+                <e p="Animation_Multi_Attack.cs" t="Include" />
+                <e p="Animation_OneDirectional_Movement.cs" t="Include" />
               </e>
               <e p="Character_Base.cs" t="Include" />
               <e p="Character_Manager.cs" t="Include" />
@@ -64,8 +66,10 @@
             </e>
             <e p="Enemy" t="Include">
               <e p="Attack" t="Include">
+                <e p="Distance_Attack.cs" t="Include" />
                 <e p="Enemy_Attack_Base.cs" t="Include" />
                 <e p="Enemy_Attack_Melee.cs" t="Include" />
+                <e p="Enemy_Attack_Melee_Taunt.cs" t="Include" />
                 <e p="Enemy_Attack_None.cs" t="Include" />
               </e>
               <e p="Bosses" t="Include">
@@ -92,6 +96,7 @@
                     <e p="Rotation_Transform_Movement.cs" t="Include" />
                     <e p="Wall_Movement_02.cs" t="Include" />
                   </e>
+                  <e p="Randomize_Rib_Attack.cs" t="Include" />
                   <e p="Rib_Cage_Cieling_Walk.cs" t="Include" />
                   <e p="Rib_Cage_Drop.cs" t="Include" />
                   <e p="Rib_Cage_Drop_Attack.cs" t="Include" />
@@ -110,6 +115,7 @@
                 <e p="Transform_Movement_Base.cs" t="Include" />
                 <e p="Transform_Route.cs" t="Include" />
               </e>
+              <e p="Hand_Init_Scene.cs" t="Include" />
               <e p="Movement" t="Include">
                 <e p="DashForwardMove.cs" t="Include" />
                 <e p="Enemy_Movement.cs" t="Include" />
@@ -160,8 +166,10 @@
                 <e p="Crouch.cs" t="Include" />
                 <e p="Dodge.cs" t="Include" />
               </e>
+              <e p="ForcePlayerWalk.cs" t="Include" />
               <e p="JumpScript.cs" t="Include" />
               <e p="PlayerMovement.cs" t="Include" />
+              <e p="Rigidbody_Interactions.cs" t="Include" />
               <e p="Rotate" t="Include">
                 <e p="BowCharacterRotation.cs" t="Include" />
                 <e p="CharacterRotate.cs" t="Include" />
@@ -170,6 +178,7 @@
               </e>
               <e p="Translate" t="Include">
                 <e p="CharacterTranslate.cs" t="Include" />
+                <e p="DeathTranslate.cs" t="Include" />
                 <e p="FirstPersonTranslate.cs" t="Include" />
                 <e p="ThirdPersonTranslate.cs" t="Include" />
               </e>
@@ -229,6 +238,7 @@
               <e p="SavableScriptableObjects.cs" t="Include" />
               <e p="SetCheckpointObjects.cs" t="Include" />
             </e>
+            <e p="Enemy_Controls.cs" t="Include" />
             <e p="FrameRateControl.cs" t="Include" />
             <e p="Game_Manager.cs" t="Include" />
             <e p="GeneralFunctions.cs" t="Include" />
@@ -247,6 +257,7 @@
             </e>
             <e p="DungeonScripts" t="Include">
               <e p="Destroy_Door_Event.cs" t="Include" />
+              <e p="Emissive_Change.cs" t="Include" />
               <e p="GearRotation.cs" t="Include" />
               <e p="GearScalable.cs" t="Include" />
               <e p="Jump_Destroy.cs" t="Include" />
@@ -398,6 +409,11 @@
         </e>
         <e p="TreeTest" t="Include">
           <e p="DiffuseShakeUpdated.shader" t="Include" />
+        </e>
+        <e p="VFX" t="Include">
+          <e p="Scale Magic" t="Include">
+            <e p="Scaling_VFX.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="Brodinjer.sln" t="IncludeFlat" />

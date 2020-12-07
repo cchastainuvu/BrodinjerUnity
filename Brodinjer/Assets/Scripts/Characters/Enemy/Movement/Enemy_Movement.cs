@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,10 +15,22 @@ public abstract class Enemy_Movement : MonoBehaviour
     protected bool canMove;
     protected readonly WaitForFixedUpdate fixedUpdate= new WaitForFixedUpdate();
     public Animator anim;
+    private ResetTriggers resetAnims;
+    private bool initiated = false;
 
-    private void Awake()
+    private void Start()
     {
         player = FindObjectOfType<PlayerMovement>().transform;
+        if (anim != null)
+        {
+            resetAnims = anim.GetComponent<ResetTriggers>();
+        }
+        if (AnimationBase != null)
+        {
+            Animation_Base temp = AnimationBase.GetClone();
+            AnimationBase = temp;
+            AnimationBase.Init(this, anim, player, null);
+        }
         Init();
     }
 
@@ -28,10 +38,6 @@ public abstract class Enemy_Movement : MonoBehaviour
     protected virtual void Init()
     {
         canMove = true;
-        if (AnimationBase != null)
-        {
-            AnimationBase.Init(this, anim, player, null);
-        }
     }
 
     public void deactiveMove()
@@ -47,10 +53,13 @@ public abstract class Enemy_Movement : MonoBehaviour
 
     public virtual void StartMove()
     {
+            
         if (canMove)
         {
             moving = true;
             moveFunc = StartCoroutine(Move());
+            if(resetAnims)
+                resetAnims.ResetAllTriggers();
             if(AnimationBase)
                 AnimationBase.StartAnimation();
         }

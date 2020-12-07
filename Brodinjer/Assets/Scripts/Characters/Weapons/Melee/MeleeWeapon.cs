@@ -16,15 +16,34 @@ public class MeleeWeapon : WeaponBase
     public string ComboNumInteger;
     public float minComboWaitTime01, minComboWaitTime02;
     public float attackActivateTime01, attackActivateTime02, attackActivateTime03;
-    
+    public PlayerMovement playermove;
+    public bool freezeWhenAttack;
+    public CharacterTranslate freezeMovement;
+    public CharacterTranslate origMovement;
+    public CharacterRotate freezeRotation;
+    public CharacterRotate origRotation;
+    private WeaponDamageAmount damage;
+    public float DamageAttack1, DamageAttack2, DamageAttack3;
+    private bool running = false;
+
+    private void Start()
+    {
+        running = false;
+    }
+
     public override void Initialize()
     {
         artObj.SetActive(true);
+        damage = knockbackObj.GetComponent<WeaponDamageAmount>();
         knockbackObj.SetActive(false);
         waitforbutton = new WaitUntil(CheckInput);
         fixedUpdate = new WaitForFixedUpdate();
         currWeapon = true;
-        weaponFunc = StartCoroutine(Attack());
+        if (!running)
+        {
+            running = true;
+            weaponFunc = StartCoroutine(Attack());
+        }
     }
 
     public override IEnumerator Attack()
@@ -36,6 +55,8 @@ public class MeleeWeapon : WeaponBase
                 yield return fixedUpdate;
             }
             yield return waitforbutton;
+            if(freezeWhenAttack)
+                playermove.SwapMovement(freezeRotation, freezeMovement);
             if (!frozen)
             {
                 if (currWeapon)
@@ -46,6 +67,7 @@ public class MeleeWeapon : WeaponBase
                 }
 
                 yield return  new WaitForSeconds(attackActivateTime01);
+                damage.DamageAmount = DamageAttack1;
                 knockbackObj.SetActive(true);
                 AxUsedEvent.Invoke();
                 currentTime = 0;
@@ -58,9 +80,9 @@ public class MeleeWeapon : WeaponBase
                     if (CheckInput() && currentTime >= minComboWaitTime01)
                     {
                         //knockbackObj.SetActive(false);
-                        Debug.Log("Hit 2");
                         anim.SetInteger(ComboNumInteger, 2);
                         yield return  new WaitForSeconds(attackActivateTime02);
+                        damage.DamageAmount = DamageAttack2;
                         //knockbackObj.SetActive(true);
                         currentTime = 0;
                         while (currentTime < comboTime02 && !frozen && currWeapon)
@@ -72,9 +94,9 @@ public class MeleeWeapon : WeaponBase
                             if (CheckInput()&& currentTime >= minComboWaitTime02)
                             {
                                 //knockbackObj.SetActive(false);
-                                Debug.Log("Hit 3");
                                 anim.SetInteger(ComboNumInteger, 3);
                                 yield return  new WaitForSeconds(attackActivateTime03);
+                                damage.DamageAmount = DamageAttack3;
                                 //knockbackObj.SetActive(true);
                                 currentTime = 0;
                                 while (currentTime < attackActiveTime03 && !frozen && currWeapon)
@@ -95,6 +117,14 @@ public class MeleeWeapon : WeaponBase
                     currentTime += Time.deltaTime;
                     yield return fixedUpdate;
                 }
+
+                damage.DamageAmount = DamageAttack1;
+                if (freezeWhenAttack)
+                {
+                    Debug.Log("Reset Ax");
+                    playermove.SwapMovement(origRotation, origMovement);
+                }
+
                 Debug.Log("Finish Attack");
                 knockbackObj.SetActive(false);
                 anim.SetInteger(ComboNumInteger, 0);
@@ -115,6 +145,10 @@ public class MeleeWeapon : WeaponBase
         anim.SetTrigger(AttackEndTrigger);
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
+        running = false;
+        Debug.Log("Swap Mvement Ax");
+        playermove.SwapMovement(origRotation, origMovement);
+
     }
     
     private bool CheckInput()

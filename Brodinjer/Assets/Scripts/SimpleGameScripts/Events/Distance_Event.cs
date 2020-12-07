@@ -17,8 +17,8 @@ public class Distance_Event : MonoBehaviour
     public bool RunEventonInit;
     private Coroutine checkFunc;
     public bool debug = false;
-    
-    public bool checkY;
+
+    public bool checkX = true, checkY = false, checkZ = true;
 
     private void Awake()
     {
@@ -33,6 +33,7 @@ public class Distance_Event : MonoBehaviour
             StartCheck();
         }
     }
+    
 
     public void StartCheck()
     {
@@ -72,7 +73,7 @@ public class Distance_Event : MonoBehaviour
     private IEnumerator ExitDistance()
     {
         yield return new WaitForSeconds(timeInDistance);
-        if (inDistance)
+        if (!inDistance)
         {
             yield return new WaitForSeconds(Random.Range(waitTimeMin, waitTimeMax));
             ExitDistanceEvent.Invoke();
@@ -98,8 +99,10 @@ public class Distance_Event : MonoBehaviour
                     inDistance = false;
                     StartCoroutine(ExitDistance());
                 }
-                
+
+
             }
+
             yield return new WaitForFixedUpdate();
         }
     }
@@ -118,16 +121,15 @@ public class Distance_Event : MonoBehaviour
     private double DistanceFormula(Vector3 vector1, Vector3 vector2)
     {
         double distance;
-        if (checkY)
-        {
-            distance =  Math.Sqrt(Math.Pow((vector2.x - vector1.x), 2) + Math.Pow((vector2.y - vector1.y), 2) +
-                             Math.Pow((vector2.z - vector1.z), 2));
-        }
-        else
-        {
-            distance = Math.Sqrt(Math.Pow((vector2.x - vector1.x), 2) +
-                                 Math.Pow((vector2.z - vector1.z), 2));
-        }
+        double ydist = 0;
+        Double xdist = 0;
+        Double zdist= 0;
+
+        xdist = (checkX) ? Math.Pow((vector2.x - vector1.x), 2) : 0;
+        ydist = (checkY) ? Math.Pow((vector2.y - vector1.y), 2) : 0;
+        zdist = (checkZ) ? Math.Pow((vector2.z - vector1.z), 2) : 0;
+
+        distance =  Math.Sqrt(xdist + ydist + zdist);
         if(debug)
         Debug.Log(gameObject.name + " Distance: " + distance);
         return distance;

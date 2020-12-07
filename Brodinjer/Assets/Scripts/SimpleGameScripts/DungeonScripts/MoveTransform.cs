@@ -18,6 +18,9 @@ public class MoveTransform : MonoBehaviour
 
     public void Move(Transform PlaceToMoveTo)
     {
+        Debug.Log("Move: " + PlaceToMoveTo.name);
+        if (_cc == null)
+            _cc = ObjToMove.GetComponentInChildren<CharacterController>();
         if (_cc != null)
             _cc.enabled = false;
         ObjToMove.transform.position = PlaceToMoveTo.transform.position;

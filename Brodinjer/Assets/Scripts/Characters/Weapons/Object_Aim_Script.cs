@@ -10,10 +10,21 @@ public class Object_Aim_Script : MonoBehaviour
 
     private Coroutine aimFunc;
 
+    private Quaternion initRotation;
+
+    private void Start()
+    {
+        initRotation = transform.rotation;
+    }
+
     public void StartAim()
     {
-        aiming = true;
-        aimFunc = StartCoroutine(Aim());
+        //Debug.Log("Start Aim");
+        if (!aiming)
+        {
+            aiming = true;
+            aimFunc = StartCoroutine(Aim());
+        }
     }
     
     private IEnumerator Aim()
@@ -39,5 +50,7 @@ public class Object_Aim_Script : MonoBehaviour
         {
             StopCoroutine(aimFunc);
         }
+
+        //transform.rotation = initRotation;
     }
 }

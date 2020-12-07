@@ -13,6 +13,7 @@ public class Enemy_Follow_Basic : Enemy_Follow_Base
         //agent.speed = Speed;
         agent.updateRotation = true;
         agent.updatePosition = true;
+        agent.speed = Speed;
         if (lookAtFollow)
             agent.updateRotation = false;
         if(AnimationBase!= null)
