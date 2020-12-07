@@ -21,13 +21,6 @@ public abstract class Enemy_Movement : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>().transform;
-        Init();
-    }
-
-    //Basic Init
-    protected virtual void Init()
-    {
-        canMove = true;
         if (anim != null)
         {
             resetAnims = anim.GetComponent<ResetTriggers>();
@@ -38,7 +31,13 @@ public abstract class Enemy_Movement : MonoBehaviour
             AnimationBase = temp;
             AnimationBase.Init(this, anim, player, null);
         }
-        Debug.Log(anim.gameObject.name);
+        Init();
+    }
+
+    //Basic Init
+    protected virtual void Init()
+    {
+        canMove = true;
     }
 
     public void deactiveMove()

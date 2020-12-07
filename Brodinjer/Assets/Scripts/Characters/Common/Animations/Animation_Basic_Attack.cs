@@ -10,11 +10,14 @@ public class Animation_Basic_Attack : Animation_Base
     
     public override void StartAnimation()
     {
-        anim.speed = 1;
-        resettrigger = anim.gameObject.GetComponent<ResetTriggers>();
-        if(resettrigger != null)
-            resettrigger.ResetAllTriggers();
-        anim.SetTrigger(StartTriggerName);
+        if (anim != null)
+        {
+            anim.speed = 1;
+            resettrigger = anim.gameObject.GetComponent<ResetTriggers>();
+            if (resettrigger != null)
+                resettrigger.ResetAllTriggers();
+            anim.SetTrigger(StartTriggerName);
+        }
     }
 
     public override void StopAnimation()

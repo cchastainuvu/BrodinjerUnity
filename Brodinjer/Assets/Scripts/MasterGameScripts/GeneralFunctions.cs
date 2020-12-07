@@ -41,4 +41,9 @@ public static class GeneralFunctions
         }
         return false;
     }
+
+    public static void SetTimeScale(float val)
+    {
+        Time.timeScale = val;
+    }
 }

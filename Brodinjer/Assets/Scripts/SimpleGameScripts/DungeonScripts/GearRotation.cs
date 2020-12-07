@@ -17,6 +17,7 @@ public class GearRotation : MonoBehaviour
     public bool FinalGear;
     public bool FinalGearClockwise;
     public UnityEvent GearCompleted;
+    private bool completed;
 
    // public float ScaleSpeed;
 
@@ -29,6 +30,7 @@ public class GearRotation : MonoBehaviour
 
         clogged = false;
         previousConnections = connectedGears;
+        completed = false;
     }
 
     private void FixedUpdate()
@@ -45,10 +47,11 @@ public class GearRotation : MonoBehaviour
 
         if (FinalGear)
         {
-            if (Rotating && !clogged)
+            if (Rotating && !clogged && !completed)
             {
                 if ((Clockwise == FinalGearClockwise))
                 {
+                    completed = true;
                     GearCompleted.Invoke();
                 }
             }

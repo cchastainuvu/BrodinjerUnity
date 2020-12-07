@@ -21,7 +21,13 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerMovement>().transform;
+       player = FindObjectOfType<PlayerMovement>().transform;
+        if (animations != null && animator != null)
+        {
+            Animation_Base temp = animations.GetClone();
+            animations = temp;
+            animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
+        } 
         Init();
     }
 
@@ -29,12 +35,7 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
     {
         attacking = false;
         canAttack = true;
-        if (animations != null && animator != null)
-        {
-            Animation_Base temp = animations.GetClone();
-            animations = temp;
-            animations.Init(this, animator, player, GetComponent<NavMeshAgent>());
-        }
+
     }
 
     public void ActivateAttack()

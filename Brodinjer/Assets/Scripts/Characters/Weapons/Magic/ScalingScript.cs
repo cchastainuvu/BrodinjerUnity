@@ -23,18 +23,19 @@ public class ScalingScript : WeaponBase
     public CameraRotationBase thirdPersonCamera;
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
-    private CharacterRotate originalRotate;
+    public CharacterRotate originalRotate;
     public float maxSpellDuration;
     private float currentSpellDuration;
     public float CameraSwapTime;
     public bool freezeWhenAim;
     public CharacterTranslate freezePlayer;
-    private CharacterTranslate originalTranslate;
+    public CharacterTranslate originalTranslate;
 
     public Object_Aim_Script AimScript;
 
     private Coroutine swapFunc;
     private float currentTime;
+    private bool hit;
     
     
     public override void Initialize()
@@ -48,8 +49,6 @@ public class ScalingScript : WeaponBase
         currWeapon = true;
         attack = Attack();
         MagicInUse.value = false;
-        originalRotate = playermove.rotate;
-        originalTranslate = playermove.translate;
         weaponFunc = StartCoroutine(Attack());
 
     }
@@ -80,6 +79,8 @@ public class ScalingScript : WeaponBase
                         currSpell.transform.localScale = Vector3.zero;
                         currSpell.SetActive(true);
                         SpellBall = currSpell.GetComponent<Rigidbody>();
+                        if(Input.GetButtonDown(useButton))
+                            AimScript.StartAim();
                         while (Input.GetButton(useButton) && MagicAmount.value > 0)
                         {
                             if (cameraRotation.cameraRotation != bowCamera)
@@ -92,7 +93,6 @@ public class ScalingScript : WeaponBase
                             }
 
                             cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
-                            AimScript.StartAim();
                             //Debug.Log("Current Power: " + currPower);
                             while (frozen)
                             {
@@ -132,23 +132,32 @@ public class ScalingScript : WeaponBase
                             currSpell.GetComponent<ScalingMagic>().VFX.SetActive(true);
                         SpellBall.AddForce(transform.forward * currPower, ForceMode.Impulse);
                         currentSpellDuration = maxSpellDuration * (currPower / MaxPower);
-                        while (currentSpellDuration > 0 && inUse && MagicInUse.value)
+                        while (inUse && currentSpellDuration > 0 && MagicInUse.value)
                         {
-                            currentSpellDuration -= Time.deltaTime;
-                            yield return _fixedUpdate;
+                            currentSpellDuration -= .1f;
+                            yield return new WaitForSeconds(.1f);
                         }
 
-                        if (currSpell == null || !currSpell.GetComponent<ScalingMagic>().hitObj)
+                        if (currSpell == null || currSpell.GetComponent<ScalingMagic>() == null || !currSpell.GetComponent<ScalingMagic>().hitObj)
                         {
                             inUse = false;
                             MagicInUse.value = false;
                             Destroy(currSpell);
+                            try
+                            {
+                                ScalableObject obj = currSpell.GetComponent<ScalingMagic>().scaleObj;
+                                if (obj != null)
+                                {
+                                    obj.highlightFX.UnHighlight();
+                                }
+                            }
+                            catch
+                            {
+                                
+                            }
                         }
 
                         inUse = false;
-
-                        AimScript.StopAim();
-
                     }
                 }
             }
@@ -177,8 +186,9 @@ public class ScalingScript : WeaponBase
         }
     }
 
-    public void SpellHit()
+    public void SpellHit(bool hit)
     {
+        AimScript.StopAim();
         currentSpellDuration = 0;
     }
     
