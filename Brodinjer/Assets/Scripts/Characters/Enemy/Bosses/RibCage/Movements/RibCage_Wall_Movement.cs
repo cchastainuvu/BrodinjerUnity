@@ -57,13 +57,14 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
 
     public override void StartAttack()
     {
+        RB.isKinematic = false;
         StartCoroutine(Attack());
     }
 
     public override IEnumerator Attack()
     {
+        attacking = true;
         RB.useGravity = false;
-        RB.isKinematic = false;
         WeaponObj.SetActive(false);     
         myNormal = transform.up;
         RB.freezeRotation = true;
@@ -72,7 +73,10 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         yield return new WaitForSeconds(jumpInitTime);
         jumpDirection = transform.forward * ForwardJumpForce + transform.up * UpwardJumpForce;
         RB.velocity = Vector3.zero;
+        Debug.Log(jumpDirection);
         RB.AddForce(jumpDirection, ForceMode.Impulse);
+        Debug.Log(RB.velocity);
+        Debug.Log("Rotate 90 degrees");
         transform.Rotate(-90,0,0);
         yield return new WaitForSeconds(jumpAfterTime);
         //checkJump = false;
@@ -178,6 +182,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         yield return new WaitForSeconds(FinishTime);
         FinishEvent.Invoke();
         RB.isKinematic = true;
+        attacking = false;
 
     }
 

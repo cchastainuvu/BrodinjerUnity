@@ -19,24 +19,35 @@ public class MeleeWeapon : WeaponBase
     public PlayerMovement playermove;
     public bool freezeWhenAttack;
     public CharacterTranslate freezeMovement;
-    private CharacterTranslate origMovement;
+    public CharacterTranslate origMovement;
     public CharacterRotate freezeRotation;
-    private CharacterRotate origRotation;
-    
+    public CharacterRotate origRotation;
+    private WeaponDamageAmount damage;
+    public float DamageAttack1, DamageAttack2, DamageAttack3;
+    private bool running = false;
+
+    private void Start()
+    {
+        running = false;
+    }
+
     public override void Initialize()
     {
         artObj.SetActive(true);
+        damage = knockbackObj.GetComponent<WeaponDamageAmount>();
         knockbackObj.SetActive(false);
         waitforbutton = new WaitUntil(CheckInput);
         fixedUpdate = new WaitForFixedUpdate();
         currWeapon = true;
-        weaponFunc = StartCoroutine(Attack());
+        if (!running)
+        {
+            running = true;
+            weaponFunc = StartCoroutine(Attack());
+        }
     }
 
     public override IEnumerator Attack()
     {
-        origMovement = playermove.translate;
-        origRotation = playermove.rotate;
         while (currWeapon)
         {
             while (frozen)
@@ -56,6 +67,7 @@ public class MeleeWeapon : WeaponBase
                 }
 
                 yield return  new WaitForSeconds(attackActivateTime01);
+                damage.DamageAmount = DamageAttack1;
                 knockbackObj.SetActive(true);
                 AxUsedEvent.Invoke();
                 currentTime = 0;
@@ -70,6 +82,7 @@ public class MeleeWeapon : WeaponBase
                         //knockbackObj.SetActive(false);
                         anim.SetInteger(ComboNumInteger, 2);
                         yield return  new WaitForSeconds(attackActivateTime02);
+                        damage.DamageAmount = DamageAttack2;
                         //knockbackObj.SetActive(true);
                         currentTime = 0;
                         while (currentTime < comboTime02 && !frozen && currWeapon)
@@ -83,6 +96,7 @@ public class MeleeWeapon : WeaponBase
                                 //knockbackObj.SetActive(false);
                                 anim.SetInteger(ComboNumInteger, 3);
                                 yield return  new WaitForSeconds(attackActivateTime03);
+                                damage.DamageAmount = DamageAttack3;
                                 //knockbackObj.SetActive(true);
                                 currentTime = 0;
                                 while (currentTime < attackActiveTime03 && !frozen && currWeapon)
@@ -103,8 +117,14 @@ public class MeleeWeapon : WeaponBase
                     currentTime += Time.deltaTime;
                     yield return fixedUpdate;
                 }
-                if(freezeWhenAttack)
+
+                damage.DamageAmount = DamageAttack1;
+                if (freezeWhenAttack)
+                {
+                    Debug.Log("Reset Ax");
                     playermove.SwapMovement(origRotation, origMovement);
+                }
+
                 Debug.Log("Finish Attack");
                 knockbackObj.SetActive(false);
                 anim.SetInteger(ComboNumInteger, 0);
@@ -125,6 +145,10 @@ public class MeleeWeapon : WeaponBase
         anim.SetTrigger(AttackEndTrigger);
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
+        running = false;
+        Debug.Log("Swap Mvement Ax");
+        playermove.SwapMovement(origRotation, origMovement);
+
     }
     
     private bool CheckInput()

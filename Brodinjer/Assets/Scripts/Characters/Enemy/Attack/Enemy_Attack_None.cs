@@ -5,6 +5,7 @@ public class Enemy_Attack_None : Enemy_Attack_Base
 {
     public override IEnumerator Attack()
     {
+        attacking = false;
         yield return null;
     }
 
