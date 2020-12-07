@@ -18,6 +18,7 @@ public class ThirdPersonTranslate : CharacterTranslate
     private Vector3 DodgeDirection;
     public Animation_Base DodgeAnimations;
 
+    public string FallTrigger = "Fall", LandTrigger = "Land";
     
     
     public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
@@ -164,14 +165,16 @@ public class ThirdPersonTranslate : CharacterTranslate
             }
             else
             {
-                if ((jumping || falling || anim.GetBool("Fall")))
+                if ((jumping || falling || anim.GetBool(FallTrigger)))
                 {
                     falling = false;
                     jumping = false;
                     if(reset)
                         reset.ResetAllTriggers();
-                    anim.SetTrigger("Land");
-                    anim.SetBool("Fall", false);
+                    if(LandTrigger != "")
+                        anim.SetTrigger(LandTrigger);
+                    if(FallTrigger != "")
+                        anim.SetBool(FallTrigger, false);
                 }
             }
         }
@@ -182,7 +185,8 @@ public class ThirdPersonTranslate : CharacterTranslate
                 falling = true;
                 if(reset)
                     reset.ResetAllTriggers();
-                anim.SetBool("Fall", true);
+                if(FallTrigger != "")
+                    anim.SetBool("Fall", true);
             }
         }
         vSpeed -= Gravity * Time.deltaTime;

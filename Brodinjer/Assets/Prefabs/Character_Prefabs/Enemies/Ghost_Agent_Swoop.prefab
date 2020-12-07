@@ -182,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 1920314186342373004}
   m_LocalRotation: {x: 0, y: 0.47648373, z: 0, w: 0.8791833}
   m_LocalPosition: {x: 9, y: 2.32, z: 1.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2254, y: 1.2254, z: 1.2254}
   m_Children:
   - {fileID: 1920314188163159382}
   - {fileID: 1920314187393917408}
@@ -270,8 +270,11 @@ MonoBehaviour:
   damageCoolDown: 0.15
   StunTime: 1
   DamageAnimation: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 1920314188163159381}
   agent: {fileID: 0}
+  Knockback: 0
+  damageAnimate: 1
+  canDamage: 1
   enemyManager: {fileID: 1920314186342373006}
 --- !u!114 &1249274260
 MonoBehaviour:
@@ -675,7 +678,9 @@ MonoBehaviour:
   checkOnAwake: 1
   RunEventonInit: 1
   debug: 0
+  checkX: 1
   checkY: 0
+  checkZ: 1
 --- !u!1 &1920314188040721532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1049,9 @@ MonoBehaviour:
   StunTime: 0
   SingleHit: 0
   hit: 0
+  KnockbackForce: 0
+  KnockbackTime: 0
+  BaseObj: {fileID: 1920314186342373004}
 --- !u!1 &7834929240491329627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackStartTime: 0
   CoolDownTime: 0
+  attacking: 0
   AttackActiveTime: 0
   WeaponAttackobj: {fileID: 0}
   animations: {fileID: 0}

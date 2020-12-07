@@ -11,6 +11,7 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
     
     public override IEnumerator Attack()
     {
+        attacking = true;
         if(animations != null)
             animations.StartAnimation();
         yield return new WaitForSeconds(AttackStartTime);
@@ -28,6 +29,7 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         if(animations!= null)
             animations.StopAnimation();
         yield return new WaitForSeconds(CoolDownTime);
+        attacking = false;
     }
 
     /*public override Enemy_Attack_Base getClone()

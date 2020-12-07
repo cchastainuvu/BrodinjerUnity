@@ -66,6 +66,7 @@
             </e>
             <e p="Enemy" t="Include">
               <e p="Attack" t="Include">
+                <e p="Distance_Attack.cs" t="Include" />
                 <e p="Enemy_Attack_Base.cs" t="Include" />
                 <e p="Enemy_Attack_Melee.cs" t="Include" />
                 <e p="Enemy_Attack_Melee_Taunt.cs" t="Include" />
@@ -95,6 +96,7 @@
                     <e p="Rotation_Transform_Movement.cs" t="Include" />
                     <e p="Wall_Movement_02.cs" t="Include" />
                   </e>
+                  <e p="Randomize_Rib_Attack.cs" t="Include" />
                   <e p="Rib_Cage_Cieling_Walk.cs" t="Include" />
                   <e p="Rib_Cage_Drop.cs" t="Include" />
                   <e p="Rib_Cage_Drop_Attack.cs" t="Include" />

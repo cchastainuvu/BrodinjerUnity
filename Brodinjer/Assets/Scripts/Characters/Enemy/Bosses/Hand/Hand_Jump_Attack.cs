@@ -30,6 +30,7 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
 
     public override IEnumerator Attack()
     {
+        attacking = true;
         if (animations)
         {
             animations.StartAnimation();

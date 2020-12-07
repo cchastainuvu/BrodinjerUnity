@@ -14,6 +14,7 @@ public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
 
     public override IEnumerator Attack()
     {
+        attacking = true;
         currentlyattacking = false;
             if (!currentlyattacking)
             {
@@ -29,6 +30,7 @@ public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
                 currentlyattacking = false;
             }
             yield return new WaitForFixedUpdate();
+        attacking = false;
     }
 
     /*public override Enemy_Attack_Base getClone()

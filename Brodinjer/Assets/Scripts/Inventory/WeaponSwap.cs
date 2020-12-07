@@ -11,6 +11,7 @@ public class WeaponSwap : MonoBehaviour
     private List<GameObject> highlights;
     private List<Image> weaponImages;
     private List<KeyCode> WeaponKeys;
+    private List<IntData> weaponAmounts;
     public IntData currentWeapon;
     public WeaponManager wm;
     private float scrollWheel;
@@ -156,6 +157,7 @@ public class WeaponSwap : MonoBehaviour
     {
         highlights = new List<GameObject>();
         weaponImages = new List<Image>();
+        weaponAmounts = new List<IntData>();
         for (var i = 0; i < AvailableWeapons.Count; i++)
         {
             tempobj = Instantiate(ImagePrefab, ImagePrefab.transform.parent);
@@ -164,6 +166,10 @@ public class WeaponSwap : MonoBehaviour
             weaponImages.Add(tempImage.Weapon);
             highlights.Add(tempImage.Highlight);
             highlights[i].gameObject.SetActive(false);
+            if (AvailableWeapons[i].NumItems)
+            {
+                tempImage.NumItems = AvailableWeapons[i].NumItems;
+            }
         }
         ImagePrefab.SetActive(false);
         UpdateDisplay();

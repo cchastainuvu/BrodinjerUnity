@@ -66,13 +66,8 @@ public class Enemy_Manager : MonoBehaviour
             {
                 if (!paused)
                 {
-                    currentPauseTime = currentAttack.MovePauseTime;
                     paused = true;
                     StartCoroutine(PauseMove());
-                }
-                else
-                {
-                    currentPauseTime += currentAttack.MovePauseTime;
                 }
             }
         }
@@ -81,9 +76,9 @@ public class Enemy_Manager : MonoBehaviour
     private IEnumerator PauseMove()
     {
         StopMove();
-        while (currentPauseTime > 0)
+        yield return new WaitForSeconds(.1f);
+        while (currentAttack.attacking)
         {
-            currentPauseTime -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
         StartMove();

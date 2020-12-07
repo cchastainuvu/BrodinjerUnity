@@ -25,6 +25,8 @@ public abstract class Character_Manager : MonoBehaviour
 
     public bool Knockback;
 
+    public bool damageAnimate = true;
+    public bool canDamage = true;
 
 
     private void Start()
@@ -41,6 +43,16 @@ public abstract class Character_Manager : MonoBehaviour
         }
 
         Init();
+    }
+
+    public void SetDamageAnimate(bool val)
+    {
+        damageAnimate = val;
+    }
+
+    public void SetCanDamage(bool val)
+    {
+        canDamage = val;
     }
 
     public virtual void Init()
@@ -63,7 +75,7 @@ public abstract class Character_Manager : MonoBehaviour
 
     public virtual void TakeDamage(float amount, bool armor)
     {
-        if (!dead)
+        if (canDamage && !dead)
         {
             Character.Health.TakeDamage(amount, armor);
             if (Character.Health.health.value <= 0)
@@ -75,7 +87,7 @@ public abstract class Character_Manager : MonoBehaviour
 
     private IEnumerator OnTriggerEnter(Collider coll)
     {
-        if (!damaged && !dead)
+        if (canDamage && !damaged && !dead)
         {
             if (coll.gameObject.layer == ToLayer(DamageLayer.value))
             {
@@ -89,7 +101,7 @@ public abstract class Character_Manager : MonoBehaviour
                     }
 
                     damaged = true;
-                    if(DamageAnimation)
+                    if(damageAnimate && DamageAnimation)
                         DamageAnimation.StartAnimation();
                     if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
                     {
