@@ -49,12 +49,11 @@ public class BowandArrow : WeaponBase
     public override void Initialize()
     {
         BowEquiped.Invoke();
-        initRotation = transform.rotation.eulerAngles;
         _waitforbutton = new WaitUntil(CheckInput);
         currWeapon = true;
         WeaponObj.SetActive(true);
         attack = Attack();
-        originalRotate = playermove.rotate;
+        initRotation = transform.rotation.eulerAngles;
         if (!running)
         {
             running = true;
@@ -74,12 +73,13 @@ public class BowandArrow : WeaponBase
             rotDirection = initRotation;
             rotDirection.y = transform.rotation.eulerAngles.y;
             transform.rotation = Quaternion.Euler(rotDirection);
-            yield return _waitforbutton;
-            if (!frozen)
+            if(numArrows.value > 0)
+                yield return _waitforbutton;
+            if (!frozen && numArrows.value >0)
             {
                 BowPulled.Invoke();
                 inUse = true;
-                if (currWeapon &&  numArrows.value > 0)
+                if (currWeapon)
                 {
                     currPower = 0;
                     currArrow = Instantiate(ArrowPrefab, InitPos);
@@ -124,8 +124,8 @@ public class BowandArrow : WeaponBase
                     yield return new WaitForSeconds(cooldowntime);
                 }
     
-                yield return new WaitForFixedUpdate();
             }
+            yield return new WaitForFixedUpdate();
         }
 
         running = false;

@@ -6,6 +6,8 @@ using UnityEngine;
 public class Instantiate_Skeletons : MonoBehaviour
 {
     public GameObject SkeletonPrefab;
+    public GameObject HealthPrefab;
+    public List<Transform> HealthInstantiateSpots;
     public List<Transform> InstantiateSpots;
     public int numSkeletons;
     private int numSkeletonsPresent;
@@ -37,6 +39,14 @@ public class Instantiate_Skeletons : MonoBehaviour
                 instantiating = true;
                 StartCoroutine(InstantiateObj());
             }
+        }
+
+        int randamount = Random.Range(1, 3);
+        for (int i = 0; i < randamount; i++)
+        {
+            int randindex = Random.Range(0, HealthInstantiateSpots.Count);
+            Instantiate(HealthPrefab, HealthInstantiateSpots[randindex].position, HealthPrefab.transform.rotation)
+                .SetActive(true);
         }
     }
 

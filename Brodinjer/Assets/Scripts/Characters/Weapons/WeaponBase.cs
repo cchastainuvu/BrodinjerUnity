@@ -17,6 +17,7 @@ public abstract class WeaponBase : MonoBehaviour
     public string useButton;
     public BoolData collected;
     protected Coroutine weaponFunc;
+    public IntData NumItems;
     
     public abstract void Initialize();
     public abstract IEnumerator Attack();

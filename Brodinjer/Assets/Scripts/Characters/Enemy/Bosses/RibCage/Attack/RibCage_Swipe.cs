@@ -15,6 +15,7 @@ public class RibCage_Swipe : Enemy_Attack_Base
     
     public override IEnumerator Attack()
     {
+        attacking = true;
         if (animations)
         {
             animations.StartAnimation();
@@ -92,6 +93,7 @@ public class RibCage_Swipe : Enemy_Attack_Base
         if(animations)
             animations.StopAnimation();
         yield return new WaitForSeconds(CoolDownTime);
+        attacking = false;
 
     }
 }
