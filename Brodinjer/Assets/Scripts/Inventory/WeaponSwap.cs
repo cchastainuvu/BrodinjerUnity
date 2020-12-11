@@ -53,7 +53,6 @@ public class WeaponSwap : MonoBehaviour
 
     private IEnumerator CheckSwap()
     {
-        Debug.Log("Start Check Swap");
         while (true)
         {
             if (canChange && wm.currentWeapon != null && !wm.currentWeapon.inUse)
@@ -114,7 +113,7 @@ public class WeaponSwap : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(canChange)
             {
                 if (Input.GetButtonDown(PutAwayWeapon))
                 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Freeze_Magic : Trigger_Event_Base
 {
@@ -8,11 +9,16 @@ public class Freeze_Magic : Trigger_Event_Base
     private PlayerMovement playermove;
     private WeaponManager weapons;
     private Coroutine resetFunc;
+    public UnityEvent OnTrigger;
+    public LayerMask ignoreLayer;
 
     private void OnTriggerEnter(Collider other)
     {
         if(!isRunning)
             StartCoroutine(CheckTrigger(other));
+        OnTrigger.Invoke();
+        if(other.gameObject.layer != ToLayer(layer.value))
+            OnTrigger.Invoke();
     }
 
     public override void RunEvent()

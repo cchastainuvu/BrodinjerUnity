@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using UnityEditor.Animations;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class CameraRotationManager : MonoBehaviour
 {
@@ -26,10 +25,20 @@ public class CameraRotationManager : MonoBehaviour
 
     public GameObject DeathCam;
 
-    private bool dead;
-    
-    
+    private bool dead, paused;
 
+    public Animator anim;
+    public string floatName;
+
+    public Targeting targetscript;
+
+    public GameObject RotateObj;
+    public float MinFloatRotate, CenterFloatRotate, MaxFloatRotate;
+    private float currentRotate;
+    private Vector3 RotationAmount;
+
+    public float AnimationOffset;
+    
     private void Start()
     {
         dead = false;
@@ -38,6 +47,12 @@ public class CameraRotationManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if(rotateOnStart)
             SetRotate(true);
+        AnimationOffset = 0;
+    }
+
+    public void PauseTime(bool val)
+    {
+        paused = val;
     }
 
     public void Die()
@@ -87,7 +102,27 @@ public class CameraRotationManager : MonoBehaviour
                            cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
                 mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
                 transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+                if (!targetscript.targeting)
+                {
+                    if (floatName != "")
+                    {
+                        if (mouseY <= 0)
+                        {
+                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, mouseY) + AnimationOffset);
+                        }
+                        else
+                        {
+                            anim.SetFloat(floatName,
+                                GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1,
+                                    mouseY) + AnimationOffset);
+                        }
+
+                        
+                        
+                    }
+                }
             }
+
 
             yield return new WaitForFixedUpdate();
         }
@@ -100,6 +135,7 @@ public class CameraRotationManager : MonoBehaviour
         if(newBase.cameraObject != null)
             newBase.cameraObject.SetActive(true);
         cameraRotation = newBase;
+        floatName = cameraRotation.DirectionFloatName;
     }
 
     public void StopRotation()
@@ -126,7 +162,7 @@ public class CameraRotationManager : MonoBehaviour
 
     private IEnumerator TimedSwap(CameraRotationBase origCamera)
     {
-        while (currentTime > 0)
+        while (currentTime > 0 && !paused)
         {
             currentTime -= .1f;
             yield return new WaitForSeconds(.1f);
@@ -136,6 +172,7 @@ public class CameraRotationManager : MonoBehaviour
 
     public void StopTimeSwap(CameraRotationBase origCamera)
     {
+        paused = false;
         if (swapFunc != null)
         {
             SwapRotation(origCamera);
