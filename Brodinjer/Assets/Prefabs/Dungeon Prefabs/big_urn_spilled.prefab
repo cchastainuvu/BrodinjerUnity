@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7230210177254510596}
   - component: {fileID: 1312515305189167230}
   - component: {fileID: 7444238238459108708}
+  - component: {fileID: 803905022397494035}
   m_Layer: 0
   m_Name: big_urn_spilled
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &803905022397494035
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227477824987065317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 25.23187
+  m_Height: 57.91535
+  m_Direction: 1
+  m_Center: {x: -0.00017487531, y: 26.455238, z: 0.0038042567}
 --- !u!1 &4733712956880531616
 GameObject:
   m_ObjectHideFlags: 0
