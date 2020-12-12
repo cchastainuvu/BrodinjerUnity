@@ -75,9 +75,13 @@ public class ScalingScript : WeaponBase
                     yield return _waitforbutton;
                 if (!frozen && MagicAmount.value > minMagicAmount)
                 {
-                    inUse = true;
-                    MagicInUse.value = true;
-                    aiming = true;
+                    if (currWeapon)
+                    {
+                        inUse = true;
+                        MagicInUse.value = true;
+                        aiming = true;
+                    }
+
                     if (currWeapon && MagicAmount.value > 0 && !frozen)
                     {
                         if (cameraRotation.cameraRotation != bowCamera)

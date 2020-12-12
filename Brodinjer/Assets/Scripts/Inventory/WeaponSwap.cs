@@ -41,8 +41,15 @@ public class WeaponSwap : MonoBehaviour
 
         if (currentWeapon.value > -1)
         {
-            wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
-            wm.currentWeapon.Initialize();
+            try
+            {
+                wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                wm.currentWeapon.Initialize();
+            }
+            catch
+            {
+                
+            }
         }
         
         InitDisplay();
@@ -147,6 +154,10 @@ public class WeaponSwap : MonoBehaviour
             weaponImages.Add(tempImage.Weapon);
             highlights.Add(tempImage.Highlight);
             highlights[highlights.Count-1].gameObject.SetActive(false);
+            if (AvailableWeapons[AvailableWeapons.Count-1].NumItems)
+            {
+                tempImage.NumItems = AvailableWeapons[AvailableWeapons.Count-1].NumItems;
+            }
             tempobj.SetActive(true);
             UpdateDisplay();
         }
@@ -198,6 +209,20 @@ public class WeaponSwap : MonoBehaviour
     public void EnableChange()
     {
         canChange = true;
+    }
+
+    public void SetWeapon(int num)
+    {
+        try
+        {
+            wm.SwapWeapon(AvailableWeapons[num]);
+            wm.currentWeapon.Initialize();
+            UpdateDisplay();
+        }
+        catch
+        {
+            
+        }
     }
     
     
