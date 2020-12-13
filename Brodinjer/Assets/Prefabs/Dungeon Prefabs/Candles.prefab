@@ -944,7 +944,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.8207547, g: 0.6525892, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1017,18 +1017,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503fd11e4496bd24dae219de5ec84c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlickerLight: {fileID: 0}
+  FlickerLight: {fileID: 5995185018046188874}
   FlickerIntensity: 1
-  minIntensity: 1
-  maxIntensity: 1.2
-  minIntensityTime: 0.1
-  maxIntensityTime: 0.8
+  minIntensity: 0.5
+  maxIntensity: 0.65
+  minIntensityTime: 0.8
+  maxIntensityTime: 0.08
   FlickerMovement: 0
   maximumMoveAmount: {x: 0, y: 0, z: 0}
   minMoveTime: 0
   maxMoveTime: 0
   FlickerColor: 1
   color01: {r: 0.81960785, g: 0.6509804, b: 0, a: 1}
-  color02: {r: 1, g: 0.8093681, b: 0.41037738, a: 1}
-  minColorTime: 0
-  maxColorTime: 0
+  color02: {r: 0.990566, g: 0.6807183, b: 0.042052314, a: 1}
+  minColorTime: 0.8
+  maxColorTime: 0.08
