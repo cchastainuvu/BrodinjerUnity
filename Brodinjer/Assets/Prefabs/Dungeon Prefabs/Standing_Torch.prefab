@@ -120,19 +120,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlickerLight: {fileID: 6147842733492875818}
   FlickerIntensity: 1
-  minIntensity: 1
-  maxIntensity: 1.2
-  minIntensityTime: 0.1
-  maxIntensityTime: 1
+  minIntensity: 0.9
+  maxIntensity: 1
+  minIntensityTime: 1
+  maxIntensityTime: 0.08
   FlickerMovement: 0
   maximumMoveAmount: {x: 0, y: 0, z: 0}
   minMoveTime: 0
   maxMoveTime: 0
   FlickerColor: 1
   color01: {r: 1, g: 0.6666667, b: 0.31764707, a: 1}
-  color02: {r: 1, g: 0.30586815, b: 0.15566039, a: 1}
-  minColorTime: 0
-  maxColorTime: 0
+  color02: {r: 1, g: 0.61927223, b: 0.36320752, a: 1}
+  minColorTime: 1
+  maxColorTime: 0.08
 --- !u!1 &6016520739957656394
 GameObject:
   m_ObjectHideFlags: 0

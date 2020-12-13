@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1135818297825931327}
   - component: {fileID: 2121612738440753004}
   - component: {fileID: 3914683491992316271}
+  - component: {fileID: 5424249095568358336}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -105,6 +106,33 @@ Halo:
     serializedVersion: 2
     rgba: 4278197059
   m_Size: 0.5
+--- !u!114 &5424249095568358336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3381362088379309679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503fd11e4496bd24dae219de5ec84c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlickerLight: {fileID: 2121612738440753004}
+  FlickerIntensity: 1
+  minIntensity: 0.75
+  maxIntensity: 1
+  minIntensityTime: 0.08
+  maxIntensityTime: 1
+  FlickerMovement: 0
+  maximumMoveAmount: {x: 0, y: 0, z: 0}
+  minMoveTime: 0
+  maxMoveTime: 0
+  FlickerColor: 1
+  color01: {r: 1, g: 0.6666667, b: 0.31764707, a: 1}
+  color02: {r: 1, g: 0.60536593, b: 0.34509802, a: 1}
+  minColorTime: 1
+  maxColorTime: 0.08
 --- !u!1 &9021102828647173923
 GameObject:
   m_ObjectHideFlags: 0
