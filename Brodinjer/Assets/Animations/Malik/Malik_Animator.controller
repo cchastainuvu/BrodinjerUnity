@@ -185,7 +185,7 @@ BlendTree:
     m_Motion: {fileID: 5696673182248634327, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0
-    m_Position: {x: 0, y: 1}
+    m_Position: {x: 0, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -194,7 +194,7 @@ BlendTree:
     m_Motion: {fileID: -872138024867686432, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0.09090909
-    m_Position: {x: 0.5, y: 1}
+    m_Position: {x: 0.5, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -203,7 +203,7 @@ BlendTree:
     m_Motion: {fileID: -5762824534112854333, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0.18181819
-    m_Position: {x: 1, y: 1}
+    m_Position: {x: 1, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -239,7 +239,7 @@ BlendTree:
     m_Motion: {fileID: 378535227147233718, guid: 007d6a7b6b23a444192f462920eeeb56,
       type: 3}
     m_Threshold: 0.54545456
-    m_Position: {x: -2, y: 1}
+    m_Position: {x: -2, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -248,7 +248,7 @@ BlendTree:
     m_Motion: {fileID: 1827226128182048838, guid: 007d6a7b6b23a444192f462920eeeb56,
       type: 3}
     m_Threshold: 0.6363636
-    m_Position: {x: -1.5, y: 1}
+    m_Position: {x: -1.5, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -257,7 +257,7 @@ BlendTree:
     m_Motion: {fileID: -381065230186471671, guid: 007d6a7b6b23a444192f462920eeeb56,
       type: 3}
     m_Threshold: 0.72727275
-    m_Position: {x: -1, y: 1}
+    m_Position: {x: -1, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -308,7 +308,7 @@ BlendTree:
     m_Motion: {fileID: 6762596171730778765, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0
-    m_Position: {x: 0, y: 1}
+    m_Position: {x: 0, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -317,7 +317,7 @@ BlendTree:
     m_Motion: {fileID: 1827226128182048838, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0.2
-    m_Position: {x: 0.5, y: 1}
+    m_Position: {x: 0.5, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -326,7 +326,7 @@ BlendTree:
     m_Motion: {fileID: -5419309845522029532, guid: 30be9b0fc457b0a4ea81f88328133904,
       type: 3}
     m_Threshold: 0.4
-    m_Position: {x: 1, y: 1}
+    m_Position: {x: 1, y: 0.25}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -985,115 +985,115 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Walk
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Direction
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Death
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Jump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Land
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dodge
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Fall
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hit Number
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack Finish
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dodge Direction
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Idle
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Aim Direction
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Bow Pull
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Bow Equipped
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Bow Released
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Magic Equipped
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1264,7 +1264,7 @@ AnimatorStateMachine:
     m_Position: {x: 790, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1390632112311338342}
-    m_Position: {x: 160, y: 210, z: 0}
+    m_Position: {x: 170, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9072699244099616772}
     m_Position: {x: 800, y: -170, z: 0}
@@ -1276,10 +1276,10 @@ AnimatorStateMachine:
     m_Position: {x: 560, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1136956801811675635}
-    m_Position: {x: 595, y: 25, z: 0}
+    m_Position: {x: 1040, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3210825587228018627}
-    m_Position: {x: 630, y: 90, z: 0}
+    m_Position: {x: 830, y: 160, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -5113006299819888478}

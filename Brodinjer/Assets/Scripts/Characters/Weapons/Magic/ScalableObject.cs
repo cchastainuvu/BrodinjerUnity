@@ -40,35 +40,59 @@ public class ScalableObject : MonoBehaviour
     public void SetInit(float scale)
     {
         newScale = Vector3.one * scale;
-            if (newScale.x > maxScale.x)
-            {
-                newScale = maxScale;
-            }
+        if (newScale.x > maxScale.x)
+        {
+            newScale = maxScale;
+        }
         else if (newScale.x < minScale.y)
-            {
-                newScale = minScale;
-            }
-            transform.localScale = newScale;
-            if (UpdateMass)
-            {
-                rigid.mass = Mathf.Lerp(minMass, maxMass,
-                    GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
-                if (joint)
-                {
-                    joint.massScale = Mathf.Lerp(maxJointMass, minJointMass,
-                        GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
-                }
-            }
+        {
+            newScale = minScale;
+        }
 
-            if (pulleySystem)
+        transform.localScale = newScale;
+        if (UpdateMass)
+        {
+            rigid.mass = Mathf.Lerp(minMass, maxMass,
+                GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+            if (joint)
             {
-                currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                joint.massScale = Mathf.Lerp(maxJointMass, minJointMass,
                     GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
-                SoftJointLimit temp = new SoftJointLimit{limit = currentLimit};
-                configurableJoint.linearLimit = temp;
             }
+        }
+
+        if (pulleySystem)
+        {
+            currentLimit = Mathf.Lerp(linearMinLimit, linerMaxLimit,
+                GeneralFunctions.ConvertRange(minScale.x, maxScale.x, 0, 1, newScale.x));
+            SoftJointLimit temp = new SoftJointLimit {limit = currentLimit};
+            configurableJoint.linearLimit = temp;
+        }
+    }
+
+    private IEnumerator WaitTime()
+    {
+        yield return new WaitForSeconds(.5f);
+        transform.localScale = maxScale;
+        if (UpdateMass)
+        {
+            rigid.mass = maxMass;
+            if (joint)
+                joint.massScale = maxJointMass;
+            
+        }
+        if (pulleySystem)
+        {
+            SoftJointLimit temp = new SoftJointLimit{limit = linerMaxLimit};
+            configurableJoint.linearLimit = temp;
+        }
     }
     
+    public void SetMax()
+    {
+        StartCoroutine(WaitTime());
+    }
+
     protected virtual void Start()
     {
         minScale = transform.localScale * MinScaleMultiplier;

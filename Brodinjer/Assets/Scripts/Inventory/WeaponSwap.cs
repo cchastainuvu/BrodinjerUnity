@@ -216,6 +216,7 @@ public class WeaponSwap : MonoBehaviour
         try
         {
             wm.SwapWeapon(AvailableWeapons[num]);
+            currentWeapon.value = num;
             wm.currentWeapon.Initialize();
             UpdateDisplay();
         }

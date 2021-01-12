@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class CameraRotationManager : MonoBehaviour
@@ -80,6 +79,7 @@ public class CameraRotationManager : MonoBehaviour
             inpause = false;
             StartRotation();
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
