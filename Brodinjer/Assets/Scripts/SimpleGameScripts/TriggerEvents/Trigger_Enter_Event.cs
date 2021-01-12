@@ -7,6 +7,7 @@ public class Trigger_Enter_Event : Trigger_Event_Base
 {
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log(gameObject.name + " " + other.gameObject.name + other.gameObject.tag);
         StartCoroutine(CheckTrigger(other));
     }
 
