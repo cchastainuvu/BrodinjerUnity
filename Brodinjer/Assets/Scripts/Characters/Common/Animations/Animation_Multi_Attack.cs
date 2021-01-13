@@ -48,7 +48,7 @@ public class Animation_Multi_Attack : Animation_Base
 
     private float GetNum()
     {
-        randomNum = Random.Range(0f, 1f);
+        randomNum = Random.Range(0.0f, 1.0f);
         for (int i = 0; i < percentages.Count-1; i++)
         {
             if (randomNum >= percentages[i] && randomNum <= percentages[i + 1])

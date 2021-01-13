@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScalingScript : WeaponBase
@@ -7,16 +6,13 @@ public class ScalingScript : WeaponBase
     private WaitForFixedUpdate _fixedUpdate = new WaitForFixedUpdate();
     private WaitUntil _waitforbutton;
     public GameObject MagicPrefab;
-    public Transform InitPos;
     private Rigidbody SpellBall;
     private float currPower;
     public float MaxPower, PowerIncreaseScale, ScaleIncreaseAmount;
     private GameObject currSpell;
     private Vector3 direction, finalScale, increaseScale, newScale;
-    private Vector3 rotDirection, initRotation;
+    private Vector3 rotDirection;
     public LimitFloatData MagicAmount;
-    public BoolData MagicInUse;
-    public float decreaseSpeed;
     public GameObject MagicObj;
     public CameraRotationManager cameraRotation;
     public CameraRotationBase bowCamera;
@@ -24,25 +20,31 @@ public class ScalingScript : WeaponBase
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
     public CharacterRotate originalRotate;
-    public float maxSpellDuration;
     private float currentSpellDuration;
-    public float CameraSwapTime;
     public bool freezeWhenAim;
     public CharacterTranslate freezePlayer;
     public CharacterTranslate originalTranslate;
-
-    public Object_Aim_Script AimScript;
-
     private Coroutine swapFunc;
+    public float CameraSwapTime;
+
+    
+    //Magic Variables
+    public Transform InitPos;
+    //private Vector3 initRotation;
+    public BoolData MagicInUse;
+    public float decreaseSpeed;
+    public float maxSpellDuration;
     private float currentTime;
-    private bool hit;
-    
-    
+    private bool hit, aiming;
+    public float minMagicAmount;
+    public Transform Direction;
+
+
     public override void Initialize()
     {
         //any init stuff needed
         MagicObj.SetActive(true);
-        initRotation = transform.rotation.eulerAngles;
+        //initRotation = transform.rotation.eulerAngles;
         finalScale = MagicPrefab.transform.localScale;
         increaseScale = new Vector3(ScaleIncreaseAmount, ScaleIncreaseAmount, ScaleIncreaseAmount);
         _waitforbutton = new WaitUntil(CheckInput);
@@ -50,11 +52,13 @@ public class ScalingScript : WeaponBase
         attack = Attack();
         MagicInUse.value = false;
         weaponFunc = StartCoroutine(Attack());
+        aiming = false;
 
     }
 
     public override IEnumerator Attack()
     {
+        anim.SetBool("Magic Equipped", true);
         while (currWeapon)
         {
             if (!MagicInUse.value)
@@ -64,25 +68,41 @@ public class ScalingScript : WeaponBase
                     yield return new WaitForFixedUpdate();
                 }
 
-                rotDirection = initRotation;
+                /*rotDirection = initRotation;
                 rotDirection.y = transform.rotation.eulerAngles.y;
-                transform.rotation = Quaternion.Euler(rotDirection);
-                yield return _waitforbutton;
-                if (!frozen)
+                transform.rotation = Quaternion.Euler(rotDirection);*/
+                if(MagicAmount.value > minMagicAmount)
+                    yield return _waitforbutton;
+                if (!frozen && MagicAmount.value > minMagicAmount)
                 {
-                    inUse = true;
-                    MagicInUse.value = true;
+                    if (currWeapon)
+                    {
+                        inUse = true;
+                        MagicInUse.value = true;
+                        aiming = true;
+                    }
+
                     if (currWeapon && MagicAmount.value > 0 && !frozen)
                     {
+                        if (cameraRotation.cameraRotation != bowCamera)
+                        {
+                            if(freezeWhenAim)
+                                playermove.SwapMovement(bowRotate, freezePlayer, playermove.extraControls);
+                            else
+                                playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
+                            StartTimeSwap(CameraSwapTime);
+                        }
+                        cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
+                        StartTimeSwap(CameraSwapTime);
+                        
                         currPower = 0;
                         currSpell = Instantiate(MagicPrefab, InitPos);
                         currSpell.transform.localScale = Vector3.zero;
                         currSpell.SetActive(true);
-                        SpellBall = currSpell.GetComponent<Rigidbody>();
-                        if(Input.GetButtonDown(useButton))
-                            AimScript.StartAim();
+                        SpellBall = currSpell.GetComponentInChildren<Rigidbody>();
                         while (Input.GetButton(useButton) && MagicAmount.value > 0)
                         {
+                            //Add Re
                             if (cameraRotation.cameraRotation != bowCamera)
                             {
                                 if(freezeWhenAim)
@@ -93,7 +113,6 @@ public class ScalingScript : WeaponBase
                             }
 
                             cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
-                            //Debug.Log("Current Power: " + currPower);
                             while (frozen)
                             {
                                 yield return new WaitForFixedUpdate();
@@ -122,30 +141,33 @@ public class ScalingScript : WeaponBase
                         {
                             yield return new WaitForFixedUpdate();
                         }
-                        if(freezeWhenAim)
-                            playermove.SwapMovement(bowRotate, originalTranslate, playermove.extraControls);
 
-                        SpellBall.constraints = RigidbodyConstraints.None;
+                        aiming = false;
+                        SpellBall.constraints = RigidbodyConstraints.FreezeRotation;
                         currSpell.transform.parent = null;
-                        ScalingMagic temp = currSpell.GetComponent<ScalingMagic>();
+                        ScalingMagic temp = currSpell.GetComponentInChildren<ScalingMagic>();
                         if(temp && temp.VFX)
-                            currSpell.GetComponent<ScalingMagic>().VFX.SetActive(true);
-                        SpellBall.AddForce(transform.forward * currPower, ForceMode.Impulse);
+                            temp.VFX.SetActive(true);
+                        temp.Fire();
+                        SpellBall.AddForce(Direction.transform.forward * currPower, ForceMode.Impulse);
                         currentSpellDuration = maxSpellDuration * (currPower / MaxPower);
+                        playermove.SwapMovement(bowRotate, originalTranslate, playermove.extraControls);
+
                         while (inUse && currentSpellDuration > 0 && MagicInUse.value)
                         {
+                            Debug.Log("In Use");
                             currentSpellDuration -= .1f;
                             yield return new WaitForSeconds(.1f);
                         }
 
-                        if (currSpell == null || currSpell.GetComponent<ScalingMagic>() == null || !currSpell.GetComponent<ScalingMagic>().hitObj)
+                        if (currSpell == null || temp == null || !temp.hitObj)
                         {
                             inUse = false;
                             MagicInUse.value = false;
                             Destroy(currSpell);
                             try
                             {
-                                ScalableObject obj = currSpell.GetComponent<ScalingMagic>().scaleObj;
+                                ScalableObject obj = temp.scaleObj;
                                 if (obj != null)
                                 {
                                     obj.highlightFX.UnHighlight();
@@ -184,11 +206,11 @@ public class ScalingScript : WeaponBase
         {
             StopCoroutine(weaponFunc);
         }
+        anim.SetBool("Magic Equipped", false);
     }
 
     public void SpellHit(bool hit)
     {
-        AimScript.StopAim();
         currentSpellDuration = 0;
     }
     
@@ -222,7 +244,8 @@ public class ScalingScript : WeaponBase
     {
         while (currentTime > 0)
         {
-            currentTime -= .1f;
+            if(!aiming)
+                currentTime -= .1f;
             yield return new WaitForSeconds(.1f);
         }
         StopTimeSwap();
@@ -242,4 +265,6 @@ public class ScalingScript : WeaponBase
         swapFunc = null;
 
     }
+    
+    
 }

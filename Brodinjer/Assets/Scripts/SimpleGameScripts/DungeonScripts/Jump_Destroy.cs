@@ -9,6 +9,7 @@ public class Jump_Destroy : MonoBehaviour
     public int numJumps;
     private int currentJump;
 
+    public List<UnityEvent> JumpEvents;
     public UnityEvent FinalJumpEvent;
 
     private float delayTime = .15f;
@@ -23,9 +24,12 @@ public class Jump_Destroy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Trigger");
                 if (!running && other.GetComponent<CharacterController>().velocity.y < minJumpVelocity)
                 {
                     running = true;
+                    Debug.Log("Invoke Jump");
+                    JumpEvents[currentJump].Invoke();
                     currentJump++;
                     if (currentJump >= numJumps)
                     {

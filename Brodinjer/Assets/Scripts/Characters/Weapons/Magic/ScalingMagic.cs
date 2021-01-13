@@ -24,12 +24,23 @@ public class ScalingMagic : MonoBehaviour
     public ScalingScript scalescript;
     public GameObject VFX;
     public string ScaleAxis;
+    public GameObject MagicCollider, VFXCollider;
 
     private void Start()
     {
         hitObj = false;
         _fixedUpdate = new WaitForFixedUpdate();
         scaleIncrease = new Vector3(IncreaseAmount, IncreaseAmount, IncreaseAmount);
+
+
+    }
+    
+    public void Fire()
+    {
+        MagicCollider.SetActive(true);
+        VFXCollider.SetActive(true); 
+        GetComponentInParent<Look_At_Script>().StopLookAt();
+        Debug.Log("Fire");
     }
 
     private IEnumerator OnTriggerEnter(Collider other)

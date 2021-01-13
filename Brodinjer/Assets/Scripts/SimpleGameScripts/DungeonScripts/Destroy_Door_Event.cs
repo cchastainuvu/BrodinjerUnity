@@ -21,6 +21,7 @@ public class Destroy_Door_Event : MonoBehaviour
     {
         if (other.CompareTag(TagName))
         {
+            Debug.Log(other.gameObject.name);
             if (!running && currentHit < NumHits)
             {
                 running = true;

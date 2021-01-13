@@ -14,4 +14,14 @@ public class ResetTriggers : MonoBehaviour
             anim.ResetTrigger(triggername);
         }
     }
+
+    public void SetBoolFalse(string boolName)
+    {
+        anim.SetBool(boolName, false);
+    }
+
+    public void SetBoolTrue(string boolName)
+    {
+        anim.SetBool(boolName, true);
+    }
 }

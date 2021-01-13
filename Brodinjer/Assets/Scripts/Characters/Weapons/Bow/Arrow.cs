@@ -10,26 +10,47 @@ public class Arrow : MonoBehaviour
     private GameObject stickyObj;
     private Stickable stickable;
     public UnityEvent onCollision;
+    public Transform Direction;
+    public GameObject ArrowTip;
+    private bool fired;
+    public GameObject ArrowCollider;
 
     private void Start()
     {
+        ArrowTip.SetActive(false);
         if (arrowRigid)
         {
             arrowRigid.GetComponent<Rigidbody>();
         }
+
+        fired = false;
+
     }
+
+    public void Fired()
+    {
+        fired = true;
+        ArrowTip.SetActive(true);
+        ArrowCollider.SetActive(true);
+
+    }
+
 
 
     private void OnCollisionEnter(Collision other)
     {
-        stickable = other.gameObject.GetComponentInChildren<Stickable>();
-        if (stickable)
+        if (fired)
         {
-            stickyObj = stickable.gameObject;
-            arrowRigid.constraints = RigidbodyConstraints.FreezeAll;
-            arrowRigid.gameObject.transform.parent = stickyObj.transform;
+            stickable = other.gameObject.GetComponentInChildren<Stickable>();
+            if (stickable)
+            {
+                stickyObj = stickable.gameObject;
+                arrowRigid.constraints = RigidbodyConstraints.FreezeAll;
+                arrowRigid.gameObject.transform.parent = stickyObj.transform;
+            }
+
+            onCollision.Invoke();
         }
-        onCollision.Invoke();
-        
+
     }
 }
