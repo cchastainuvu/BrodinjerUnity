@@ -33,7 +33,7 @@ public class DirectionalHit : Trigger_Event_Base
 
     public override IEnumerator CheckTrigger(Collider coll)
     {
-        //Debug.Log(coll.gameObject.layer);
+        //Debug.Log(coll.gameObject.layer + " " + coll.gameObject.name);
         switch (checksFor)
         {
             case Check.Layer:
@@ -43,6 +43,8 @@ public class DirectionalHit : Trigger_Event_Base
                     yield return new WaitForSeconds(waitTime);
                     anim.SetFloat(AnimDirectionName, GetDirection());
                     anim.SetTrigger(AnimHitName);
+                    if(coll.tag == "Arrow")
+                        coll.gameObject.layer = 0;
                 }
                 break;
             case Check.Name:
@@ -51,6 +53,8 @@ public class DirectionalHit : Trigger_Event_Base
                     yield return new WaitForSeconds(waitTime);
                     anim.SetFloat(AnimDirectionName, GetDirection());
                     anim.SetTrigger(AnimHitName);
+                    if(coll.tag == "Arrow")
+                        coll.gameObject.layer = 0;
                 }
                 break;
             case Check.Tag:
@@ -59,6 +63,8 @@ public class DirectionalHit : Trigger_Event_Base
                     yield return new WaitForSeconds(waitTime);
                     anim.SetFloat(AnimDirectionName, GetDirection());
                     anim.SetTrigger(AnimHitName);
+                    if(coll.tag == "Arrow")
+                        coll.gameObject.layer = 0;
                 }
                 break;
         }

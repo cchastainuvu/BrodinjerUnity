@@ -185,12 +185,17 @@
             </e>
             <e p="Weapons" t="Include">
               <e p="Aim_Camera_Switch.cs" t="Include" />
+              <e p="Aiming" t="Include">
+                <e p="Aim_Animation_Set.cs" t="Include" />
+              </e>
               <e p="Bow" t="Include">
                 <e p="Arrow.cs" t="Include" />
                 <e p="BowandArrow.cs" t="Include" />
+                <e p="BowString.cs" t="Include" />
                 <e p="Stickable.cs" t="Include" />
               </e>
               <e p="Magic" t="Include">
+                <e p="MagicBallAim.cs" t="Include" />
                 <e p="ScalableObject.cs" t="Include" />
                 <e p="ScalingMagic.cs" t="Include" />
                 <e p="ScalingScript.cs" t="Include" />
@@ -312,6 +317,7 @@
             <e p="GetDirection.cs" t="Include" />
             <e p="KeyPressEvent.cs" t="Include" />
             <e p="NavmeshTest.cs" t="Include" />
+            <e p="RaycastTest.cs" t="Include" />
             <e p="RibCageTransformMovment" t="Include">
               <e p="NavOffLinkMove.cs" t="Include" />
               <e p="RotateTest.cs" t="Include" />

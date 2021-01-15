@@ -1,27 +1,20 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class BowandArrow : WeaponBase
 {
-    //hold e to increase power
-    //release e to shoot
-    //Shoots straight forward from player
-    
     private WaitForFixedUpdate _fixedUpdate = new WaitForFixedUpdate();
     private WaitUntil _waitforbutton;
     public GameObject ArrowPrefab;
-    public Transform InitPos;
     private Rigidbody ArrowRB;
     private float currPower, currentTime;
     public float MaxPower, PowerIncreaseScale;
     private GameObject currArrow;
     private Vector3 direction;
-    private Vector3 rotDirection, initRotation;
+    private Vector3 rotDirection;
     public GameObject WeaponObj;
     public CameraRotationManager cameraRotation;
     public CameraRotationBase bowCamera;
@@ -29,21 +22,28 @@ public class BowandArrow : WeaponBase
     public PlayerMovement playermove;
     public CharacterRotate bowRotate;
     public CharacterRotate originalRotate;
+    public CharacterTranslate bowTranslate;
+    public CharacterTranslate originalTranslate;
     public LimitIntData numArrows;
-    public float cooldowntime;
-
-    public Object_Aim_Script AimScript;
     public float CameraSwapTime;
-
-    public UnityEvent BowEquiped, BowPulled, ArrowFired, BowUnequipped;
-
     private Coroutine swapFunc;
 
-    private bool running;
+    
+    //Arrow Variables
+    public UnityEvent BowEquiped, BowPulled, ArrowFired, BowUnequipped;
+    public float cooldowntime, reloadTime;
+    private bool running, aiming, exited;
+
+
+
+
+
+    public BowString bowstring;
 
     private void Start()
     {
         running = false;
+        aiming = false;
     }
 
     public override void Initialize()
@@ -53,7 +53,7 @@ public class BowandArrow : WeaponBase
         currWeapon = true;
         WeaponObj.SetActive(true);
         attack = Attack();
-        initRotation = transform.rotation.eulerAngles;
+        //initRotation = transform.rotation.eulerAngles;
         if (!running)
         {
             running = true;
@@ -63,6 +63,7 @@ public class BowandArrow : WeaponBase
 
     public override IEnumerator Attack()
     {
+        anim.SetBool("Bow Equipped", true);
         while (currWeapon)
         {
             while (frozen)
@@ -70,58 +71,78 @@ public class BowandArrow : WeaponBase
                 yield return new WaitForFixedUpdate();
             }
             
-            rotDirection = initRotation;
-            rotDirection.y = transform.rotation.eulerAngles.y;
-            transform.rotation = Quaternion.Euler(rotDirection);
+            //rotDirection = initRotation;
+            //rotDirection.y = transform.rotation.eulerAngles.y;
+            //transform.rotation = Quaternion.Euler(rotDirection);
             if(numArrows.value > 0)
                 yield return _waitforbutton;
-            if (!frozen && numArrows.value >0)
+            if (!frozen && numArrows.value > 0)
             {
+                cameraRotation.AnimationOffset = 0;
+                bowstring.Pull();
+                anim.SetTrigger("Bow Pull");
                 BowPulled.Invoke();
                 inUse = true;
                 if (currWeapon)
                 {
+                    if (playermove.rotate != bowRotate)
+                    {
+                        playermove.SwapMovement(bowRotate, bowTranslate, playermove.extraControls);    
+                    }
+                    cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);   
+                    StartTimeSwap(CameraSwapTime);
+                    
+                    currentTime = 0;
+                    yield return new WaitForSeconds(reloadTime);
+                    if (!Input.GetButton(useButton))
+                    {
+                        bowstring.Release();
+                        anim.SetTrigger("Bow Released");
+                        continue;
+                    }
+                    
                     currPower = 0;
-                    currArrow = Instantiate(ArrowPrefab, InitPos);
+                    currArrow = Instantiate(ArrowPrefab, ArrowPrefab.transform.parent);
                     currArrow.SetActive(true);
                     ArrowRB = currArrow.GetComponent<Rigidbody>();
                     while (Input.GetButton(useButton))
                     {
-                        if (cameraRotation.cameraRotation != bowCamera)
+                        if (playermove.rotate != bowRotate)
                         {
-                            playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
-                            StartTimeSwap(CameraSwapTime);
+                            playermove.SwapMovement(bowRotate, bowTranslate, playermove.extraControls);    
                         }
+                        cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);   
+                        StartTimeSwap(CameraSwapTime);
+                        aiming = true;
 
                         while (frozen)
                         {
                             yield return new WaitForFixedUpdate();
                         }
-
-                        cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
-                        
-                        AimScript.StartAim();
-                        currPower += Time.deltaTime * PowerIncreaseScale;
-                        if (currPower >= MaxPower)
-                        {
-                            currPower = MaxPower;
-                        }
-
                         yield return _fixedUpdate;
                     }
-
+                    currPower = MaxPower;
                     while (frozen)
                     {
                         yield return new WaitForFixedUpdate();
                     }
+
+                    bowstring.Release();
+                    cameraRotation.AnimationOffset = -2;
                     numArrows.SubInt(1);
                     ArrowFired.Invoke();
-                    ArrowRB.constraints = RigidbodyConstraints.None;
+                    ArrowRB.constraints = RigidbodyConstraints.FreezeRotation;
                     currArrow.transform.parent = null;
-                    ArrowRB.AddForce(transform.forward * currPower, ForceMode.Impulse);
+                    ArrowRB.AddForce(currArrow.GetComponent<Arrow>().Direction.forward * currPower, ForceMode.Impulse);
+                    currArrow.GetComponent<Arrow>().Fired();
                     inUse = false;
-                    AimScript.StopAim();
+                    aiming = false;
+                    cameraRotation.PauseTime(false);
                     yield return new WaitForSeconds(cooldowntime);
+                    anim.SetTrigger("Bow Released");
+                    playermove.SwapMovement(playermove.rotate, originalTranslate, playermove.extraControls);
+
+
                 }
     
             }
@@ -136,6 +157,8 @@ public class BowandArrow : WeaponBase
     {
         //and end stuff needed
         running = false;
+        aiming = false;
+        cameraRotation.PauseTime(false);
         BowUnequipped.Invoke();
         WeaponObj.SetActive(false);
         currWeapon = false;
@@ -148,6 +171,7 @@ public class BowandArrow : WeaponBase
         }
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
+        anim.SetBool("Bow Equipped", false);
     }
 
     private bool CheckInput()
@@ -206,7 +230,10 @@ public class BowandArrow : WeaponBase
     {
         while (currentTime > 0)
         {
-            currentTime -= .1f;
+            if (!aiming)
+            {
+                currentTime -= .1f;
+            }
             yield return new WaitForSeconds(.1f);
         }
         StopTimeSwap();
@@ -216,12 +243,12 @@ public class BowandArrow : WeaponBase
     {
         if (swapFunc != null)
         {
-            playermove.SwapMovement(originalRotate, playermove.translate, playermove.extraControls);
+            playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
             StopCoroutine(swapFunc);
         }
         else if(originalRotate != playermove.rotate)
         {
-            playermove.SwapMovement(originalRotate, playermove.translate, playermove.extraControls);
+            playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
         }
         swapFunc = null;
 

@@ -80,7 +80,6 @@ public class FadeScript : MonoBehaviour
                 GeneralFunctions.ConvertRange(0, FadeInTime, 0, 1, currentTime));
             yield return new WaitForFixedUpdate();
         }
-
         running = false;
     }
     

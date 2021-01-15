@@ -18,7 +18,7 @@ public class MeleeWeapon : WeaponBase
     public float attackActivateTime01, attackActivateTime02, attackActivateTime03;
     public PlayerMovement playermove;
     public bool freezeWhenAttack;
-    public CharacterTranslate freezeMovement;
+    private float origwalkfor, origwalkside, origrunfor, origrunside;
     public CharacterTranslate origMovement;
     public CharacterRotate freezeRotation;
     public CharacterRotate origRotation;
@@ -29,6 +29,10 @@ public class MeleeWeapon : WeaponBase
     private void Start()
     {
         running = false;
+        origwalkfor = origMovement.ForwardSpeed;
+        origwalkside = origMovement.SideSpeed;
+        origrunfor = origMovement.RunForwardSpeed;
+        origrunside = origMovement.RunSideSpeed;
     }
 
     public override void Initialize()
@@ -55,8 +59,15 @@ public class MeleeWeapon : WeaponBase
                 yield return fixedUpdate;
             }
             yield return waitforbutton;
-            if(freezeWhenAttack)
-                playermove.SwapMovement(freezeRotation, freezeMovement);
+            if (freezeWhenAttack)
+            {
+                playermove.SwapMovement(freezeRotation, origMovement);
+                origMovement.RunForwardSpeed = 0;
+                origMovement.RunSideSpeed = 0;
+                origMovement.ForwardSpeed = 0;
+                origMovement.SideSpeed = 0;
+            }
+
             if (!frozen)
             {
                 if (currWeapon)
@@ -123,6 +134,10 @@ public class MeleeWeapon : WeaponBase
                 {
                     Debug.Log("Reset Ax");
                     playermove.SwapMovement(origRotation, origMovement);
+                    origMovement.RunForwardSpeed = origrunfor;
+                    origMovement.RunSideSpeed = origrunside;
+                    origMovement.ForwardSpeed = origwalkfor;
+                    origMovement.SideSpeed = origwalkside;
                 }
 
                 Debug.Log("Finish Attack");
