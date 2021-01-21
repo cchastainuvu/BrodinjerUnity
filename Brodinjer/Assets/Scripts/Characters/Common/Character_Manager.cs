@@ -29,7 +29,7 @@ public abstract class Character_Manager : MonoBehaviour
     public bool canDamage = true;
 
 
-    private void Start()
+    protected virtual void Start()
     {
         damaged = false;
         stunned = false;

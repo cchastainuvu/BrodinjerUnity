@@ -19,6 +19,10 @@ public class WeaponDamageAmount : MonoBehaviour
 
     private void Start()
     {
+        if(BaseObj == null)
+        {
+            BaseObj = this.gameObject;
+        }
         hit = false;
     }
 }

@@ -61,7 +61,7 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
             attackFunc = StartCoroutine(Attack());
         }
     }
-    
+
     public abstract IEnumerator Attack();
 
     public virtual void StopAttack()

@@ -165,7 +165,7 @@ public class ThirdPersonTranslate : CharacterTranslate
             }
             else
             {
-                if ((jumping || falling || anim.GetBool(FallTrigger)))
+                if ((jumping || falling || (FallTrigger != "" && anim.GetBool(FallTrigger))))
                 {
                     falling = false;
                     jumping = false;
