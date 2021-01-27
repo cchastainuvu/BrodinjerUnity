@@ -11,7 +11,7 @@ public class chickenwalk : MonoBehaviour
 
     public void Update()
     {
-        if (agent.speed <= 1)
+        if (agent.velocity.magnitude <= 1)
         {
             print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         } 
