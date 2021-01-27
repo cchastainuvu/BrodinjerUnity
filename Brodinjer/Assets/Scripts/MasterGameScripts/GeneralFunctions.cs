@@ -41,6 +41,20 @@ public static class GeneralFunctions
         }
         return false;
     }
+    
+    public static bool CheckDestination(Vector3 Dest01, Vector3 Dest02, bool x, bool y, bool z, float offset)
+    {
+        if (((Dest01.x >= Dest02.x - offset
+             && Dest01.x <= Dest02.x + offset) || !x)
+            &&((Dest01.y >= Dest02.y - offset
+               && Dest01.y <= Dest02.y + offset)||!y)
+            &&((Dest01.z >= Dest02.z - offset
+               && Dest01.z <= Dest02.z + offset)||!z))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public static void SetTimeScale(float val)
     {
