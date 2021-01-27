@@ -14,9 +14,11 @@ public class Boss_Character_Manager : MonoBehaviour
     private bool damaged, dead;
     public Animator anim;
     private ResetTriggers reset;
+    private bool pause;
     
     private void Start()
     {
+        pause = false;
         reset = anim.gameObject.GetComponent<ResetTriggers>();
         damaged = false;
         dead = false;
@@ -84,6 +86,18 @@ public class Boss_Character_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(damageCoolDown);
         damaged = false;
+    }
+
+    public void PauseAttack()
+    {
+        if(currentPhase!= null)
+            currentPhase.StopPhase();
+    }
+
+    public void ResumeAttack()
+    {
+        if(currentPhase!= null)
+            currentPhase.ResumeAttack();
     }
 
 

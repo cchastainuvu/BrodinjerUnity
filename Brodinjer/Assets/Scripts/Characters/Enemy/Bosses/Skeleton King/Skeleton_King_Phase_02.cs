@@ -86,6 +86,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
                     resetTriggers.ResetAllTriggers();
                 anim.SetTrigger("Idle");
             }
+            damaged = false;
         }
     }
     private int RandomAttack()
@@ -94,15 +95,13 @@ public class Skeleton_King_Phase_02 : Phase_Base
         {
             int randint = Random.Range(0, 100);
             float randFloat = randint / 100f;
-            Debug.Log("Random Float Attack: " + randFloat);
             float currentnum = 0;
             for (int i = 0; i < nums.Count; i++)
             {
                 if (randFloat >= currentnum && randFloat < alteredNums[i])
                 {
-                    if(i == currentAttack)
+                   /* if(i == currentAttack)
                     {
-                        Debug.Log("Attack: " + i + " Repeat");
                         percent[i] -= .1f;
                         for(int j = 0; j < percent.Count; j++)
                         {
@@ -116,17 +115,15 @@ public class Skeleton_King_Phase_02 : Phase_Base
                     else
                     {
                         currentAttack = i;
-                        Debug.Log("Attack: " + i + " New");
                         percent = Percentages;
                         alteredNums = nums;
-                    }
+                    }*/
                     return i;
                 }
                 currentnum = alteredNums[i];
             }
-            if (percent.Count-1 == currentAttack)
+            /*if (percent.Count-1 == currentAttack)
             {
-                Debug.Log("Attack: " + (percent.Count - 1) + " Repeat");
                 percent[percent.Count - 1] -= .1f;
                 for (int j = 0; j < percent.Count; j++)
                 {
@@ -140,10 +137,9 @@ public class Skeleton_King_Phase_02 : Phase_Base
             else
             {
                 currentAttack = percent.Count - 1;
-                Debug.Log("Attack: " + (percent.Count - 1) + " New");
                 percent = Percentages;
                 alteredNums = nums;
-            }
+            }*/
             return nums.Count;
 
         }
@@ -151,6 +147,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
     }
     public override void StopPhase()
     {
+        anim.SetTrigger("Reset");
         if (phaseFunc != null)
             StopCoroutine(phaseFunc);
         currentPhase = false;
@@ -165,5 +162,13 @@ public class Skeleton_King_Phase_02 : Phase_Base
         damaged = true;
         if (attack != null)
             attack.attacking = false;
+    }
+
+    public override void ResumeAttack()
+    {
+        currentPhase = true;
+        alteredNums = nums;
+        percent = Percentages;
+        phaseFunc = StartCoroutine(RunPhase());
     }
 }

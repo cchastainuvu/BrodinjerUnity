@@ -38,6 +38,18 @@ public class Main_Character_Manager : Character_Manager
         stunned = false;
     }
 
+    public void TakeDamage(float amount)
+    {
+        if (canDamage && !dead)
+        {
+            Character.Health.TakeDamage(amount, false);
+            if (Character.Health.health.value <= 0)
+            {
+                return;
+            }
+        }
+    }
+
     protected override void StartKnockback(WeaponDamageAmount other)
     {
         if (_cc != null)

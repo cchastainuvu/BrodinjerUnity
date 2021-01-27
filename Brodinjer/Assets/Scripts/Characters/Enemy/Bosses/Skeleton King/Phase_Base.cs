@@ -13,5 +13,5 @@ public abstract class Phase_Base : MonoBehaviour
     protected Coroutine phaseFunc;
     public abstract void StopAttack();
     public abstract void StopDamage();
-
+    public abstract void ResumeAttack();
 }
