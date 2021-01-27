@@ -448,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 54750756039351373, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 54750756082751122, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
       propertyPath: m_Name
@@ -579,32 +584,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1.75
       objectReference: {fileID: 0}
+    - target: {fileID: 54750756715126826, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54750756715126826, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 54750757018211448, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 54750757026667567, guid: 9042d912211ff354b8e7448a83082710,
-        type: 3}
-      propertyPath: freezeWhenAim
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54750757026667567, guid: 9042d912211ff354b8e7448a83082710,
-        type: 3}
-      propertyPath: maxSpellDuration
-      value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54750757026667567, guid: 9042d912211ff354b8e7448a83082710,
-        type: 3}
-      propertyPath: decreaseSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 54750757026667567, guid: 9042d912211ff354b8e7448a83082710,
-        type: 3}
-      propertyPath: bowCamera
-      value: 
-      objectReference: {fileID: 11400000, guid: b6bc0df42272ad64999439ab41c3589d,
-        type: 2}
     - target: {fileID: 1146636117240442970, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -670,6 +664,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2888482549143498236, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2999116115061122824, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
       propertyPath: damageCoolDown
@@ -714,6 +713,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379092384161792211, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7834773452955204019, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
