@@ -20,6 +20,11 @@ public abstract class CharacterTranslate : ScriptableObject
     protected Animator anim;
     protected ResetTriggers reset;
 
+    public void SetGravity(float gravity)
+    {
+        Gravity = gravity;
+    }
+
     public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Targeting targetScript, Animator animator)
     {
         extraControlled = false;

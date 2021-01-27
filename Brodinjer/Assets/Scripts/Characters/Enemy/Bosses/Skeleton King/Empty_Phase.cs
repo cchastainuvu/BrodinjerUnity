@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Empty_Phase : Phase_Base
 {
+    public override void ResumeAttack()
+    {
+    }
+
     public override IEnumerator RunPhase()
     {
         yield return null;

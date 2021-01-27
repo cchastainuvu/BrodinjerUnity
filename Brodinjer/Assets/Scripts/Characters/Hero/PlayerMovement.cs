@@ -84,6 +84,13 @@ public class PlayerMovement : MonoBehaviour
                 StopAll();
         }
 
+    public void Drown()
+    {
+        stunned = true;
+        StopAll();
+        anim.SetTrigger("Drown");
+    }
+
         public void UnStun()
         {
                 stunned = false;

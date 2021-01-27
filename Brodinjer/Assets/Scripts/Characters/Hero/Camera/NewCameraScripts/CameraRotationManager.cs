@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CameraRotationManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CameraRotationManager : MonoBehaviour
 
     public bool rotateOnStart = true;
 
-    public GameObject DeathCam;
+    public GameObject DeathCam, DrownCam;
 
     private bool dead, paused;
 
@@ -37,6 +38,7 @@ public class CameraRotationManager : MonoBehaviour
     private Vector3 RotationAmount;
 
     public float AnimationOffset;
+    private bool drowned;
     
     private void Start()
     {
@@ -57,8 +59,28 @@ public class CameraRotationManager : MonoBehaviour
     public void Die()
     {
         dead = true;
-        DeathCam.SetActive(true);
+        if (!drowned)
+        {
+            DeathCam.SetActive(true);
+            cameraRotation.cameraObject.SetActive(false);
+        }
+    }
+
+    public void Drown()
+    {
+        drowned = true;
+        DrownCam.SetActive(true);
         cameraRotation.cameraObject.SetActive(false);
+    }
+
+    public void ResetDrown()
+    {
+        if (!dead)
+        {
+            drowned = false;
+            cameraRotation.cameraObject.SetActive(true);
+            DrownCam.SetActive(false);
+        }
     }
 
     public void SetRotate(bool val)
