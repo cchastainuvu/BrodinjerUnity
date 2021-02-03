@@ -42,7 +42,7 @@ public class ScalingMagic : MonoBehaviour
 
     private IEnumerator OnTriggerEnter(Collider other)
     {
-        if (!hitObj)
+        if (!hitObj && !scalescript.frozen)
         {
             if (other.CompareTag("Scalable"))
             {
@@ -80,7 +80,7 @@ public class ScalingMagic : MonoBehaviour
             scaleObj.highlightFX.Highlight();
         }
         scalescript.inUse = true;
-        while (MagicAmount.value > 0 /*&& timeLeft > 0*/ && scalescript.currWeapon)
+        while (MagicAmount.value > 0 && !scalescript.frozen && scalescript.currWeapon)
         {
             if (Input.GetAxis(ScaleAxis) > 0)
             {

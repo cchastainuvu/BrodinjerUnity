@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 public class BowandArrow : WeaponBase
 {
@@ -67,9 +66,6 @@ public class BowandArrow : WeaponBase
                 yield return new WaitForFixedUpdate();
             }
             
-            //rotDirection = initRotation;
-            //rotDirection.y = transform.rotation.eulerAngles.y;
-            //transform.rotation = Quaternion.Euler(rotDirection);
             if(numArrows.value > 0)
                 yield return _waitforbutton;
             if (!frozen && numArrows.value > 0)
@@ -251,5 +247,23 @@ public class BowandArrow : WeaponBase
         swapFunc = null;
 
     }
-    
+
+    public override void Off()
+    {
+        running = false;
+        aiming = false;
+        inUse = false;
+        if (weaponFunc != null)
+            StopCoroutine(weaponFunc);
+    }
+
+    public override void On()
+    {
+        Initialize();
+    }
+
+    public override void Activate()
+    {
+        WeaponObj.SetActive(true);
+    }
 }
