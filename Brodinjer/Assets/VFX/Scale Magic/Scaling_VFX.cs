@@ -8,6 +8,7 @@ public class Scaling_VFX : MonoBehaviour
     public GameObject ObjectToHighlight;
     public float StartingSizeIndicatorMin, StartingSizeIndicatorMax, StartingSizeHighlightMin, StartingSizeHighlightMax;
     public bool UseMesh;
+    public bool ScaleIndicator;
 
     private MeshFilter filter;
     private MeshRenderer Rend;
@@ -61,9 +62,12 @@ public class Scaling_VFX : MonoBehaviour
 
     public void Scale(float current)
     {
-        indicatorMain.startSize = GeneralFunctions.ConvertRange(0, 1, StartingSizeIndicatorMin,
-            StartingSizeIndicatorMax, current);
-        highlightMain.startSizeX = GeneralFunctions.ConvertRange(0, 1, StartingSizeHighlightMin,
-            StartingSizeHighlightMax, current);
+        if (ScaleIndicator)
+        {
+            indicatorMain.startSize = GeneralFunctions.ConvertRange(0, 1, StartingSizeIndicatorMin,
+                StartingSizeIndicatorMax, current);
+            highlightMain.startSizeX = GeneralFunctions.ConvertRange(0, 1, StartingSizeHighlightMin,
+                StartingSizeHighlightMax, current);
+        }
     }
 }
