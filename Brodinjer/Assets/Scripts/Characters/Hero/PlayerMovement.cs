@@ -4,85 +4,88 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-        public CharacterRotate rotate;
-        public CharacterTranslate translate;
-        public List<CharacterControlExtraBase> extraControls = new List<CharacterControlExtraBase>();
-        public Targeting targetScript;
-        private Coroutine rotateFunc, moveFunc, runFunc;
-        private CharacterController _cc;
-        public Transform CharacterScalar;
-        public Animator anim;
-        public bool MoveOnStart;
-        private bool moving, rotating, extrarunning, active, stunned;
-        public Transform DirectionReference;
-        public BoolData paused;
-        private bool pauseInits;
-        private ResetTriggers triggerReset;
-        public string IdleTrigger = "Idle";
-        public CharacterTranslate deadTranslate;
-        public CharacterRotate deadRotate;
-        private bool dead;
+    public CharacterRotate rotate, zRotation, deadRotate;
+    public CharacterTranslate translate, deadTranslate;
+    public List<CharacterControlExtraBase> extraControls = new List<CharacterControlExtraBase>();
+    public Transform CharacterScalar, DirectionReference;
+    public Animator anim;
+    public bool MoveOnStart;
+    public BoolData paused;
+    public string IdleTrigger = "Idle";
+    public Z_Targeting targetScript;
 
-        private void Awake()
-        {
-                _cc = GetComponent<CharacterController>();
-                triggerReset = anim.GetComponent<ResetTriggers>();
-        }
+    private CharacterRotate prevRotate;
+    private CharacterTranslate prevTranslate;
+    private Coroutine rotateFunc, moveFunc, runFunc;
+    private CharacterController _cc;
+    private bool moving, rotating, extrarunning, active, stunned, dead, targeting, pauseInits;
+    private ResetTriggers triggerReset;
 
-        private void Start()
-        {
-                dead = false;
-                active = true;
-                moving = false;
-                rotating = false;
-                extrarunning = false;
-                pauseInits = false;
-                Init();
-        }
 
-        public void Die()
-        {
-                Deactivate();
-                translate = deadTranslate;
-                translate.Init(this, _cc, DirectionReference, targetScript, anim);
-                rotate = deadRotate;
-                rotate.Init(transform, DirectionReference, targetScript);
-                translate.canMove = true;
-                translate.canRun = true;
-                if (!moving)
-                {
-                        moving = true;
-                        moveFunc = StartCoroutine(translate.Move());
-                        runFunc = StartCoroutine(translate.Run());
-                }
-                rotate.canRotate = true;
-                if (!rotating)
-                {
-                        rotating = true;
-                        rotateFunc = StartCoroutine(rotate.Rotate());
-                }
-                Debug.Log("Dead");
-        }
+    private void Awake()
+    {
+        _cc = GetComponent<CharacterController>();
+        triggerReset = anim.GetComponent<ResetTriggers>();
+        dead = false;
+        active = true;
+        moving = false;
+        rotating = false;
+        extrarunning = false;
+        pauseInits = false;
+        Init();
+    }
 
-        private void FixedUpdate()
+    public void Die()
+    {
+        Deactivate();
+        translate = deadTranslate;
+        translate.Init(this, _cc, DirectionReference, targetScript, anim);
+        rotate = deadRotate;
+        rotate.Init(transform, DirectionReference);
+        translate.canMove = true;
+        translate.canRun = true;
+        if (!moving)
         {
-                if (paused.value && !pauseInits)
-                {
-                        pauseInits = true;
-                        StopAll();
-                }
-                else if (!paused.value && pauseInits)
-                {
-                        pauseInits = false;
-                        StartAll();
-                }
+            moving = true;
+            moveFunc = StartCoroutine(translate.Move());
+            runFunc = StartCoroutine(translate.Run());
         }
+        rotate.canRotate = true;
+        if (!rotating)
+        {
+            rotating = true;
+            rotateFunc = StartCoroutine(rotate.Rotate());
+        }
+        Debug.Log("Dead");
+    }
 
-        public void Stun()
+    private void FixedUpdate()
+    {
+        if (paused.value && !pauseInits)
         {
-                stunned = true;
-                StopAll();
+            pauseInits = true;
+            StopAll();
         }
+        else if (!paused.value && pauseInits)
+        {
+            pauseInits = false;
+            StartAll();
+        }
+        if(targetScript.isTargeting && !targeting)
+        {
+            Target();
+        }
+        else if(!targetScript.isTargeting && targeting)
+        {
+            UnTarget();
+        }
+    }
+
+    public void Stun()
+    {
+        stunned = true;
+        StopAll();
+    }
 
     public void Drown()
     {
@@ -91,182 +94,220 @@ public class PlayerMovement : MonoBehaviour
         anim.SetTrigger("Drown");
     }
 
-        public void UnStun()
+    public void UnStun()
+    {
+        stunned = false;
+        StartAll();
+    }
+
+    private void Init()
+    {
+        rotate.Init(transform, DirectionReference);
+        translate.Init(this, _cc, DirectionReference, targetScript, anim);
+        if (extraControls != null)
         {
-                stunned = false;
-                StartAll();
+            foreach (var extra in extraControls)
+            {
+                extra.Init(CharacterScalar, _cc);
+            }
         }
 
-        private void Init()
+        if (MoveOnStart)
         {
-                rotate.Init(transform, DirectionReference, targetScript);
-                translate.Init(this, _cc, DirectionReference, targetScript, anim);
-                if (extraControls != null)
-                {
-                        foreach (var extra in extraControls)
-                        {
-                                extra.Init(CharacterScalar, _cc);
-                        }
-                }
-
-                if (MoveOnStart)
-                {
-                        StartAll();
-                }
+            StartAll();
         }
+    }
 
-        public void Deactivate()
+    public void Deactivate()
+    {
+        active = false;
+        StopAll();
+    }
+
+    public void EnterConv()
+    {
+        if (triggerReset)
+            triggerReset.ResetAllTriggers();
+        anim.SetTrigger(IdleTrigger);
+        Deactivate();
+    }
+
+    public void ExitConv()
+    {
+        Activate();
+        StartAll();
+    }
+
+    public void Activate()
+    {
+        active = true;
+    }
+
+    public void SwapMovement(CharacterRotate newRot, CharacterTranslate newTrans, List<CharacterControlExtraBase> extras = null)
+    {
+        if (!dead)
         {
-                active = false;
+            if (!targeting)
+            {
                 StopAll();
-        }
-
-        public void EnterConv()
-        {
-                if(triggerReset)
-                        triggerReset.ResetAllTriggers();
-                anim.SetTrigger(IdleTrigger);
-                Deactivate();
-        }
-
-        public void ExitConv()
-        {
-                Activate();
+                rotate = newRot;
+                translate = newTrans;
+                extraControls = extras;
+                Init();
                 StartAll();
+            }
+            else
+            {
+                prevRotate = rotate;
+                prevTranslate = translate;
+            }
         }
+    }
 
-        public void Activate()
+    public void StopAll()
+    {
+        StopMove();
+        StopRotate();
+        StopExtras();
+    }
+
+    public void StartAll()
+    {
+        if (active && !stunned)
         {
-                active = true;
+            StartMove();
+            StartRotate();
+            StartExtras();
         }
+    }
 
-        public void SwapMovement(CharacterRotate newRot, CharacterTranslate newTrans, List<CharacterControlExtraBase> extras = null)
+    public void StopMove()
+    {
+        translate.canMove = false;
+        translate.canRun = false;
+        if (moveFunc != null)
+            StopCoroutine(moveFunc);
+        if (runFunc != null)
+            StopCoroutine(runFunc);
+        moving = false;
+    }
+
+    public void StartMove()
+    {
+        if (active && !stunned)
         {
-                if (!dead)
+            translate.canMove = true;
+            translate.canRun = true;
+            if (!moving)
+            {
+                moving = true;
+                moveFunc = StartCoroutine(translate.Move());
+                runFunc = StartCoroutine(translate.Run());
+            }
+        }
+    }
+
+    public void StopRotate()
+    {
+        rotate.canRotate = false;
+        if (rotateFunc != null)
+            StopCoroutine(rotateFunc);
+        rotating = false;
+    }
+
+    public void StartRotate()
+    {
+        if (active && !stunned)
+        {
+            rotate.canRotate = true;
+            if (!rotating)
+            {
+                rotating = true;
+                rotateFunc = StartCoroutine(rotate.Rotate());
+            }
+        }
+    }
+
+    public void StartExtras()
+    {
+        if (active)
+        {
+            if (extraControls != null)
+            {
+                foreach (CharacterControlExtraBase extra in extraControls)
                 {
-                        StopAll();
-                        rotate = newRot;
-                        translate = newTrans;
-                        extraControls = extras;
-                        Init();
-                        StartAll();
+                    extra.canMove = true;
+                    if (!extrarunning)
+                    {
+                        extrarunning = true;
+                        StartCoroutine(extra.Move());
+                    }
                 }
+            }
         }
+    }
 
-        public void StopAll()
+    public void StopExtras()
+    {
+        if (extraControls != null)
         {
-                StopMove();
-                StopRotate();
-                StopExtras();
+            foreach (CharacterControlExtraBase extra in extraControls)
+            {
+                extra.canMove = false;
+            }
         }
 
-        public void StartAll()
+        extrarunning = false;
+    }
+
+    public void SetTranslate(CharacterTranslate translate)
+    {
+        if (!targeting)
         {
-                if (active && !stunned)
-                {
-                        StartMove();
-                        StartRotate();
-                        StartExtras();
-                }
+            StopMove();
+            this.translate = translate;
+            if (_cc == null)
+                _cc = GetComponent<CharacterController>();
+            this.translate.Init(this, _cc, DirectionReference, targetScript, anim);
+            StartMove();
         }
-
-        public void StopMove()
+        else
         {
-                translate.canMove = false;
-                translate.canRun = false;
-                if(moveFunc != null)
-                        StopCoroutine(moveFunc);
-                if(runFunc!= null)
-                        StopCoroutine(runFunc);
-                moving = false;
+            prevTranslate = translate;
         }
 
-        public void StartMove()
+    }
+
+    public void SetRotation(CharacterRotate rotate)
+    {
+        if (!targeting)
         {
-                if (active && !stunned)
-                {
-                        translate.canMove = true;
-                        translate.canRun = true;
-                        if (!moving)
-                        {
-                                moving = true;
-                                moveFunc = StartCoroutine(translate.Move());
-                                runFunc = StartCoroutine(translate.Run());
-                        }
-                }
+            StopRotate();
+            this.rotate = rotate;
+            if (_cc == null)
+                _cc = GetComponent<CharacterController>();
+            this.rotate.Init(transform, DirectionReference);
+            StartRotate();
         }
-
-        public void StopRotate()
+        else
         {
-                rotate.canRotate = false;
-                if(rotateFunc != null)
-                        StopCoroutine(rotateFunc);
-                rotating = false;
+            prevRotate = rotate;
         }
+    }
 
-        public void StartRotate()
-        {
-                if (active && !stunned)
-                {
-                        rotate.canRotate = true;
-                        if (!rotating)
-                        {
-                                rotating = true;
-                                rotateFunc = StartCoroutine(rotate.Rotate());
-                        }
-                }
-        }
+    private void Target()
+    {
+        Debug.Log("Target");
+        prevRotate = rotate;
+        prevTranslate = translate;
+        SwapMovement(zRotation, translate, extraControls);
+        targeting = true;
+    }
 
-        public void StartExtras()
-        {
-                if (active)
-                {
-                        if (extraControls != null)
-                        {
-                                foreach (CharacterControlExtraBase extra in extraControls)
-                                {
-                                        extra.canMove = true;
-                                        if (!extrarunning)
-                                        {
-                                                extrarunning = true;
-                                                StartCoroutine(extra.Move());
-                                        }
-                                }
-                        }
-                }
-        }
-
-        public void StopExtras()
-        {
-                if (extraControls != null)
-                {
-                        foreach (CharacterControlExtraBase extra in extraControls)
-                        {
-                                extra.canMove = false;
-                        }
-                }
-
-                extrarunning = false;
-        }
-
-        public void SetTranslate(CharacterTranslate translate)
-        {
-                StopMove();
-                this.translate = translate;
-                if (_cc == null)
-                        _cc = GetComponent<CharacterController>();
-                this.translate.Init(this, _cc, DirectionReference, targetScript, anim);
-                StartMove();
-                
-        }
-
-        public void SetRotation(CharacterRotate rotate)
-        {
-                StopRotate();
-                this.rotate = rotate;
-                if (_cc == null)
-                        _cc = GetComponent<CharacterController>();
-                this.rotate.Init(transform, DirectionReference, targetScript);
-                StartRotate();
-        }
+    private void UnTarget()
+    {
+        Debug.Log("Un Target");
+        targeting = false;
+        SwapMovement(prevRotate, prevTranslate, extraControls);
+    }
 }

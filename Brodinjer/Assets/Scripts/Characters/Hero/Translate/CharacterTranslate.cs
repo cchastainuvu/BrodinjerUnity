@@ -13,26 +13,26 @@ public abstract class CharacterTranslate : ScriptableObject
     [HideInInspector]
     public bool canMove, canRun, extraControlled;
     private Coroutine moveFunc, runFunc;
-    protected Targeting targetScript;
     public Animation_Base animation;
     protected MonoBehaviour caller;
     public string HorizontalAxis = "Horizontal", VerticalAxis = "Vertical", JumpAxis = "Jump";
     protected Animator anim;
     protected ResetTriggers reset;
+    protected Z_Targeting target;
 
     public void SetGravity(float gravity)
     {
         Gravity = gravity;
     }
 
-    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Targeting targetScript, Animator animator)
+    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Z_Targeting target, Animator animator)
     {
         extraControlled = false;
         this.caller = caller;
         this._cc = charc;
         Camera = camera;
-        this.targetScript = targetScript;
         this.anim = animator;
+        this.target = target;
         reset = anim.GetComponent<ResetTriggers>();
         if(animation!= null)
             animation.Init(caller, animator, _cc.transform, null);

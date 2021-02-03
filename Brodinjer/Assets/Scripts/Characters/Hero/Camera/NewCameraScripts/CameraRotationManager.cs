@@ -6,39 +6,20 @@ using UnityEngine.Events;
 public class CameraRotationManager : MonoBehaviour
 {
     public CameraRotationBase cameraRotation;
-
-    private Coroutine swapFunc;
-    private float currentTime;
-
-    private float mouseX, mouseY;
-    public string CameraHorizontal, CameraVertical;
-
-    private bool moving;
-
-    private Coroutine rotateFunc;
-
+    public string CameraHorizontal, CameraVertical, floatName;
     public BoolData Paused;
-
-    private bool inpause, canRotate;
-
     public bool rotateOnStart = true;
-
-    public GameObject DeathCam, DrownCam;
-
-    private bool dead, paused;
-
+    public GameObject DeathCam, DrownCam, RotateObj;
     public Animator anim;
-    public string floatName;
+    public Z_Targeting targetscript;
+    public float MinFloatRotate, CenterFloatRotate, MaxFloatRotate, AnimationOffset, 
+        ShakeStartTime, ShakeEndTime;
 
-    public Targeting targetscript;
+    private Coroutine rotateFunc, swapFunc;
+    private float currentRotate, mouseX, mouseY, currentTime;
+    private Vector3 RotationAmount, targetposition;
+    private bool drowned, targeting, dead, paused, inpause, moving, canRotate, shaking;
 
-    public GameObject RotateObj;
-    public float MinFloatRotate, CenterFloatRotate, MaxFloatRotate;
-    private float currentRotate;
-    private Vector3 RotationAmount;
-
-    public float AnimationOffset;
-    private bool drowned;
     
     private void Start()
     {
@@ -49,6 +30,8 @@ public class CameraRotationManager : MonoBehaviour
         if(rotateOnStart)
             SetRotate(true);
         AnimationOffset = 0;
+        targeting = false;
+        shaking = false;
     }
 
     public void PauseTime(bool val)
@@ -85,6 +68,7 @@ public class CameraRotationManager : MonoBehaviour
 
     public void SetRotate(bool val)
     {
+        Debug.Log("Set Rotate: " + val);
         canRotate = val;
     }
 
@@ -118,14 +102,18 @@ public class CameraRotationManager : MonoBehaviour
         {
             if (canRotate && !dead)
             {
-                mouseX += (Input.GetAxis(CameraHorizontal) * cameraRotation.mouseXMultiplier *
-                           cameraRotation.rotationSpeed) * Time.deltaTime;
-                mouseY -= (Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed *
-                           cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
-                mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
-                transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-                if (!targetscript.targeting)
+                if (!targetscript.isTargeting)
                 {
+                    if (cameraRotation.targeting)
+                    {
+                        UnTarget();
+                    }
+                    mouseX += (Input.GetAxis(CameraHorizontal) * cameraRotation.mouseXMultiplier *
+                               cameraRotation.rotationSpeed) * Time.deltaTime;
+                    mouseY -= (Input.GetAxis(CameraVertical) * cameraRotation.rotationSpeed *
+                               cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
+                    mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
+                    transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
                     if (floatName != "")
                     {
                         if (mouseY <= 0)
@@ -139,10 +127,36 @@ public class CameraRotationManager : MonoBehaviour
                                     mouseY) + AnimationOffset);
                         }
 
-                        
-                        
                     }
                 }
+                else
+                {
+                    if (!cameraRotation.targeting)
+                    {
+                        Target(targetscript.objClosest);
+                    }
+                    targetposition = targetscript.objClosest.transform.position;
+                    targetposition += (Camera.main.transform.right * cameraRotation.targetOffset.x) + (Camera.main.transform.up * cameraRotation.targetOffset.y);
+                    transform.LookAt(targetposition);
+                    if(floatName != "")
+                    {
+                        float angle = transform.rotation.eulerAngles.x;
+                        if(angle > 180)
+                        {
+                            angle -= 360;
+                        }
+                        if(angle <= 0)
+                        {
+                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, angle));
+                        }
+                        else
+                        {
+                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1, angle));
+                        }
+                    }
+                }
+
+
             }
 
 
@@ -166,6 +180,8 @@ public class CameraRotationManager : MonoBehaviour
         if(rotateFunc!= null)
             StopCoroutine(rotateFunc);
     }
+
+    #region TIMESWAP
 
     public void StartTimeSwap(float time, CameraRotationBase origCamera, CameraRotationBase newCamera)
     {
@@ -207,4 +223,53 @@ public class CameraRotationManager : MonoBehaviour
         swapFunc = null;
 
     }
+
+    #endregion
+
+    #region TARGET
+
+    public void Target(GameObject obj)
+    {
+        cameraRotation.Target(obj);
+    }
+
+    public void UnTarget()
+    {
+        cameraRotation.Untarget();
+    }
+
+    #endregion
+
+    #region SHAKE
+    public void StartShake()
+    {
+        if (!shaking)
+        {
+            shaking = true;
+            StartCoroutine(ShakeChange(0, cameraRotation.ShakeMaxAmplitude, 0, cameraRotation.ShakeMaxFrequency, ShakeStartTime));
+        }
+    }
+
+    private IEnumerator ShakeChange(float startamp, float endamp, float startfreq, float endfreq, float changetime)
+    {
+        float curtime = 0;
+        while(curtime < changetime)
+        {
+            curtime += Time.deltaTime;
+            cameraRotation.SetShake(Mathf.Lerp(startamp, endamp, GeneralFunctions.ConvertRange(0, changetime, 0, 1, curtime)),
+                Mathf.Lerp(startfreq, endfreq, GeneralFunctions.ConvertRange(0, changetime, 0, 1, curtime)));
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    public void StopShake()
+    {
+        if (shaking)
+        {
+            shaking = false;
+            StartCoroutine(ShakeChange(cameraRotation.ShakeMaxAmplitude, 0, cameraRotation.ShakeMaxFrequency, 0, ShakeEndTime));
+        }
+    }
+    #endregion
+
 }

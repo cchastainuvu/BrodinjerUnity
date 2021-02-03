@@ -175,4 +175,21 @@ public class MeleeWeapon : WeaponBase
             return false;
         }
     }
+
+    public override void Off()
+    {
+        if (weaponFunc != null)
+            StopCoroutine(weaponFunc);
+        running = false;
+    }
+
+    public override void On()
+    {
+        Initialize();
+    }
+
+    public override void Activate()
+    {
+        artObj.SetActive(true);
+    }
 }

@@ -21,7 +21,7 @@ public class ThirdPersonTranslate : CharacterTranslate
     public string FallTrigger = "Fall", LandTrigger = "Land";
     
     
-    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
+    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Z_Targeting target, Animator animator)
     {
         //Debug.Log("Camera: " + camera.gameObject.name);
         base.Init(caller, _cc, camera, target, animator);
@@ -86,13 +86,19 @@ public class ThirdPersonTranslate : CharacterTranslate
     }
 
     public override float getMoveAngle()
-    {        
-        return GetDirection(_cc.transform.InverseTransformDirection(_cc.velocity));
+    {
+        if (_cc != null)
+            return GetDirection(_cc.transform.InverseTransformDirection(_cc.velocity));
+        else
+            return 0;
     }
 
     Vector3 GetLocalDirection()
     {
-        return _cc.transform.InverseTransformDirection(Input.GetAxisRaw(HorizontalAxis)*_cc.transform.right + Input.GetAxisRaw(VerticalAxis)*_cc.transform.forward);
+        if (_cc != null)
+            return _cc.transform.InverseTransformDirection(Input.GetAxisRaw(HorizontalAxis) * _cc.transform.right + Input.GetAxisRaw(VerticalAxis) * _cc.transform.forward);
+        else
+            return Vector3.zero;
     }
     
     public virtual float GetDirection(Vector3 moveDirection)
@@ -116,7 +122,10 @@ public class ThirdPersonTranslate : CharacterTranslate
 
     public override float getSpeed()
     {
-        return ConvertRange(0, AnimSpeedMax, 0, 1, _cc.velocity.magnitude);
+        if (_cc != null)
+            return ConvertRange(0, AnimSpeedMax, 0, 1, _cc.velocity.magnitude);
+        else
+            return 0;
     }
 
     public virtual IEnumerator Invoke()
@@ -127,7 +136,7 @@ public class ThirdPersonTranslate : CharacterTranslate
         if (_cc.isGrounded) {
             vSpeed = -10;
             if (!jumping && !falling && (Input.GetButtonDown ("Jump"))) {
-                if (!dodging && targetScript.targeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
+                if (!dodging && target.isTargeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
                 {
                     if(DodgeAnimations!= null)
                         DodgeAnimations.StartAnimation();

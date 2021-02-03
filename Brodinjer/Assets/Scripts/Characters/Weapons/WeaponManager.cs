@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     public WeaponBase currentWeapon;
+    private bool freeze;
 
     public void WeaponDisable()
     {
@@ -14,18 +15,35 @@ public class WeaponManager : MonoBehaviour
 
     public void WeaponEnable()
     {
-        if(currentWeapon != null)
-            currentWeapon.Initialize();
+        if (!freeze)
+        {
+            if (currentWeapon != null)
+                currentWeapon.Initialize();
+        }
+    }
+
+    public void WeaponOff()
+    {
+        if (currentWeapon != null)
+            currentWeapon.Off();
+    }
+
+    public void WeaponOn()
+    {
+        if (currentWeapon != null)
+            currentWeapon.On();
     }
 
     public void WeaponFreeze()
     {
+        freeze = true;
         if(currentWeapon != null)
             currentWeapon.Freeze();
     }
 
     public void WeaponUnfreeze()
     {
+        freeze = false;
         if(currentWeapon != null)
             currentWeapon.Unfreeze();
     }
