@@ -20,5 +20,14 @@ public class ActivateRigidbodies : MonoBehaviour
             rigid.GetComponent<Collider>().enabled = true;
         }
     }
+
+    public void Deactivate()
+    {
+        foreach(var rigid in rigidbodies)
+        {
+            rigid.isKinematic = true;
+            rigid.useGravity = false;
+        }
+    }
     
 }

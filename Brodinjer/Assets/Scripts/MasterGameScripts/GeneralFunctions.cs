@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
+﻿using UnityEngine;
+
 
 public static class GeneralFunctions
 {
@@ -11,7 +7,16 @@ public static class GeneralFunctions
     {
         return (value - origMinRange) * (newMaxRange - newMinRange) / (origMaxRange - origMinRange) + newMinRange;
     }
-    
+
+    public static Vector3 ConvertRange(float origMinRange, float origMaxRange, Vector3 newMinRange, Vector3 newMaxRange, float value)
+    {
+        Vector3 newVector = Vector3.zero;
+        newVector.x = (value - origMinRange) * (newMaxRange.x - newMinRange.x) / (origMaxRange - origMinRange) + newMinRange.x;
+        newVector.y = (value - origMinRange) * (newMaxRange.y - newMinRange.y) / (origMaxRange - origMinRange) + newMinRange.y;
+        newVector.z = (value - origMinRange) * (newMaxRange.z - newMinRange.z) / (origMaxRange - origMinRange) + newMinRange.z;
+        return newVector;
+    }
+
     public static float GetDirection(Vector3 targetPosition, Vector3 mainPosition)
     {
         Vector3 collisionposition = targetPosition;
@@ -36,6 +41,20 @@ public static class GeneralFunctions
                  && Dest01.y <= Dest02.y + offset)
             &&(Dest01.z >= Dest02.z - offset
                  && Dest01.z <= Dest02.z + offset))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public static bool CheckDestination(Vector3 Dest01, Vector3 Dest02, bool x, bool y, bool z, float offset)
+    {
+        if (((Dest01.x >= Dest02.x - offset
+             && Dest01.x <= Dest02.x + offset) || !x)
+            &&((Dest01.y >= Dest02.y - offset
+               && Dest01.y <= Dest02.y + offset)||!y)
+            &&((Dest01.z >= Dest02.z - offset
+               && Dest01.z <= Dest02.z + offset)||!z))
         {
             return true;
         }

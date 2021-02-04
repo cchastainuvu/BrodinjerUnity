@@ -24,4 +24,9 @@ public class MagicBar : MonoBehaviour
         
         barUI.fillAmount = MagicAmount.value / MagicAmount.MaxValue;
     }
+
+    public void SetMagicRegen(float num)
+    {
+        increaseSpeed = num;
+    }
 }

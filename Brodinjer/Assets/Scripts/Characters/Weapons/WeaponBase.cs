@@ -9,7 +9,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected IEnumerator attack;
     [HideInInspector] public bool currWeapon;
     [HideInInspector] public bool inUse;
-    protected bool frozen;
+    public bool frozen;
     public Animator anim;
     public string AttackTrigger;
     public string AttackEndTrigger;
@@ -23,24 +23,20 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract IEnumerator Attack();
     public abstract void End();
 
+    public abstract void Off();
+    public abstract void On();
     public virtual void Freeze()
     {
-        if (anim != null)
-        {
-            animSpeed = anim.speed;
-            anim.speed = 0;
-        }
-
+        Debug.Log("Freeze");
         frozen = true;
     }
-
     public virtual void Unfreeze()
     {
-        if(anim!= null)
-            anim.speed = animSpeed;
+        Debug.Log("Unfreeze");
+
         frozen = false;
     }
-    
-    
+
+    public abstract void Activate();
 
 }

@@ -17,8 +17,21 @@ public class WeaponDamageAmount : MonoBehaviour
 
     public GameObject BaseObj;
 
+    public Vector3 knockbackDirection;
+
+    public string DamageAnimationTrigger;
+
+    public void SetKnockbackDirection(Vector3 newDirection)
+    {
+        knockbackDirection = newDirection;
+    }
+
     private void Start()
     {
+        if(BaseObj == null)
+        {
+            BaseObj = this.gameObject;
+        }
         hit = false;
     }
 }
