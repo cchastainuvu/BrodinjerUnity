@@ -1,16 +1,25 @@
 fileFormatVersion: 2
-guid: ff1e1d90fe947674d89b693aa4a01a8d
+guid: c4494f0fda6d83b49b86eedcb2eb4693
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Hand_Idle
+    second: L_Hand_Beginning
+  - first:
+      74: -517797189787067331
+    second: L_Hand_Beginning
+  - first:
+      74: 3506654623398959185
+    second: L_Hand_Jumpback
+  - first:
+      74: 4365246988626940750
+    second: L_Hand_End
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Hand_Rig_Skeleton_King_Mat
+      name: Hand_Rig_Init_Cutscene_R_Hand_Rig_v1_Skeleton_King_Mat1
     second: {fileID: 2100000, guid: 272f5a9ef1ca174449231804ba0270a1, type: 2}
   materials:
     materialImportMode: 1
@@ -40,18 +49,76 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Hand_Idle
+      name: L_Hand_Beginning
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 139
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: L_Hand_Jumpback
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 120
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: L_Hand_End
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 150
+      lastFrame: 223
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
