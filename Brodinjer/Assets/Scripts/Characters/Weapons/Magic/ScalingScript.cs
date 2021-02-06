@@ -44,6 +44,7 @@ public class ScalingScript : WeaponBase
 
     public override void Initialize()
     {
+        Debug.Log("Initialize Magic");
         currWeapon = true;
         MagicObj.SetActive(true);
         finalScale = MagicPrefab.transform.localScale;
@@ -154,7 +155,8 @@ public class ScalingScript : WeaponBase
                         {
                             inUse = false;
                             MagicInUse.value = false;
-                            Destroy(currSpell);
+                            //Destroy(currSpell);
+                            StartCoroutine(WaitDestroy());
                             try
                             {
                                 ScalableObjectBase obj = temp.scaleObj;
@@ -177,6 +179,12 @@ public class ScalingScript : WeaponBase
             yield return _fixedUpdate;
 
         }
+    }
+
+    private IEnumerator WaitDestroy()
+    {
+        yield return new WaitForSeconds(.5f);
+
     }
     
 

@@ -15,7 +15,7 @@ public class CameraRotationBase : ScriptableObject
     [HideInInspector] public CinemachineVirtualCamera vc;
     private Cinemachine3rdPersonFollow transposer;
     private CinemachineBasicMultiChannelPerlin shake;
-    [HideInInspector] public bool targeting;
+    [HideInInspector] public bool targeting, shaking=false;
 
 
     public void SetCamera(GameObject camObj)

@@ -159,7 +159,6 @@ public class MeleeWeapon : WeaponBase
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
         running = false;
-        Debug.Log("Swap Mvement Ax");
         playermove.SwapMovement(origRotation, origMovement);
 
     }

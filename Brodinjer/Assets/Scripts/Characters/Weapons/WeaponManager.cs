@@ -53,6 +53,7 @@ public class WeaponManager : MonoBehaviour
         if(currentWeapon !=null)
             WeaponDisable();
         currentWeapon = weapon;
+        weapon.Initialize();
         if(currentWeapon != null)
             WeaponEnable();
     }

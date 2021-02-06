@@ -14,7 +14,6 @@ public class CameraRotationManager : MonoBehaviour
     public Z_Targeting targetscript;
     public float MinFloatRotate, CenterFloatRotate, MaxFloatRotate, AnimationOffset, 
         ShakeStartTime, ShakeEndTime;
-
     private Coroutine rotateFunc, swapFunc;
     private float currentRotate, mouseX, mouseY, currentTime;
     private Vector3 RotationAmount, targetposition;
@@ -172,6 +171,14 @@ public class CameraRotationManager : MonoBehaviour
             newBase.cameraObject.SetActive(true);
         cameraRotation = newBase;
         floatName = cameraRotation.DirectionFloatName;
+        if(cameraRotation.shaking && !shaking)
+        {
+            StopShake();
+        }
+        else if(!cameraRotation.shaking && shaking)
+        {
+            StartShake();
+        }
     }
 
     public void StopRotation()

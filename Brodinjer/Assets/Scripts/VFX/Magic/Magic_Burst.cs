@@ -20,8 +20,11 @@ public class Magic_Burst : MonoBehaviour
         {
             position = ProjectilePrefab.transform.position;
             rotation = ProjectilePrefab.transform.rotation;
-            BurstPrefab.SetActive(true);
-            BurstPrefab.transform.parent = null;
+            if (BurstPrefab != null)
+            {
+                BurstPrefab.SetActive(true);
+                BurstPrefab.transform.parent = null;
+            }
             onHit.Invoke();
             //ProjectilePrefab.SetActive(false);
             //GameObject temp = Instantiate(BurstPrefab, position, rotation);

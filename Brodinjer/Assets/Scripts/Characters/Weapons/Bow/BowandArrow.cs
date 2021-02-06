@@ -30,7 +30,7 @@ public class BowandArrow : WeaponBase
     public UnityEvent BowEquiped, BowPulled, ArrowFired, BowUnequipped;
     public float cooldowntime, reloadTime;
     private bool running, aiming, exited;
-
+    private ResetTriggers reset;
 
 
     public BowString bowstring;
@@ -39,6 +39,8 @@ public class BowandArrow : WeaponBase
     {
         running = false;
         aiming = false;
+        reset = anim.GetComponent<ResetTriggers>();
+
     }
 
     public override void Initialize()
@@ -73,7 +75,10 @@ public class BowandArrow : WeaponBase
                 CenterCursor.SetActive(true);
                 cameraRotation.AnimationOffset = 0;
                 bowstring.Pull();
-                anim.SetTrigger("Bow Pull");
+                reset.ResetAllTriggers();
+                //anim.SetTrigger("Bow Pull");
+                anim.SetBool("Pulled", true);
+                Debug.Log("Pull");
                 BowPulled.Invoke();
                 inUse = true;
                 if (currWeapon)
@@ -90,10 +95,11 @@ public class BowandArrow : WeaponBase
                     if (!Input.GetButton(useButton))
                     {
                         bowstring.Release();
-                        anim.SetTrigger("Bow Released");
+                        reset.ResetAllTriggers();
+                        anim.SetBool("Pulled", true);
+                        Debug.Log("Release");
                         continue;
                     }
-                    
                     currPower = 0;
                     currArrow = Instantiate(ArrowPrefab, ArrowPrefab.transform.parent);
                     currArrow.SetActive(true);
@@ -133,7 +139,8 @@ public class BowandArrow : WeaponBase
                     CenterCursor.SetActive(false);
                     cameraRotation.PauseTime(false);
                     yield return new WaitForSeconds(cooldowntime);
-                    anim.SetTrigger("Bow Released");
+                    //anim.SetTrigger("Bow Released");
+                    anim.SetBool("Pulled", false);
                     playermove.SwapMovement(playermove.rotate, originalTranslate, playermove.extraControls);
 
 
