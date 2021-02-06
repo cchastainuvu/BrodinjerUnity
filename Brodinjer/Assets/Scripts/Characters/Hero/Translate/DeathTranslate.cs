@@ -11,7 +11,7 @@ public class DeathTranslate : CharacterTranslate
 
     
     
-    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Targeting target, Animator animator)
+    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Z_Targeting target, Animator animator)
     {
         base.Init(caller, _cc, camera, target, animator);
         _moveVec = Vector3.zero;  

@@ -12,16 +12,53 @@ public class Skeleton_King_Phase_01 : Phase_Base
      */
 
     public List<Enemy_Attack_Base> PhaseAttacks;
-    private int randAttack;
+    public List<float> Percentages;
+    private List<float> nums;
     private Enemy_Attack_Base attack;
     public float minInBetween, maxInBetween;
     private float waitTime;
+    public float DamageWaitTime;
+    private bool damaged;
+    public Animator anim;
+    private ResetTriggers resetTriggers;
+    private int currentAttack = -1;
+    private List<float> alteredNums;
+    private List<float> percent;
+
+    private void Start()
+    {
+        resetTriggers = anim.gameObject.GetComponent<ResetTriggers>();
+        nums = new List<float>();
+        float currentNum = 0;
+        for(int i = 0; i < Percentages.Count-1; i++)
+        {
+            currentNum += Percentages[i];
+            nums.Add(currentNum);
+        }
+
+    }
+
+    public List<float> Setup(List<float> num)
+    {
+        List<float> temp = new List<float>();
+        float currentNum = 0;
+        for (int i = 0; i < Percentages.Count - 1; i++)
+        {
+            currentNum += num[i];
+            temp.Add(currentNum);
+            Debug.Log("Attack " + i + ": " + currentNum);
+        }
+        return temp;
+    }
 
     public override void StartPhase()
     {
         if (!currentPhase)
         {
+            alteredNums = nums;
+            percent = Percentages;
             currentPhase = true;
+            StartPhaseEvent.Invoke();
             phaseFunc = StartCoroutine(RunPhase());
         }
     }
@@ -34,16 +71,87 @@ public class Skeleton_King_Phase_01 : Phase_Base
             waitTime = Random.Range(minInBetween, maxInBetween);
             yield return new WaitForSeconds(waitTime);
             //Randomize Attack
-            randAttack = Random.Range(0, PhaseAttacks.Count);
-            attack = PhaseAttacks[randAttack];
+            attack = PhaseAttacks[RandomAttack()];
             attack.attacking = true;
+            Debug.Log("Start Attack");
             yield return StartCoroutine(attack.Attack());
+            if (damaged)
+            {
+                Debug.Log("Damaged");
+                yield return new WaitForSeconds(DamageWaitTime);
+            }
+            else
+            {
+                Debug.Log("Reset");
+                if (resetTriggers)
+                    resetTriggers.ResetAllTriggers();
+                anim.SetTrigger("Idle");
+            }
+            damaged = false;
         }
+    }
+
+    private int RandomAttack()
+    {
+        if (PhaseAttacks.Count > 1)
+        {
+            int randint = Random.Range(0, 100);
+            float randFloat = randint / 100f;
+            Debug.Log(randFloat);
+            float currentnum = 0;
+            for (int i = 0; i < nums.Count; i++)
+            {
+                if (randFloat >= currentnum && randFloat < alteredNums[i])
+                {
+                    /*if (i == currentAttack)
+                    {
+                        percent[i] -= .1f;
+                        for (int j = 0; j < percent.Count; j++)
+                        {
+                            if (currentAttack != j)
+                            {
+                                percent[j] += (.1f / (percent.Count - 1));
+                            }
+                        }
+                        alteredNums = Setup(percent);
+                    }
+                    else
+                    {
+                        currentAttack = i;
+                        percent = Percentages;
+                        alteredNums = nums;
+                    }*/
+                    return i;
+                }
+                currentnum = alteredNums[i];
+            }
+           /* if (percent.Count - 1 == currentAttack)
+            {
+                percent[percent.Count - 1] -= .1f;
+                for (int j = 0; j < percent.Count; j++)
+                {
+                    if (currentAttack != j)
+                    {
+                        percent[j] += (.1f / (percent.Count - 1));
+                    }
+                }
+                alteredNums = Setup(percent);
+            }
+            else
+            {
+                currentAttack = percent.Count - 1;
+                percent = Percentages;
+                alteredNums = nums;
+            }*/
+            return nums.Count;
+        }
+        return 0;
     }
 
     public override void StopPhase()
     {
-        if(phaseFunc != null)
+        anim.SetTrigger("Reset");
+        if (phaseFunc != null)
             StopCoroutine(phaseFunc);
         currentPhase = false;
     }
@@ -52,5 +160,20 @@ public class Skeleton_King_Phase_01 : Phase_Base
     {
         if (attack != null)
             attack.attacking = false;
+    }
+
+    public override void StopDamage()
+    {
+        damaged = true;
+        if (attack != null)
+            attack.attacking = false;
+    }
+
+    public override void ResumeAttack()
+    {
+        currentPhase = true;
+        alteredNums = nums;
+        percent = Percentages;
+        phaseFunc = StartCoroutine(RunPhase());
     }
 }

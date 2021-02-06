@@ -32,8 +32,8 @@ TagManager:
   - Stalactite
   - Magic
   - Ignore Light
-  - 
-  - 
+  - WaterDeath
+  - ZTargeting
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Particle System
+    uniqueID: 280146223
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

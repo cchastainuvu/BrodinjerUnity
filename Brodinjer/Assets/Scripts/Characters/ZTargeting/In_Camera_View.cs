@@ -14,7 +14,6 @@ public class In_Camera_View : MonoBehaviour
         if (currentCam != null)
         {
             _camPos = currentCam.WorldToViewportPoint(obj.position);
-            //Debug.Log(_camPos);
             if ((_camPos.x >= -1) && (_camPos.x <= 1) && (_camPos.y >= -1) && (_camPos.y <= 1) && (_camPos.z >= 0) &&
                 (_camPos.z <= MaxDistance))
             {

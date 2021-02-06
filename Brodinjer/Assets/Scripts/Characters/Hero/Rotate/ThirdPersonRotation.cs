@@ -23,7 +23,7 @@ public class ThirdPersonRotation : CharacterRotate
             Invoke();
             sideAmount = Input.GetAxis(SideAxis);
             forwardAmount = Input.GetAxis(ForwardAxis);
-            if (!targetScript.targeting && (sideAmount >= .1f || sideAmount <= -.1f || forwardAmount >= .1f ||
+            if ((sideAmount >= .1f || sideAmount <= -.1f || forwardAmount >= .1f ||
                                             forwardAmount <= -.1f))
             {
                 headingAngle = Quaternion.LookRotation(_moveVec).eulerAngles.y;

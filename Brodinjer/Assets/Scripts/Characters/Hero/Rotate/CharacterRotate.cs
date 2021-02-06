@@ -7,18 +7,16 @@ public abstract class CharacterRotate : ScriptableObject
 {
     public float  RotateSpeed;
     public string ForwardAxis, SideAxis;
-    protected Targeting targetScript;
     [HideInInspector]
     public bool canRotate;
     private Coroutine rotateFunc;
     protected Transform obj;
     protected Transform camera;
 
-    public virtual void Init(Transform obj, Transform camera, Targeting targetScript)
+    public virtual void Init(Transform obj, Transform camera)
     {
         this.obj = obj;
         this.camera = camera;
-        this.targetScript = targetScript;
     }
 
     public abstract IEnumerator Rotate();

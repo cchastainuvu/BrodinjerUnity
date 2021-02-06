@@ -10,10 +10,10 @@ public class FirstPlayerRotation : CharacterRotate
     private Vector3 rotation;
     private Quaternion quat;
 
-    public override void Init(Transform obj, Transform camera, Targeting target)
+    public override void Init(Transform obj, Transform camera)
     {
         _fixedUpdate = new WaitForFixedUpdate();
-        base.Init(obj, camera, target);
+        base.Init(obj, camera);
     }
 
     public override IEnumerator Rotate()

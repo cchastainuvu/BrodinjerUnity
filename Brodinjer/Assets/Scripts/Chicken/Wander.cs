@@ -11,26 +11,41 @@ public class Wander : MonoBehaviour
     public float wanderRadius;
     public float wanderTimer;
 
-    private Transform target;
     private NavMeshAgent agent;
-    private float timer;
+
+    public Animator chickenAnim;
+    private Vector3 newPos;
 
 
     void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
-        timer = wanderTimer;
+        StartCoroutine(Walk());
+        StartCoroutine(AnimationUpdate());
     }
 
-    void Update()
+    private IEnumerator Walk()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= wanderTimer)
-        {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+        while (true) {
+            newPos = RandomNavSphere(transform.position, wanderRadius, -1);
             agent.SetDestination(newPos);
-            timer = 0;
+            yield return new WaitForSeconds(wanderTimer);
+        }
+    }
+
+    private IEnumerator AnimationUpdate()
+    {
+        while (true)
+        {
+            chickenAnim.SetFloat("Speed", agent.velocity.magnitude);
+            if(agent.velocity.magnitude <= .01f)
+            {
+                chickenAnim.speed = 1;
+            }
+            else {
+                chickenAnim.speed = agent.velocity.magnitude;
+            }
+            yield return new WaitForFixedUpdate();
         }
     }
 

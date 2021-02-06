@@ -21,11 +21,10 @@ public class WeaponSwap : MonoBehaviour
     public string PutAwayWeapon;
     private int weapon = 0;
     private bool canChange;
-    
+    public bool WeaponOnStart;
 
     private IEnumerator Start()
     {
-        canChange = true;
         yield return new WaitForSeconds(.1f);
         AvailableWeapons = new List<WeaponBase>();
         foreach (var wb in AllWeapons)
@@ -44,7 +43,11 @@ public class WeaponSwap : MonoBehaviour
             try
             {
                 wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
-                wm.currentWeapon.Initialize();
+                if (WeaponOnStart)
+                    wm.currentWeapon.Initialize();
+                else
+                    wm.currentWeapon.Activate();
+
             }
             catch
             {

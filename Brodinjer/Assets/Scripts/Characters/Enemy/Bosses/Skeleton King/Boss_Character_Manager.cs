@@ -12,9 +12,14 @@ public class Boss_Character_Manager : MonoBehaviour
     private int currentHealthMark;
     private Phase_Base currentPhase;
     private bool damaged, dead;
+    public Animator anim;
+    private ResetTriggers reset;
+    private bool pause;
     
     private void Start()
     {
+        pause = false;
+        reset = anim.gameObject.GetComponent<ResetTriggers>();
         damaged = false;
         dead = false;
         Init();        
@@ -26,6 +31,7 @@ public class Boss_Character_Manager : MonoBehaviour
     
     public void Init()
     {
+        health.Init(this, null, true);
         if (GetComponent<Death_Event_Setup>() != null && health.Death_Version is Death_Event)
         {
             Death_Event death = health.Death_Version as Death_Event;
@@ -50,18 +56,23 @@ public class Boss_Character_Manager : MonoBehaviour
         currentPhase.StartPhase();
     }
 
-    public void TakeDamage(float amount, bool armor, float ArmorAmount)
+    public void TakeDamage(float amount, bool armor, float ArmorAmount, string DamageTrigger = "Damage")
     {
         if (!dead && !damaged)
         {
             damaged = true;
             health.TakeDamage(amount, armor, ArmorAmount);
+            StartCoroutine(PauseDamage());
+            if (reset)
+                reset.ResetAllTriggers();
+            anim.SetTrigger(DamageTrigger);
             if (health.health.value <= 0)
             {
+                health.Death();
                 dead = true;
                 return;
             }
-            currentPhase.StopAttack();
+            currentPhase.StopDamage();
             if (health.health.value <= healthMarks[currentHealthMark])
             {
                 currentHealthMark++;
@@ -75,6 +86,18 @@ public class Boss_Character_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(damageCoolDown);
         damaged = false;
+    }
+
+    public void PauseAttack()
+    {
+        if(currentPhase!= null)
+            currentPhase.StopPhase();
+    }
+
+    public void ResumeAttack()
+    {
+        if(currentPhase!= null)
+            currentPhase.ResumeAttack();
     }
 
 
