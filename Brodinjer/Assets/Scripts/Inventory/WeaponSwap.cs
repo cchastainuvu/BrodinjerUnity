@@ -42,7 +42,7 @@ public class WeaponSwap : MonoBehaviour
         {
             try
             {
-                wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                 if (WeaponOnStart)
                     wm.currentWeapon.Initialize();
                 else
@@ -75,7 +75,7 @@ public class WeaponSwap : MonoBehaviour
                         if (currentWeapon.value == -1)
                         {
                             currentWeapon.value = weapon;
-                            wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                            wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                         }
                         else
                         {
@@ -94,7 +94,7 @@ public class WeaponSwap : MonoBehaviour
                             currentWeapon.value = AvailableWeapons.Count - 1;
                         }
 
-                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                         UpdateDisplay();
                     }
                     else if (scrollWheel > .05f)
@@ -105,7 +105,7 @@ public class WeaponSwap : MonoBehaviour
                             currentWeapon.value = 0;
                         }
 
-                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                         UpdateDisplay();
                     }
                     else
@@ -115,7 +115,7 @@ public class WeaponSwap : MonoBehaviour
                             if (Input.GetKeyDown(WeaponKeys[i]))
                             {
                                 currentWeapon.value = i;
-                                wm.SwapWeapon(AvailableWeapons[i]);
+                                wm.SwapWeapon(AvailableWeapons[i], canChange);
                             }
                         }
 
@@ -130,7 +130,7 @@ public class WeaponSwap : MonoBehaviour
                     if (currentWeapon.value == -1)
                     {
                         currentWeapon.value = weapon;
-                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value]);
+                        wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                     }
                     /*else
                     {
@@ -218,7 +218,7 @@ public class WeaponSwap : MonoBehaviour
     {
         try
         {
-            wm.SwapWeapon(AvailableWeapons[num]);
+            wm.SwapWeapon(AvailableWeapons[num], canChange);
             currentWeapon.value = num;
             wm.currentWeapon.Initialize();
             UpdateDisplay();

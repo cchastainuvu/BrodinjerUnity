@@ -16,7 +16,8 @@ public abstract class Character_Manager : MonoBehaviour
 
     public bool StunTime;
 
-    protected bool damaged, stunned, dead;
+    protected bool damaged, stunned;
+    [HideInInspector]public bool dead;
 
     public Animation_Base DamageAnimation;
     public Animator anim;
@@ -90,7 +91,7 @@ public abstract class Character_Manager : MonoBehaviour
         if (canDamage && !damaged && !dead)
         {
             //layermask == (layermask | (1 << layer))
-            if (DamageLayer != (DamageLayer | coll.gameObject.layer))
+            if (((1 << coll.gameObject.layer) & DamageLayer) != 0)
             {
                 WeaponDamageAmount temp = coll.GetComponent<WeaponDamageAmount>();
                 if (temp != null)
@@ -117,6 +118,7 @@ public abstract class Character_Manager : MonoBehaviour
                     if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
                     {
                         temp.hit = true;
+                        //Debug.Log("Hit: " + this.gameObject.name + " " + coll.gameObject.name + " Layer: " + coll.gameObject.layer);
                         TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
                     }
 

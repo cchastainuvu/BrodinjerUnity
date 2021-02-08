@@ -29,5 +29,13 @@ public class ActivateRigidbodies : MonoBehaviour
             rigid.useGravity = false;
         }
     }
+
+    public void RemoveConstraints()
+    {
+        foreach(var rigid in rigidbodies)
+        {
+            rigid.constraints = RigidbodyConstraints.None;
+        }
+    }
     
 }

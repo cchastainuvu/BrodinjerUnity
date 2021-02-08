@@ -20,6 +20,16 @@ public abstract class CharacterTranslate : ScriptableObject
     protected ResetTriggers reset;
     protected Z_Targeting target;
 
+    public void SetWalk(float speed)
+    {
+        ForwardSpeed = speed;
+        SideSpeed = speed;
+    }
+
+    public void SetRun(float speed){
+        RunForwardSpeed = speed;
+        RunSideSpeed = speed;
+    }
     public void SetGravity(float gravity)
     {
         Gravity = gravity;

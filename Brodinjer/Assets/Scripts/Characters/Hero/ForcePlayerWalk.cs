@@ -23,6 +23,8 @@ public class ForcePlayerWalk : MonoBehaviour
     public bool AwakeOnStart;
 
     public string StartTrigger, EndTrigger, SpeedFloat, DirectionFloat;
+
+    public Animation_Base animbase;
     
     private void Start()
     {
@@ -46,6 +48,7 @@ public class ForcePlayerWalk : MonoBehaviour
 
     public IEnumerator Move()
     {
+        animbase.StopAnimation();
         _moveVec = Target.position - transform.position;
         _moveVec.y = 0;
         if(resetAnims)
@@ -53,8 +56,9 @@ public class ForcePlayerWalk : MonoBehaviour
         anim.SetTrigger(StartTrigger);
         while (_moveVec.magnitude > .1f && moving)
         {
+            Debug.Log("Force Move");
             _moveVec = _moveVec.normalized * ForwardSpeed;
-            anim.SetFloat(SpeedFloat, getSpeed());
+            anim.SetFloat(SpeedFloat, 1);
             anim.SetFloat(DirectionFloat, getMoveAngle());
             _cc.Move(_moveVec * Time.deltaTime);
             _moveVec = Target.position - transform.position;
@@ -62,6 +66,8 @@ public class ForcePlayerWalk : MonoBehaviour
             yield return fixedUpdate;
         }
         ReachDestEvent.Invoke();
+        anim.SetFloat(SpeedFloat, 0);
+        Debug.Log("End Move");
         moving = false;
     }
 
