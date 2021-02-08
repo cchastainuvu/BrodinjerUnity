@@ -46,6 +46,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         randomWallCrawlTime, currentWallCrawlTime;    
     private Ray ray;
     private RaycastHit hit;
+    public float PouncePauseTime;
 
     private void Start()
     {
@@ -172,7 +173,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         //pounceDirection = transform.forward + transform.up;
         yield return new WaitForSeconds(WallPounceInitTime);
         pounceDirection = (PlayerObj.transform.position - transform.position).normalized;
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(PouncePauseTime);
         WeaponObj.SetActive(true);
         RB.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
         transform.Rotate(-90,0,0);

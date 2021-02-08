@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Instantiate_Skeletons : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class Instantiate_Skeletons : MonoBehaviour
 
     private bool instantiating;
 
+    public Character_Manager RibcageManager;
+    public UnityEvent endInstantiate;
     public void InstantiateSkeletons()
     {
+        if (RibcageManager.dead)
+            return;
         instantiating = false;
         numSkeletonsPresent = 0;
         Enemy_Manager[] enemies = FindObjectsOfType<Enemy_Manager>();
@@ -67,6 +72,8 @@ public class Instantiate_Skeletons : MonoBehaviour
 
         totalSkeletons.value = numSkeletons;
         instantiating = false;
+        if (!RibcageManager.dead)
+            endInstantiate.Invoke();
     }
 
 }

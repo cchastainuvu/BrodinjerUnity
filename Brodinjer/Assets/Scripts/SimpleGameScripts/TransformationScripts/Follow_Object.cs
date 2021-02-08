@@ -8,7 +8,7 @@ public class Follow_Object : MonoBehaviour
     public Vector3 offset;
     private bool following;
     public bool OnAwake = true;
-    public float speed;
+    public float speed = -1;
     public bool x=true, y=true, z=true;
     private Vector3 newPos;
 
@@ -42,8 +42,15 @@ public class Follow_Object : MonoBehaviour
                 newPos.y = transform.position.y;
             if (!z)
                 newPos.z = transform.position.z;
-            transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime*speed);
-            //transform.position = offset + FollowObj.position;
+            if (speed < 0)
+            {
+                transform.position = offset + FollowObj.position;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * speed);
+            }
+           
             yield return new WaitForFixedUpdate();
         }
     }

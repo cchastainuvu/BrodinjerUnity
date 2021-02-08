@@ -390,6 +390,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1920314187393917415}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1249274263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1920314186634232975}
-  m_Layer: 12
+  m_Layer: 20
   m_Name: Targetpos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +482,7 @@ GameObject:
   - component: {fileID: 1920314187090793087}
   - component: {fileID: 1920314187090793082}
   - component: {fileID: 1920314187090793081}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +529,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a34364b82402a2046bb58622d8e58b34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1032,6 +1043,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   OnAwake: 1
   speed: 100
+  x: 1
+  y: 1
+  z: 1
 --- !u!114 &1920314188268376671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,6 +1066,8 @@ MonoBehaviour:
   KnockbackForce: 0
   KnockbackTime: 0
   BaseObj: {fileID: 1920314186342373004}
+  knockbackDirection: {x: 0, y: 0, z: 0}
+  DamageAnimationTrigger: 
 --- !u!1 &7834929240491329627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1078,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7834929240491329620}
   - component: {fileID: 7834929240491329621}
-  m_Layer: 12
+  - component: {fileID: 3075040325315300990}
+  - component: {fileID: 5533107672898215782}
+  m_Layer: 20
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1097,6 +1115,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1920314186634232974}
+--- !u!65 &3075040325315300990
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834929240491329627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.32347003, y: 0.32347003, z: 0.32347003}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &5533107672898215782
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834929240491329627}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7834929240690629903
 GameObject:
   m_ObjectHideFlags: 0
@@ -10812,7 +10859,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7834929242144632294}
   - component: {fileID: 7834929242144632288}
-  - component: {fileID: 7834929242144632295}
   m_Layer: 12
   m_Name: EnemyTarget
   m_TagString: Untagged
@@ -10851,18 +10897,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   OnAwake: 1
   speed: 0
---- !u!114 &7834929242144632295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834929242144632293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8debb887b404224a94d05cd25ef7167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  x: 1
+  y: 1
+  z: 1
 --- !u!1001 &1920314187138724028
 PrefabInstance:
   m_ObjectHideFlags: 0
