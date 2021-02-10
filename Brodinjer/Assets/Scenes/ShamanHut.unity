@@ -10799,6 +10799,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1386245755}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &946853875 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2955642009059484640, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+    type: 3}
+  m_PrefabInstance: {fileID: 9167173660089136945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &952506916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6011372314493770991, guid: a7753701ddc532f4482edfa82b0733e9,
@@ -23741,6 +23747,7 @@ MonoBehaviour:
     m_Bits: 8192
   damageCoolDown: 0.25
   StunTime: 1
+  dead: 0
   DamageAnimation: {fileID: 0}
   anim: {fileID: 2695697115417094479}
   agent: {fileID: 0}
@@ -28264,6 +28271,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   OnAwake: 1
   speed: 50
+  x: 1
+  y: 1
+  z: 1
 --- !u!1 &2695697113723511999
 GameObject:
   m_ObjectHideFlags: 0
@@ -42069,17 +42079,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotate: {fileID: 11400000, guid: b3b51d1b7712a68488c07d66bef8f86c, type: 2}
+  zRotation: {fileID: 0}
+  deadRotate: {fileID: 11400000, guid: 3fd35209c0063014390ec605c730d8f0, type: 2}
   translate: {fileID: 11400000, guid: efec437756fb58b4da97d3ce670c6df6, type: 2}
+  deadTranslate: {fileID: 11400000, guid: de5a8c24e96d9e148ac3f0a375b27a97, type: 2}
   extraControls: []
-  targetScript: {fileID: 2695697114913963863}
   CharacterScalar: {fileID: 2695697115417094472}
+  DirectionReference: {fileID: 2695697113723511992}
   anim: {fileID: 2695697115417094479}
   MoveOnStart: 1
-  DirectionReference: {fileID: 2695697113723511992}
   paused: {fileID: 11400000, guid: 025fd1ef6f8db164d85692795d52f6e5, type: 2}
   IdleTrigger: Idle
-  deadTranslate: {fileID: 11400000, guid: de5a8c24e96d9e148ac3f0a375b27a97, type: 2}
-  deadRotate: {fileID: 11400000, guid: 3fd35209c0063014390ec605c730d8f0, type: 2}
+  targetScript: {fileID: 0}
 --- !u!143 &2695697114913963862
 CharacterController:
   m_ObjectHideFlags: 0
@@ -42802,6 +42813,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   OnAwake: 1
   speed: 10
+  x: 1
+  y: 1
+  z: 1
 --- !u!114 &2695697114998971419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42817,17 +42831,20 @@ MonoBehaviour:
   cameraRotation: {fileID: 11400000, guid: 413923be2af521e42ab14bb2b6206a1f, type: 2}
   CameraHorizontal: Mouse X
   CameraVertical: Mouse Y
+  floatName: 
   Paused: {fileID: 11400000, guid: 025fd1ef6f8db164d85692795d52f6e5, type: 2}
   rotateOnStart: 1
   DeathCam: {fileID: 2714414640917222954}
-  anim: {fileID: 2695697115417094479}
-  floatName: 
-  targetscript: {fileID: 2695697114913963863}
+  DrownCam: {fileID: 0}
   RotateObj: {fileID: 2695697115417094478}
+  anim: {fileID: 2695697115417094479}
+  targetscript: {fileID: 0}
   MinFloatRotate: 35
   CenterFloatRotate: 19.75
   MaxFloatRotate: 27
   AnimationOffset: 0
+  ShakeStartTime: 0
+  ShakeEndTime: 0
 --- !u!1 &2695697114998971423
 GameObject:
   m_ObjectHideFlags: 0
@@ -50646,6 +50663,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 739110161, guid: 73ea5945b1ba4384f931d8e54ad36f65, type: 3}
+      propertyPath: OnFinish.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 739110161, guid: 73ea5945b1ba4384f931d8e54ad36f65, type: 3}
+      propertyPath: OnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 739110161, guid: 73ea5945b1ba4384f931d8e54ad36f65, type: 3}
+      propertyPath: OnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 99015328984218158, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -50706,6 +50735,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 670181272397670881, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: optionsMenuUI
+      value: 
+      objectReference: {fileID: 946853875}
     - target: {fileID: 887001751167452714, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -50855,6 +50889,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897159992172072460, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4933679208656170307, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
@@ -51065,6 +51104,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6108486170759306641, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6204176496683359617, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}

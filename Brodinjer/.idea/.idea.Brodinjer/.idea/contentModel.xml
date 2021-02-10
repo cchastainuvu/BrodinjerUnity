@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Rhett\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Rhett\.Rider2019.3\system\resharper-host\Local\Transient\ReSharperHost\v193\SolutionCaches\_Brodinjer.-1881758845.00" t="ExcludeRecursive" />
-    <e p="S:\Brodinger - Unity\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
+    <e p="C:\Users\Kyle\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Kyle\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_Brodinjer.-703266619.00" t="ExcludeRecursive" />
+    <e p="E:\BrodinjerUnity\Brodinjer" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="CookieAnimator.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="AdjustHeights.cs" t="Include" />
           <e p="ExportTerrain.cs" t="Include" />
@@ -75,6 +74,7 @@
                 <e p="Enemy_Attack_None.cs" t="Include" />
               </e>
               <e p="Bosses" t="Include">
+                <e p="DrownTrigger.cs" t="Include" />
                 <e p="Hand" t="Include">
                   <e p="Freeze_Magic.cs" t="Include" />
                   <e p="Hand_Block_Attack.cs" t="Include" />
@@ -109,12 +109,22 @@
                   <e p="Boss_Character.cs" t="Include" />
                   <e p="Boss_Character_Manager.cs" t="Include" />
                   <e p="Boss_Health.cs" t="Include" />
+                  <e p="Ceiling_Obj.cs" t="Include" />
                   <e p="Damage_Collider.cs" t="Include" />
+                  <e p="Empty_Phase.cs" t="Include" />
                   <e p="Fist_Slam_Attack.cs" t="Include" />
+                  <e p="Magic_Slam_Attack.cs" t="Include" />
                   <e p="Palm_Slam_Attack.cs" t="Include" />
                   <e p="Phase_Base.cs" t="Include" />
+                  <e p="Phase_Change.cs" t="Include" />
                   <e p="Rake_Attack.cs" t="Include" />
+                  <e p="Scale_Change.cs" t="Include" />
+                  <e p="Scale_Object_Auto.cs" t="Include" />
+                  <e p="Screech_Attack.cs" t="Include" />
                   <e p="Skeleton_King_Phase_01.cs" t="Include" />
+                  <e p="Skeleton_King_Phase_02.cs" t="Include" />
+                  <e p="Swap_Side.cs" t="Include" />
+                  <e p="Swipe_Attack.cs" t="Include" />
                 </e>
               </e>
               <e p="Enemy_List.cs" t="Include" />
@@ -171,6 +181,7 @@
                   <e p="CameraRotationManager.cs" t="Include" />
                   <e p="SwapCamMov.cs" t="Include" />
                 </e>
+                <e p="Start_Camera_Shake.cs" t="Include" />
                 <e p="ThirdPersonCamera.cs" t="Include" />
               </e>
               <e p="CameraMovement.cs" t="Include" />
@@ -180,6 +191,7 @@
                 <e p="Crouch.cs" t="Include" />
                 <e p="Dodge.cs" t="Include" />
               </e>
+              <e p="ForceMovement.cs" t="Include" />
               <e p="ForcePlayerWalk.cs" t="Include" />
               <e p="JumpScript.cs" t="Include" />
               <e p="PlayerMovement.cs" t="Include" />
@@ -210,7 +222,11 @@
               </e>
               <e p="Magic" t="Include">
                 <e p="MagicBallAim.cs" t="Include" />
+                <e p="MagicFX.cs" t="Include" />
                 <e p="ScalableObject.cs" t="Include" />
+                <e p="ScalableObjectBase.cs" t="Include" />
+                <e p="ScalableObjectDirectional.cs" t="Include" />
+                <e p="ScaleConstant.cs" t="Include" />
                 <e p="ScalingMagic.cs" t="Include" />
                 <e p="ScalingScript.cs" t="Include" />
               </e>
@@ -229,6 +245,7 @@
               <e p="In_Camera_View.cs" t="Include" />
               <e p="Targeting.cs" t="Include" />
               <e p="TargetObject.cs" t="Include" />
+              <e p="Z_Targeting.cs" t="Include" />
             </e>
           </e>
           <e p="Chicken" t="Include">
@@ -270,6 +287,10 @@
             <e p="Float_Pickup.cs" t="Include" />
             <e p="Int_Pickup.cs" t="Include" />
             <e p="PickUp_Base.cs" t="Include" />
+          </e>
+          <e p="SFX" t="Include">
+            <e p="RandomSoundController.cs" t="Include" />
+            <e p="SoundController.cs" t="Include" />
           </e>
           <e p="SimpleGameScripts" t="Include">
             <e p="CollisionEvents" t="Include">
@@ -350,6 +371,7 @@
           </e>
           <e p="TestTools" t="Include">
             <e p="SimpleCameraController.cs" t="Include" />
+            <e p="TestEvent.cs" t="Include" />
           </e>
           <e p="UIScripts" t="Include">
             <e p="FPSCounter.cs" t="Include" />
@@ -360,7 +382,7 @@
             <e p="SettingsMenu.cs" t="Include" />
           </e>
           <e p="VFX" t="Include">
-            <e p="AnimatedProjector.cs" t="Include" />
+            <e p="CookieAnimator.cs" t="Include" />
             <e p="Fire" t="Include">
               <e p="Flickering_Light.cs" t="Include" />
             </e>
