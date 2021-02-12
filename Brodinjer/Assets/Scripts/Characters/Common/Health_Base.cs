@@ -66,7 +66,7 @@ public class Health_Base : ScriptableObject
         {
             health.SubFloat(amount);
         }
-        Debug.Log("Current Health " + name + " : " + health.value);
+        Debug.Log("Health: " + health.value);
         if (health.value <= 0)
         {
             Death();

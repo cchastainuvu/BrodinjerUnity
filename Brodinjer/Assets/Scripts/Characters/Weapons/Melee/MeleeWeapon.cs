@@ -160,7 +160,10 @@ public class MeleeWeapon : WeaponBase
             StopCoroutine(weaponFunc);
         running = false;
         playermove.SwapMovement(origRotation, origMovement);
-
+        origMovement.RunForwardSpeed = origrunfor;
+        origMovement.RunSideSpeed = origrunside;
+        origMovement.ForwardSpeed = origwalkfor;
+        origMovement.SideSpeed = origwalkside;
     }
     
     private bool CheckInput()
@@ -180,11 +183,19 @@ public class MeleeWeapon : WeaponBase
         if (weaponFunc != null)
             StopCoroutine(weaponFunc);
         running = false;
+        origMovement.RunForwardSpeed = origrunfor;
+        origMovement.RunSideSpeed = origrunside;
+        origMovement.ForwardSpeed = origwalkfor;
+        origMovement.SideSpeed = origwalkside;
     }
 
     public override void On()
     {
         Initialize();
+        origMovement.RunForwardSpeed = origrunfor;
+        origMovement.RunSideSpeed = origrunside;
+        origMovement.ForwardSpeed = origwalkfor;
+        origMovement.SideSpeed = origwalkside;
     }
 
     public override void Activate()

@@ -26,6 +26,10 @@ public class Z_Targeting : MonoBehaviour
     private int targetIndex;
     private Transform mainCamera;
 
+    public BoolData paused;
+    private RaycastHit hit;
+    public LayerMask ignoreLayers;
+
     private void Start()
     {
         mainCamera = Camera.main.transform;
@@ -48,103 +52,109 @@ public class Z_Targeting : MonoBehaviour
             numoOfTargets++;
         }
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        //Target Button Pressed
-        bool isDown = Input.GetButtonDown("Target");
-
-        //If not Targeting - Target Button is Off (not targeting)
-        if (objClosest == null)
-            TargetButton = false;
-
-        //Remove any Null Objects
-        objsInTarget = CopyAndRemove(objsInTarget);
-        //Check if angle is correct
-        objInRange = InAngle(objsInTarget);
-
-        //If you pressed the target button and there are possible targets
-        if (isDown && objInRange.Count > 0)
+        if (!paused.value)
         {
-            sortedList = objInRange.OrderBy(gameobj => GetAngle(gameobj.transform, mainCamera)).ToList();
-            objInRange = CopyAndRemove(objInRange, sortedList);
-            UnTarget(objClosest);
-            objClosest = objInRange.First();
-            Target(objClosest);
+            //Target Button Pressed
+            bool isDown = Input.GetButtonDown("Target");
 
-            //Toggle Target On / Off
-            TargetButton = !TargetButton;
-        }
-
-        //if currently targeting
-        if (TargetButton && numoOfTargets > 0 && objClosest != null)
-        {
-            if (GetAngle(objClosest.transform, mainCamera) < Mathf.Abs(m_Angle))
+            //If not Targeting - Target Button is Off (not targeting)
+            if (objClosest == null)
             {
-                isTargeting = true;
-                //If you move to the Right
-                if (Input.GetAxisRaw("TargetChange") > 0)
-                {
-                    //If the Axis Change is not currently Right (don't move more than once per click)
-                    if (AxisRight == false)
-                    {
-                        sortedList = objInRange.OrderBy(go => GetSignedAngle(go.transform, mainCamera)).ToList();
-                        objInRange = CopyAndRemove(objInRange, sortedList);
+                TargetButton = false;
+                isTargeting = false;
+            }
 
-                        //If there are more objects to the Right;
-                        if ((targetIndex = objInRange.IndexOf(objClosest) - 1) >= 0)
+            //Remove any Null Objects
+            objsInTarget = CopyAndRemove(objsInTarget);
+            //Check if angle is correct
+            objInRange = InAngle(objsInTarget);
+
+            //If you pressed the target button and there are possible targets
+            if (isDown && objInRange.Count > 0)
+            {
+                sortedList = objInRange.OrderBy(gameobj => GetAngle(gameobj.transform, mainCamera)).ToList();
+                objInRange = CopyAndRemove(objInRange, sortedList);
+                UnTarget(objClosest);
+                objClosest = objInRange.First();
+                Target(objClosest);
+
+                //Toggle Target On / Off
+                TargetButton = !TargetButton;
+            }
+
+            //if currently targeting
+            if (TargetButton && numoOfTargets > 0 && objClosest != null)
+            {
+                if (GetAngle(objClosest.transform, mainCamera) < Mathf.Abs(m_Angle))
+                {
+                    isTargeting = true;
+                    //If you move to the Right
+                    if (Input.GetAxisRaw("TargetChange") > 0)
+                    {
+                        //If the Axis Change is not currently Right (don't move more than once per click)
+                        if (AxisRight == false)
                         {
-                            Debug.Log("Right");
-                            UnTarget(objClosest);
-                            nextTarget = objInRange[targetIndex];
-                            if (GetAngle(nextTarget.transform, mainCamera) < Mathf.Abs(m_Angle))
+                            sortedList = objInRange.OrderBy(go => GetSignedAngle(go.transform, mainCamera)).ToList();
+                            objInRange = CopyAndRemove(objInRange, sortedList);
+
+                            //If there are more objects to the Right;
+                            if ((targetIndex = objInRange.IndexOf(objClosest) - 1) >= 0)
                             {
-                                objClosest = nextTarget;
+                                Debug.Log("Right");
+                                UnTarget(objClosest);
+                                nextTarget = objInRange[targetIndex];
+                                if (GetAngle(nextTarget.transform, mainCamera) < Mathf.Abs(m_Angle))
+                                {
+                                    objClosest = nextTarget;
+                                }
+                                Target(objClosest);
+                                AxisRight = !AxisRight;
                             }
-                            Target(objClosest);
-                            AxisRight = !AxisRight;
                         }
                     }
-                }
-                //If Move Left
-                else if (Input.GetAxisRaw("TargetChange") < 0)
-                {
-                    if (AxisLeft == false)
+                    //If Move Left
+                    else if (Input.GetAxisRaw("TargetChange") < 0)
                     {
-                        sortedList = objInRange.OrderBy(go => GetSignedAngle(go.transform, mainCamera)).ToList();
-                        objInRange = CopyAndRemove(objInRange, sortedList);
-
-                        //If objects to Left
-                        if ((targetIndex = objInRange.IndexOf(objClosest) + 1) < objInRange.Count)
+                        if (AxisLeft == false)
                         {
-                            Debug.Log("Left");
-                            UnTarget(objClosest);
-                            nextTarget = objInRange[targetIndex];
-                            
-                            if (GetAngle(nextTarget.transform, mainCamera) < Mathf.Abs(m_Angle))
+                            sortedList = objInRange.OrderBy(go => GetSignedAngle(go.transform, mainCamera)).ToList();
+                            objInRange = CopyAndRemove(objInRange, sortedList);
+
+                            //If objects to Left
+                            if ((targetIndex = objInRange.IndexOf(objClosest) + 1) < objInRange.Count)
                             {
-                                objClosest = nextTarget;
+                                Debug.Log("Left");
+                                UnTarget(objClosest);
+                                nextTarget = objInRange[targetIndex];
+
+                                if (GetAngle(nextTarget.transform, mainCamera) < Mathf.Abs(m_Angle))
+                                {
+                                    objClosest = nextTarget;
+                                }
+                                Target(objClosest);
+                                AxisLeft = !AxisLeft;
                             }
-                            Target(objClosest);
-                            AxisLeft = !AxisLeft;
                         }
+                    }
+                    else
+                    {
+                        AxisRight = false;
+                        AxisLeft = false;
                     }
                 }
                 else
                 {
-                    AxisRight = false;
-                    AxisLeft = false;
+                    isTargeting = false;
                 }
             }
             else
             {
                 isTargeting = false;
+                UnTarget(objClosest);
+                objClosest = null;
             }
-        }
-        else
-        {
-            isTargeting = false;
-            UnTarget(objClosest);
-            objClosest = null;
         }
     }
     private float GetAngle(Transform target, Transform point)
@@ -175,7 +185,11 @@ public class Z_Targeting : MonoBehaviour
             {
                 objs[i] = copyList[i];
             }
-            if (objs[i] == null || !objs[i].activeInHierarchy)
+            if (Physics.Raycast(transform.forward, objs[i].transform.position, Vector3.Distance(transform.position, objs[i].transform.position), ignoreLayers)) {
+                objs.RemoveAt(i);
+                numoOfTargets--;
+            }
+            else if (objs[i] == null || !objs[i].activeInHierarchy)
             {
                 objs.RemoveAt(i);
                 numoOfTargets--;

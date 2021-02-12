@@ -16,7 +16,6 @@ public abstract class Enemy_Movement : MonoBehaviour
     protected readonly WaitForFixedUpdate fixedUpdate= new WaitForFixedUpdate();
     public Animator anim;
     private ResetTriggers resetAnims;
-    private bool initiated = false;
 
     private void Start()
     {

@@ -2,10 +2,13 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public AudioMixer audioMixer;
+    public AudioMixer masterMixer;
+    public FloatData masterFloatData, sfxFloatData, musicFloatData, ambienceFloatData;
+    public Slider masterSlider, sfxSlider, musicSlider, ambienceSlider;
     public TMPro.TMP_Dropdown resolutionsDropdown;
     private Resolution[] resolutions;
     void Start()
@@ -33,11 +36,40 @@ public class SettingsMenu : MonoBehaviour
         resolutionsDropdown.AddOptions(options);
         resolutionsDropdown.value = currentResolutionIndex;
         resolutionsDropdown.RefreshShownValue();
+
+        masterMixer.SetFloat("MasterVolume", masterFloatData.value);
+        masterMixer.SetFloat("SFXVolume", sfxFloatData.value);
+        masterMixer.SetFloat("MusicVolume", musicFloatData.value);
+        masterMixer.SetFloat("AmbienceVolume", ambienceFloatData.value);
+
+        masterSlider.value = masterFloatData.value;
+        sfxSlider.value = sfxFloatData.value;
+        musicSlider.value = musicFloatData.value;
+        ambienceSlider.value = ambienceFloatData.value;
     }
     
-    public void SetVolume(float volume)
+    public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("MasterVolume", volume);
+        masterMixer.SetFloat("MasterVolume", volume);
+        masterFloatData.value = volume;
+    }
+    
+    public void SetSFXVolume(float volume)
+    {
+        masterMixer.SetFloat("SFXVolume", volume);
+        sfxFloatData.value = volume;
+    }
+    
+    public void SetMusicVolume(float volume)
+    {
+        masterMixer.SetFloat("MusicVolume", volume);
+        musicFloatData.value = volume;
+    }
+    
+    public void SetAmbienceVolume(float volume)
+    {
+        masterMixer.SetFloat("AmbienceVolume", volume);
+        ambienceFloatData.value = volume;
     }
 
     public void SetQuality(int qualityIndex)

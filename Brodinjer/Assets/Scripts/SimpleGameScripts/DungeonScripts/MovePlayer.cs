@@ -15,7 +15,7 @@ public class MovePlayer : MonoBehaviour
 
     private float currentTime;
 
-    public UnityEvent EndMoveEvent;
+    public UnityEvent EndMoveEvent, FadedEvent;
 
     private void Awake()
     {
@@ -43,6 +43,9 @@ public class MovePlayer : MonoBehaviour
         yield return new WaitForFixedUpdate();
         ObjToMove.transform.position = PlaceToMoveTo.transform.position;
         ObjToMove.rotation = PlaceToMoveTo.rotation;
+        FadedEvent.Invoke();
+        if (_cc != null)
+            _cc.enabled = true;
         yield return new WaitForSeconds(BlackoutTime);
         currentTime = 0;
         while (currentTime < FadeInTime)
@@ -52,8 +55,7 @@ public class MovePlayer : MonoBehaviour
                 GeneralFunctions.ConvertRange(0, FadeInTime, 0, 1, currentTime));
             yield return new WaitForFixedUpdate();
         }        
-        if (_cc != null)
-            _cc.enabled = true;
+       
         EndMoveEvent.Invoke();
     }
     

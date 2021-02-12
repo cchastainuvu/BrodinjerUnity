@@ -33,7 +33,7 @@ public class WeaponImage : MonoBehaviour
         while (true)
         {
             Num.text = NumItems.value.ToString();
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(.1f);
         }
     }
 }
