@@ -9,7 +9,7 @@ public abstract class Trigger_Event_Base : MonoBehaviour
     public UnityEvent Event;
     public enum Check { Layer, Tag, Name, }
     public Check checksFor;
-    public float waitTime;
+    public float waitTime, resetTime;
 
     public string objName;
     public LayerMask layer;
@@ -31,11 +31,13 @@ public abstract class Trigger_Event_Base : MonoBehaviour
         switch (checksFor)
         {
             case Check.Layer:
-                if (coll.gameObject.layer == ToLayer(layer.value))
+                if (((1 << coll.gameObject.layer) & layer) != 0)
                 {
                     triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
+                    yield return new WaitForSeconds(resetTime);
+
                 }
                 break;
             case Check.Name:
@@ -44,6 +46,8 @@ public abstract class Trigger_Event_Base : MonoBehaviour
                     triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
+                    yield return new WaitForSeconds(resetTime);
+
                 }
                 break;
             case Check.Tag:
@@ -54,10 +58,11 @@ public abstract class Trigger_Event_Base : MonoBehaviour
                     triggerCollider = coll.gameObject;
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();
+                    yield return new WaitForSeconds(resetTime);
+
                 }
                 break;
         }
-
         isRunning = false;
     }
 

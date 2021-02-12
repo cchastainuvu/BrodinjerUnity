@@ -20,7 +20,10 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _cc;
     private bool moving, rotating, extrarunning, active, stunned, dead, targeting, pauseInits;
     private ResetTriggers triggerReset;
-
+    public RandomSoundController Jumpsound, Footsteps;
+    public float MinFootstepInBetween, MaxFootstepInBetween;
+    private bool walking;
+    private float currentSpeed;
 
     private void Awake()
     {
@@ -33,13 +36,14 @@ public class PlayerMovement : MonoBehaviour
         extrarunning = false;
         pauseInits = false;
         Init();
+        StartCoroutine(WalkSound());
     }
 
     public void Die()
     {
         Deactivate();
         translate = deadTranslate;
-        translate.Init(this, _cc, DirectionReference, targetScript, anim);
+        translate.Init(this, _cc, DirectionReference, targetScript, anim, Jumpsound);
         rotate = deadRotate;
         rotate.Init(transform, DirectionReference);
         translate.canMove = true;
@@ -79,6 +83,18 @@ public class PlayerMovement : MonoBehaviour
         {
             UnTarget();
         }
+        if (!dead && !stunned)
+        {
+            currentSpeed = _cc.velocity.magnitude;
+            if (currentSpeed > 0.1f)
+            {
+                walking = true;
+            }
+            else
+            {
+                walking = false;
+            }
+        }
     }
 
     public void Stun()
@@ -103,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     private void Init()
     {
         rotate.Init(transform, DirectionReference);
-        translate.Init(this, _cc, DirectionReference, targetScript, anim);
+        translate.Init(this, _cc, DirectionReference, targetScript, anim, Jumpsound);
         if (extraControls != null)
         {
             foreach (var extra in extraControls)
@@ -268,7 +284,7 @@ public class PlayerMovement : MonoBehaviour
             this.translate = translate;
             if (_cc == null)
                 _cc = GetComponent<CharacterController>();
-            this.translate.Init(this, _cc, DirectionReference, targetScript, anim);
+            this.translate.Init(this, _cc, DirectionReference, targetScript, anim, Jumpsound);
             StartMove();
         }
         else
@@ -310,4 +326,21 @@ public class PlayerMovement : MonoBehaviour
         targeting = false;
         SwapMovement(prevRotate, prevTranslate, extraControls);
     }
+
+    private IEnumerator WalkSound()
+    {
+        while (true)
+        {
+            if (translate != null)
+            {
+                if (walking && _cc.isGrounded)
+                {
+                    Footsteps.Play();
+                    yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, translate.RunForwardSpeed, MaxFootstepInBetween, MinFootstepInBetween, currentSpeed));
+                }
+                yield return new WaitForFixedUpdate();
+            }
+        }
+    }
+
 }

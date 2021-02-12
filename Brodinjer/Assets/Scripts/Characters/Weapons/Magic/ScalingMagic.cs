@@ -34,7 +34,7 @@ public class ScalingMagic : MonoBehaviour
     {
         MagicCollider.SetActive(true);
         VFXCollider.SetActive(true); 
-        GetComponentInParent<Look_At_Script>().StopLookAt();
+        //GetComponentInParent<Look_At_Script>().StopLookAt();
         Debug.Log("Fire");
     }
 

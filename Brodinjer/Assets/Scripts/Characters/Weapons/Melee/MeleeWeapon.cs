@@ -26,6 +26,8 @@ public class MeleeWeapon : WeaponBase
     public float DamageAttack1, DamageAttack2, DamageAttack3;
     private bool running = false;
     public ParticleSystem WeaponTrail;
+    public RandomSoundController Swing;
+    [HideInInspector]public bool largeAttack;
 
     private void Start()
     {
@@ -55,6 +57,7 @@ public class MeleeWeapon : WeaponBase
             {
                 yield return fixedUpdate;
             }
+            largeAttack = false;
             yield return waitforbutton;
             if (freezeWhenAttack)
             {
@@ -73,7 +76,7 @@ public class MeleeWeapon : WeaponBase
                     anim.SetTrigger(AttackTrigger);
                     anim.SetInteger(ComboNumInteger, 1);
                 }
-
+                Swing.Play();
                 yield return  new WaitForSeconds(attackActivateTime01);
                 damage.DamageAmount = DamageAttack1;
                 knockbackObj.SetActive(true);
@@ -90,6 +93,7 @@ public class MeleeWeapon : WeaponBase
                     {
                         //knockbackObj.SetActive(false);
                         anim.SetInteger(ComboNumInteger, 2);
+                        Swing.Play();
                         yield return  new WaitForSeconds(attackActivateTime02);
                         damage.DamageAmount = DamageAttack2;
                         //knockbackObj.SetActive(true);
@@ -104,6 +108,8 @@ public class MeleeWeapon : WeaponBase
                             {
                                 //knockbackObj.SetActive(false);
                                 anim.SetInteger(ComboNumInteger, 3);
+                                Swing.Play();
+                                largeAttack = true;
                                 yield return  new WaitForSeconds(attackActivateTime03);
                                 damage.DamageAmount = DamageAttack3;
                                 //knockbackObj.SetActive(true);
@@ -126,7 +132,7 @@ public class MeleeWeapon : WeaponBase
                     currentTime += Time.deltaTime;
                     yield return fixedUpdate;
                 }
-
+                largeAttack = false;
                 damage.DamageAmount = DamageAttack1;
                 if (freezeWhenAttack)
                 {
