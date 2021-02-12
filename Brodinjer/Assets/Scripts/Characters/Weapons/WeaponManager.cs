@@ -48,11 +48,15 @@ public class WeaponManager : MonoBehaviour
             currentWeapon.Unfreeze();
     }
 
-    public void SwapWeapon(WeaponBase weapon)
+    public void SwapWeapon(WeaponBase weapon, bool initialize)
     {
         if(currentWeapon !=null)
             WeaponDisable();
         currentWeapon = weapon;
+        if (initialize)
+            weapon.Initialize();
+        else
+            weapon.Activate();
         if(currentWeapon != null)
             WeaponEnable();
     }

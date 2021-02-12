@@ -28,8 +28,6 @@ public class ScalingMagic : MonoBehaviour
     {
         hitObj = false;
         _fixedUpdate = new WaitForFixedUpdate();
-
-
     }
     
     public void Fire()
@@ -44,6 +42,8 @@ public class ScalingMagic : MonoBehaviour
     {
         if (!hitObj && !scalescript.frozen)
         {
+            //VFX.transform.parent = null;
+            //VFX.GetComponent<Destroy_Object_Timed>().Call();
             if (other.CompareTag("Scalable"))
             {
                 scalescript.SpellHit(true);
@@ -63,7 +63,7 @@ public class ScalingMagic : MonoBehaviour
                 {
                     scalescript.SpellHit(false);
                     MagicInUse.value = false;
-                    Destroy(this);
+                    Destroy(this);          
                 }
             }
 

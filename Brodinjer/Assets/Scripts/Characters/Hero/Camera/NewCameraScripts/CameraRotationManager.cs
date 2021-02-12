@@ -14,7 +14,6 @@ public class CameraRotationManager : MonoBehaviour
     public Z_Targeting targetscript;
     public float MinFloatRotate, CenterFloatRotate, MaxFloatRotate, AnimationOffset, 
         ShakeStartTime, ShakeEndTime;
-
     private Coroutine rotateFunc, swapFunc;
     private float currentRotate, mouseX, mouseY, currentTime;
     private Vector3 RotationAmount, targetposition;
@@ -135,9 +134,12 @@ public class CameraRotationManager : MonoBehaviour
                     {
                         Target(targetscript.objClosest);
                     }
-                    targetposition = targetscript.objClosest.transform.position;
-                    targetposition += (Camera.main.transform.right * cameraRotation.targetOffset.x) + (Camera.main.transform.up * cameraRotation.targetOffset.y);
-                    transform.LookAt(targetposition);
+                    if (targetscript.objClosest != null)
+                    {
+                        targetposition = targetscript.objClosest.transform.position;
+                        targetposition += (Camera.main.transform.right * cameraRotation.targetOffset.x) + (Camera.main.transform.up * cameraRotation.targetOffset.y);
+                        transform.LookAt(targetposition);
+                    }
                     if(floatName != "")
                     {
                         float angle = transform.rotation.eulerAngles.x;
@@ -154,6 +156,9 @@ public class CameraRotationManager : MonoBehaviour
                             anim.SetFloat(floatName, GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1, angle));
                         }
                     }
+                    Vector3 rotate = transform.rotation.eulerAngles;
+                    mouseY = rotate.x;
+                    mouseX = rotate.y;
                 }
 
 
@@ -172,6 +177,14 @@ public class CameraRotationManager : MonoBehaviour
             newBase.cameraObject.SetActive(true);
         cameraRotation = newBase;
         floatName = cameraRotation.DirectionFloatName;
+        if(cameraRotation.shaking && !shaking)
+        {
+            StopShake();
+        }
+        else if(!cameraRotation.shaking && shaking)
+        {
+            StartShake();
+        }
     }
 
     public void StopRotation()

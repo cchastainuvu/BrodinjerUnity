@@ -34,7 +34,6 @@ public class Enemy_Character_Manager : Character_Manager
     {
         if (agent != null)
         {
-            Debug.Log("Knockback");
             agent.enabled = false;
             difference = /*agent.transform.position + */(other.BaseObj.transform.forward*other.KnockbackForce);
             if (!running)

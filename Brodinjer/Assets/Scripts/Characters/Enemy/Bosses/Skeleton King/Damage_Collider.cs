@@ -9,6 +9,7 @@ public class Damage_Collider : MonoBehaviour
     public LayerMask DamageLayer;
     public float ArmorAmount;
     public UnityEvent DamageEvent;
+    public float damageDelay;
 
     private IEnumerator OnTriggerEnter(Collider coll)
     {
@@ -21,6 +22,7 @@ public class Damage_Collider : MonoBehaviour
                 {
                     Debug.Log("Take Damage");
                     temp.hit = true;
+                    yield return new WaitForSeconds(damageDelay);
                     if (temp.DamageAnimationTrigger != "")
                     {
                         bossManager.TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor, ArmorAmount, temp.DamageAnimationTrigger);

@@ -22,7 +22,7 @@ public class Phase_Change : MonoBehaviour
             DropObjects[currentObj].isKinematic = false;
             DropObjects[currentObj].useGravity = true;
             DropObjects.RemoveAt(currentObj);
-            yield return new WaitForSeconds(Random.Range(0f, .5f));
+            yield return new WaitForSeconds(Random.Range(.1f, .75f));
         }
     }
 
