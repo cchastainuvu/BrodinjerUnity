@@ -28,7 +28,7 @@ public abstract class Collision_Event_Base : MonoBehaviour
         switch (checksFor)
         {
             case Check.Layer:
-                if (coll.gameObject.layer == ToLayer(layer.value))
+                if (((1 << coll.gameObject.layer) & layer) != 0)
                 {
                     yield return new WaitForSeconds(waitTime);
                     RunEvent();

@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Dynamic;
 using UnityEngine;
 public abstract class CharacterTranslate : ScriptableObject
 {
@@ -12,13 +10,13 @@ public abstract class CharacterTranslate : ScriptableObject
     protected CharacterController _cc;
     [HideInInspector]
     public bool canMove, canRun, extraControlled;
-    private Coroutine moveFunc, runFunc;
     public Animation_Base animation;
     protected MonoBehaviour caller;
     public string HorizontalAxis = "Horizontal", VerticalAxis = "Vertical", JumpAxis = "Jump";
     protected Animator anim;
     protected ResetTriggers reset;
     protected Z_Targeting target;
+    protected RandomSoundController JumpSound;
 
     public void SetWalk(float speed)
     {
@@ -35,7 +33,7 @@ public abstract class CharacterTranslate : ScriptableObject
         Gravity = gravity;
     }
 
-    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Z_Targeting target, Animator animator)
+    public virtual void Init(MonoBehaviour caller, CharacterController charc, Transform camera, Z_Targeting target, Animator animator, RandomSoundController jump)
     {
         extraControlled = false;
         this.caller = caller;
@@ -46,6 +44,7 @@ public abstract class CharacterTranslate : ScriptableObject
         reset = anim.GetComponent<ResetTriggers>();
         if(animation!= null)
             animation.Init(caller, animator, _cc.transform, null);
+        this.JumpSound = jump;
     }
 
     
