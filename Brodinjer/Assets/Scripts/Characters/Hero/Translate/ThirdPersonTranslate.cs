@@ -19,12 +19,13 @@ public class ThirdPersonTranslate : CharacterTranslate
     public Animation_Base DodgeAnimations;
 
     public string FallTrigger = "Fall", LandTrigger = "Land";
+
     
     
-    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Z_Targeting target, Animator animator)
+    public override void Init(MonoBehaviour caller, CharacterController _cc, Transform camera, Z_Targeting target, Animator animator, RandomSoundController jump)
     {
         //Debug.Log("Camera: " + camera.gameObject.name);
-        base.Init(caller, _cc, camera, target, animator);
+        base.Init(caller, _cc, camera, target, animator, jump);
         if(DodgeAnimations!= null)
             DodgeAnimations.Init(caller, animator, _cc.transform, null);
         invoking = false;
@@ -34,10 +35,7 @@ public class ThirdPersonTranslate : CharacterTranslate
         _moveVec = Vector3.zero;
         currentForwardSpeed = ForwardSpeed;
         currentSideSpeed = SideSpeed;
-        
-        
     }
-
 
     public override IEnumerator Move()
     {
@@ -160,6 +158,7 @@ public class ThirdPersonTranslate : CharacterTranslate
                     if(reset)
                         reset.ResetAllTriggers();
                     anim.SetTrigger(JumpTrigger);
+                    JumpSound.Play();
                     currentTime = 0;
                     while (currentTime < JumpDelay)
                     {
@@ -204,5 +203,4 @@ public class ThirdPersonTranslate : CharacterTranslate
         invoking = false;
         yield return null;
     }
-
 }

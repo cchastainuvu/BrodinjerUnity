@@ -17,10 +17,11 @@ MonoBehaviour:
   rotationSpeed: 15
   mouseXMultiplier: 3
   mouseYMultiplier: 2
-  DirectionFloatName: 
+  DirectionFloatName: Aim Direction
   targetOffset: {x: -0.69, y: 0, z: 0}
   ShakeMaxAmplitude: 3
   ShakeMaxFrequency: 1
   cameraObject: {fileID: 0}
   vc: {fileID: 0}
-  targeting: 1
+  targeting: 0
+  shaking: 0

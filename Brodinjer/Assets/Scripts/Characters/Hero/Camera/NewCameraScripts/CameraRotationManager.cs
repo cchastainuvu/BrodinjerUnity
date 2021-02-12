@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class CameraRotationManager : MonoBehaviour
 {
     public CameraRotationBase cameraRotation;
-    public string CameraHorizontal, CameraVertical, floatName;
+    public string CameraHorizontal, CameraVertical;
     public BoolData Paused;
     public bool rotateOnStart = true;
     public GameObject DeathCam, DrownCam, RotateObj;
@@ -113,20 +113,18 @@ public class CameraRotationManager : MonoBehaviour
                                cameraRotation.mouseYMultiplier) * Time.fixedDeltaTime;
                     mouseY = Mathf.Clamp(mouseY, cameraRotation.minCamAngle, cameraRotation.maxCamAngle);
                     transform.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-                    if (floatName != "")
-                    {
-                        if (mouseY <= 0)
-                        {
-                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, mouseY) + AnimationOffset);
-                        }
-                        else
-                        {
-                            anim.SetFloat(floatName,
-                                GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1,
-                                    mouseY) + AnimationOffset);
-                        }
 
+                    if (mouseY <= 0)
+                    {
+                        anim.SetFloat("Aim Direction", GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, mouseY) + AnimationOffset);
                     }
+                    else
+                    {
+                        anim.SetFloat("Aim Direction",
+                            GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1,
+                                mouseY) + AnimationOffset);
+                    }
+
                 }
                 else
                 {
@@ -140,22 +138,21 @@ public class CameraRotationManager : MonoBehaviour
                         targetposition += (Camera.main.transform.right * cameraRotation.targetOffset.x) + (Camera.main.transform.up * cameraRotation.targetOffset.y);
                         transform.LookAt(targetposition);
                     }
-                    if(floatName != "")
+
+                    float angle = transform.rotation.eulerAngles.x;
+                    if (angle > 180)
                     {
-                        float angle = transform.rotation.eulerAngles.x;
-                        if(angle > 180)
-                        {
-                            angle -= 360;
-                        }
-                        if(angle <= 0)
-                        {
-                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, angle));
-                        }
-                        else
-                        {
-                            anim.SetFloat(floatName, GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1, angle));
-                        }
+                        angle -= 360;
                     }
+                    if (angle <= 0)
+                    {
+                        anim.SetFloat("Aim Direction", GeneralFunctions.ConvertRange(cameraRotation.minCamAngle, 0, 0, .5f, angle));
+                    }
+                    else
+                    {
+                        anim.SetFloat("Aim Direction", GeneralFunctions.ConvertRange(0, cameraRotation.maxCamAngle, .5f, 1, angle));
+                    }
+
                     Vector3 rotate = transform.rotation.eulerAngles;
                     mouseY = rotate.x;
                     mouseX = rotate.y;
@@ -176,7 +173,6 @@ public class CameraRotationManager : MonoBehaviour
         if(newBase.cameraObject != null)
             newBase.cameraObject.SetActive(true);
         cameraRotation = newBase;
-        floatName = cameraRotation.DirectionFloatName;
         if(cameraRotation.shaking && !shaking)
         {
             StopShake();
