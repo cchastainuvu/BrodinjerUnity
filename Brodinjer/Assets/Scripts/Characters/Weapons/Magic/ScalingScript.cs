@@ -62,7 +62,6 @@ public class ScalingScript : WeaponBase
     public override IEnumerator Attack()
     {
         Debug.Log("Start Attack");
-        anim.SetBool("Magic Equipped", true);
         while (currWeapon)
         {
             if (!MagicInUse.value && !frozen)
@@ -89,6 +88,7 @@ public class ScalingScript : WeaponBase
                                 playermove.SwapMovement(bowRotate, playermove.translate, playermove.extraControls);
                             StartTimeSwap(CameraSwapTime);
                         }
+                        anim.SetBool("Magic Equipped", true);
                         cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
                         StartTimeSwap(CameraSwapTime);
 
@@ -108,7 +108,7 @@ public class ScalingScript : WeaponBase
                                 StartTimeSwap(CameraSwapTime);
                             }
 
-                            cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
+                            //cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);
                             if (currPower >= MaxPower)
                             {
                                 currPower = MaxPower;
@@ -124,9 +124,10 @@ public class ScalingScript : WeaponBase
                         }
                         if (!frozen)
                         {
+                            anim.SetTrigger(AttackTrigger);
+                            yield return new WaitForSeconds(.25f);
                             aiming = false;
                             CenterCursor.SetActive(false);
-
                             SpellBall.constraints = RigidbodyConstraints.FreezeRotation;
                             currSpell.transform.parent = null;
                             temp = currSpell.GetComponentInChildren<ScalingMagic>();
@@ -135,7 +136,6 @@ public class ScalingScript : WeaponBase
                             temp.Fire();
                             SpellBall.AddForce(Direction.transform.forward * currPower, ForceMode.Impulse);
                             currentSpellDuration = maxSpellDuration * (currPower / MaxPower);
-                            playermove.SwapMovement(bowRotate, originalTranslate, playermove.extraControls);
                         }
                         else
                         {
@@ -144,7 +144,11 @@ public class ScalingScript : WeaponBase
                                 Destroy(SpellBall.gameObject);
                             }
                         }
+                        cameraRotation.SwapRotation(thirdPersonCamera);
+                        yield return new WaitForSeconds(.1f);
+                        playermove.SwapMovement(originalRotate, originalTranslate, playermove.extraControls);
 
+                        anim.SetBool("Magic Equipped", false);
                         while (inUse && currentSpellDuration > 0 && MagicInUse.value)
                         {
                             currentSpellDuration -= .1f;

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponManager : MonoBehaviour
 {
     public WeaponBase currentWeapon;
     private bool freeze;
-
+    public SoundController Equip, Unequip;
     public void WeaponDisable()
     {
         if(currentWeapon != null)
@@ -54,7 +55,10 @@ public class WeaponManager : MonoBehaviour
             WeaponDisable();
         currentWeapon = weapon;
         if (initialize)
+        {
+            Equip.Play();
             weapon.Initialize();
+        }
         else
             weapon.Activate();
         if(currentWeapon != null)
@@ -63,6 +67,7 @@ public class WeaponManager : MonoBehaviour
 
     public void PutAwayWeapon()
     {
+        Unequip.Play();
         WeaponDisable();
         currentWeapon = null;
     }
