@@ -39,7 +39,7 @@ public class ScalingScript : WeaponBase
     public Transform Direction;
     ScalingMagic temp;
     private bool running;
-
+    public SoundController MagicChargeSound, MagicCastSound;
 
 
     public override void Initialize()
@@ -97,6 +97,7 @@ public class ScalingScript : WeaponBase
                         currSpell.transform.localScale = Vector3.zero;
                         currSpell.SetActive(true);
                         SpellBall = currSpell.GetComponentInChildren<Rigidbody>();
+                        MagicChargeSound.Play();
                         while (Input.GetButton(useButton) && MagicAmount.value > 0 && !frozen)
                         {
                             if (cameraRotation.cameraRotation != bowCamera)
@@ -134,6 +135,7 @@ public class ScalingScript : WeaponBase
                             if (temp && temp.VFX)
                                 temp.VFX.SetActive(true);
                             temp.Fire();
+                            MagicCastSound.Play();
                             SpellBall.AddForce(Direction.transform.forward * currPower, ForceMode.Impulse);
                             currentSpellDuration = maxSpellDuration * (currPower / MaxPower);
                         }

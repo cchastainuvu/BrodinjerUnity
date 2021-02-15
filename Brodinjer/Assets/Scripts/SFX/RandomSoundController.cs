@@ -1,20 +1,14 @@
 ﻿using UnityEngine;
 
-public class RandomSoundController : MonoBehaviour
+public class RandomSoundController : SoundController
 {
-    private AudioSource _mSource;
     private int _clipLength;
     public AudioClip[] _mClips;
     
-
-    void Start()
-    {
-        _mSource = GetComponent<AudioSource>();
-        _clipLength = _mClips.Length;
-    }
     
-    public void Play()
+    public override void Play()
     {
+        _clipLength = _mClips.Length;
         if (_mSource.isPlaying)
         {
             _mSource.Stop();
@@ -23,11 +17,4 @@ public class RandomSoundController : MonoBehaviour
         _mSource.Play();
     }
 
-    public void Stop()
-    {
-        if (_mSource.isPlaying)
-        {
-            _mSource.Stop();
-        }
-    }
 }

@@ -66,7 +66,8 @@ public class Fist_Slam_Attack : Enemy_Attack_Base
         yield return new WaitForSeconds(AttackStartTime);
         SetPosition();
         yield return new WaitForSeconds(PauseTime);
-        if(resetAnims)
+        attackSound.Play();
+        if (resetAnims)
             resetAnims.ResetAllTriggers();
         animator.SetTrigger(AnimationAttackTriggerName);
         WeaponAttackobj.SetActive(true);
