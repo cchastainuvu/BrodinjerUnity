@@ -31,6 +31,7 @@ public class BowandArrow : WeaponBase
     public float cooldowntime, reloadTime;
     private bool running, aiming, exited;
     private ResetTriggers reset;
+    public SoundController DrawSound, FireSound;
 
 
     public BowString bowstring;
@@ -91,7 +92,11 @@ public class BowandArrow : WeaponBase
                     StartTimeSwap(CameraSwapTime);
                     
                     currentTime = 0;
+
                     yield return new WaitForSeconds(reloadTime);
+                    DrawSound.Play();
+
+
                     if (!Input.GetButton(useButton))
                     {
                         bowstring.Release();
@@ -125,7 +130,7 @@ public class BowandArrow : WeaponBase
                     {
                         yield return new WaitForFixedUpdate();
                     }
-
+                    FireSound.Play();
                     bowstring.Release();
                     cameraRotation.AnimationOffset = -2;
                     numArrows.SubInt(1);

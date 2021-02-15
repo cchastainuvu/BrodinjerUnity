@@ -28,6 +28,7 @@ public class MeleeWeapon : WeaponBase
     public ParticleSystem WeaponTrail;
     public RandomSoundController Swing;
     [HideInInspector]public bool largeAttack;
+    public GameObject SoundObj;
 
     private void Start()
     {
@@ -77,6 +78,7 @@ public class MeleeWeapon : WeaponBase
                     anim.SetInteger(ComboNumInteger, 1);
                 }
                 Swing.Play();
+                SoundObj.SetActive(true);
                 yield return  new WaitForSeconds(attackActivateTime01);
                 damage.DamageAmount = DamageAttack1;
                 knockbackObj.SetActive(true);
@@ -143,6 +145,7 @@ public class MeleeWeapon : WeaponBase
                     origMovement.ForwardSpeed = origwalkfor;
                     origMovement.SideSpeed = origwalkside;
                 }
+                SoundObj.SetActive(false);
                 WeaponTrail.Stop();
                 Debug.Log("Finish Attack");
                 knockbackObj.SetActive(false);
