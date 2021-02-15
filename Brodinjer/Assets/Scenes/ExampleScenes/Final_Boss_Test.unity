@@ -2106,6 +2106,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -4157,6 +4158,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -5695,7 +5697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &362304201
 Transform:
   m_ObjectHideFlags: 0
@@ -6035,6 +6037,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -6070,6 +6073,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -12724,6 +12728,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -12759,6 +12764,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -19508,6 +19514,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -19543,6 +19550,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -23101,6 +23109,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -23136,6 +23145,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -34503,6 +34513,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 0
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
@@ -37206,7 +37217,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 9.999999, y: 0.15844138, z: 9.999999}
-  m_Center: {x: 0, y: -0.032424282, z: 0}
+  m_Center: {x: 0, y: -0.175, z: 0}
 --- !u!23 &2021281974
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37298,7 +37309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnAwake: 0
-  WaitTime: 1
+  WaitTime: 2
   Event:
     m_PersistentCalls:
       m_Calls:
@@ -37441,6 +37452,7 @@ MonoBehaviour:
         m_CallState: 2
   checksFor: 1
   waitTime: 0
+  resetTime: 0
   objName: 
   layer:
     serializedVersion: 2
