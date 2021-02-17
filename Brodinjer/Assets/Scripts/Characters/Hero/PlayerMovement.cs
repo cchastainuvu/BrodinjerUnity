@@ -329,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator WalkSound()
     {
-        while (true)
+        while (!dead)
         {
             if (translate != null)
             {
