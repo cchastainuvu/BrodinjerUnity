@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         if (!dead && !stunned)
         {
             currentSpeed = _cc.velocity.magnitude;
-            if (currentSpeed > 0.1f)
+            if (currentSpeed > 0.5f)
             {
                 walking = true;
             }
@@ -329,7 +329,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator WalkSound()
     {
-        while (true)
+        while (!dead)
         {
             if (translate != null)
             {

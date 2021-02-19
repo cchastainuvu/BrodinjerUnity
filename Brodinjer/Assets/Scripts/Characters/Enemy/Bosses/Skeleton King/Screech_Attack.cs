@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class Screech_Attack : Enemy_Attack_Base
 {
     public string AnimationTriggerName;
@@ -18,6 +18,7 @@ public class Screech_Attack : Enemy_Attack_Base
     private List<Ceiling_Obj> currentCeilingObjs;
     private List<List<float>> ceilingDests;
     public float minscale, maxscale;
+    public UnityEvent OnScreech;
 
     private void Start()
     {
@@ -72,6 +73,8 @@ public class Screech_Attack : Enemy_Attack_Base
     {
         animator.SetTrigger(AnimationTriggerName);
         yield return new WaitForSeconds(AttackStartTime);
+        OnScreech.Invoke();
+        attackSound.Play();
         CielingCollider.isTrigger = true;
         foreach(var obj in currentCeilingObjs)
         {

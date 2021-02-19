@@ -27,43 +27,50 @@ public abstract class Trigger_Event_Base : MonoBehaviour
 
     public virtual IEnumerator CheckTrigger(Collider coll)
     {
-        isRunning = true;
-        switch (checksFor)
+        if (!isRunning)
         {
-            case Check.Layer:
-                if (((1 << coll.gameObject.layer) & layer) != 0)
-                {
-                    triggerCollider = coll.gameObject;
-                    yield return new WaitForSeconds(waitTime);
-                    RunEvent();
-                    yield return new WaitForSeconds(resetTime);
+            isRunning = true;
+            switch (checksFor)
+            {
+                case Check.Layer:
+                    if (((1 << coll.gameObject.layer) & layer) != 0)
+                    {
+                        triggerCollider = coll.gameObject;
+                        yield return new WaitForSeconds(waitTime);
+                        RunEvent();
+                        yield return new WaitForSeconds(resetTime);
+                        isRunning = false;
 
-                }
-                break;
-            case Check.Name:
-                if (coll.gameObject.name.Contains(objName))
-                {
-                    triggerCollider = coll.gameObject;
-                    yield return new WaitForSeconds(waitTime);
-                    RunEvent();
-                    yield return new WaitForSeconds(resetTime);
+                    }
+                    break;
+                case Check.Name:
+                    if (coll.gameObject.name.Contains(objName))
+                    {
+                        triggerCollider = coll.gameObject;
+                        yield return new WaitForSeconds(waitTime);
+                        RunEvent();
+                        yield return new WaitForSeconds(resetTime);
+                        isRunning = false;
 
-                }
-                break;
-            case Check.Tag:
-                //Debug.Log(coll.gameObject.tag);
-                if (coll.gameObject.CompareTag(tagName))
-                {
-                    //Debug.Log("Correct Tag");
-                    triggerCollider = coll.gameObject;
-                    yield return new WaitForSeconds(waitTime);
-                    RunEvent();
-                    yield return new WaitForSeconds(resetTime);
+                    }
+                    break;
+                case Check.Tag:
+                    //Debug.Log(coll.gameObject.tag);
+                    if (coll.gameObject.CompareTag(tagName))
+                    {
+                        //Debug.Log("Correct Tag");
+                        triggerCollider = coll.gameObject;
+                        yield return new WaitForSeconds(waitTime);
+                        RunEvent();
+                        yield return new WaitForSeconds(resetTime);
+                        isRunning = false;
 
-                }
-                break;
+                    }
+                    break;
+            }
+            isRunning = false;
+
         }
-        isRunning = false;
     }
 
     public virtual void RunEvent()

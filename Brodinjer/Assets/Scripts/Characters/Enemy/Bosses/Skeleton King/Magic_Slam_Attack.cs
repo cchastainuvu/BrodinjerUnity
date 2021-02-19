@@ -15,15 +15,11 @@ public class Magic_Slam_Attack : Enemy_Attack_Base
     public float ScaleIncreaseTime;
     public float ScaleActiveTime;
     public bool Side01 = true;
+    public BoolData side;
 
-    public void SetSide(bool val)
-    {
-        Side01 = val;
-        Setup();
-    }
     public void SwapSide()
     {
-        Side01 = !Side01;
+        Side01 = side.value;
         Setup();
     }
 
@@ -67,6 +63,7 @@ public class Magic_Slam_Attack : Enemy_Attack_Base
         yield return new WaitForSeconds(AttackStartTime);
         SetPosition();
         yield return new WaitForSeconds(MovePauseTime);
+        attackSound.Play();
         if (resetAnims)
             resetAnims.ResetAllTriggers();
         animator.SetTrigger(AnimationAttackTriggerName);
