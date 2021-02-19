@@ -15,18 +15,14 @@ public class Swipe_Attack : Enemy_Attack_Base
     private float x, y;
     private bool right;
     public bool Side01 = true;
+    public BoolData side;
     private List<WeaponDamageAmount> LeftWeapons, RightWeapons;
     public SoundController R_SwipeSound, L_SwipeSound;
 
-    public void SetSide(bool val)
-    {
-        Side01 = val;
-        Setup();
-    }
 
     public void SwapSide()
     {
-        Side01 = !Side01;
+        Side01 = side.value;
         Setup();
     }
 
