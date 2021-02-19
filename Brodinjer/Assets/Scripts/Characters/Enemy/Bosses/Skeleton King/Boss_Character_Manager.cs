@@ -29,6 +29,11 @@ public class Boss_Character_Manager : MonoBehaviour
         }
     }
     
+    public void GiveDamage(float amount)
+    {
+        TakeDamage(amount, false, 0, "");
+    }
+
     public void Init()
     {
         health.Init(this, null, true);

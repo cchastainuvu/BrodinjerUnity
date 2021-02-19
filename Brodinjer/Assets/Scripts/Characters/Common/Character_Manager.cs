@@ -105,7 +105,7 @@ public abstract class Character_Manager : MonoBehaviour
                     damaged = true;
                     if (damageAnimate)
                     {
-                        if (temp.DamageAnimationTrigger != "")
+                        if (temp.DamageAnimationTrigger != "" && temp.DamageAnimationTrigger != " ")
                         {
                             anim.SetTrigger(temp.DamageAnimationTrigger);
                         }
