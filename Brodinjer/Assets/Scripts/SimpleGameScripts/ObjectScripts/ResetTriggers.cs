@@ -9,6 +9,7 @@ public class ResetTriggers : MonoBehaviour
 
     public void ResetAllTriggers()
     {
+        Debug.Log("Reset Triggers");
         foreach (var triggername in triggerNames)
         {
             anim.ResetTrigger(triggername);

@@ -4,8 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterRotate rotate, zRotation, deadRotate;
-    public CharacterTranslate translate, deadTranslate;
+    public CharacterRotate rotate, zRotation, deadRotate, stunnedRotate, thirdPersonRotate;
+    public CharacterTranslate translate, deadTranslate, stunnedTranslate, thirdPersonTranslate;
     public List<CharacterControlExtraBase> extraControls = new List<CharacterControlExtraBase>();
     public Transform CharacterScalar, DirectionReference;
     public Animator anim;
@@ -99,8 +99,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void Stun()
     {
-        stunned = true;
-        StopAll();
+        if (!stunned && !dead)
+        {
+            SwapMovement(stunnedRotate, stunnedTranslate);
+            stunned = true;          
+        }
     }
 
     public void Drown()
@@ -112,8 +115,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void UnStun()
     {
-        stunned = false;
-        StartAll();
+        if (stunned && !dead)
+        {
+            stunned = false;
+            SwapMovement(thirdPersonRotate, thirdPersonTranslate);
+            thirdPersonTranslate.SetRun(8);
+            thirdPersonTranslate.SetWalk(2);
+        }
     }
 
     private void Init()
@@ -130,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (MoveOnStart)
         {
+            MoveOnStart = false;
             StartAll();
         }
     }

@@ -12,6 +12,7 @@ public class RibCage_Swipe : Enemy_Attack_Base
     private int currentRotation;
     private float currentVelocity;
     private bool Right;
+
     
     public override IEnumerator Attack()
     {

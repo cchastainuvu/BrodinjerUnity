@@ -35,18 +35,23 @@ public class Wander : MonoBehaviour
 
     private IEnumerator AnimationUpdate()
     {
-        while (true)
+        if (chickenAnim != null)
         {
-            chickenAnim.SetFloat("Speed", agent.velocity.magnitude);
-            if(agent.velocity.magnitude <= .01f)
+            while (true)
             {
-                chickenAnim.speed = 1;
+                chickenAnim.SetFloat("Speed", agent.velocity.magnitude);
+                if (agent.velocity.magnitude <= .01f)
+                {
+                    chickenAnim.speed = 1;
+                }
+                else
+                {
+                    chickenAnim.speed = agent.velocity.magnitude;
+                }
+                yield return new WaitForFixedUpdate();
             }
-            else {
-                chickenAnim.speed = agent.velocity.magnitude;
-            }
-            yield return new WaitForFixedUpdate();
         }
+        yield return new WaitForFixedUpdate();
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)

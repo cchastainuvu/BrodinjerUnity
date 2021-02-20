@@ -48,12 +48,17 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
     private RaycastHit hit;
     public float PouncePauseTime;
 
+    public LayerMask wallLayer;
+    private bool jumping;
+
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
         col = GetComponent<BoxCollider>();
         myNormal = transform.up;
         StartCoroutine(GravityForce());
+        jumping = false;
+        resetAnims = animator.GetComponent<ResetTriggers>();
     }
 
     public override void StartAttack()
@@ -71,16 +76,18 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         RB.freezeRotation = true;
         distGround = col.bounds.extents.y - col.center.y;
         InitEvent.Invoke();
+        if (resetAnims)
+            resetAnims.ResetAllTriggers();
+        animator.SetTrigger("Jump");
         yield return new WaitForSeconds(jumpInitTime);
         jumpDirection = transform.forward * ForwardJumpForce + transform.up * UpwardJumpForce;
         RB.velocity = Vector3.zero;
-        Debug.Log(jumpDirection);
         RB.AddForce(jumpDirection, ForceMode.Impulse);
-        Debug.Log(RB.velocity);
-        Debug.Log("Rotate 90 degrees");
         transform.Rotate(-90,0,0);
+        jumping = true;
         yield return new WaitForSeconds(jumpAfterTime);
-        //checkJump = false;
+        yield return new WaitForSeconds(.5f);
+        animator.SetFloat("Speed", 1);
         currentTime = 90 / InitRotateSpeed;
         while (currentTime > 0)
         {
@@ -169,14 +176,17 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
             yield return new WaitForFixedUpdate();
         }
         transform.rotation = Quaternion.Euler(new Vector3(-270,transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
-
-        //pounceDirection = transform.forward + transform.up;
+        animator.SetFloat("Speed", 0);
         yield return new WaitForSeconds(WallPounceInitTime);
         pounceDirection = (PlayerObj.transform.position - transform.position).normalized;
+        if (resetAnims)
+            resetAnims.ResetAllTriggers();
+        animator.SetTrigger("Jump");
         yield return new WaitForSeconds(PouncePauseTime);
         WeaponObj.SetActive(true);
         RB.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
         transform.Rotate(-90,0,0);
+        jumping = true;
         yield return new WaitForSeconds(WallPounceEndTime);
         RB.freezeRotation = false;
         WeaponObj.SetActive(false);
@@ -214,12 +224,12 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
     {
         while (checkJump)
         {
-            if (Physics.Raycast(FrontObj.transform.position, transform.forward, out hit, jumpRange))
+            if (Physics.Raycast(FrontObj.transform.position, transform.forward, out hit, jumpRange, wallLayer))
             {
                 // wall ahead?
                 StartCoroutine(RotateToWall(hit.point, hit.normal, jumpTime)); // yes: jump to the wall
             }
-            if (Physics.Raycast(transform.position, -myNormal, out hit)){ // use it to update myNormal and isGrounded
+            if (Physics.Raycast(transform.position, -myNormal, out hit, wallLayer)){ // use it to update myNormal and isGrounded
                 surfaceNormal = hit.normal;
             }
             else {
@@ -264,5 +274,14 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         }
         return false;
     }
-   
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
+            jumping = false;
+            animator.SetTrigger("Land");
+        }
+    }
+
 }
