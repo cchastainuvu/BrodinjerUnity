@@ -101,14 +101,22 @@ public class BowandArrow : WeaponBase
                     {
                         bowstring.Release();
                         reset.ResetAllTriggers();
-                        anim.SetBool("Pulled", true);
-                        Debug.Log("Release");
+                        anim.SetBool("Pulled", false);
                         continue;
                     }
+
                     currPower = 0;
                     currArrow = Instantiate(ArrowPrefab, ArrowPrefab.transform.parent);
                     currArrow.SetActive(true);
                     ArrowRB = currArrow.GetComponent<Rigidbody>();
+                    yield return new WaitForSeconds(.5f);
+                    if (!Input.GetButton(useButton))
+                    {
+                        bowstring.Release();
+                        reset.ResetAllTriggers();
+                        anim.SetBool("Pulled", false);
+                        continue;
+                    }
                     while (Input.GetButton(useButton))
                     {
                         if (playermove.rotate != bowRotate)

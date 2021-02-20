@@ -14973,6 +14973,7 @@ MonoBehaviour:
   BaseObj: {fileID: 54750756262698614}
   knockbackDirection: {x: 0, y: 0, z: 0}
   DamageAnimationTrigger: 
+  RecoveryTime: 0
 --- !u!65 &2662013751558754807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37415,8 +37416,13 @@ MonoBehaviour:
   rotate: {fileID: 11400000, guid: b2a0e84b6068f4e48ac30a1e7b55fd87, type: 2}
   zRotation: {fileID: 11400000, guid: 8f865e5715de544408fb818dc7b29944, type: 2}
   deadRotate: {fileID: 11400000, guid: 3fd35209c0063014390ec605c730d8f0, type: 2}
+  stunnedRotate: {fileID: 11400000, guid: b2a0e84b6068f4e48ac30a1e7b55fd87, type: 2}
+  thirdPersonRotate: {fileID: 11400000, guid: b3b51d1b7712a68488c07d66bef8f86c, type: 2}
   translate: {fileID: 11400000, guid: 63bc98ae39fa07048b10fee92fccf0ff, type: 2}
   deadTranslate: {fileID: 11400000, guid: de5a8c24e96d9e148ac3f0a375b27a97, type: 2}
+  stunnedTranslate: {fileID: 11400000, guid: de5a8c24e96d9e148ac3f0a375b27a97, type: 2}
+  thirdPersonTranslate: {fileID: 11400000, guid: efec437756fb58b4da97d3ce670c6df6,
+    type: 2}
   extraControls: []
   CharacterScalar: {fileID: 54750756833462294}
   DirectionReference: {fileID: 54750755349595622}
@@ -37581,11 +37587,12 @@ MonoBehaviour:
   DamageAnimation: {fileID: 0}
   anim: {fileID: 54750756833462289}
   agent: {fileID: 0}
-  Knockback: 0
+  Knockback: 1
   damageAnimate: 1
   canDamage: 1
   movement: {fileID: 54750756262698507}
   weapons: {fileID: 54750756262698615}
+  damageAnimation: {fileID: 11400000, guid: ad395ee30ef29be449c982acf536fe97, type: 2}
 --- !u!114 &2642254415185662649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65924,6 +65931,7 @@ MonoBehaviour:
   BaseObj: {fileID: 54750756262698614}
   knockbackDirection: {x: 0, y: 0, z: 0}
   DamageAnimationTrigger: 
+  RecoveryTime: 0
 --- !u!1 &5962937611411259938
 GameObject:
   m_ObjectHideFlags: 0
@@ -72340,13 +72348,14 @@ MonoBehaviour:
   DamageAmount: 5
   DecreasedbyArmor: 1
   StunTime: 0
-  SingleHit: 0
+  SingleHit: 1
   hit: 0
   KnockbackForce: 0
   KnockbackTime: 0
   BaseObj: {fileID: 0}
   knockbackDirection: {x: 0, y: 0, z: 0}
   DamageAnimationTrigger: 
+  RecoveryTime: 0
 --- !u!1 &8598141636512628377
 GameObject:
   m_ObjectHideFlags: 0
@@ -75318,36 +75327,6 @@ PrefabInstance:
       value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4933679208656170307, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 175
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -70
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 5136188724376943294, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 40

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 public class Rotation_Transform_Movement : Transform_Movement_Base
 {
     public float offset;
@@ -10,6 +11,18 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
     private Quaternion rotationDirection;
 
     public Transform Destination;
+
+    public string SpeedFloatName;
+
+    private float currentSpeed;
+
+    public UnityEvent ReachCenter;
+    private bool RunEvent = false;
+
+    public void SetRun(bool val)
+    {
+        RunEvent = val;
+    }
 
     public override IEnumerator Move()
     {
@@ -27,12 +40,19 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
             target.y = 0;
             currentPos = enemy.transform.position;
             currentPos.y = 0;
+            currentSpeed = (Vector3.MoveTowards(enemy.transform.position, moveVector, Speed * Time.deltaTime).magnitude);
+            if (SpeedFloatName != "")
+                anim.SetFloat(SpeedFloatName, currentSpeed);
             rotationDirection = Quaternion.LookRotation((target - currentPos).normalized);
             enemy.transform.rotation =
                 Quaternion.Lerp(enemy.transform.rotation, rotationDirection, AngularSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
-
+        if(RunEvent)
+            ReachCenter.Invoke();
+        RunEvent = false;
+        if(SpeedFloatName != "" )
+            anim.SetFloat(SpeedFloatName, 0);
         enemy.transform.position = moveVector;
 
         while (moving)
@@ -47,19 +67,6 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
             yield return new WaitForFixedUpdate();
         }
     }
-
-    /*public override Enemy_Movement GetClone()
-    {
-        Rotation_Transform_Movement temp = CreateInstance<Rotation_Transform_Movement>();
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        temp.animation = animation;
-        temp.offset = offset;
-        temp.x = x;
-        temp.y = y;
-        temp.z = z;
-        return temp;
-    }*/
 
     public bool CheckDestination(Vector3 Dest01, Vector3 Dest02, float offset)
     {
