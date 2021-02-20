@@ -10,32 +10,45 @@ public class Main_Character_Manager : Character_Manager
     private CharacterController _cc;
     private bool running;
     private float currentTime;
-
+    public Damage_Animation damageAnimation;
     public void SetDamageCooldown(float value)
     {
         damageCoolDown = value;
     }
+
 
     public override void Init()
     {
         base.Init();
         if(_cc == null)
             _cc = movement.GetComponent<CharacterController>();
+        if(damageAnimation != null)
+        {
+            damageAnimation.Init(this, anim, player, null);
+        }
         running = false;
+        stunned = false;
 
     }
 
-    public override IEnumerator Stun(float stuntime)
+    public override IEnumerator Stun(float stuntime, float recoveryTime)
     {
-        movement.Stun();
-        weapons.WeaponFreeze();
-        anim.SetTrigger("Idle");
-        anim.speed = 0;
-        yield return new WaitForSeconds(stuntime);
-        anim.speed = 1;
-        movement.UnStun();
-        weapons.WeaponUnfreeze();
-        stunned = false;
+        if (!stunned)
+        {
+            Debug.Log("Stunned");
+            stunned = true;
+            movement.Stun();
+            weapons.WeaponFreeze();
+            yield return new WaitForSeconds(stuntime);
+            anim.SetTrigger("Recover");
+            yield return new WaitForSeconds(recoveryTime);
+            movement.UnStun();
+            weapons.WeaponUnfreeze();
+            stunned = false;
+            Debug.Log("Unstun");
+
+        }
+        yield return new WaitForFixedUpdate();
     }
 
     public void TakeDamage(float amount)
@@ -85,6 +98,19 @@ public class Main_Character_Manager : Character_Manager
         }
 
         running = false;
+    }
+
+    public override void RunAnimation(string DamageAnimationTrigger, GameObject collisionObj)
+    {
+        if (DamageAnimationTrigger != "" && DamageAnimationTrigger != " ")
+        {
+            anim.SetTrigger(DamageAnimationTrigger);
+        }
+        else
+        {
+            if (damageAnimation != null)
+                damageAnimation.StartAnimation(collisionObj.transform);
+        }
     }
 
     private void OnDisable()

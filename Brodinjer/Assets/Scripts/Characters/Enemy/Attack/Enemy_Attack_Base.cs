@@ -19,6 +19,7 @@ public abstract class Enemy_Attack_Base : MonoBehaviour
     public Animator animator;
     public float MovePauseTime;
     protected ResetTriggers resetAnims;
+    public SoundController attackSound;
 
     private void Start()
     {

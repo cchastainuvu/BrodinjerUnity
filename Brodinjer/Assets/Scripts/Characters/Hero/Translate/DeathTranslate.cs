@@ -25,13 +25,10 @@ public class DeathTranslate : CharacterTranslate
             animation.StartAnimation();
         while (true)
         {
-            if (!canMove)
-            {
                 vSpeed -= Gravity * Time.deltaTime;
                 _moveVec = Vector3.zero;
                 _moveVec.y = vSpeed;
                 _cc.Move(_moveVec * Time.deltaTime);
-            }
 
             yield return fixedUpdate;
         }

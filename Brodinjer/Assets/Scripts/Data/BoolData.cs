@@ -17,4 +17,9 @@ public class BoolData : SavableScriptableObjects
         if (temp != null)
             value = temp.value;
     }
+
+    public void Toggle()
+    {
+        value = !value;
+    }
 }

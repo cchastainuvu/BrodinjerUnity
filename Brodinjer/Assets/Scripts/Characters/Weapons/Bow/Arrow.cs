@@ -15,6 +15,8 @@ public class Arrow : MonoBehaviour
     private bool fired;
     public GameObject ArrowCollider;
     public ParticleSystem weaponTrail;
+    public SoundController ImpactSound;
+    private bool hit;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class Arrow : MonoBehaviour
         }
 
         fired = false;
+        hit = false;
 
     }
 
@@ -40,9 +43,11 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (fired)
+        if (fired && !hit)
         {
+            hit = true;
             weaponTrail.Stop();
+            ImpactSound.Play();
             stickable = other.gameObject.GetComponentInChildren<Stickable>();
             if (stickable)
             {

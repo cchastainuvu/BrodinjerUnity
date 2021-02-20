@@ -21,6 +21,8 @@ public class WeaponDamageAmount : MonoBehaviour
 
     public string DamageAnimationTrigger;
 
+    public float RecoveryTime;
+
     public void SetKnockbackDirection(Vector3 newDirection)
     {
         knockbackDirection = newDirection;

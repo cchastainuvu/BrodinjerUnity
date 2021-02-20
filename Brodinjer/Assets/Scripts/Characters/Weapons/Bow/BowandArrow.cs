@@ -31,6 +31,7 @@ public class BowandArrow : WeaponBase
     public float cooldowntime, reloadTime;
     private bool running, aiming, exited;
     private ResetTriggers reset;
+    public SoundController DrawSound, FireSound;
 
 
     public BowString bowstring;
@@ -91,19 +92,31 @@ public class BowandArrow : WeaponBase
                     StartTimeSwap(CameraSwapTime);
                     
                     currentTime = 0;
+
                     yield return new WaitForSeconds(reloadTime);
+                    DrawSound.Play();
+
+
                     if (!Input.GetButton(useButton))
                     {
                         bowstring.Release();
                         reset.ResetAllTriggers();
-                        anim.SetBool("Pulled", true);
-                        Debug.Log("Release");
+                        anim.SetBool("Pulled", false);
                         continue;
                     }
+
                     currPower = 0;
                     currArrow = Instantiate(ArrowPrefab, ArrowPrefab.transform.parent);
                     currArrow.SetActive(true);
                     ArrowRB = currArrow.GetComponent<Rigidbody>();
+                    yield return new WaitForSeconds(.5f);
+                    if (!Input.GetButton(useButton))
+                    {
+                        bowstring.Release();
+                        reset.ResetAllTriggers();
+                        anim.SetBool("Pulled", false);
+                        continue;
+                    }
                     while (Input.GetButton(useButton))
                     {
                         if (playermove.rotate != bowRotate)
@@ -125,7 +138,7 @@ public class BowandArrow : WeaponBase
                     {
                         yield return new WaitForFixedUpdate();
                     }
-
+                    FireSound.Play();
                     bowstring.Release();
                     cameraRotation.AnimationOffset = -2;
                     numArrows.SubInt(1);
