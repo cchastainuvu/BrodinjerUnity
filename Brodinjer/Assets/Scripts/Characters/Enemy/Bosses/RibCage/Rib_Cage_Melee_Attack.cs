@@ -33,15 +33,4 @@ public class Rib_Cage_Melee_Attack : Enemy_Attack_Base
         attacking = false;
     }
 
-    /*public override Enemy_Attack_Base getClone()
-    {
-        Rib_Cage_Melee_Attack temp = CreateInstance<Rib_Cage_Melee_Attack>();
-        temp.AttackActiveTime = AttackActiveTime;
-        temp.AttackStartTime = AttackStartTime;
-        temp.CoolDownTime = CoolDownTime;
-        temp.animations = animations;
-        temp.attackWhileMoving = attackWhileMoving;
-
-        return temp;
-    }*/
 }

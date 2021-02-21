@@ -22,7 +22,7 @@ public abstract class Character_Manager : MonoBehaviour
     public Animation_Base DamageAnimation;
     public Animator anim;
     public NavMeshAgent agent;
-    private Transform player;
+    protected Transform player;
 
     public bool Knockback;
 
@@ -96,29 +96,20 @@ public abstract class Character_Manager : MonoBehaviour
                 WeaponDamageAmount temp = coll.GetComponent<WeaponDamageAmount>();
                 if (temp != null)
                 {
-                    if (StunTime && !stunned)
+                    if (StunTime)
                     {
-                        stunned = true;
-                        StartCoroutine(Stun(temp.StunTime));
+                        StartCoroutine(Stun(temp.StunTime, temp.RecoveryTime));
                     }
 
                     damaged = true;
                     if (damageAnimate)
                     {
-                        if (temp.DamageAnimationTrigger != "" && temp.DamageAnimationTrigger != " ")
-                        {
-                            anim.SetTrigger(temp.DamageAnimationTrigger);
-                        }
-                        else
-                        {
-                            if(DamageAnimation!= null)
-                                DamageAnimation.StartAnimation();
-                        }
+                        RunAnimation(temp.DamageAnimationTrigger, coll.gameObject);
                     }
                     if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
                     {
                         temp.hit = true;
-                        //Debug.Log("Hit: " + this.gameObject.name + " " + coll.gameObject.name + " Layer: " + coll.gameObject.layer);
+                        Debug.Log("Hit: " + this.gameObject.name + " " + coll.gameObject.name + " Layer: " + coll.gameObject.layer);
                         TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
                     }
 
@@ -145,7 +136,19 @@ public abstract class Character_Manager : MonoBehaviour
         return result;
     }
 
-    public abstract IEnumerator Stun(float stuntime);
+    public abstract IEnumerator Stun(float stuntime, float recoveryTime);
     
+    public virtual void RunAnimation(string DamageAnimationTrigger, GameObject collisionObj)
+    {
+        if (DamageAnimationTrigger != "" && DamageAnimationTrigger != " ")
+        {
+            anim.SetTrigger(DamageAnimationTrigger);
+        }
+        else
+        {
+            if (DamageAnimation != null)
+                DamageAnimation.StartAnimation();
+        }
+    }
     
 }

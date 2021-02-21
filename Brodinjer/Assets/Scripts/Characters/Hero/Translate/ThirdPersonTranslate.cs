@@ -157,9 +157,11 @@ public class ThirdPersonTranslate : CharacterTranslate
                     jumping = true;
                     if(reset)
                         reset.ResetAllTriggers();
-                    anim.SetTrigger(JumpTrigger);
-                    JumpSound.Play();
+                    if(JumpTrigger != "")
+                        anim.SetTrigger(JumpTrigger);
                     currentTime = 0;
+                    if(JumpSpeed > 0)
+                        JumpSound.Play();
                     while (currentTime < JumpDelay)
                     {
                         vSpeed -= Gravity * Time.deltaTime;
@@ -177,8 +179,6 @@ public class ThirdPersonTranslate : CharacterTranslate
                 {
                     falling = false;
                     jumping = false;
-                    if(reset)
-                        reset.ResetAllTriggers();
                     if(LandTrigger != "")
                         anim.SetTrigger(LandTrigger);
                     if(FallTrigger != "")
@@ -191,8 +191,6 @@ public class ThirdPersonTranslate : CharacterTranslate
             if (!jumping && !falling)
             {
                 falling = true;
-                if(reset)
-                    reset.ResetAllTriggers();
                 if(FallTrigger != "")
                     anim.SetBool("Fall", true);
             }

@@ -22,7 +22,7 @@ public class Enemy_Character_Manager : Character_Manager
 
     }
 
-    public override IEnumerator Stun(float stuntime)
+    public override IEnumerator Stun(float stuntime, float recoveryTime)
     {
         enemyManager.Stun();
         yield return new WaitForSeconds(stuntime);
