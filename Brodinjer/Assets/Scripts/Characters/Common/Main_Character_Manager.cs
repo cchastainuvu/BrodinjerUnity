@@ -56,6 +56,8 @@ public class Main_Character_Manager : Character_Manager
         if (canDamage && !dead)
         {
             Character.Health.TakeDamage(amount, false);
+            if (damageSound)
+                damageSound.Play();
             if (Character.Health.health.value <= 0)
             {
                 return;

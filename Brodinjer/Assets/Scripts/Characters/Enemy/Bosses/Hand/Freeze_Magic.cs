@@ -27,7 +27,7 @@ public class Freeze_Magic : Trigger_Event_Base
         weapons = triggerCollider.GetComponent<WeaponManager>(); 
         if (playermove)
         {
-            playermove.StopAll();
+            playermove.Stun();
             if (weapons)
             {
                 weapons.WeaponFreeze();
@@ -61,7 +61,7 @@ public class Freeze_Magic : Trigger_Event_Base
             StopCoroutine(resetFunc);
         if (playermove)
         {
-            playermove.StartAll();
+            playermove.UnStun();
         }
 
         if (weapons)

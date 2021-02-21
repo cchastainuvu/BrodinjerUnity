@@ -31,6 +31,7 @@ public class ScalableObject : ScalableObjectBase
 
     protected float initScaleAmount;
 
+
     public override void SetInit(float scale)
     {
         newScale = Vector3.one * scale;
@@ -118,16 +119,19 @@ public class ScalableObject : ScalableObjectBase
         }
     }
 
-    public override void ScaleUp(bool deltaTimed)
+    public override bool ScaleUp(bool deltaTimed)
     {
+        bool scaled = false;
         scaleSpeed = (deltaTimed) ? ScaleSpeed * Time.deltaTime : ScaleSpeed;
         if (transform.localScale.x < maxScale.x)
         {
+            scaled = true;
             newScale = transform.localScale;
             newScale += scaleSpeed * Vector3.one;
             if (newScale.x > maxScale.x)
             {
                 newScale = maxScale;
+                scaled = false;
             }
             transform.localScale = newScale;
             if (UpdateMass)
@@ -149,17 +153,21 @@ public class ScalableObject : ScalableObjectBase
                 configurableJoint.linearLimit = temp;
             }
         }
+        return scaled;
     }
 
-    public override void ScaleDown(bool deltaTimed)
+    public override bool ScaleDown(bool deltaTimed)
     {
+        bool scaled = false;
         scaleSpeed = (deltaTimed) ? ScaleSpeed * Time.deltaTime : ScaleSpeed;
         if (transform.localScale.x > minScale.x)
         {
+            scaled = true;
             newScale = transform.localScale;
             newScale -= scaleSpeed * Vector3.one;
             if (newScale.x < minScale.x)
             {
+                scaled = false;
                 newScale = minScale;
             }
             transform.localScale = newScale;
@@ -181,6 +189,7 @@ public class ScalableObject : ScalableObjectBase
                 configurableJoint.linearLimit = temp;
             }
         }
+        return scaled;
     }
 
     public override void AutoScale(float time, bool Up)
@@ -258,4 +267,5 @@ public class ScalableObject : ScalableObjectBase
             yield return new WaitForFixedUpdate();
         }
     }
+
 }

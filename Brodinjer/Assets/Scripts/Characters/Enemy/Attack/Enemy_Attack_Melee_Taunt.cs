@@ -16,6 +16,7 @@ public class Enemy_Attack_Melee_Taunt : Enemy_Attack_Base
     public List<float> attackDamage;
     private WeaponDamageAmount damage;
     private int currentnum;
+    public List<SoundController> attackSounds;
 
 
     public override void Init()
@@ -35,8 +36,11 @@ public class Enemy_Attack_Melee_Taunt : Enemy_Attack_Base
             resetAnims.ResetAllTriggers();
         animations.StartAnimation();
         yield return new WaitForSeconds(attackStartTimes[currentnum]);
-        if(!tauntBools[currentnum])
+        attackSounds[currentnum].Play();
+        if (!tauntBools[currentnum])
+        {
             WeaponAttackobj.SetActive(true);
+        }
         yield return new WaitForSeconds(attackActiveTimes[currentnum]);
         WeaponAttackobj.SetActive(false);
         animations.StopAnimation();

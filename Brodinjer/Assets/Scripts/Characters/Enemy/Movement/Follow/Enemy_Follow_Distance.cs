@@ -8,9 +8,11 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
     private Vector3 target, destinationTarget;
     private Quaternion facingDirection;
     public float offset;
-    
+    public SoundController walkSound;
+    public float MaxFootstep, MinFootstep;
     public override IEnumerator Move()
     {
+        StartCoroutine(WalkSound());
         agent.speed = Speed;
         agent.updateRotation = true;
         agent.updatePosition = true;
@@ -46,5 +48,19 @@ public class Enemy_Follow_Distance : Enemy_Follow_Base
         if(AnimationBase != null)
             AnimationBase.StopAnimation();
     }
+
+    private IEnumerator WalkSound()
+    {
+        while (moving)
+        {
+            if (agent.velocity.magnitude >= .1f)
+            {
+                walkSound.Play();
+                yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, Speed, MaxFootstep, MinFootstep, agent.velocity.magnitude));
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
 
 }
