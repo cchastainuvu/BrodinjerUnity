@@ -347,8 +347,8 @@ public class PlayerMovement : MonoBehaviour
                     Footsteps.Play();
                     yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, translate.RunForwardSpeed, MaxFootstepInBetween, MinFootstepInBetween, currentSpeed));
                 }
-                yield return new WaitForFixedUpdate();
             }
+            yield return new WaitForFixedUpdate();
         }
     }
 

@@ -29,6 +29,7 @@ public abstract class Character_Manager : MonoBehaviour
     public bool damageAnimate = true;
     public bool canDamage = true;
 
+    public SoundController damageSound;
 
     protected virtual void Start()
     {
@@ -79,10 +80,13 @@ public abstract class Character_Manager : MonoBehaviour
         if (canDamage && !dead)
         {
             Character.Health.TakeDamage(amount, armor);
+            if (damageSound)
+                damageSound.Play();
             if (Character.Health.health.value <= 0)
             {
                 return;
             }
+            
         }
     }
 

@@ -25,6 +25,7 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         magicObj.transform.localScale = WeaponAttackobj.transform.lossyScale;
         forcedirection = WeaponAttackobj.transform.forward * ForwardVelocity;
         rigid.AddForce(forcedirection, ForceMode.Impulse);
+        attackSound.Play();
         yield return new WaitForSeconds(AttackActiveTime);
         if(animations!= null)
             animations.StopAnimation();
@@ -32,18 +33,6 @@ public class Hand_Magic_Attack : Enemy_Attack_Base
         attacking = false;
     }
 
-    /*public override Enemy_Attack_Base getClone()
-    {
-        Hand_Magic_Attack temp = CreateInstance<Hand_Magic_Attack>();
-        temp.ForwardVelocity = ForwardVelocity;
-        temp.AttackActiveTime = AttackActiveTime;
-        temp.CoolDownTime = CoolDownTime;
-        temp.AttackStartTime = AttackStartTime;
-        temp.animations = animations;
-        temp.attackWhileMoving = attackWhileMoving;
-
-        return temp;
-    }*/
 }
 
 

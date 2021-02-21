@@ -75,29 +75,69 @@ public class ScalingMagic : MonoBehaviour
     private IEnumerator Scale()
     {
         //movement.StopAll();
+        bool soundon = false;
         if (scaleObj != null)
         {
             scaleObj.highlightFX.Highlight();
-        }
-        scalescript.inUse = true;
-        while (MagicAmount.value > 0 && !scalescript.frozen && scalescript.currWeapon)
-        {
-            if (Input.GetAxis(ScaleAxis) > 0)
+            scalescript.inUse = true;
+            while (MagicAmount.value > 0 && !scalescript.frozen && scalescript.currWeapon)
             {
-                MagicAmount.SubFloat(decreaseSpeed*Time.deltaTime);
-                scaleObj.ScaleUp(true);
-            }
-            else if (Input.GetAxis(ScaleAxis) < 0)
-            {
-                MagicAmount.SubFloat(decreaseSpeed*Time.deltaTime);
-                scaleObj.ScaleDown(true);
-            }
-            if (Input.GetButtonDown(stopButton))
-            {
-                Destroy(this.gameObject);
+                if (Input.GetAxis(ScaleAxis) > 0)
+                {
+                    
+                    MagicAmount.SubFloat(decreaseSpeed * Time.deltaTime);
+                    if (scaleObj.ScaleUp(true))
+                    {
+                        if (!soundon)
+                        {
+                            soundon = true;
+                            scaleObj.growSound.Play();
+                        }
+                    }
+                    else
+                    {
+                        if (soundon)
+                        {
+                            soundon = false;
+                            scaleObj.growSound.Stop();
+                        }
+                    }
+                }
+                else if (Input.GetAxis(ScaleAxis) < 0)
+                {                    
+                    MagicAmount.SubFloat(decreaseSpeed * Time.deltaTime);
+                    if(scaleObj.ScaleDown(true))
+                    {
+                        if (!soundon)
+                        {
+                            soundon = true;
+                            scaleObj.growSound.Play();
+                        }
+                    }
+                    else
+                    {
+                        if (soundon)
+                        {
+                            soundon = false;
+                            scaleObj.growSound.Stop();
+                        }
+                    }
+                }
+                else
+                {
+                    if (soundon)
+                    {
+                        soundon = false;
+                        scaleObj.growSound.Stop();
+                    }
+                }
+                if (Input.GetButtonDown(stopButton))
+                {
+                    Destroy(this.gameObject);
 
+                }
+                yield return _fixedUpdate;
             }
-            yield return _fixedUpdate;
         }
         Destroy(this.gameObject);
     }
@@ -105,7 +145,10 @@ public class ScalingMagic : MonoBehaviour
     private void OnDestroy()
     {
         MagicInUse.value = false;
-        if(scaleObj!= null)
+        if (scaleObj != null)
+        {
             scaleObj.highlightFX.UnHighlight();
+            scaleObj.growSound.Stop();
+        }
     }
 }

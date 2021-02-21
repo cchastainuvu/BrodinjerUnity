@@ -27,7 +27,6 @@ public abstract class WeaponBase : MonoBehaviour
     public abstract void On();
     public virtual void Freeze()
     {
-        Debug.Log("Freeze");
         frozen = true;
     }
     public virtual void Unfreeze()
