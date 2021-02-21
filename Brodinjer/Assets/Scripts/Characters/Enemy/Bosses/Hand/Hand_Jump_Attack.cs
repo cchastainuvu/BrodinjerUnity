@@ -35,6 +35,7 @@ public class Hand_Jump_Attack : Enemy_Attack_Base
         {
             animations.StartAnimation();
         }
+        attackSound.Play();
         agent = enemyObj.GetComponent<NavMeshAgent>();
         agent.velocity = Vector3.zero;
         enemyRigid.freezeRotation = true;
