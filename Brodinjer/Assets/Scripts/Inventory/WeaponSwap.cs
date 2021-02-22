@@ -8,7 +8,6 @@ public class WeaponSwap : MonoBehaviour
 {
     public List<WeaponBase> AllWeapons;
     private List<WeaponBase> AvailableWeapons;
-    //public List<Sprite> weaponSprites;
     private List<GameObject> highlights;
     private List<Image> weaponImages;
     private List<KeyCode> WeaponKeys;
@@ -87,7 +86,7 @@ public class WeaponSwap : MonoBehaviour
 
                         UpdateDisplay();
                     }
-                    else if (scrollWheel < -.05f)
+                    else if (scrollWheel < -.25f)
                     {
                         currentWeapon.value--;
                         if (currentWeapon.value < 0)
@@ -97,8 +96,9 @@ public class WeaponSwap : MonoBehaviour
 
                         wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                         UpdateDisplay();
+                        yield return new WaitForSeconds(.1f);
                     }
-                    else if (scrollWheel > .05f)
+                    else if (scrollWheel > .25f)
                     {
                         currentWeapon.value++;
                         if (currentWeapon.value > AvailableWeapons.Count - 1)
@@ -108,6 +108,7 @@ public class WeaponSwap : MonoBehaviour
 
                         wm.SwapWeapon(AvailableWeapons[currentWeapon.value], canChange);
                         UpdateDisplay();
+                        yield return new WaitForSeconds(.1f);
                     }
                     else
                     {
