@@ -75785,6 +75785,36 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1336434880}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReloadCurrent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064081375735377486, guid: 73ea5945b1ba4384f931d8e54ad36f65,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7624339211775467163, guid: 73ea5945b1ba4384f931d8e54ad36f65,
         type: 3}
       propertyPath: m_AnchorMax.x

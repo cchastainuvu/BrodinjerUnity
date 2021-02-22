@@ -86,7 +86,7 @@ public class WeaponSwap : MonoBehaviour
 
                         UpdateDisplay();
                     }
-                    else if (scrollWheel < -.25f)
+                    else if (scrollWheel < -.05f)
                     {
                         currentWeapon.value--;
                         if (currentWeapon.value < 0)
@@ -98,7 +98,7 @@ public class WeaponSwap : MonoBehaviour
                         UpdateDisplay();
                         yield return new WaitForSeconds(.1f);
                     }
-                    else if (scrollWheel > .25f)
+                    else if (scrollWheel > .05f)
                     {
                         currentWeapon.value++;
                         if (currentWeapon.value > AvailableWeapons.Count - 1)
