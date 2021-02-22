@@ -44,7 +44,6 @@ public class ScalingScript : WeaponBase
 
     public override void Initialize()
     {
-        Debug.Log("Initialize Magic");
         currWeapon = true;
         MagicObj.SetActive(true);
         finalScale = MagicPrefab.transform.localScale;
@@ -61,7 +60,6 @@ public class ScalingScript : WeaponBase
 
     public override IEnumerator Attack()
     {
-        Debug.Log("Start Attack");
         while (currWeapon)
         {
             if (!MagicInUse.value && !frozen)

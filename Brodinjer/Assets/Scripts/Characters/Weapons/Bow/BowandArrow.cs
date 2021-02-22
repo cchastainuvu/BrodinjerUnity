@@ -79,19 +79,18 @@ public class BowandArrow : WeaponBase
                 reset.ResetAllTriggers();
                 //anim.SetTrigger("Bow Pull");
                 anim.SetBool("Pulled", true);
-                Debug.Log("Pull");
                 BowPulled.Invoke();
                 inUse = true;
                 if (currWeapon)
                 {
-                    if (playermove.rotate != bowRotate)
+                    if (playermove.translate != bowTranslate)
                     {
                         playermove.SwapMovement(bowRotate, bowTranslate, playermove.extraControls);    
                     }
                     cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);   
                     StartTimeSwap(CameraSwapTime);
                     
-                    currentTime = 0;
+                    //currentTime = 0;
 
                     yield return new WaitForSeconds(reloadTime);
                     DrawSound.Play();
@@ -117,12 +116,13 @@ public class BowandArrow : WeaponBase
                         anim.SetBool("Pulled", false);
                         continue;
                     }
+                    if (playermove.rotate != bowRotate)
+                    {
+                        Debug.Log("Swap Movement Bow");
+                        playermove.SwapMovement(bowRotate, bowTranslate, playermove.extraControls);
+                    }
                     while (Input.GetButton(useButton))
                     {
-                        if (playermove.rotate != bowRotate)
-                        {
-                            playermove.SwapMovement(bowRotate, bowTranslate, playermove.extraControls);    
-                        }
                         cameraRotation.StartTimeSwap(CameraSwapTime, thirdPersonCamera, bowCamera);   
                         StartTimeSwap(CameraSwapTime);
                         aiming = true;
@@ -152,7 +152,6 @@ public class BowandArrow : WeaponBase
                     CenterCursor.SetActive(false);
                     cameraRotation.PauseTime(false);
                     yield return new WaitForSeconds(cooldowntime);
-                    //anim.SetTrigger("Bow Released");
                     anim.SetBool("Pulled", false);
                     playermove.SwapMovement(playermove.rotate, originalTranslate, playermove.extraControls);
 
@@ -181,7 +180,7 @@ public class BowandArrow : WeaponBase
         {
             cameraRotation.StopTimeSwap(thirdPersonCamera);
             StopTimeSwap();
-            //playermove.SwapMovement(originalRotate, playermove.translate);
+            playermove.SwapMovement(originalRotate, originalTranslate);
         }
         if(weaponFunc != null)
             StopCoroutine(weaponFunc);
