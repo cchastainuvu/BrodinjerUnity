@@ -11,6 +11,7 @@ public class Follow_Object : MonoBehaviour
     public float speed = -1;
     public bool x=true, y=true, z=true;
     private Vector3 newPos;
+    private bool started = false;
 
     private void Start()
     {
