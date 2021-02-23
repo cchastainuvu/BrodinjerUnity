@@ -41,7 +41,24 @@ public class ScalingScript : WeaponBase
     private bool running;
     public SoundController MagicChargeSound, MagicCastSound;
 
+    public void BreakScalingConnection()
+    {
+        if(currSpell != null)
+        {
+            if(temp != null)
+            {
+                if(temp.scaleObj != null)
+                {
+                    temp.scaleObj.highlightFX.gameObject.SetActive(false);
+                }
+            }
+            Destroy(currSpell);
+                       
+        }
+        MagicInUse.value = false;
+        aiming = false;
 
+    }
     public override void Initialize()
     {
         currWeapon = true;
