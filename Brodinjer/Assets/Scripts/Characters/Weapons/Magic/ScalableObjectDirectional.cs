@@ -28,8 +28,10 @@ public class ScalableObjectDirectional : ScalableObjectBase
         if(elevatorAnim!= null)
             elevatorAnim.SetFloat("Pos", GeneralFunctions.ConvertRange(0, TimeFromMinToMax, 0, 1, currentScalePoint));
     }
+
     public override bool ScaleDown(bool deltaTimed)
     {
+        Debug.Log(currentfloat);
         if (currentfloat <= 0)
             return false;
         currentScalePoint = Mathf.Clamp(currentScalePoint - Time.deltaTime, 0, TimeFromMinToMax);
@@ -44,6 +46,7 @@ public class ScalableObjectDirectional : ScalableObjectBase
 
     public override bool ScaleUp(bool deltaTimed)
     {
+        Debug.Log(currentfloat);
         if (currentfloat >= 1)
             return false;
         currentScalePoint = Mathf.Clamp(currentScalePoint + Time.deltaTime, 0, TimeFromMinToMax);
@@ -71,8 +74,8 @@ public class ScalableObjectDirectional : ScalableObjectBase
 
     private IEnumerator Auto(float time, bool Up)
     {
-        Debug.Log("Auto Scale: " + gameObject);
         float currentTime = 0;
+        growSound.Play();
         while (currentTime < time)
         {
             currentTime += Time.deltaTime;
@@ -93,6 +96,6 @@ public class ScalableObjectDirectional : ScalableObjectBase
                 scalingVFX.Scale(currentfloat);
             yield return new WaitForFixedUpdate();
         }
-        Debug.Log("End Auto Scale: " + gameObject);
+        growSound.Stop();
     }
 }

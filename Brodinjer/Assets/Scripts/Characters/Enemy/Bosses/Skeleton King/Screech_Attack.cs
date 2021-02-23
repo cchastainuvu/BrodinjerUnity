@@ -65,7 +65,6 @@ public class Screech_Attack : Enemy_Attack_Base
             tempfloats.Add(maxz);
             ceilingDests.Add(tempfloats);
         }
-        ResetObjs();
 
     }
 
@@ -76,19 +75,13 @@ public class Screech_Attack : Enemy_Attack_Base
         OnScreech.Invoke();
         attackSound.Play();
         CielingCollider.isTrigger = true;
-        foreach(var obj in currentCeilingObjs)
-        {
-            obj.gameObject.SetActive(true);
-            obj.Drop();
-        }
+        SpawnObjs();
         yield return new WaitForSeconds(AttackActiveTime);
         CielingCollider.isTrigger = false;
         yield return new WaitForSeconds(CoolDownTime);
-        ResetObjs();
-        yield return null;
     }
     
-    private void ResetObjs()
+    private void SpawnObjs()
     {
         currentCeilingObjs = new List<Ceiling_Obj>();
         foreach(var dest in ceilingDests)
@@ -102,7 +95,8 @@ public class Screech_Attack : Enemy_Attack_Base
             Ceiling_Obj tempObj = Instantiate(randomObj, tempPos, randomObj.transform.rotation);
             tempObj.transform.localScale = Vector3.zero;
             tempObj.SetScale(scale);
-            currentCeilingObjs.Add(tempObj);
+            tempObj.gameObject.SetActive(true);
+            tempObj.Drop();
         }
     }
 }

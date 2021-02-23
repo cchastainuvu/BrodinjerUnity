@@ -16,6 +16,7 @@ public class Magic_Slam_Attack : Enemy_Attack_Base
     public float ScaleActiveTime;
     public bool Side01 = true;
     public BoolData side;
+    public SoundController MagicSound;
 
     public void SwapSide()
     {
@@ -96,6 +97,7 @@ public class Magic_Slam_Attack : Enemy_Attack_Base
 
     private IEnumerator IncreaseScaleObj()
     {
+        MagicSound.Play();
         scalezonetemp = Instantiate(ScaleZone);
         Vector3 pos = ScaleZone.position;
         pos.x = scalex;
@@ -112,6 +114,6 @@ public class Magic_Slam_Attack : Enemy_Attack_Base
         }
         yield return new WaitForSeconds(ScaleActiveTime);
         Destroy(scalezonetemp.gameObject);
-
+        MagicSound.Stop();
     }
 }
