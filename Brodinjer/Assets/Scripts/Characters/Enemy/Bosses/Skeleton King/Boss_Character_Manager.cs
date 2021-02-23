@@ -15,6 +15,7 @@ public class Boss_Character_Manager : MonoBehaviour
     public Animator anim;
     private ResetTriggers reset;
     private bool pause;
+    public SoundController damageSound;
     
     private void Start()
     {
@@ -71,6 +72,7 @@ public class Boss_Character_Manager : MonoBehaviour
             if (reset)
                 reset.ResetAllTriggers();
             anim.SetTrigger(DamageTrigger);
+            damageSound.Play();
             if (health.health.value <= 0)
             {
                 health.Death();
