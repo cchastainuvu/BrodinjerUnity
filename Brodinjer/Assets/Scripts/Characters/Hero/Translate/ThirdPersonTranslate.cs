@@ -134,7 +134,7 @@ public class ThirdPersonTranslate : CharacterTranslate
         if (_cc.isGrounded) {
             vSpeed = -10;
             if (!jumping && !falling && (Input.GetButtonDown ("Jump"))) {
-                if (!dodging && target.isTargeting && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
+                if (!dodging && (target != null && target.isTargeting) && (Input.GetButton(HorizontalAxis) || Input.GetButton(VerticalAxis)))
                 {
                     if(DodgeAnimations!= null)
                         DodgeAnimations.StartAnimation();

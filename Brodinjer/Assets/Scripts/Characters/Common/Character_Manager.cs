@@ -80,12 +80,14 @@ public abstract class Character_Manager : MonoBehaviour
         if (canDamage && !dead)
         {
             Character.Health.TakeDamage(amount, armor);
-            if (damageSound)
+            if (damageSound && !MainCharacter)
                 damageSound.Play();
             if (Character.Health.health.value <= 0)
             {
                 return;
             }
+            if (damageSound && MainCharacter)
+                damageSound.Play();
             
         }
     }

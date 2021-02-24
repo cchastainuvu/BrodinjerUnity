@@ -10,6 +10,7 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
     private Vector3 newDestination;
     private float currentSpeed;
     public bool x, y, z;
+    public SoundController AttackSound;
     
     public override IEnumerator Move()
     {
@@ -19,6 +20,7 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
         currentTime = 0;
         currentSpeed = Speed;
         Debug.Log("Start Dash");
+        AttackSound.Play();
         while (currentTime < dashTime && canMove && moving)
         {
             if (currentSpeed < DashSpeed)
@@ -63,20 +65,4 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
         }
         yield return fixedUpdate;
     }
-
-    /*public override Enemy_Movement GetClone()
-    {
-        Enemy_Dash_Transform temp = CreateInstance<Enemy_Dash_Transform>();
-        temp.Speed = Speed;
-        temp.AngularSpeed = AngularSpeed;
-        temp.Acceleration = Acceleration;
-        temp.animation = animation;
-        temp.DashMinTime = DashMinTime;
-        temp.DashMaxTime = DashMaxTime;
-        temp.DashSpeed = DashSpeed;
-        temp.x = x;
-        temp.y = y;
-        temp.z = z;
-        return temp;
-    }*/
 }
