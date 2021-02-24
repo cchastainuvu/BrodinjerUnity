@@ -1058,6 +1058,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7933285428727861702, guid: 9042d912211ff354b8e7448a83082710,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.3499756
+      objectReference: {fileID: 0}
     - target: {fileID: 8958939544638215746, guid: 9042d912211ff354b8e7448a83082710,
         type: 3}
       propertyPath: m_Layer
@@ -7668,7 +7673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: c753c38b6f15f884093e4dbc86941171, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 96431da06d7fdea46b46a26a6e1bcdbc, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
