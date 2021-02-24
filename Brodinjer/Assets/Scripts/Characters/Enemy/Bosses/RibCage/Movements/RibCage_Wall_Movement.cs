@@ -51,6 +51,11 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
     public LayerMask wallLayer;
     private bool jumping;
 
+    public SoundController walkSound;
+
+    private bool walking;
+    public float MaxFootstep, MinFootstep;
+
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
@@ -59,6 +64,20 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         StartCoroutine(GravityForce());
         jumping = false;
         resetAnims = animator.GetComponent<ResetTriggers>();
+    }
+
+    private IEnumerator WallWalkSpeed()
+    {
+        while (walking)
+        {
+            if (currentWallSpeed >= .1f)
+            {
+                walkSound.Play();
+                yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, maxWallSpeed,
+                    MaxFootstep, MinFootstep, currentWallSpeed));
+            }
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     public override void StartAttack()
@@ -85,6 +104,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         RB.AddForce(jumpDirection, ForceMode.Impulse);
         transform.Rotate(-90,0,0);
         jumping = true;
+        attackSound.Play();
         yield return new WaitForSeconds(jumpAfterTime);
         yield return new WaitForSeconds(.5f);
         animator.SetFloat("Speed", 1);
@@ -111,9 +131,14 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         Up = false;
         randomWallCrawlTime = Random.Range(MinWallCrawlTime, MaxWallCrawlTime);
         currentWallCrawlTime = 0;
-
+        walking = false;
         while (currentWallCrawlTime < randomWallCrawlTime)
         {
+            if (!walking)
+            {
+                walking = true;
+                StartCoroutine(WallWalkSpeed());
+            }
             currentWallCrawlTime += Time.deltaTime;
             if (currentWallSpeed < randomWallSpeed)
             {
@@ -167,7 +192,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
             transform.Translate(0, 0, Time.deltaTime * currentWallSpeed);
             yield return new WaitForFixedUpdate();
         }
-
+        walking = false;
         currentTime = ((90 + transform.rotation.eulerAngles.x)%360) / InitRotateSpeed;
         while (currentTime > 0)
         {
@@ -183,6 +208,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
             resetAnims.ResetAllTriggers();
         animator.SetTrigger("Jump");
         yield return new WaitForSeconds(PouncePauseTime);
+        attackSound.Play();
         WeaponObj.SetActive(true);
         RB.AddForce(pounceDirection*WallForwardForce, ForceMode.Impulse);
         transform.Rotate(-90,0,0);
@@ -202,7 +228,7 @@ public class RibCage_Wall_Movement : Enemy_Attack_Base
         while (true)
         {
             ray = new Ray(transform.position, -myNormal); // cast ray downwards
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, wallLayer))
             {
                 // use it to update myNormal and isGrounded
                 isGrounded = hit.distance <= distGround + deltaGround;
