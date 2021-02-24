@@ -41,10 +41,26 @@ public class ScalingScript : WeaponBase
     private bool running;
     public SoundController MagicChargeSound, MagicCastSound;
 
+    public void BreakScalingConnection()
+    {
+        if(currSpell != null)
+        {
+            if(temp != null)
+            {
+                if(temp.scaleObj != null)
+                {
+                    temp.scaleObj.highlightFX.gameObject.SetActive(false);
+                }
+            }
+            Destroy(currSpell);
+                       
+        }
+        MagicInUse.value = false;
+        aiming = false;
 
+    }
     public override void Initialize()
     {
-        Debug.Log("Initialize Magic");
         currWeapon = true;
         MagicObj.SetActive(true);
         finalScale = MagicPrefab.transform.localScale;
@@ -61,7 +77,6 @@ public class ScalingScript : WeaponBase
 
     public override IEnumerator Attack()
     {
-        Debug.Log("Start Attack");
         while (currWeapon)
         {
             if (!MagicInUse.value && !frozen)

@@ -44,7 +44,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.6666667, b: 0.31764707, a: 1}
+  m_Color: {r: 0.8509804, g: 0.49019608, b: 0.11764706, a: 1}
   m_Intensity: 1
   m_Range: 10.119682
   m_SpotAngle: 30
@@ -129,8 +129,8 @@ MonoBehaviour:
   minMoveTime: 0
   maxMoveTime: 0
   FlickerColor: 1
-  color01: {r: 1, g: 0.6666667, b: 0.31764707, a: 1}
-  color02: {r: 1, g: 0.60536593, b: 0.34509802, a: 1}
+  color01: {r: 0.8509804, g: 0.49019608, b: 0.11764706, a: 1}
+  color02: {r: 0.9137255, g: 0.49803922, b: 0.06666667, a: 1}
   minColorTime: 1
   maxColorTime: 0.08
 --- !u!1 &9021102828647173923
@@ -221,6 +221,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 256361689278091753}
     m_Modifications:
+    - target: {fileID: 7889992456041821330, guid: fd12b38ddab40314697104c73461f4bf,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889992456041821330, guid: fd12b38ddab40314697104c73461f4bf,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8047041988147398612, guid: fd12b38ddab40314697104c73461f4bf,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -67,7 +67,6 @@ public class CameraRotationManager : MonoBehaviour
 
     public void SetRotate(bool val)
     {
-        Debug.Log("Set Rotate: " + val);
         canRotate = val;
     }
 

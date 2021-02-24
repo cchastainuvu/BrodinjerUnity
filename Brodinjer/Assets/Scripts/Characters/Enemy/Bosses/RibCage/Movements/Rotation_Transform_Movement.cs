@@ -19,6 +19,11 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
     public UnityEvent ReachCenter;
     private bool RunEvent = false;
 
+    public SoundController walkSound;
+
+    private bool walking;
+    public float MinFootstep, MaxFootstep;
+
     public void SetRun(bool val)
     {
         RunEvent = val;
@@ -34,7 +39,12 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
         if (z)
             moveVector.z = Destination.position.z;
         while (!CheckDestination(enemy.transform.position, Destination.transform.position, offset))
-        {      
+        {
+            if (!walking)
+            {
+                walking = true;
+                StartCoroutine(WalkSound());
+            }
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, moveVector, Speed*Time.deltaTime);
             target = player.transform.position;
             target.y = 0;
@@ -48,6 +58,7 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
                 Quaternion.Lerp(enemy.transform.rotation, rotationDirection, AngularSpeed * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
+        walking = false;
         if(RunEvent)
             ReachCenter.Invoke();
         RunEvent = false;
@@ -64,6 +75,20 @@ public class Rotation_Transform_Movement : Transform_Movement_Base
             rotationDirection = Quaternion.LookRotation((target - currentPos).normalized);
             enemy.transform.rotation =
                 Quaternion.Lerp(enemy.transform.rotation, rotationDirection, AngularSpeed * Time.deltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator WalkSound()
+    {
+        while (walking)
+        {
+            if (currentSpeed >= .1f)
+            {
+                walkSound.Play();
+                yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, Speed,
+                    MaxFootstep, MinFootstep, currentSpeed));
+            }
             yield return new WaitForFixedUpdate();
         }
     }

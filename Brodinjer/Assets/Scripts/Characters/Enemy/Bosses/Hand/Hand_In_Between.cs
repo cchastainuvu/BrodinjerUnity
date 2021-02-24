@@ -11,9 +11,12 @@ public class Hand_In_Between : Enemy_Follow_Base
     private Vector3 target;
     public float offset;
     public Transform Destination01;
-    
+    public SoundController walkSound;
+    public float MinFootstep, MaxFootstep;
+
     public override IEnumerator Move()
     {
+        StartCoroutine(WalkSound());
         agent.speed = Speed;
         agent.updatePosition = true;
         while (moving)
@@ -47,6 +50,20 @@ public class Hand_In_Between : Enemy_Follow_Base
 
             if (agent.enabled)
                 agent.destination = followDest;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator WalkSound()
+    {
+        while (moving)
+        {
+            if (agent.velocity.magnitude >= .1f)
+            {
+                walkSound.Play();
+                yield return new WaitForSeconds(GeneralFunctions.ConvertRange(0, Speed,
+                    MaxFootstep, MinFootstep, agent.velocity.magnitude));
+            }
             yield return new WaitForFixedUpdate();
         }
     }

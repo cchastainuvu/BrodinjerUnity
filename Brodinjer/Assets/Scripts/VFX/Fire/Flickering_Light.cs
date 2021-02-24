@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using UnityEngine.Events;
+
 public class Flickering_Light : MonoBehaviour
 {
     private bool burning;
@@ -20,21 +20,18 @@ public class Flickering_Light : MonoBehaviour
     public float minMoveTime, maxMoveTime;
     private float newMoveX, newMoveY, newMoveZ, origMoveX, origMoveY, origMoveZ;
     private float moveTime, moveScale;
-    
+
     public bool FlickerColor;
     public Color color01 = Color.white, color02 = Color.white;
     private Color newColor, origColor;
     public float minColorTime, maxColorTime;
     private float colortime, colorScale;
-    
+
     private Coroutine intenstityFunc, moveFunc, colorFunc;
-    private float currentMoveTime, currentColorTime, currentIntensityTime;
-    private UnityAction flickerAction;
-    private Coroutine flickerfunc;
 
     private void Start()
     {
-        if(FlickerLight == null)
+        if (FlickerLight == null)
             FlickerLight = GetComponent<Light>();
         StartFlicker();
     }
@@ -42,106 +39,14 @@ public class Flickering_Light : MonoBehaviour
     public void StartFlicker()
     {
         burning = true;
-        /*if (FlickerIntensity)
+        if (FlickerIntensity)
             intenstityFunc = StartCoroutine(IntensityFlicker());
         if (FlickerMovement)
             moveFunc = StartCoroutine(MoveFlicker());
-        if(FlickerColor)
-            colorFunc = StartCoroutine(ColorFlicker());*/
-        flickerfunc = StartCoroutine(Flicker());
-    }
-
-    private IEnumerator Flicker()
-    {
-        flickerAction = new UnityAction(() => { });
-        if (FlickerMovement)
-        {
-            flickerAction += MoveFlick;
-            minimumVector = FlickerLight.transform.position - maximumMoveAmount;
-            maximumVector = FlickerLight.transform.position + maximumMoveAmount;
-            moveTime = Random.Range(minMoveTime, maxMoveTime);
-            newMove = new Vector3(Random.Range(minimumVector.x, maximumVector.x),
-                Random.Range(minimumVector.y, maximumVector.y),
-                Random.Range(minimumVector.z, maximumVector.z)); ;
-            origMove = FlickerLight.transform.position;
-            moveScale = 0;
-        }
         if (FlickerColor)
-        {
-            flickerAction += ColorFlick;
-            colortime = Random.Range(minColorTime, maxColorTime);
-            newColor = new Color(Random.Range(color01.r, color02.r),
-                Random.Range(color01.g, color02.g),
-                Random.Range(color01.b, color02.b),
-                Random.Range(color01.a, color02.a));
-            origColor = FlickerLight.color;
-            colorScale = 0;
-        }
-        if (FlickerIntensity)
-        {
-            flickerAction += IntensityFlick;
-            intensityTime = Random.Range(minIntensityTime, maxIntensityTime);
-            newIntensity = Random.Range(minIntensity, maxIntensity);
-            origIntensity = FlickerLight.intensity;
-            intensityScale = 0;
-        }
-        currentMoveTime=0;
-        currentIntensityTime=0;
-        currentColorTime=0;
-        while (burning)
-        {
-            flickerAction.Invoke();
-            yield return new WaitForSeconds(.1f);
-        }
+            colorFunc = StartCoroutine(ColorFlicker());
     }
 
-    private void MoveFlick()
-    {
-        currentMoveTime += .1f;
-        moveScale = currentMoveTime / moveTime;
-        FlickerLight.transform.position = Vector3.Lerp(origMove, newMove, moveScale);
-        if (moveScale >= 1)
-        {
-            moveTime = Random.Range(minMoveTime, maxMoveTime);
-            newMove = new Vector3(Random.Range(minimumVector.x, maximumVector.x),
-                Random.Range(minimumVector.y, maximumVector.y),
-                Random.Range(minimumVector.z, maximumVector.z)); ;
-            origMove = FlickerLight.transform.position;
-            moveScale = 0;
-        }
-    }
-
-    private void ColorFlick()
-    {
-        currentColorTime += .1f;
-        colorScale = currentColorTime / colortime;
-        FlickerLight.color = Color.Lerp(origColor, newColor, colorScale);
-        if (colorScale >= 1)
-        {
-            colortime = Random.Range(minColorTime, maxColorTime);
-            newColor = new Color(Random.Range(color01.r, color02.r),
-                Random.Range(color01.g, color02.g),
-                Random.Range(color01.b, color02.b),
-                Random.Range(color01.a, color02.a));
-            origColor = FlickerLight.color;
-            colorScale = 0;
-        }
-    } 
-
-    private void IntensityFlick()
-    {
-        currentIntensityTime += .1f;
-        intensityScale = currentIntensityTime / intensityTime;
-        FlickerLight.intensity = Mathf.Lerp(origIntensity, newIntensity, intensityScale);
-        if (intensityScale >= 1)
-        {
-            intensityTime = Random.Range(minIntensityTime, maxIntensityTime);
-            newIntensity = Random.Range(minIntensity, maxIntensity);
-            origIntensity = FlickerLight.intensity;
-            intensityScale = 0;
-        }
-    }
-    
     private IEnumerator MoveFlicker()
     {
         minimumVector = FlickerLight.transform.position - maximumMoveAmount;
@@ -151,7 +56,7 @@ public class Flickering_Light : MonoBehaviour
             moveTime = Random.Range(minMoveTime, maxMoveTime);
             newMove = new Vector3(Random.Range(minimumVector.x, maximumVector.x),
                 Random.Range(minimumVector.y, maximumVector.y),
-                Random.Range(minimumVector.z, maximumVector.z));;
+                Random.Range(minimumVector.z, maximumVector.z)); ;
             origMove = FlickerLight.transform.position;
             moveScale = 0;
             float currentTime = 0;
@@ -165,7 +70,7 @@ public class Flickering_Light : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
-    
+
     private IEnumerator IntensityFlicker()
     {
         while (burning)
@@ -191,8 +96,8 @@ public class Flickering_Light : MonoBehaviour
         while (burning)
         {
             colortime = Random.Range(minColorTime, maxColorTime);
-            newColor = new Color(Random.Range(color01.r, color02.r), 
-                Random.Range(color01.g, color02.g), 
+            newColor = new Color(Random.Range(color01.r, color02.r),
+                Random.Range(color01.g, color02.g),
                 Random.Range(color01.b, color02.b),
                 Random.Range(color01.a, color02.a));
             origColor = FlickerLight.color;
@@ -213,7 +118,7 @@ public class Flickering_Light : MonoBehaviour
     public void StopFlicker()
     {
         burning = false;
-        /*if (intenstityFunc != null)
+        if (intenstityFunc != null)
         {
             StopCoroutine(intenstityFunc);
         }
@@ -224,9 +129,6 @@ public class Flickering_Light : MonoBehaviour
         if (colorFunc != null)
         {
             StopCoroutine(colorFunc);
-        }*/
-        if (flickerfunc != null)
-            StopCoroutine(flickerfunc);
-
+        }
     }
 }

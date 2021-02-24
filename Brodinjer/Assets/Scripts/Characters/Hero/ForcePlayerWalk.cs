@@ -56,7 +56,7 @@ public class ForcePlayerWalk : MonoBehaviour
         anim.SetTrigger(StartTrigger);
         while (_moveVec.magnitude > .1f && moving)
         {
-            Debug.Log("Force Move");
+
             _moveVec = _moveVec.normalized * ForwardSpeed;
             anim.SetFloat(SpeedFloat, 1);
             anim.SetFloat(DirectionFloat, getMoveAngle());
@@ -67,7 +67,6 @@ public class ForcePlayerWalk : MonoBehaviour
         }
         ReachDestEvent.Invoke();
         anim.SetFloat(SpeedFloat, 0);
-        Debug.Log("End Move");
         moving = false;
     }
 

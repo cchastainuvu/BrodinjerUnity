@@ -18,19 +18,24 @@ public class GearRotation : MonoBehaviour
     public bool FinalGearClockwise;
     public UnityEvent GearCompleted;
     private bool completed;
+    public bool Override;
 
    // public float ScaleSpeed;
 
     private void Awake()
     {
-        if (InitGear)
+        if (!Override)
         {
-            Rotating = true;
-        }
+            if (InitGear)
+            {
+                Rotating = true;
+            }
 
+            previousConnections = connectedGears;
+            completed = false;
+        }
         clogged = false;
-        previousConnections = connectedGears;
-        completed = false;
+
     }
 
     private void FixedUpdate()
@@ -60,42 +65,27 @@ public class GearRotation : MonoBehaviour
 
     private bool CheckRotation()
     {
-        if (connectedGears.Count <= 2)
+        if (!Override)
         {
-            List<GearRotation> rotatingGears = new List<GearRotation>();
-            foreach (var gear in connectedGears)
+            if (connectedGears.Count <= 2)
             {
-                if (gear.Rotating)
+                List<GearRotation> rotatingGears = new List<GearRotation>();
+                foreach (var gear in connectedGears)
                 {
-                    rotatingGears.Add(gear);
+                    if (gear.Rotating)
+                    {
+                        rotatingGears.Add(gear);
+                    }
                 }
-            }
 
-            if (rotatingGears.Count <= 0)
-            {
-                Rotating = false;
-                return false;
-            }
-            if (rotatingGears.Count == 1)
-            {
-                if (CheckInit(new List<GearRotation>() {this}, InitGear))
-                {
-                    rotatingConnection = rotatingGears[0];
-                    Rotating = true;
-                    Clockwise = !rotatingConnection.Clockwise;
-                    return true;
-                }
-                else
+                if (rotatingGears.Count <= 0)
                 {
                     Rotating = false;
                     return false;
                 }
-            }
-            if (rotatingGears.Count == 2)
-            {
-                if (rotatingGears[0].Clockwise == rotatingGears[1].Clockwise)
+                if (rotatingGears.Count == 1)
                 {
-                    if (CheckInit(new List<GearRotation>() {this}, InitGear))
+                    if (CheckInit(new List<GearRotation>() { this }, InitGear))
                     {
                         rotatingConnection = rotatingGears[0];
                         Rotating = true;
@@ -108,39 +98,61 @@ public class GearRotation : MonoBehaviour
                         return false;
                     }
                 }
-                else
+                if (rotatingGears.Count == 2)
                 {
-                    Clog(new List<GearRotation>() {this});
-                    Rotating = false;
-                    return false;
+                    if (rotatingGears[0].Clockwise == rotatingGears[1].Clockwise)
+                    {
+                        if (CheckInit(new List<GearRotation>() { this }, InitGear))
+                        {
+                            rotatingConnection = rotatingGears[0];
+                            Rotating = true;
+                            Clockwise = !rotatingConnection.Clockwise;
+                            return true;
+                        }
+                        else
+                        {
+                            Rotating = false;
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Clog(new List<GearRotation>() { this });
+                        Rotating = false;
+                        return false;
+                    }
                 }
-            }
 
-            return false;
+                return false;
+            }
+            else
+            {
+                Clog(new List<GearRotation>() { this });
+                Rotating = false;
+                return false;
+            }
         }
-        else
-        {
-            Clog(new List<GearRotation>() {this});
-            Rotating = false;
-            return false;
-        }
+        return true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!InitGear)
+        if (!Override)
         {
-            if (other.CompareTag("Gear"))
+            if (!InitGear)
             {
-                tempConnection = other.GetComponentInParent<GearRotation>();
-                if (tempConnection != null)
+                if (other.CompareTag("Gear"))
                 {
-                    if(!connectedGears.Contains(tempConnection)&& tempConnection != this)
-                        connectedGears.Add(tempConnection);
-                }
-                else
-                {
-                    Debug.Log("Not A Gear");
+                    tempConnection = other.GetComponentInParent<GearRotation>();
+                    if (tempConnection != null)
+                    {
+                        if (!connectedGears.Contains(tempConnection) && tempConnection != this)
+                            connectedGears.Add(tempConnection);
+                    }
+                    else
+                    {
+                        Debug.Log("Not A Gear");
+                    }
                 }
             }
         }
@@ -148,20 +160,23 @@ public class GearRotation : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!InitGear)
+        if (!Override)
         {
-            if (other.CompareTag("Gear"))
+            if (!InitGear)
             {
-                tempConnection = other.GetComponentInParent<GearRotation>();
-                if (tempConnection != null)
+                if (other.CompareTag("Gear"))
                 {
-                    previousConnections = connectedGears;
-                    UnClog(new List<GearRotation>(){this});
-                    connectedGears.Remove(tempConnection);
-                }
-                else
-                {
-                    Debug.Log("Not A Gear");
+                    tempConnection = other.GetComponentInParent<GearRotation>();
+                    if (tempConnection != null)
+                    {
+                        previousConnections = connectedGears;
+                        UnClog(new List<GearRotation>() { this });
+                        connectedGears.Remove(tempConnection);
+                    }
+                    else
+                    {
+                        Debug.Log("Not A Gear");
+                    }
                 }
             }
         }

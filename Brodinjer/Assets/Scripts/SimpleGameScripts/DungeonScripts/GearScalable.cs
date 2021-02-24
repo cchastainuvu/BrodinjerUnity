@@ -6,12 +6,13 @@ public class GearScalable : ScalableObject
 {
     public bool canScale;
     
-    public override void ScaleUp(bool deltaTimed)
+    public override bool ScaleUp(bool deltaTimed)
     {
         if (canScale)
         {
-            base.ScaleUp(deltaTimed);
+            return base.ScaleUp(deltaTimed);
         }
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)

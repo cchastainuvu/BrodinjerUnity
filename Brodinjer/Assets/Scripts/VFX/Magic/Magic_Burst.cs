@@ -13,11 +13,13 @@ public class Magic_Burst : MonoBehaviour
 
     public UnityEvent onHit;
 
+    public string IgnoreTag = "Player";
     
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.gameObject.CompareTag(IgnoreTag))
         {
+            Debug.Log(other.gameObject + " " + other.gameObject.tag);
             position = ProjectilePrefab.transform.position;
             rotation = ProjectilePrefab.transform.rotation;
             if (BurstPrefab != null)

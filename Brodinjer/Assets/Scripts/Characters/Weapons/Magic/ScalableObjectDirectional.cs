@@ -28,8 +28,12 @@ public class ScalableObjectDirectional : ScalableObjectBase
         if(elevatorAnim!= null)
             elevatorAnim.SetFloat("Pos", GeneralFunctions.ConvertRange(0, TimeFromMinToMax, 0, 1, currentScalePoint));
     }
-    public override void ScaleDown(bool deltaTimed)
+
+    public override bool ScaleDown(bool deltaTimed)
     {
+        Debug.Log(currentfloat);
+        if (currentfloat <= 0)
+            return false;
         currentScalePoint = Mathf.Clamp(currentScalePoint - Time.deltaTime, 0, TimeFromMinToMax);
         currentfloat = GeneralFunctions.ConvertRange(0, TimeFromMinToMax, 0, 1, currentScalePoint);
         if(elevatorAnim != null)
@@ -37,10 +41,14 @@ public class ScalableObjectDirectional : ScalableObjectBase
         ObjectToScale.localScale = Vector3.Lerp(minimumScale, maximumScale, currentfloat);
         if (scalingVFX != null)
             scalingVFX.Scale(currentfloat);
+        return true;
     }
 
-    public override void ScaleUp(bool deltaTimed)
+    public override bool ScaleUp(bool deltaTimed)
     {
+        Debug.Log(currentfloat);
+        if (currentfloat >= 1)
+            return false;
         currentScalePoint = Mathf.Clamp(currentScalePoint + Time.deltaTime, 0, TimeFromMinToMax);
         currentfloat = GeneralFunctions.ConvertRange(0, TimeFromMinToMax, 0, 1, currentScalePoint);
         ObjectToScale.localScale = Vector3.Lerp(minimumScale, maximumScale, currentfloat);
@@ -48,6 +56,7 @@ public class ScalableObjectDirectional : ScalableObjectBase
             elevatorAnim.SetFloat("Pos", currentfloat);
         if (scalingVFX != null)
             scalingVFX.Scale(currentfloat);
+        return true;
     }
 
     public override void SetInit(float scale)
@@ -65,8 +74,8 @@ public class ScalableObjectDirectional : ScalableObjectBase
 
     private IEnumerator Auto(float time, bool Up)
     {
-        Debug.Log("Auto Scale: " + gameObject);
         float currentTime = 0;
+        growSound.Play();
         while (currentTime < time)
         {
             currentTime += Time.deltaTime;
@@ -87,6 +96,6 @@ public class ScalableObjectDirectional : ScalableObjectBase
                 scalingVFX.Scale(currentfloat);
             yield return new WaitForFixedUpdate();
         }
-        Debug.Log("End Auto Scale: " + gameObject);
+        growSound.Stop();
     }
 }

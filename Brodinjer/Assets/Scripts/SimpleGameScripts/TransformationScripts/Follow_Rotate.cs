@@ -11,7 +11,7 @@ public class Follow_Rotate : MonoBehaviour
     private Vector3 rotationOffset;
     public bool x = true, y = true, z = true;
     public bool UseOffset = true;
-
+    private bool started = false;
     private void Start()
     {
         if (OnAwake)
