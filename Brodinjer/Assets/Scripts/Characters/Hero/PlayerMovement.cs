@@ -75,11 +75,11 @@ public class PlayerMovement : MonoBehaviour
             pauseInits = false;
             StartAll();
         }
-        if(targetScript.isTargeting && !targeting)
+        if(targetScript!= null && targetScript.isTargeting && !targeting)
         {
             Target();
         }
-        else if(!targetScript.isTargeting && targeting)
+        else if(targetScript != null && !targetScript.isTargeting && targeting)
         {
             UnTarget();
         }
