@@ -73,7 +73,7 @@ public class ForcePlayerWalk : MonoBehaviour
         moving = false;
     }
 
-    public void StopMove()
+    public void StopMove(bool movePlayer)
     {
         if(moveFunc!= null)
             StopCoroutine(moveFunc);
@@ -82,6 +82,10 @@ public class ForcePlayerWalk : MonoBehaviour
         if(EndTrigger != "")
             anim.SetTrigger(EndTrigger);
         moving = false;
+        if (movePlayer)
+        {
+            _cc.transform.position = Target.position;
+        }
     }
 
     public float getMoveAngle()
