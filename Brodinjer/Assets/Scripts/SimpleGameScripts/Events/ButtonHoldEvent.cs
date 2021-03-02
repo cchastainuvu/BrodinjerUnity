@@ -21,6 +21,8 @@ public class ButtonHoldEvent : MonoBehaviour
         {
             setActive(true);
         }
+        if (SkipBar != null)
+            SkipBar.fillAmount = 0;
     }
 
     public void setActive(bool val)
