@@ -12,6 +12,13 @@ public class ForceMovement : MonoBehaviour
     public float TurnTime;
 
 
+    public void StopMove()
+    {
+        StopAllCoroutines();
+        anim.SetTrigger("Idle");
+        anim.SetFloat("Speed", 0);
+    }
+
     public void JumpBack(Transform direction)
     {
         StartCoroutine(Dodge(direction.transform.forward, JumpBackDistance, JumpTime, JumpBackString));
