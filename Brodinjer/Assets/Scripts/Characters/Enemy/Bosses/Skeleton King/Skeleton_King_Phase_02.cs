@@ -25,6 +25,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
     private ResetTriggers resetTriggers;
     public float PhaseStartDelayTime;
     private int currentAttack = -1;
+    public Head_Follow headLook;
 
     private void Start()
     {
@@ -65,6 +66,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
     {
         StartPhaseEvent.Invoke();
         yield return new WaitForSeconds(PhaseStartDelayTime);
+        headLook.SetRotate(true);
         phaseFunc = StartCoroutine(RunPhase());
     }
     public override IEnumerator RunPhase()
@@ -77,6 +79,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
             //Randomize Attack
             attack = PhaseAttacks[RandomAttack()];
             attack.attacking = true;
+            headLook.SetRotate(false);
             yield return StartCoroutine(attack.Attack());
             if (damaged)
                 yield return new WaitForSeconds(DamageWaitTime);
@@ -87,6 +90,7 @@ public class Skeleton_King_Phase_02 : Phase_Base
                 anim.SetTrigger("Idle");
             }
             damaged = false;
+            headLook.SetRotate(true);
         }
     }
     private int RandomAttack()
