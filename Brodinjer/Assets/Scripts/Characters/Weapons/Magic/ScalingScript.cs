@@ -204,8 +204,8 @@ public class ScalingScript : WeaponBase
 
     private IEnumerator WaitDestroy()
     {
-        yield return new WaitForSeconds(.5f);
-
+        yield return new WaitForSeconds(.1f);
+        Destroy(currSpell.gameObject);
     }
     
 
