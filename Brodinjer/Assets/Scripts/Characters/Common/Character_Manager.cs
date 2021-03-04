@@ -115,7 +115,6 @@ public abstract class Character_Manager : MonoBehaviour
                     if (!temp.SingleHit || (temp.SingleHit && !temp.hit))
                     {
                         temp.hit = true;
-                        Debug.Log("Hit: " + this.gameObject.name + " " + coll.gameObject.name + " Layer: " + coll.gameObject.layer);
                         TakeDamage(temp.DamageAmount, temp.DecreasedbyArmor);
                     }
 

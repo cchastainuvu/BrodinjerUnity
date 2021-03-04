@@ -19,7 +19,6 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
         dashTime = Random.Range(DashMinTime, DashMaxTime);
         currentTime = 0;
         currentSpeed = Speed;
-        Debug.Log("Start Dash");
         AttackSound.Play();
         while (currentTime < dashTime && canMove && moving)
         {
@@ -46,7 +45,6 @@ public class Enemy_Dash_Transform : Transform_Movement_Base
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, newDestination, currentSpeed*Time.deltaTime);
             yield return fixedUpdate;
         }
-        Debug.Log("Finish Dash");
         while (canMove && moving)
         {
             if (currentSpeed > Speed)

@@ -48,7 +48,6 @@ public class Skeleton_King_Phase_02 : Phase_Base
         {
             currentNum += num[i];
             temp.Add(currentNum);
-            Debug.Log("Attack " + i + ": " + currentNum);
         }
         return temp;
     }
