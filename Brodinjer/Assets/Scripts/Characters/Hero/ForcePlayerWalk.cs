@@ -28,7 +28,6 @@ public class ForcePlayerWalk : MonoBehaviour
     
     private void Start()
     {
-        //Debug.Log("Camera: " + camera.gameObject.name);
         moving = false;
         _cc = GetComponent<CharacterController>();
         resetAnims = anim.GetComponent<ResetTriggers>();
@@ -116,7 +115,6 @@ public class ForcePlayerWalk : MonoBehaviour
     {
         Vector3 Velocity = _cc.velocity;
         Velocity.y = 0;
-        //Debug.Log(Velocity.magnitude);
         return GeneralFunctions.ConvertRange(0, AnimSpeedMax, 0, 1, Velocity.magnitude);
     }
 }
